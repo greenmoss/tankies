@@ -20,7 +20,11 @@ func calculate_map_position(grid_position: Vector2) -> Vector2:
 
 ## Returns the coordinates of the cell on the grid given a position on the map.
 func calculate_grid_coordinates(map_position: Vector2) -> Vector2:
-    return (map_position / cell_size).floor()
+    var orig = (map_position / cell_size)
+    print(orig)
+    var adjusted = (orig).floor()
+    print(adjusted)
+    return adjusted
 
 
 ## Returns true if the `cell_coordinates` are within the grid.

@@ -43,9 +43,19 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
     # Navigating cells with the mouse.
     if event is InputEventMouseMotion:
-        cell = grid.calculate_grid_coordinates(event.position)
-        print(event.position)
-        print(cell)
+        var event_x = event.position[0]
+        var event_y = event.position[1]
+        print("before: "+str(event_y))
+        if event_y > 1039:
+            event_y = 1039
+        print("after: "+str(event_y))
+
+        var corrected_position = Vector2(event_x, event_y)
+        cell = grid.calculate_grid_coordinates(corrected_position)
+        #if cell[1] > 12:
+        #    print("triggered")
+        #    cell[1] = 12
+        #print(cell[1])
     # Trying to select something in a cell.
     elif event.is_action_pressed("click") or event.is_action_pressed("ui_accept"):
         emit_signal("accept_pressed", cell)
