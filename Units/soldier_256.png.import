@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceanoo0yxcj8i"
-path="res://.godot/imported/squirrel.png-6645ea16b33f8381a844b58ff8e24473.ctex"
+uid="uid://ch8imovhwi313"
+path="res://.godot/imported/soldier_256.png-69f01b3c7f39e99db3280eb3ca2ec296.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Units/squirrel.png"
-dest_files=["res://.godot/imported/squirrel.png-6645ea16b33f8381a844b58ff8e24473.ctex"]
+source_file="res://Units/soldier_256.png"
+dest_files=["res://.godot/imported/soldier_256.png-69f01b3c7f39e99db3280eb3ca2ec296.ctex"]
 
 [params]
 
