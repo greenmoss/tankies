@@ -9,6 +9,8 @@ var inputs = {
     }
 var selected = false
 var mouse_is_over_me = false
+var animation_speed = 10
+var moving = false
 
 @export var unit_name = "Me"
 
@@ -20,6 +22,7 @@ func _ready():
 
 func _unhandled_input(event):
     if not selected: return
+    if moving: return
     for direction in inputs.keys():
         if event.is_action_pressed(direction):
             move(direction)
@@ -33,10 +36,22 @@ func move(direction):
         if not $Sounds/Denied.playing:
             $Sounds/Denied.play()
     else:
-        position += inputs[direction] * tile_size
         if not ($Sounds/Move.playing):
             $Sounds/Ack.play()
             $Sounds/Move.play()
+
+        var tween = create_tween()
+        tween.tween_property(self, "position",
+            position +
+            inputs[direction] *
+            tile_size,
+            1.0/animation_speed
+            ).set_trans(Tween.TRANS_SINE)
+        moving = true
+        await tween.finished
+        moving = false
+
+
 
 func _on_mouse_entered():
     mouse_is_over_me = true
