@@ -24,6 +24,8 @@ func _unhandled_input(event):
 
 func move(direction):
     position += inputs[direction] * tile_size
+    if not ($TankMoveSound.playing):
+        $TankMoveSound.play()
 
 func _on_mouse_entered():
     mouse_is_over_me = true
