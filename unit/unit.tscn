@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=7 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://ba2bvyof0hvdx" path="res://unit/tank.png" id="2_e42fy"]
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/engine_heavy_loop.mp3" id="3_3c04l"]
+[ext_resource type="AudioStream" uid="uid://cgexr4m7c8x0q" path="res://unit/cduckett-03-roger.mp3" id="3_ffokh"]
+[ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/cduckett-01-ready.mp3" id="5_hjqgu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
@@ -19,9 +21,15 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_e42fy")
 
+[node name="TankAckSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ffokh")
+
 [node name="TankMoveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_3c04l")
-volume_db = -22.486
+volume_db = 3.28
+
+[node name="TankReadySound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hjqgu")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -25,6 +25,7 @@ func _unhandled_input(event):
 func move(direction):
     position += inputs[direction] * tile_size
     if not ($TankMoveSound.playing):
+        $TankAckSound.play()
         $TankMoveSound.play()
 
 func _on_mouse_entered():
@@ -37,6 +38,8 @@ func _input(event):
     if event.is_action_pressed("click"):
         if mouse_is_over_me:
             print("selected " + unit_name)
+            if not ($TankReadySound.playing):
+                $TankReadySound.play()
             selected = true
         else:
             print("deselected " + unit_name)
