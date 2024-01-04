@@ -9,4 +9,5 @@ Until there's a real "credits" screen in this game, tracking licensed art here:
 * Tank icon: CC-BY 3.0 by Lorc
 
 ### https://opengameart.org
+* 7-space-sounds: CC0 by Joth
 * Tank sounds: CC-BY 3.0 by qubodup

@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=8 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://ba2bvyof0hvdx" path="res://unit/tank.png" id="2_e42fy"]
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/engine_heavy_loop.mp3" id="3_3c04l"]
 [ext_resource type="AudioStream" uid="uid://cgexr4m7c8x0q" path="res://unit/cduckett-03-roger.mp3" id="3_ffokh"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/cduckett-01-ready.mp3" id="5_hjqgu"]
+[ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/denied.mp3" id="6_ejjmt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
 
-[node name="Area2D" type="Area2D"]
+[node name="Unit" type="Area2D"]
 script = ExtResource("1_8naok")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -21,15 +22,23 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_e42fy")
 
-[node name="TankAckSound" type="AudioStreamPlayer" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collide_with_areas = true
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Ack" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("3_ffokh")
 
-[node name="TankMoveSound" type="AudioStreamPlayer" parent="."]
+[node name="Move" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("3_3c04l")
 volume_db = 3.28
 
-[node name="TankReadySound" type="AudioStreamPlayer" parent="."]
+[node name="Ready" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("5_hjqgu")
+
+[node name="Denied" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_ejjmt")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
