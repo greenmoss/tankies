@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://d0cfmyfdmy8mo"]
 
-[ext_resource type="Script" path="res://unit.gd" id="1_eqlqq"]
-[ext_resource type="Texture2D" uid="uid://ba2bvyof0hvdx" path="res://tank.png" id="2_fqdyk"]
-[ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://engine_heavy_loop.mp3" id="3_a0vuq"]
+[ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
+[ext_resource type="Texture2D" uid="uid://ba2bvyof0hvdx" path="res://unit/tank.png" id="2_e42fy"]
+[ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/engine_heavy_loop.mp3" id="3_3c04l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
 
 [node name="Area2D" type="Area2D"]
-script = ExtResource("1_eqlqq")
+script = ExtResource("1_8naok")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -17,10 +17,10 @@ shape = SubResource("RectangleShape2D_hbtie")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.15, 0.15)
-texture = ExtResource("2_fqdyk")
+texture = ExtResource("2_e42fy")
 
 [node name="TankMoveSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_a0vuq")
+stream = ExtResource("3_3c04l")
 volume_db = -22.486
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
