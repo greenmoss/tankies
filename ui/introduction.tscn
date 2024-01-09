@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://t6cf0w8k2f4f"]
+
+[ext_resource type="Script" path="res://ui/introduction.gd" id="1_35xql"]
+
+[sub_resource type="SystemFont" id="SystemFont_bfihn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5yce5"]
+font = SubResource("SystemFont_bfihn")
+font_size = 32
+
+[node name="Introduction" type="CanvasLayer"]
+script = ExtResource("1_35xql")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -979.0
+offset_top = -557.0
+offset_right = 987.0
+offset_bottom = 559.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.133333, 0.337255, 0.133333, 1)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -434.0
+offset_right = 294.0
+offset_bottom = -282.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Click on a tank to select it
+
+Use the arrow keys to move the tank"
+label_settings = SubResource("LabelSettings_5yce5")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = -49.0
+offset_right = 151.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "    Got it. Let's go!    "
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

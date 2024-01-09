@@ -1,8 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcmlletmcku2b"]
+[gd_scene load_steps=4 format=3 uid="uid://bcmlletmcku2b"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_jbass"]
 [ext_resource type="PackedScene" uid="uid://bufvbk6y65jkb" path="res://world/world.tscn" id="1_oc00n"]
+[ext_resource type="PackedScene" uid="uid://t6cf0w8k2f4f" path="res://ui/introduction.tscn" id="2_ejf8v"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_jbass")
 
 [node name="World" parent="." instance=ExtResource("1_oc00n")]
 visible = false
+
+[node name="Introduction" parent="." instance=ExtResource("2_ejf8v")]
+
+[connection signal="visibility_changed" from="Introduction" to="." method="_on_introduction_visibility_changed"]
