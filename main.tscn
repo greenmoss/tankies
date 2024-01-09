@@ -1,7 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcmlletmcku2b"]
+[gd_scene load_steps=3 format=3 uid="uid://bcmlletmcku2b"]
 
 [ext_resource type="PackedScene" uid="uid://bufvbk6y65jkb" path="res://world/world.tscn" id="1_oc00n"]
 
 [node name="Main" type="Node2D"]
 
 [node name="World" parent="." instance=ExtResource("1_oc00n")]
+visible = false

@@ -6,7 +6,6 @@
 [sub_resource type="GDScript" id="GDScript_5x6tq"]
 script/source = "extends Node2D
 
-var selected = []
 
 "
 

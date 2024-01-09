@@ -13,6 +13,8 @@ var animation_speed = 10
 var moving = false
 var facing = 0 # default/right
 
+signal unit_collided
+
 @export var unit_name = "Me"
 
 @onready var ray = $RayCast2D
@@ -32,6 +34,7 @@ func try_to_move(direction):
     ray.target_position = inputs[direction] * tile_size
     ray.force_raycast_update()
     if ray.is_colliding():
+        emit_signal("unit_collided", self, ray.get_collider())
         deny_move()
     else:
         move(direction)
