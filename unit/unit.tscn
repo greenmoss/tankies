@@ -10,7 +10,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
 
-[node name="Unit" type="Area2D"]
+[node name="Unit" type="Area2D" groups=["Units"]]
+editor_description = "A unit that can fight, move, or capture"
 script = ExtResource("1_8naok")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
