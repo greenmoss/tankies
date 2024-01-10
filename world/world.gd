@@ -14,8 +14,12 @@ func _unit_collided(unit, target):
     For a hostile unit: attack
     '''
     if target.is_in_group("Cities"):
-        print("target city")
+        if target.occupied():
+            unit.deny_move()
+            return
+
         unit.move_to_requested()
+        unit.enter_city(target)
         return
 
     unit.deny_move()

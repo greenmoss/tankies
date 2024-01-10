@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
-[ext_resource type="Texture2D" uid="uid://ba2bvyof0hvdx" path="res://unit/tank.png" id="2_e42fy"]
+[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/engine_heavy_loop.mp3" id="3_3c04l"]
 [ext_resource type="AudioStream" uid="uid://cgexr4m7c8x0q" path="res://unit/cduckett-03-roger.mp3" id="3_ffokh"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/cduckett-01-ready.mp3" id="5_hjqgu"]
@@ -20,7 +20,7 @@ shape = SubResource("RectangleShape2D_hbtie")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_e42fy")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]

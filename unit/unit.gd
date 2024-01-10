@@ -12,6 +12,7 @@ var animation_speed = 10
 var moving = false
 var facing = 0 # default/right
 var requested_direction = null
+var in_city = null
 
 signal unit_collided
 
@@ -27,9 +28,9 @@ func _unhandled_input(event):
     if moving: return
     for direction in inputs.keys():
         if event.is_action_pressed(direction):
-            try_to_move(direction)
+            request_move(direction)
 
-func try_to_move(direction):
+func request_move(direction):
     requested_direction = direction
     ray.target_position = inputs[direction] * Global.tile_size
     ray.force_raycast_update()
@@ -38,6 +39,20 @@ func try_to_move(direction):
     if not(ray.is_colliding()):
         move_to_requested()
         return
+
+    # TODO: get all ray collision targets
+    # units can be inside other units or in cities, so ray can collide with multiple
+    # technique from https://forum.godotengine.org/t/27326
+    # bug though: Godot dies on collision with terrain blocker, so currently I can not do this:
+    #var targets = []
+    #while ray.is_colliding():
+        #var target = ray.get_collider()
+        #targets.append(target)
+        #print("target is ", target)
+        #ray.add_exception(target)
+        #ray.force_raycast_update()
+    #for target in targets:
+        #ray.remove_exception(target)
 
     # something's there, find out what it is
     # signal that we collided with it
@@ -48,6 +63,22 @@ func try_to_move(direction):
     # we might be able to move
     # but that's up to the world logic now
     # so we are done here
+
+func enter_city(city):
+    city.occupy(self)
+    in_city = city
+    $Sprite2D.scale = Vector2(0.05, 0.05)
+    # TODO: derive these from sprite/size properties instead of hard coding -10, etc
+    $Sprite2D.position = Vector2(-10, 10)
+    #$Sprite2D.centered = false
+
+func leave_city(city):
+    city.vacate(self)
+    in_city = null
+    # TODO: read this from resource, instead of hard coding here
+    $Sprite2D.scale = Vector2(0.07, 0.07)
+    $Sprite2D.position = Vector2(0, 0)
+    #$Sprite2D.centered = true
 
 func face_toward(direction):
     if(direction == "right"):
@@ -77,6 +108,10 @@ func move(direction):
     moving = true
     await tween.finished
     moving = false
+
+    if(in_city != null):
+        if(position != in_city.position):
+            leave_city(in_city)
 
 func play_move_sound():
     if not ($Sounds/Move.playing):
