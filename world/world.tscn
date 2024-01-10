@@ -1,32 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://bufvbk6y65jkb"]
 
+[ext_resource type="Script" path="res://world/world.gd" id="1_555vv"]
 [ext_resource type="Texture2D" uid="uid://dtvh1ni0qoylk" path="res://world/grasslands.png" id="1_oiwoi"]
 [ext_resource type="PackedScene" uid="uid://d0cfmyfdmy8mo" path="res://unit/unit.tscn" id="2_lyn5p"]
 [ext_resource type="PackedScene" uid="uid://chngv5i76yvm4" path="res://city/city.tscn" id="3_k81tp"]
-
-[sub_resource type="GDScript" id="GDScript_5x6tq"]
-script/source = "extends Node2D
-
-func _ready() -> void:
-    # source: https://stackoverflow.com/a/68675270/1090611
-    SignalBus.unit_collided.connect(_unit_collided)
-
-func _unit_collided(unit, target):
-    '''
-    What does the unit do when it hits something?
-
-    For a friendly city: move inside
-    For a neutral or hostile city: attack
-    For a friendly unit: deny the move
-    For a hostile unit: attack
-    '''
-    if target.is_in_group(\"Cities\"):
-        print(\"target city\")
-        unit.move_to_requested()
-        return
-
-    unit.deny_move()
-"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kqt2o"]
 texture = ExtResource("1_oiwoi")
@@ -111,7 +88,7 @@ physics_layer_0/collision_layer = 1
 sources/3 = SubResource("TileSetAtlasSource_kqt2o")
 
 [node name="World" type="Node2D"]
-script = SubResource("GDScript_5x6tq")
+script = ExtResource("1_555vv")
 
 [node name="Terrain" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_g70uw")
