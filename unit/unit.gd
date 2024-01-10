@@ -20,8 +20,7 @@ signal unit_collided
 @onready var ray = $RayCast2D
 
 func _ready():
-    position = position.snapped(Vector2.ONE * tile_size)
-    position += Vector2.ONE * tile_size/2
+    position = position.snapped(Vector2.ONE * tile_size / 2)
 
 func _unhandled_input(event):
     if not selected: return
