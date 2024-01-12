@@ -95,7 +95,7 @@ func move_to_requested():
     move(requested_direction)
 
 func move(direction):
-    play_move_sound()
+    $Sounds.play_move()
     face_toward(direction)
 
     var tween = create_tween()
@@ -113,46 +113,39 @@ func move(direction):
         if(position != in_city.position):
             leave_city(in_city)
 
-func play_move_sound():
-    if not ($Sounds/Move.playing):
-        $Sounds/Move.play()
-
-
 func _on_mouse_entered():
     mouse_is_over_me = true
 
 func _on_mouse_exited():
     mouse_is_over_me = false
 
+func on_my_team():
+    # TODO: look for a better way to implement debugging overrides
+    if Global.debug_select_any or is_in_group(Global.my_team):
+        return true
+    return false
+
 func _input(event):
     if event.is_action_pressed("click"):
 
         if mouse_is_over_me:
-
-            if not is_in_group(Global.my_team):
-                play_denied_sound()
+            if on_my_team():
+                select_me()
                 return
 
-            select_me()
+            $Sounds.play_denied()
             return
 
-        else:
-            $Sounds/Move.stop()
-            deselect_me()
-            return
-
-func play_denied_sound():
-    $Sounds/Move.stop()
-    if not $Sounds/Denied.playing:
-        $Sounds/Denied.play()
+        deselect_me()
+        return
 
 func deny_move():
-    play_denied_sound()
+    $Sounds.play_denied()
 
 func select_me():
-    if not ($Sounds/Ready.playing):
-        $Sounds/Ready.play()
+    $Sounds.play_ready()
     selected = true
 
 func deselect_me():
+    $Sounds.stop_all()
     selected = false
