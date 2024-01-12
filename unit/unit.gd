@@ -106,8 +106,17 @@ func move(direction):
         1.0/animation_speed
         ).set_trans(Tween.TRANS_SINE)
     moving = true
+    $Cursor.deactivate()
     await tween.finished
     moving = false
+
+    # TODO: figure out how to delay cursor activation
+    # if I do this here:
+    #await get_tree().create_timer(0.5).timeout
+    # it delays the tween animation, and stacks resets
+    # which is not what we want
+    if selected:
+        $Cursor.activate()
 
     if(in_city != null):
         if(position != in_city.position):
@@ -145,7 +154,9 @@ func deny_move():
 func select_me():
     $Sounds.play_ready()
     selected = true
+    $Cursor.activate()
 
 func deselect_me():
     $Sounds.stop_all()
     selected = false
+    $Cursor.deactivate()
