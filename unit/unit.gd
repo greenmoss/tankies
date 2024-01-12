@@ -115,7 +115,6 @@ func move(direction):
 
 func play_move_sound():
     if not ($Sounds/Move.playing):
-        $Sounds/Ack.play()
         $Sounds/Move.play()
 
 
@@ -127,14 +126,28 @@ func _on_mouse_exited():
 
 func _input(event):
     if event.is_action_pressed("click"):
-        if mouse_is_over_me: select_me()
-        else: deselect_me()
 
-func deny_move():
-    if $Sounds/Move.playing:
-        $Sounds/Move.stop()
+        if mouse_is_over_me:
+
+            if not is_in_group(Global.my_team):
+                play_denied_sound()
+                return
+
+            select_me()
+            return
+
+        else:
+            $Sounds/Move.stop()
+            deselect_me()
+            return
+
+func play_denied_sound():
+    $Sounds/Move.stop()
     if not $Sounds/Denied.playing:
         $Sounds/Denied.play()
+
+func deny_move():
+    play_denied_sound()
 
 func select_me():
     if not ($Sounds/Ready.playing):
