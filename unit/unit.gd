@@ -8,20 +8,25 @@ var inputs = {
     }
 var selected = false
 var mouse_is_over_me = false
-var animation_speed = 10
+var move_animation_speed = 10
 var moving = false
 var facing = 0 # default/right
 var requested_direction = null
 var in_city = null
 
-signal unit_collided
+@export var moves_per_turn = 2
+var moves_remaining
 
-@export var unit_name = "Unit"
+@export var my_team = "NoTeam"
+
+signal unit_collided
 
 @onready var ray = $RayCast2D
 
 func _ready():
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
+    reset_moves()
+    assign_groups()
 
 func _unhandled_input(event):
     if not selected: return
@@ -31,6 +36,10 @@ func _unhandled_input(event):
             request_move(direction)
 
 func request_move(direction):
+    if not has_more_moves():
+        deny_move()
+        return
+
     requested_direction = direction
     ray.target_position = inputs[direction] * Global.tile_size
     ray.force_raycast_update()
@@ -103,7 +112,7 @@ func move(direction):
         position +
         inputs[direction] *
         Global.tile_size,
-        1.0/animation_speed
+        1.0/move_animation_speed
         ).set_trans(Tween.TRANS_SINE)
     moving = true
     $Cursor.deactivate()
@@ -122,15 +131,21 @@ func move(direction):
         if(position != in_city.position):
             leave_city(in_city)
 
+    moves_remaining -= 1
+
 func _on_mouse_entered():
     mouse_is_over_me = true
 
 func _on_mouse_exited():
     mouse_is_over_me = false
 
+func assign_groups():
+    add_to_group(my_team)
+    add_to_group("Units")
+
 func on_my_team():
     # TODO: look for a better way to implement debugging overrides
-    if Global.debug_select_any or is_in_group(Global.my_team):
+    if Global.debug_select_any or my_team == Global.human_team:
         return true
     return false
 
@@ -160,3 +175,9 @@ func deselect_me():
     $Sounds.stop_all()
     selected = false
     $Cursor.deactivate()
+
+func has_more_moves():
+    return moves_remaining > 0
+
+func reset_moves():
+    moves_remaining = moves_per_turn

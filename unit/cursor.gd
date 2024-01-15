@@ -16,7 +16,6 @@ func throb(delta):
         time = 0
 
 func activate():
-    time = 0
     visible = true
 
 func deactivate():
