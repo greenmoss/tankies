@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnajm6h8eoqhv"]
+
+[ext_resource type="Script" path="res://world/turn_overlay.gd" id="1_5s1q0"]
+
+[sub_resource type="SystemFont" id="SystemFont_bfihn"]
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_aiit1"]
+font = SubResource("SystemFont_bfihn")
+font_size = 32
+
+[node name="TurnOverlay" type="CanvasLayer"]
+script = ExtResource("1_5s1q0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 647.0
+offset_top = 187.0
+offset_right = -573.0
+offset_bottom = -646.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.137255, 0.341176, 0.137255, 0.890196)
+
+[node name="DoneTurnLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -304.0
+offset_right = 332.0
+offset_bottom = -252.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Done with turn 1"
+label_settings = SubResource("LabelSettings_aiit1")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="StartTurnLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -211.0
+offset_right = 334.0
+offset_bottom = -159.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Starting turn 2"
+label_settings = SubResource("LabelSettings_aiit1")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true

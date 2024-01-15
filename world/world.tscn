@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bufvbk6y65jkb"]
+[gd_scene load_steps=9 format=3 uid="uid://bufvbk6y65jkb"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_555vv"]
 [ext_resource type="Texture2D" uid="uid://dtvh1ni0qoylk" path="res://world/grasslands.png" id="1_oiwoi"]
 [ext_resource type="PackedScene" uid="uid://d0cfmyfdmy8mo" path="res://unit/unit.tscn" id="2_lyn5p"]
 [ext_resource type="PackedScene" uid="uid://chngv5i76yvm4" path="res://city/city.tscn" id="3_k81tp"]
 [ext_resource type="Script" path="res://world/units.gd" id="4_rn2dp"]
+[ext_resource type="PackedScene" uid="uid://bnajm6h8eoqhv" path="res://world/turn_overlay.tscn" id="6_svbli"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kqt2o"]
 texture = ExtResource("1_oiwoi")
@@ -126,3 +127,6 @@ my_team = "RedTeam"
 modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(200, 200)
 my_team = "GreenTeam"
+
+[node name="TurnOverlay" parent="." instance=ExtResource("6_svbli")]
+visible = false

@@ -13,7 +13,9 @@ func _physics_process(_delta):
         start_next_turn()
 
 func start_next_turn():
+    var previous_turn = turn_number
     turn_number += 1
+    $TurnOverlay.display(previous_turn, turn_number)
     $units.start_turn()
 
 func reset_group(group_name):
