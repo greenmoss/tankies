@@ -31,6 +31,9 @@ visible = false
 texture = ExtResource("4_amcrf")
 script = ExtResource("5_rhdgt")
 
+[node name="CooldownTimer" type="Timer" parent="Cursor"]
+autostart = true
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true
 

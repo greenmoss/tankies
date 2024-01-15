@@ -119,12 +119,8 @@ func move(direction):
     await tween.finished
     moving = false
 
-    # TODO: figure out how to delay cursor activation
-    # if I do this here:
-    #await get_tree().create_timer(0.5).timeout
-    # it delays the tween animation, and stacks resets
-    # which is not what we want
     if selected:
+        await $Cursor/CooldownTimer.timeout
         $Cursor.activate()
 
     if(in_city != null):

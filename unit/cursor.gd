@@ -11,11 +11,12 @@ func throb(delta):
     # animate alpha
     if time < duration:
         time += delta
-        modulate.a = lerp(0.25, 1.0, time / duration)
+        modulate.a = lerp(1.0, 0.25, time / duration)
     else:
         time = 0
 
 func activate():
+    time = 0
     visible = true
 
 func deactivate():
