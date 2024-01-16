@@ -111,9 +111,11 @@ my_team = "RedTeam"
 
 [node name="city2" parent="cities" instance=ExtResource("3_k81tp")]
 position = Vector2(440, 120)
+open = true
 
 [node name="city3" parent="cities" instance=ExtResource("3_k81tp")]
 position = Vector2(1480, 1000)
+open = true
 
 [node name="units" type="Node" parent="."]
 script = ExtResource("4_rn2dp")

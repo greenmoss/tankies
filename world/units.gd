@@ -12,6 +12,9 @@ func set_team_queue(team_name):
         team_queue.append(unit)
     turn_queues[team_name] = team_queue
 
+func end_turn():
+    taking_turn = false
+
 func start_turn():
     taking_turn = true
 
@@ -21,11 +24,13 @@ func start_turn():
 func run_turn_loop():
     var humans_done = true
     for unit in turn_queues[Global.human_team]:
+        # this happens when we remove a unit
+        if not is_instance_valid(unit): continue
+
         if unit.has_more_moves():
             humans_done = false
             break
 
     var ai_done = true
     if(humans_done and ai_done):
-        taking_turn = false
-
+        end_turn()

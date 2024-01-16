@@ -133,6 +133,7 @@ func _on_mouse_exited():
     mouse_is_over_me = false
 
 func assign_groups():
+    modulate = Global.team_colors[my_team]
     add_to_group(my_team)
     add_to_group("Units")
 
@@ -179,3 +180,6 @@ func reset_moves():
 func _on_cooldown_timer_timeout():
     if selected:
         $Cursor.activate()
+
+func disband():
+    queue_free()

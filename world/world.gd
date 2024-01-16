@@ -2,7 +2,7 @@ extends Node2D
 
 @export var turn_number = 0
 
-func _ready() -> void:
+func _ready():
     # source: https://stackoverflow.com/a/68675270/1090611
     SignalBus.unit_collided.connect(_unit_collided)
 
