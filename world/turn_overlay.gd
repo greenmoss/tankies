@@ -9,5 +9,7 @@ func display(done_turn, start_turn):
     $DoneTurnLabel.text = done_turn_text + str(done_turn)
     $StartTurnLabel.text = start_turn_text + str(start_turn)
     show()
-    await $Timer.timeout
+    $CoolDownTimer.start()
+
+func _on_cool_down_timer_timeout():
     hide()

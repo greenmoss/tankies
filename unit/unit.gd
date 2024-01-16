@@ -117,11 +117,8 @@ func move(direction):
     moving = true
     $Cursor.deactivate()
     await tween.finished
+    $Cursor/CooldownTimer.start()
     moving = false
-
-    if selected:
-        await $Cursor/CooldownTimer.timeout
-        $Cursor.activate()
 
     if(in_city != null):
         if(position != in_city.position):
@@ -177,3 +174,8 @@ func has_more_moves():
 
 func reset_moves():
     moves_remaining = moves_per_turn
+
+
+func _on_cooldown_timer_timeout():
+    if selected:
+        $Cursor.activate()

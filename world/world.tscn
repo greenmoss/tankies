@@ -130,3 +130,8 @@ my_team = "GreenTeam"
 
 [node name="TurnOverlay" parent="." instance=ExtResource("6_svbli")]
 visible = false
+
+[node name="CoolDownTimer" type="Timer" parent="TurnOverlay"]
+wait_time = 2.0
+
+[connection signal="timeout" from="TurnOverlay/CoolDownTimer" to="TurnOverlay" method="_on_cool_down_timer_timeout"]

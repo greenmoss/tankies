@@ -32,7 +32,7 @@ texture = ExtResource("4_amcrf")
 script = ExtResource("5_rhdgt")
 
 [node name="CooldownTimer" type="Timer" parent="Cursor"]
-autostart = true
+wait_time = 0.5
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true
@@ -52,3 +52,4 @@ stream = ExtResource("6_ejjmt")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="timeout" from="Cursor/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

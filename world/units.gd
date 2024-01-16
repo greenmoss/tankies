@@ -29,5 +29,3 @@ func run_turn_loop():
     if(humans_done and ai_done):
         taking_turn = false
 
-func take_team_turn(team_name):
-    print(turn_queues[team_name])

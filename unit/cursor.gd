@@ -1,7 +1,7 @@
 extends Sprite2D
 
 var time = 0
-var duration = 1  # length of the effect
+var duration = 1.5  # length of the effect
 
 func _process(delta):
     if not visible: return
@@ -16,7 +16,8 @@ func throb(delta):
         time = 0
 
 func activate():
-    time = 0
+    if not visible:
+        time = 0
     visible = true
 
 func deactivate():
