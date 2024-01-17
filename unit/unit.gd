@@ -74,7 +74,7 @@ func request_move(direction):
     # so we are done here
 
 func enter_city(city):
-    city.occupy(self)
+    city.occupy_with(self)
     in_city = city
     $Sprite2D.scale = Vector2(0.05, 0.05)
     # TODO: derive these from sprite/size properties instead of hard coding -10, etc
@@ -82,7 +82,7 @@ func enter_city(city):
     #$Sprite2D.centered = false
 
 func leave_city(city):
-    city.vacate(self)
+    city.vacated_by(self)
     in_city = null
     # TODO: read this from resource, instead of hard coding here
     $Sprite2D.scale = Vector2(0.07, 0.07)
