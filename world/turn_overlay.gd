@@ -1,12 +1,12 @@
 extends CanvasLayer
 
-var done_turn_text = "Done with turn "
+var done_turn_text = "Turn complete"
 var start_turn_text = "Starting turn "
 
 func display(done_turn, start_turn):
     if done_turn < 1: return
 
-    $DoneTurnLabel.text = done_turn_text + str(done_turn)
+    $DoneTurnLabel.text = done_turn_text
     $StartTurnLabel.text = start_turn_text + str(start_turn)
     show()
     $CoolDownTimer.start()
