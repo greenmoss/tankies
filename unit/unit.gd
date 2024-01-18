@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name Unit
+
 var inputs = {
     "right": Vector2.RIGHT,
     "left": Vector2.LEFT,
@@ -13,20 +15,35 @@ var moving = false
 var facing = 0 # default/right
 var requested_direction = null
 var in_city = null
+var sleep_turns = 0
 
 @export var moves_per_turn = 2
 var moves_remaining
 
 @export var my_team = "NoTeam"
 
-signal unit_collided
-
 @onready var ray = $RayCast2D
 
 func _ready():
+    moves_per_turn = 2
+    sleep_turns = 0
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
     reset_moves()
     assign_groups()
+
+func _input(event):
+    if event.is_action_pressed("click"):
+
+        if mouse_is_over_me:
+            if on_my_team():
+                select_me()
+                return
+
+            $Sounds.play_denied()
+            return
+
+        deselect_me()
+        return
 
 func _unhandled_input(event):
     if not selected: return
@@ -34,6 +51,25 @@ func _unhandled_input(event):
     for direction in inputs.keys():
         if event.is_action_pressed(direction):
             request_move(direction)
+            return
+    if event.is_action_pressed('sleep'):
+        toggle_sleep()
+
+func toggle_sleep():
+    # if sleeping, wake up
+    if sleep_turns != 0:
+        sleep_turns = 0
+        return
+
+    # otherwise, go to sleep until awoken
+    deselect_me()
+    sleep_turns = -1
+
+func is_awake():
+    return (sleep_turns == 0)
+
+func is_sleeping():
+    return (sleep_turns != 0)
 
 func request_move(direction):
     if not has_more_moves():
@@ -66,7 +102,6 @@ func request_move(direction):
     # something's there, find out what it is
     # signal that we collided with it
     var target = ray.get_collider()
-    emit_signal("unit_collided", self, target)
     SignalBus.unit_collided.emit(self, target)
 
     # we might be able to move
@@ -143,20 +178,6 @@ func on_my_team():
         return true
     return false
 
-func _input(event):
-    if event.is_action_pressed("click"):
-
-        if mouse_is_over_me:
-            if on_my_team():
-                select_me()
-                return
-
-            $Sounds.play_denied()
-            return
-
-        deselect_me()
-        return
-
 func deny_move():
     $Sounds.play_denied()
 
@@ -171,6 +192,7 @@ func deselect_me():
     $Cursor.deactivate()
 
 func has_more_moves():
+    if is_sleeping(): return false
     return moves_remaining > 0
 
 func reset_moves():

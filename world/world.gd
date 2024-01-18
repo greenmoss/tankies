@@ -5,17 +5,18 @@ extends Node2D
 var city_queues = {}
 var unit_queues = {}
 
-var taking_turn = false
+var start_next_turn
 
 func _ready():
     SignalBus.unit_collided.connect(_unit_collided)
     SignalBus.city_captured.connect(_city_captured)
+    start_next_turn = true
 
 func _physics_process(_delta):
-    if(taking_turn):
-        run_turn_loop()
-    else:
+    if(start_next_turn):
         start_turn()
+    else:
+        check_turn_done()
 
 func _city_captured(city):
     city.reset_build(turn_number)
@@ -40,28 +41,24 @@ func _unit_collided(unit, target):
 
     unit.deny_move()
 
-func set_team_queue(team_name):
-    unit_queues[team_name] = $units.make_team_queue(team_name)
+func set_team_queues(team_name):
     city_queues[team_name] = $cities.make_team_queue(team_name)
+    for city in city_queues[Global.human_team]:
+        city.build_unit(turn_number)
+
+    unit_queues[team_name] = $units.make_team_queue(team_name)
 
 ## turns code
 func start_turn():
     var previous_turn = turn_number
     turn_number += 1
     $TurnOverlay.display(previous_turn, turn_number)
-    taking_turn = true
+    start_next_turn = false
 
-    set_team_queue(Global.human_team)
-    if unit_queues[Global.human_team] == []:
-        $units.create(Global.human_team, Vector2(200, 200))
-        set_team_queue(Global.human_team)
+    set_team_queues(Global.human_team)
+    set_team_queues(Global.ai_team)
 
-    set_team_queue(Global.ai_team)
-
-    for city in city_queues[Global.human_team]:
-        city.build_unit(turn_number)
-
-func run_turn_loop():
+func check_turn_done():
     # TODO: switch to team "phases"
     # so we are only checking one team within this loop
     # this is probably faster than re-checking every unit every time
@@ -79,4 +76,4 @@ func run_turn_loop():
         end_turn()
 
 func end_turn():
-    taking_turn = false
+    start_next_turn = true

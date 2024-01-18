@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name City
+
 var selected = false
 var mouse_is_over_me = false
 
