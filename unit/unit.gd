@@ -30,6 +30,9 @@ func _input(event):
         if mouse_is_over_me:
             if on_my_team():
                 select_me()
+                if is_sleeping():
+                    awaken()
+
                 return
 
             $Sounds.play_denied()
@@ -61,17 +64,23 @@ func _ready():
     reset_moves()
     assign_groups()
 
-func toggle_sleep():
-    # if sleeping, wake up
-    if sleep_turns != 0:
-        sleep_turns = 0
+func awaken():
+    sleep_turns = 0
+    if has_more_moves():
         $Inactive.awaken()
-        return
+    else:
+        $Inactive.done_moving()
 
-    # otherwise, go to sleep until awoken
+func go_to_sleep():
     deselect_me()
     sleep_turns = -1
     $Inactive.sleep_infinity()
+
+func toggle_sleep():
+    if is_sleeping():
+        awaken()
+    else:
+        go_to_sleep()
 
 func is_awake():
     return (sleep_turns == 0)
