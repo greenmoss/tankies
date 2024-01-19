@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/engine_heavy_loop.mp3" id="3_3c04l"]
-[ext_resource type="Script" path="res://unit/Shade.gd" id="3_h0ib0"]
+[ext_resource type="Script" path="res://unit/Inactive.gd" id="3_dk2lf"]
 [ext_resource type="Script" path="res://unit/sounds.gd" id="3_jpn2r"]
 [ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://ui/theme.tres" id="3_wycgt"]
 [ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://ui/cursor_box.png" id="4_amcrf"]
@@ -18,8 +18,6 @@ size = Vector2(80, 80)
 editor_description = "A unit that can fight, move, or capture"
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_8naok")
-moves_per_turn = null
-my_team = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -30,7 +28,7 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_e42fy")
 
-[node name="Shade" type="ColorRect" parent="."]
+[node name="Inactive" type="ColorRect" parent="."]
 visible = false
 offset_left = -40.0
 offset_top = -40.0
@@ -38,9 +36,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.372549)
-script = ExtResource("3_h0ib0")
+script = ExtResource("3_dk2lf")
 
-[node name="SleepBackground" type="ColorRect" parent="Shade"]
+[node name="SleepBackground" type="ColorRect" parent="Inactive"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
@@ -49,7 +47,7 @@ offset_bottom = 60.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.635294)
 
-[node name="SleepTurns" type="Label" parent="Shade/SleepBackground"]
+[node name="SleepTurns" type="Label" parent="Inactive/SleepBackground"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
