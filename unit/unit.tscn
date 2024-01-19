@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=12 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/engine_heavy_loop.mp3" id="3_3c04l"]
+[ext_resource type="Script" path="res://unit/Shade.gd" id="3_h0ib0"]
 [ext_resource type="Script" path="res://unit/sounds.gd" id="3_jpn2r"]
+[ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://ui/theme.tres" id="3_wycgt"]
 [ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://ui/cursor_box.png" id="4_amcrf"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/cduckett-01-ready.mp3" id="5_hjqgu"]
 [ext_resource type="Script" path="res://unit/cursor.gd" id="5_rhdgt"]
@@ -28,7 +30,7 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_e42fy")
 
-[node name="Curtain" type="ColorRect" parent="."]
+[node name="Shade" type="ColorRect" parent="."]
 visible = false
 offset_left = -40.0
 offset_top = -40.0
@@ -36,6 +38,37 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.372549)
+script = ExtResource("3_h0ib0")
+
+[node name="SleepBackground" type="ColorRect" parent="Shade"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 60.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.635294)
+
+[node name="SleepTurns" type="Label" parent="Shade/SleepBackground"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -27.5
+offset_right = 25.0
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_wycgt")
+theme_override_constants/outline_size = -10
+theme_override_constants/line_spacing = -10
+theme_override_font_sizes/font_size = 40
+text = "∞"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Cursor" type="Sprite2D" parent="."]
 visible = false

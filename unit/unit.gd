@@ -65,13 +65,13 @@ func toggle_sleep():
     # if sleeping, wake up
     if sleep_turns != 0:
         sleep_turns = 0
-        $Curtain.hide()
+        $Shade.awaken()
         return
 
     # otherwise, go to sleep until awoken
     deselect_me()
     sleep_turns = -1
-    $Curtain.show()
+    $Shade.sleep_infinity()
 
 func is_awake():
     return (sleep_turns == 0)
@@ -169,7 +169,7 @@ func move(direction):
 
     moves_remaining -= 1
     if not has_more_moves():
-        $Curtain.show()
+        $Shade.done_moving()
 
 func assign_groups():
     modulate = Global.team_colors[my_team]
@@ -202,7 +202,7 @@ func has_more_moves():
 func reset_moves():
     moves_remaining = moves_per_turn
     if is_awake():
-        $Curtain.hide()
+        $Shade.awaken()
 
 func _on_cooldown_timer_timeout():
     if selected:
