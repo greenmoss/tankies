@@ -24,13 +24,6 @@ var moves_remaining
 
 @onready var ray = $RayCast2D
 
-func _ready():
-    moves_per_turn = 2
-    sleep_turns = 0
-    position = position.snapped(Vector2.ONE * Global.tile_size / 2)
-    reset_moves()
-    assign_groups()
-
 func _input(event):
     if event.is_action_pressed("click"):
 
@@ -45,6 +38,12 @@ func _input(event):
         deselect_me()
         return
 
+func _on_mouse_entered():
+    mouse_is_over_me = true
+
+func _on_mouse_exited():
+    mouse_is_over_me = false
+
 func _unhandled_input(event):
     if not selected: return
     if moving: return
@@ -55,15 +54,24 @@ func _unhandled_input(event):
     if event.is_action_pressed('sleep'):
         toggle_sleep()
 
+func _ready():
+    moves_per_turn = 2
+    sleep_turns = 0
+    position = position.snapped(Vector2.ONE * Global.tile_size / 2)
+    reset_moves()
+    assign_groups()
+
 func toggle_sleep():
     # if sleeping, wake up
     if sleep_turns != 0:
         sleep_turns = 0
+        $Curtain.hide()
         return
 
     # otherwise, go to sleep until awoken
     deselect_me()
     sleep_turns = -1
+    $Curtain.show()
 
 func is_awake():
     return (sleep_turns == 0)
@@ -160,12 +168,8 @@ func move(direction):
             leave_city(in_city)
 
     moves_remaining -= 1
-
-func _on_mouse_entered():
-    mouse_is_over_me = true
-
-func _on_mouse_exited():
-    mouse_is_over_me = false
+    if not has_more_moves():
+        $Curtain.show()
 
 func assign_groups():
     modulate = Global.team_colors[my_team]
@@ -197,7 +201,8 @@ func has_more_moves():
 
 func reset_moves():
     moves_remaining = moves_per_turn
-
+    if is_awake():
+        $Curtain.hide()
 
 func _on_cooldown_timer_timeout():
     if selected:

@@ -131,13 +131,11 @@ script = ExtResource("4_rn2dp")
 [node name="Unit0" parent="units" instance=ExtResource("2_lyn5p")]
 modulate = Color(1, 0.247059, 0.188235, 1)
 position = Vector2(1720, 920)
-moves_per_turn = null
 my_team = "RedTeam"
 
 [node name="Unit1" parent="units" instance=ExtResource("2_lyn5p")]
 modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(200, 200)
-moves_per_turn = null
 my_team = "GreenTeam"
 
 [node name="TurnOverlay" parent="." instance=ExtResource("6_svbli")]

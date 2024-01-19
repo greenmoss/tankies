@@ -28,6 +28,15 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_e42fy")
 
+[node name="Curtain" type="ColorRect" parent="."]
+visible = false
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.372549)
+
 [node name="Cursor" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("4_amcrf")
