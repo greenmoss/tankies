@@ -56,6 +56,10 @@ func _unhandled_input(event):
             return
     if event.is_action_pressed('sleep'):
         toggle_sleep()
+        return
+    if event.is_action_pressed('next'):
+        SignalBus.want_next_unit.emit(self)
+        return
 
 func _ready():
     moves_per_turn = 2
@@ -75,6 +79,7 @@ func go_to_sleep():
     deselect_me()
     sleep_turns = -1
     $Inactive.sleep_infinity()
+    SignalBus.unit_completed_moves.emit(self)
 
 func toggle_sleep():
     if is_sleeping():
@@ -178,6 +183,8 @@ func move(direction):
 
     moves_remaining -= 1
     if not has_more_moves():
+        SignalBus.unit_completed_moves.emit(self)
+        deselect_me()
         $Inactive.done_moving()
 
 func assign_groups():
