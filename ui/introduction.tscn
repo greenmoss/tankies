@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://ui/introduction.gd" id="1_35xql"]
 
 [sub_resource type="SystemFont" id="SystemFont_bfihn"]
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_5yce5"]
 font = SubResource("SystemFont_bfihn")
