@@ -10,6 +10,7 @@ font = SubResource("SystemFont_bfihn")
 font_size = 32
 
 [node name="Introduction" type="CanvasLayer"]
+layer = 2
 script = ExtResource("1_35xql")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -43,7 +44,9 @@ grow_vertical = 2
 size_flags_horizontal = 4
 text = "Click on a tank to select it
 
-Use the arrow keys to move the tank"
+Use the arrow keys to move the tank
+
+Capture all cities with your tanks"
 label_settings = SubResource("LabelSettings_5yce5")
 horizontal_alignment = 1
 autowrap_mode = 2

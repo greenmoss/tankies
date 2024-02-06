@@ -14,9 +14,15 @@ func _ready():
     SignalBus.unit_collided.connect(_unit_collided)
     SignalBus.unit_completed_moves.connect(_unit_completed_moves)
     SignalBus.want_next_unit.connect(_want_next_unit)
+    turn_number = 0
     start_next_turn = true
 
 func _physics_process(_delta):
+    var winner = check_winner()
+    if(winner != null):
+        SignalBus.team_won.emit(winner)
+        return
+
     if(start_next_turn):
         start_turn()
     else:
@@ -110,3 +116,13 @@ func check_turn_done():
 
 func end_turn():
     start_next_turn = true
+
+func check_winner():
+    var teams_with_cities = []
+    var city_owners = $cities.tally_owners()
+    for team in city_owners.keys():
+        if city_owners[team] == 0: continue
+        teams_with_cities.append(team)
+    if(teams_with_cities.size() != 1):
+        return null
+    return(teams_with_cities[0])
