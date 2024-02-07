@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @export var won = false
+
 func _ready():
     SignalBus.team_won.connect(_team_won)
     won = false

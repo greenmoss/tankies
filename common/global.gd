@@ -11,4 +11,6 @@ const team_colors = {
     "RedTeam": Color(1, 0.247059, 0.188235, 1),
 }
 
+enum Controllers {AI, HUMAN, NONE}
+
 var debug_select_any = false

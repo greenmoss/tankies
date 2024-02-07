@@ -12,8 +12,6 @@ var start_next_turn
 func _ready():
     SignalBus.city_captured.connect(_city_captured)
     SignalBus.unit_collided.connect(_unit_collided)
-    SignalBus.unit_completed_moves.connect(_unit_completed_moves)
-    SignalBus.want_next_unit.connect(_want_next_unit)
     turn_number = 0
     start_next_turn = true
 
@@ -51,42 +49,6 @@ func _unit_collided(unit, target):
 
     unit.deny_move()
 
-func _unit_completed_moves(unit):
-    var team = unit.my_team
-    $units.team_prior_unit[team] = unit
-    $units.select_first(unit_queues[team])
-
-func _want_next_unit(current_unit):
-    var team = current_unit.my_team
-    var unit_queue = unit_queues[team]
-    var current_unit_index = -1
-    var unit_count = unit_queue.size()
-    for index in unit_count:
-        if unit_queue[index] == current_unit:
-            current_unit_index = index
-            break
-    if current_unit_index == -1:
-        print("Could not find unit ", current_unit, " in the unit queue for team ", team, ". Giving up.")
-        return
-
-    var next_unit_index = current_unit_index + 1
-    if next_unit_index >= unit_count: next_unit_index -= unit_count
-    var next_unit = unit_queue[next_unit_index]
-
-    if next_unit_index == current_unit_index: return
-    # when unit captures a city, it is removed and we can no longer deselect it
-    if is_instance_valid(current_unit):
-      current_unit.deselect_me()
-    next_unit.select_me()
-
-func set_team_queues(team_name):
-    city_queues[team_name] = $cities.make_team_queue(team_name)
-    for city in city_queues[Global.human_team]:
-        city.build_unit(turn_number)
-
-    unit_queues[team_name] = $units.make_team_queue(team_name)
-    $units.select_first(unit_queues[Global.human_team])
-
 ## turns code
 func start_turn():
     var previous_turn = turn_number
@@ -94,24 +56,14 @@ func start_turn():
     $TurnOverlay.display(previous_turn, turn_number)
     start_next_turn = false
 
-    set_team_queues(Global.human_team)
-    set_team_queues(Global.ai_team)
+    # only human cities build units for now
+    for city in $cities.make_team_queue(Global.human_team):
+        city.build_unit(turn_number)
+
+    $teams.start_turn()
 
 func check_turn_done():
-    # TODO: switch to team "phases"
-    # so we are only checking one team within this loop
-    # this is probably faster than re-checking every unit every time
-    var humans_done = true
-    for unit in unit_queues[Global.human_team]:
-        # this happens when we remove a unit
-        if not is_instance_valid(unit): continue
-
-        if unit.has_more_moves():
-            humans_done = false
-            break
-
-    var ai_done = true
-    if(humans_done and ai_done):
+    if $teams.are_done():
         end_turn()
 
 func end_turn():

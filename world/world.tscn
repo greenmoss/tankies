@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://bufvbk6y65jkb"]
+[gd_scene load_steps=12 format=3 uid="uid://bufvbk6y65jkb"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_555vv"]
 [ext_resource type="Texture2D" uid="uid://dtvh1ni0qoylk" path="res://world/grasslands.png" id="1_oiwoi"]
 [ext_resource type="PackedScene" uid="uid://d0cfmyfdmy8mo" path="res://unit/unit.tscn" id="2_lyn5p"]
 [ext_resource type="Script" path="res://world/cities.gd" id="3_bgbrx"]
 [ext_resource type="PackedScene" uid="uid://chngv5i76yvm4" path="res://city/city.tscn" id="3_k81tp"]
-[ext_resource type="Script" path="res://world/units.gd" id="4_rn2dp"]
 [ext_resource type="PackedScene" uid="uid://bnajm6h8eoqhv" path="res://world/turn_overlay.tscn" id="6_svbli"]
+[ext_resource type="Script" path="res://team/teams.gd" id="7_au7yj"]
+[ext_resource type="Script" path="res://team/units.gd" id="8_4k8im"]
+[ext_resource type="PackedScene" uid="uid://sgl6kqwi4tqx" path="res://team/team.tscn" id="8_y6rer"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kqt2o"]
 texture = ExtResource("1_oiwoi")
@@ -105,43 +107,55 @@ script = ExtResource("3_bgbrx")
 modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(120, 120)
 my_team = "GreenTeam"
-open = null
-build_started_turn = null
 
 [node name="City1" parent="cities" instance=ExtResource("3_k81tp")]
 modulate = Color(1, 0.247059, 0.188235, 1)
 position = Vector2(1800, 1000)
 my_team = "RedTeam"
-open = null
-build_started_turn = null
 
 [node name="City2" parent="cities" instance=ExtResource("3_k81tp")]
 position = Vector2(440, 120)
 open = true
-build_started_turn = null
 
 [node name="City3" parent="cities" instance=ExtResource("3_k81tp")]
 position = Vector2(1480, 1000)
 open = true
-build_started_turn = null
-
-[node name="units" type="Node" parent="."]
-script = ExtResource("4_rn2dp")
-
-[node name="Unit0" parent="units" instance=ExtResource("2_lyn5p")]
-modulate = Color(1, 0.247059, 0.188235, 1)
-position = Vector2(1720, 920)
-my_team = "RedTeam"
-
-[node name="Unit1" parent="units" instance=ExtResource("2_lyn5p")]
-modulate = Color(0, 0.862745, 0, 1)
-position = Vector2(200, 200)
-my_team = "GreenTeam"
 
 [node name="TurnOverlay" parent="." instance=ExtResource("6_svbli")]
 visible = false
 
 [node name="CoolDownTimer" type="Timer" parent="TurnOverlay"]
 wait_time = 2.0
+
+[node name="teams" type="Node" parent="."]
+script = ExtResource("7_au7yj")
+
+[node name="GreenTeam" parent="teams" instance=ExtResource("8_y6rer")]
+color = Color(0, 0.862745, 0, 1)
+
+[node name="units" type="Node" parent="teams/GreenTeam"]
+script = ExtResource("8_4k8im")
+
+[node name="1" parent="teams/GreenTeam/units" instance=ExtResource("2_lyn5p")]
+modulate = Color(0, 0.862745, 0, 1)
+position = Vector2(200, 200)
+my_team = "GreenTeam"
+
+[node name="RedTeam" parent="teams" instance=ExtResource("8_y6rer")]
+color = Color(1, 0.247059, 0.188235, 1)
+controller = 2
+
+[node name="units" type="Node" parent="teams/RedTeam"]
+
+[node name="1" parent="teams/RedTeam/units" instance=ExtResource("2_lyn5p")]
+modulate = Color(1, 0.247059, 0.188235, 1)
+position = Vector2(1720, 920)
+my_team = "RedTeam"
+
+[node name="neutral" parent="teams" instance=ExtResource("8_y6rer")]
+color = Color(1, 1, 1, 1)
+controller = 1
+
+[node name="units" type="Node" parent="teams/neutral"]
 
 [connection signal="timeout" from="TurnOverlay/CoolDownTimer" to="TurnOverlay" method="_on_cool_down_timer_timeout"]
