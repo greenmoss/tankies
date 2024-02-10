@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bnajm6h8eoqhv"]
 
-[ext_resource type="Script" path="res://world/turn_overlay.gd" id="1_5s1q0"]
+[ext_resource type="Script" path="res://turn/turn_overlay.gd" id="1_5s1q0"]
 
 [sub_resource type="SystemFont" id="SystemFont_bfihn"]
 subpixel_positioning = 0
