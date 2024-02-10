@@ -1,33 +1,18 @@
 extends Node2D
 
-@export var turn_number = 0
-
-var city_queues = {}
-var unit_queues = {}
-
-var start_next_turn
-## Example use case: reactivate unit at beginning of turn
-#var team_current = {}
-
 func _ready():
     SignalBus.city_captured.connect(_city_captured)
     SignalBus.unit_collided.connect(_unit_collided)
-    turn_number = 0
-    start_next_turn = true
 
 func _physics_process(_delta):
     var winner = check_winner()
     if(winner != null):
         SignalBus.team_won.emit(winner)
-        return
-
-    if(start_next_turn):
-        start_turn()
-    else:
-        check_turn_done()
+        $turns.stop()
+        set_physics_process(false)
 
 func _city_captured(city):
-    city.reset_build(turn_number)
+    city.reset_build($turns.turn_number)
 
 func _unit_collided(unit, target):
     '''
@@ -48,26 +33,6 @@ func _unit_collided(unit, target):
         return
 
     unit.deny_move()
-
-## turns code
-func start_turn():
-    var previous_turn = turn_number
-    turn_number += 1
-    $TurnOverlay.display(previous_turn, turn_number)
-    start_next_turn = false
-
-    # only human cities build units for now
-    for city in $cities.make_team_queue(Global.human_team):
-        city.build_unit(turn_number)
-
-    $teams.start_turn()
-
-func check_turn_done():
-    if $teams.are_done():
-        end_turn()
-
-func end_turn():
-    start_next_turn = true
 
 func check_winner():
     var teams_with_cities = []

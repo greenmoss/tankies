@@ -1,5 +1,10 @@
 extends Node
 
+func build_units(turn_number):
+    # only human cities build units for now
+    for city in make_team_queue(Global.human_team):
+        city.build_unit(turn_number)
+
 func make_team_queue(team_name):
     var team_queue = []
     for city in get_children():
