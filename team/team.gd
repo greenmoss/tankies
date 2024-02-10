@@ -28,9 +28,8 @@ func build_unit_in(city):
 func is_done():
     return units.are_done()
 
-func start_turn():
-    units.start_turn()
-    select_next_unit()
+func refill_moves():
+    units.refill_moves()
 
 func select_next_unit():
     units.select_next()

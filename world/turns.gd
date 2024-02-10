@@ -27,7 +27,7 @@ func start():
     start_next_turn = false
 
     cities.build_units(turn_number)
-    teams.start_turn()
+    teams.refill_moves()
 
 func check_done():
     if teams.are_done():

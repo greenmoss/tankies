@@ -65,7 +65,7 @@ func _ready():
     moves_per_turn = 2
     sleep_turns = 0
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
-    reset_moves()
+    refill_moves()
     assign_groups()
 
 func awaken():
@@ -215,7 +215,7 @@ func has_more_moves():
     if is_sleeping(): return false
     return moves_remaining > 0
 
-func reset_moves():
+func refill_moves():
     moves_remaining = moves_per_turn
     if is_awake():
         $Inactive.awaken()

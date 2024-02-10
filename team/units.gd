@@ -20,6 +20,6 @@ func select_next():
             unit.select_me()
             return
 
-func start_turn():
+func refill_moves():
     for unit in get_children():
-        unit.reset_moves()
+        unit.refill_moves()

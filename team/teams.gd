@@ -28,7 +28,7 @@ func are_done():
         return true
     return false
 
-func start_turn():
+func refill_moves():
     # only start turn for human team right now
-    human_team.start_turn()
+    human_team.refill_moves()
     human_team.select_next_unit()
