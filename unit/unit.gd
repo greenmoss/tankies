@@ -8,8 +8,6 @@ var inputs = {
     "up": Vector2.UP,
     "down": Vector2.DOWN,
     }
-var selected = false
-var mouse_is_over_me = false
 var move_animation_speed = 10
 var moving = false
 var facing = 0 # default/right
@@ -24,41 +22,37 @@ var moves_remaining
 
 @onready var ray = $RayCast2D
 
-func _input(event):
-    if event.is_action_pressed("click"):
-
-        if mouse_is_over_me:
-            if on_my_team():
-                select_me()
-                if is_sleeping():
-                    awaken()
-
-                return
-
-            $Sounds.play_denied()
-            return
-
-        deselect_me()
-        return
-
 func _on_mouse_entered():
-    mouse_is_over_me = true
+    SignalBus.mouse_entered_unit.emit(self)
 
 func _on_mouse_exited():
-    mouse_is_over_me = false
+    SignalBus.mouse_exited_unit.emit(self)
 
-func _unhandled_input(event):
-    if not selected: return
+func handle_cursor_input_event(event):
     if moving: return
+
+    if event.is_action_pressed("click"):
+        if on_my_team():
+            select_me()
+            if is_sleeping():
+                awaken()
+
+            return
+
+        $Sounds.play_denied()
+        return
+
     for direction in inputs.keys():
         if event.is_action_pressed(direction):
             request_move(direction)
             return
+
     if event.is_action_pressed('sleep'):
         toggle_sleep()
         return
+
     if event.is_action_pressed('next'):
-        SignalBus.want_next_unit.emit(self)
+        SignalBus.want_next_unit.emit(self.my_team)
         return
 
 func _ready():
@@ -79,7 +73,7 @@ func go_to_sleep():
     deselect_me()
     sleep_turns = -1
     $Inactive.sleep_infinity()
-    SignalBus.unit_completed_moves.emit(self)
+    SignalBus.unit_completed_moves.emit(my_team)
 
 func toggle_sleep():
     if is_sleeping():
@@ -87,10 +81,13 @@ func toggle_sleep():
     else:
         go_to_sleep()
 
-func is_awake():
+func is_awake() -> bool:
     return (sleep_turns == 0)
 
-func is_sleeping():
+func is_moving() -> bool:
+    return moving
+
+func is_sleeping() -> bool:
     return (sleep_turns != 0)
 
 func request_move(direction):
@@ -172,9 +169,7 @@ func move(direction):
         1.0/move_animation_speed
         ).set_trans(Tween.TRANS_SINE)
     moving = true
-    $Cursor.deactivate()
     await tween.finished
-    $Cursor/CooldownTimer.start()
     moving = false
 
     if(in_city != null):
@@ -183,7 +178,7 @@ func move(direction):
 
     moves_remaining -= 1
     if not has_more_moves():
-        SignalBus.unit_completed_moves.emit(self)
+        SignalBus.unit_completed_moves.emit(my_team)
         deselect_me()
         $Inactive.done_moving()
 
@@ -192,7 +187,7 @@ func assign_groups():
     add_to_group(my_team)
     add_to_group("Units")
 
-func on_my_team():
+func on_my_team() -> bool:
     # TODO: look for a better way to implement debugging overrides
     if Global.debug_select_any or my_team == Global.human_team:
         return true
@@ -203,13 +198,9 @@ func deny_move():
 
 func select_me():
     $Sounds.play_ready()
-    selected = true
-    $Cursor.activate()
 
 func deselect_me():
     $Sounds.stop_all()
-    selected = false
-    $Cursor.deactivate()
 
 func has_more_moves():
     if is_sleeping(): return false
@@ -219,10 +210,6 @@ func refill_moves():
     moves_remaining = moves_per_turn
     if is_awake():
         $Inactive.awaken()
-
-func _on_cooldown_timer_timeout():
-    if selected:
-        $Cursor.activate()
 
 func disband():
     queue_free()

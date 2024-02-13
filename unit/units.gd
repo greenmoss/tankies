@@ -17,6 +17,7 @@ func create(team_name, coordinates):
 func select_next():
     for unit in get_children():
         if unit.has_more_moves():
+            SignalBus.units_selected_next.emit(unit)
             unit.select_me()
             return
 

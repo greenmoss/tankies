@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=10 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
@@ -6,9 +6,7 @@
 [ext_resource type="Script" path="res://unit/Inactive.gd" id="3_dk2lf"]
 [ext_resource type="Script" path="res://unit/sounds.gd" id="3_jpn2r"]
 [ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://ui/theme.tres" id="3_wycgt"]
-[ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://ui/cursor_box.png" id="4_amcrf"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/cduckett-01-ready.mp3" id="5_hjqgu"]
-[ext_resource type="Script" path="res://unit/cursor.gd" id="5_rhdgt"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/denied.mp3" id="6_ejjmt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
@@ -68,14 +66,6 @@ text = "∞"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cursor" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("4_amcrf")
-script = ExtResource("5_rhdgt")
-
-[node name="CooldownTimer" type="Timer" parent="Cursor"]
-wait_time = 0.5
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true
 
@@ -94,4 +84,3 @@ stream = ExtResource("6_ejjmt")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="timeout" from="Cursor/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

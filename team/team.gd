@@ -17,8 +17,8 @@ func _city_captured(city):
     if city.my_team != name: return
     select_next_unit()
 
-func _handle_next_unit_signals(current_unit):
-    if current_unit.my_team != name: return
+func _handle_next_unit_signals(wanted_team):
+    if wanted_team != name: return
     select_next_unit()
 
 func build_unit_in(city):

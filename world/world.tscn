@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bufvbk6y65jkb"]
+[gd_scene load_steps=15 format=3 uid="uid://bufvbk6y65jkb"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_555vv"]
 [ext_resource type="Texture2D" uid="uid://dtvh1ni0qoylk" path="res://world/grasslands.png" id="1_oiwoi"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://team/teams.gd" id="7_au7yj"]
 [ext_resource type="Script" path="res://unit/units.gd" id="8_4k8im"]
 [ext_resource type="PackedScene" uid="uid://sgl6kqwi4tqx" path="res://team/team.tscn" id="8_y6rer"]
+[ext_resource type="Script" path="res://ui/cursor.gd" id="11_ejds3"]
+[ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://ui/cursor_box.png" id="11_jjpp2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kqt2o"]
 texture = ExtResource("1_oiwoi")
@@ -153,17 +155,25 @@ controller = 1
 
 [node name="units" type="Node" parent="teams/neutral"]
 
-[node name="turns" type="Node" parent="." groups=["TurnsManager"]]
+[node name="turns" type="Node" parent="." node_paths=PackedStringArray("cities", "teams") groups=["TurnsManager"]]
 script = ExtResource("5_tktke")
-cities = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("3_bgbrx"))
-
-teams = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("7_au7yj"))
-
+cities = NodePath("../cities")
+teams = NodePath("../teams")
 
 [node name="banner" parent="turns" instance=ExtResource("6_svbli")]
 visible = false
 
 [node name="CoolDownTimer" type="Timer" parent="turns/banner"]
 wait_time = 2.0
+
+[node name="cursor" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0, 0.862745, 0, 1)
+z_index = 1
+texture = ExtResource("11_jjpp2")
+script = ExtResource("11_ejds3")
+
+[node name="CoolDownTimer" type="Timer" parent="cursor"]
+wait_time = 0.5
 
 [connection signal="timeout" from="turns/banner/CoolDownTimer" to="turns/banner" method="_on_cool_down_timer_timeout"]

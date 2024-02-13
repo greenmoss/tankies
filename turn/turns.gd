@@ -21,10 +21,11 @@ func _physics_process(_delta):
         check_done()
 
 func start():
+    start_next_turn = false
+
     previous_turn_number += 1
     turn_number += 1
     $banner.display(previous_turn_number, turn_number)
-    start_next_turn = false
 
     cities.build_units(turn_number)
     teams.refill_moves()
