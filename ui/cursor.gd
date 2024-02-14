@@ -4,6 +4,7 @@ var time = 0
 var duration = 1.5  # duration of the cursor throbber animation
 var units_under_mouse = {}
 var selected_unit : Area2D
+var controller_team = Global.human_team
 
 func _ready():
     units_under_mouse = {}
@@ -31,11 +32,15 @@ func _unhandled_input(event):
         return
 
     if event.is_action_pressed('next'):
-        SignalBus.want_next_unit.emit(Global.human_team)
+        SignalBus.want_next_unit.emit(controller_team)
         return
 
 func try_input_to_unit(event) -> bool:
     if selected_unit == null:
+        deactivate()
+        return false
+
+    if selected_unit.my_team != controller_team:
         deactivate()
         return false
 
