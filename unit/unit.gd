@@ -138,19 +138,31 @@ func request_move(direction):
     SignalBus.unit_collided.emit(self, target)
 
     if target.is_in_group("Cities"):
-        request_move_city(target)
+        request_move_into_city(target)
+        return
+
+    if target.is_in_group("Units"):
+        request_move_into_unit(target)
         return
 
     # fallback case
     deny_move()
 
-func request_move_city(city):
+func request_move_into_city(city):
     if city.is_open_to_team(my_team):
         move_to_requested()
         enter_city(city)
         return
 
     city.attack_with(self)
+
+func request_move_into_unit(unit):
+    if unit.my_team == my_team:
+        move_to_requested()
+        return
+
+    attack(unit)
+    reduce_moves()
 
 func enter_city(city):
     city.occupy_with(self)
@@ -201,6 +213,9 @@ func move(direction):
         if(position != in_city.position):
             leave_city(in_city)
 
+    reduce_moves()
+
+func reduce_moves():
     moves_remaining -= 1
     if not has_more_moves():
         SignalBus.unit_completed_moves.emit(my_team)

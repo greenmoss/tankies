@@ -8,6 +8,7 @@ size = Vector2(80, 80)
 
 [node name="City" type="Area2D" groups=["Cities"]]
 script = ExtResource("1_86gs3")
+open = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8uh4n")
