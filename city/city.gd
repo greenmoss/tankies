@@ -13,13 +13,19 @@ var default_team = "NoTeam"
 ## open cities do not resist capture
 @export var open = false
 
-@export var build_started_turn = 0
+var build_duration :int = 4
+var build_remaining :int = build_duration
 
 func _ready():
+    SignalBus.city_captured.connect(_city_captured)
     if my_team == null: my_team = "NoTeam"
-    build_started_turn = 0
+    build_remaining = build_duration + 1 # at start we will subtract a turn, so add it back in here
     position = position.snapped(Vector2.ONE * Global.tile_size/2)
     assign()
+
+func _city_captured(captured_city):
+    if captured_city != self: return
+    build_unit()
 
 func occupied():
     return not contains_units.is_empty()
@@ -70,11 +76,10 @@ func assign():
     add_to_group(my_team)
     add_to_group("Cities")
 
-func build_unit(turn_number):
+func build_unit():
     if my_team == default_team: return
-    if turn_number - build_started_turn == 4:
+    build_remaining -= 1
+    if build_remaining == 0:
         SignalBus.city_requested_unit.emit(self)
-        build_started_turn = turn_number
+        build_remaining = build_duration
 
-func reset_build(turn_number):
-    build_started_turn = turn_number

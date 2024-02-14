@@ -27,7 +27,7 @@ func start():
     turn_number += 1
     $banner.display(previous_turn_number, turn_number)
 
-    cities.build_units(turn_number)
+    cities.build_units()
     teams.refill_moves()
 
 func check_done():
