@@ -62,6 +62,20 @@ func _ready():
     refill_moves()
     assign_groups()
 
+func attack(defender):
+    if(defender.my_team == my_team):
+        print(
+            "Warning: refusing to attack unit ",
+            defender,
+            " already owned by, ",
+            my_team)
+        return
+
+    # TBD: play battle animation
+    # TBD: roll dice
+    # TBD: pop up message
+    defender.disband()
+
 func awaken():
     sleep_turns = 0
     if has_more_moves():
@@ -123,9 +137,20 @@ func request_move(direction):
     var target = ray.get_collider()
     SignalBus.unit_collided.emit(self, target)
 
-    # we might be able to move
-    # but that's up to the world logic now
-    # so we are done here
+    if target.is_in_group("Cities"):
+        request_move_city(target)
+        return
+
+    # fallback case
+    deny_move()
+
+func request_move_city(city):
+    if city.is_open_to_team(my_team):
+        move_to_requested()
+        enter_city(city)
+        return
+
+    city.attack_with(self)
 
 func enter_city(city):
     city.occupy_with(self)

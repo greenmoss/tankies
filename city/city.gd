@@ -27,7 +27,30 @@ func _city_captured(captured_city):
     if captured_city != self: return
     build_unit()
 
-func occupied():
+func attack_with(unit):
+    if(unit.my_team == my_team):
+        print(
+            "Warning: refusing to attack city ",
+            self,
+            " already owned by, ",
+            unit.my_team)
+        return
+
+    if not occupied():
+        capture_with(unit)
+        return
+
+    var defender : Area2D = contains_units[0]
+    unit.attack(defender)
+
+func is_open_to_team(team) -> bool:
+    if open:
+        return true
+    if team == my_team:
+        return true
+    return false
+
+func occupied() -> bool:
     return not contains_units.is_empty()
 
 func occupy_with(unit):
