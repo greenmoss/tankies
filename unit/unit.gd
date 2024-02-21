@@ -9,6 +9,7 @@ var inputs = {
     "down": Vector2.DOWN,
     }
 var move_animation_speed = 10
+var fighting = false
 var moving = false
 var facing = 0 # default/right
 var requested_direction = null
@@ -28,8 +29,10 @@ func _on_mouse_entered():
 func _on_mouse_exited():
     SignalBus.mouse_exited_unit.emit(self)
 
+# the cursor chooses who gets the events
+# thus, we do not use _unhandle_input() here
 func handle_cursor_input_event(event):
-    if moving: return
+    if moving or fighting: return
 
     if event.is_action_pressed("click"):
         if on_my_team():
@@ -70,11 +73,13 @@ func attack(defender):
             " already owned by, ",
             my_team)
         return
+    SignalBus.unit_attacking_unit.emit(self, defender)
 
-    # TBD: play battle animation
-    # TBD: roll dice
-    # TBD: pop up message
-    defender.disband()
+func start_fighting():
+    fighting = true
+
+func stop_fighting():
+    fighting = false
 
 func awaken():
     sleep_turns = 0
@@ -97,6 +102,9 @@ func toggle_sleep():
 
 func is_awake() -> bool:
     return (sleep_turns == 0)
+
+func is_fighting() -> bool:
+    return fighting
 
 func is_moving() -> bool:
     return moving

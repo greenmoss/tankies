@@ -5,11 +5,17 @@ For more info and to play it in your browser, see [itch.io tankies](https://gree
 # Credits
 Until there's a real "credits" screen in this game, tracking licensed art here:
 
+### https://freesound.org
+* Battle sounds: CC0 by Dragout
+* Boom sound: CC0 by Quaker540
+
 ### https://game-icons.net
 * Tank icon: CC-BY 3.0 by Lorc
 
 ### https://opengameart.org
 * 7-space-sounds: CC0 by Joth
+* Bullet animation: CC-BY 4.0 by JoesAlotofthings
+* Explosion animation: CC0 by Cuzco
 * Tank sounds: CC-BY 3.0 by qubodup
 
 # License

@@ -1,0 +1,212 @@
+[gd_scene load_steps=27 format=3 uid="uid://bjftff5tujhp2"]
+
+[ext_resource type="Script" path="res://battle/target.gd" id="1_c3713"]
+[ext_resource type="Texture2D" uid="uid://bg1twwo8b645x" path="res://battle/Impact016Yellow .png" id="2_qcy5r"]
+[ext_resource type="Texture2D" uid="uid://csdsslxw4u33f" path="res://battle/exp2.png" id="3_jqd04"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2tfe"]
+atlas = ExtResource("2_qcy5r")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5bkt"]
+atlas = ExtResource("2_qcy5r")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l3xq"]
+atlas = ExtResource("2_qcy5r")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la6iu"]
+atlas = ExtResource("2_qcy5r")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hes0t"]
+atlas = ExtResource("2_qcy5r")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qg8j4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2tfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5bkt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3l3xq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la6iu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hes0t")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdoto"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(0, 0, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nxf6"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(62, 0, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukdtn"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(124, 0, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hf34c"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(186, 0, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqngq"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(0, 62, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddt2f"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(62, 62, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dnrj"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(124, 62, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huh7r"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(186, 62, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a773q"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(0, 124, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4o00"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(62, 124, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6j2dh"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(124, 124, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8xop"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(186, 124, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbrru"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(0, 186, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rlnq"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(62, 186, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8qwb"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(124, 186, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buunw"]
+atlas = ExtResource("3_jqd04")
+region = Rect2(186, 186, 62, 62)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jeqqg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdoto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nxf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukdtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hf34c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqngq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddt2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dnrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huh7r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a773q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4o00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6j2dh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8xop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbrru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rlnq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8qwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buunw")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Target" type="Node2D"]
+script = ExtResource("1_c3713")
+
+[node name="bullet_spray" type="Node2D" parent="."]
+
+[node name="impact1" type="AnimatedSprite2D" parent="bullet_spray"]
+visible = false
+position = Vector2(3, 11)
+scale = Vector2(0.145833, 0.145833)
+sprite_frames = SubResource("SpriteFrames_qg8j4")
+
+[node name="delay" type="Timer" parent="bullet_spray/impact1"]
+
+[node name="impact2" type="AnimatedSprite2D" parent="bullet_spray"]
+visible = false
+position = Vector2(-18, -13)
+scale = Vector2(0.145833, 0.145833)
+sprite_frames = SubResource("SpriteFrames_qg8j4")
+
+[node name="delay" type="Timer" parent="bullet_spray/impact2"]
+wait_time = 0.084
+one_shot = true
+
+[node name="impact3" type="AnimatedSprite2D" parent="bullet_spray"]
+visible = false
+position = Vector2(20, -15)
+scale = Vector2(0.145833, 0.145833)
+sprite_frames = SubResource("SpriteFrames_qg8j4")
+
+[node name="delay" type="Timer" parent="bullet_spray/impact3"]
+
+[node name="explosion" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(1.58065, 1.58065)
+sprite_frames = SubResource("SpriteFrames_jeqqg")
+
+[node name="countdown" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="bullet_spray/impact1" to="." method="_on_impact_1_animation_finished"]
+[connection signal="animation_finished" from="bullet_spray/impact2" to="." method="_on_impact_2_animation_finished"]
+[connection signal="animation_finished" from="bullet_spray/impact3" to="." method="_on_impact_3_animation_finished"]
+[connection signal="timeout" from="countdown" to="." method="_on_countdown_timeout"]

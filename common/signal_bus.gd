@@ -8,6 +8,7 @@ signal mouse_exited_unit
 
 signal team_won
 
+signal unit_attacking_unit
 signal unit_collided
 signal unit_completed_moves
 
