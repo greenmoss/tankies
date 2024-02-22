@@ -1,5 +1,6 @@
 extends Node2D
 
+signal damaged
 signal destroyed
 
 var impact1 : AnimatedSprite2D
@@ -67,6 +68,8 @@ func random_impact(impact):
 func _on_countdown_timeout():
     cease_fire = true
     $bullet_spray.hide()
+    damaged.emit()
+
     if not blows_up: return
     destroyed.emit()
     $explosion.show()

@@ -6,8 +6,9 @@ For more info and to play it in your browser, see [itch.io tankies](https://gree
 Until there's a real "credits" screen in this game, tracking licensed art here:
 
 ### https://freesound.org
-* Battle sounds: CC0 by Dragout
+* Battle sounds: CC0 by Dragout, CC0 by TheBuilder15
 * Boom sound: CC0 by Quaker540
+* Marching sound: CC0 by stib
 
 ### https://game-icons.net
 * Tank icon: CC-BY 3.0 by Lorc

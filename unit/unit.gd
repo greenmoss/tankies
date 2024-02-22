@@ -73,7 +73,7 @@ func attack(defender):
             " already owned by, ",
             my_team)
         return
-    SignalBus.unit_attacking_unit.emit(self, defender)
+    SignalBus.unit_attacked_unit.emit(self, defender)
 
 func start_fighting():
     fighting = true
@@ -162,7 +162,7 @@ func request_move_into_city(city):
         enter_city(city)
         return
 
-    city.attack_with(self)
+    city.attacked_by(self)
 
 func request_move_into_unit(unit):
     if unit.my_team == my_team:
@@ -173,7 +173,7 @@ func request_move_into_unit(unit):
     reduce_moves()
 
 func enter_city(city):
-    city.occupy_with(self)
+    city.occupy_by(self)
     in_city = city
     $Sprite2D.scale = Vector2(0.05, 0.05)
     # TODO: derive these from sprite/size properties instead of hard coding -10, etc

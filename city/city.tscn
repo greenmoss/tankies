@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://chngv5i76yvm4"]
+[gd_scene load_steps=5 format=3 uid="uid://chngv5i76yvm4"]
 
 [ext_resource type="Texture2D" uid="uid://bnwo1hs4e50qw" path="res://city/modern-city.png" id="1_2jb7b"]
 [ext_resource type="Script" path="res://city/city.gd" id="1_86gs3"]
+[ext_resource type="AudioStream" uid="uid://7gcvb01w07wj" path="res://city/marching.wav" id="3_1cnug"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uh4n"]
 size = Vector2(80, 80)
 
 [node name="City" type="Area2D" groups=["Cities"]]
 script = ExtResource("1_86gs3")
-open = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8uh4n")
@@ -16,3 +16,6 @@ shape = SubResource("RectangleShape2D_8uh4n")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_2jb7b")
+
+[node name="Marching" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1cnug")

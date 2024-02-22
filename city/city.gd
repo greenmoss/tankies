@@ -27,7 +27,7 @@ func _city_captured(captured_city):
     if captured_city != self: return
     build_unit()
 
-func attack_with(unit):
+func attacked_by(unit):
     if(unit.my_team == my_team):
         print(
             "Warning: refusing to attack city ",
@@ -37,7 +37,7 @@ func attack_with(unit):
         return
 
     if not occupied():
-        capture_with(unit)
+        capture_by(unit)
         return
 
     var defender : Area2D = contains_units[0]
@@ -53,31 +53,43 @@ func is_open_to_team(team) -> bool:
 func occupied() -> bool:
     return not contains_units.is_empty()
 
-func occupy_with(unit):
+func occupy_by(unit):
     if self.my_team != unit.my_team:
-        capture_with(unit)
+        capture_by(unit)
         # capturing uses up the unit, so don't append to units in city
         return
 
     contains_units.append(unit)
 
-func resist(_unit):
-    # TBD: play battle animation
-    # TBD: roll dice
-    # TBD: pop up message
-    return
+func resist(attacker):
+    if(attacker.my_team == my_team):
+        print(
+            "Warning: refusing to resist unit ",
+            attacker,
+            " already owned by, ",
+            my_team)
+        return
+    SignalBus.city_resisted_unit.emit(attacker, self)
 
-func capture_with(unit):
+func capture_by(unit):
     if not open:
         resist(unit)
+        return
 
+    $Marching.play()
     remove_from_group(my_team)
     my_team = unit.my_team
-    open = false # capturing a city removes its neutrality/openness
+    fortify()
     assign()
     SignalBus.city_captured.emit(self)
 
     unit.disband()
+
+func fortify():
+    open = false
+
+func surrender():
+    open = true
 
 func vacated_by(unit):
     if(not contains_units.has(unit)):
@@ -95,7 +107,12 @@ func vacated_by(unit):
     contains_units = swap_contains
 
 func assign():
-    modulate = Global.team_colors[my_team]
+    var tween = create_tween()
+    tween.tween_property(self, "modulate",
+        Global.team_colors[my_team],
+        1.0
+        ).set_trans(Tween.TRANS_SINE)
+    #modulate = Global.team_colors[my_team]
     add_to_group(my_team)
     add_to_group("Cities")
 
