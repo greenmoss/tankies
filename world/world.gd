@@ -3,7 +3,7 @@ extends Node2D
 func _physics_process(_delta):
     var winner = check_winner()
     if(winner != null):
-        SignalBus.team_won.emit(winner)
+        SignalBus.team_won.emit(winner, $turns.turn_number)
         $turns.stop()
         set_physics_process(false)
 
