@@ -1,5 +1,7 @@
 extends Node
 
+class_name Team
+
 @export var color : Color
 @export var controller: Global.Controllers
 
@@ -15,11 +17,11 @@ func _ready():
 
 func _city_captured(city):
     if city.my_team != name: return
-    select_next_unit()
+    move_next_unit()
 
 func _handle_next_unit_signals(wanted_team):
     if wanted_team != name: return
-    select_next_unit()
+    move_next_unit()
 
 func build_unit_in(city):
     var new_unit = $units.create(city.my_team, city.position)
@@ -31,5 +33,5 @@ func is_done():
 func refill_moves():
     units.refill_moves()
 
-func select_next_unit():
-    units.select_next()
+func move_next_unit():
+    print("ERROR: override this stub in a subclass")

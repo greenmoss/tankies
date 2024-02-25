@@ -14,12 +14,19 @@ func create(team_name, coordinates):
     add_child(new_unit)
     return(new_unit)
 
-func select_next():
+func get_next() -> Area2D:
     for unit in get_children():
         if unit.has_more_moves():
-            SignalBus.units_selected_next.emit(unit)
-            unit.select_me()
-            return
+            return(unit)
+    # not units with moves
+    return(null)
+
+func select_next():
+    var unit : Area2D = get_next()
+    if unit == null:
+        return
+    SignalBus.units_selected_next.emit(unit)
+    unit.select_me()
 
 func refill_moves():
     for unit in get_children():

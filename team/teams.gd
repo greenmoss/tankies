@@ -23,12 +23,15 @@ func _city_requested_unit(city):
     teams_by_name[city.my_team].build_unit_in(city)
 
 func are_done():
-    # only check human team right now
     if human_team.is_done():
-        return true
+        if ai_team.is_done():
+            return true
+        else:
+            ai_team.move()
     return false
 
-func refill_moves():
-    # only start turn for human team right now
+func start():
+    ai_team.pause()
+    ai_team.refill_moves()
     human_team.refill_moves()
-    human_team.select_next_unit()
+    human_team.move()

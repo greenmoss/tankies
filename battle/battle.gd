@@ -1,8 +1,6 @@
 extends Node
 
 var fighting: bool
-var attacker: Area2D
-var defender: Area2D
 
 func _ready():
     SignalBus.unit_attacked_unit.connect(_unit_attacked_unit)
