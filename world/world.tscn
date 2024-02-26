@@ -147,8 +147,10 @@ modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(200, 200)
 my_team = "GreenTeam"
 
-[node name="RedTeam" parent="teams" instance=ExtResource("8_y6rer")]
+[node name="RedTeam" parent="teams" node_paths=PackedStringArray("enemy_units") instance=ExtResource("8_y6rer")]
 script = ExtResource("9_3bb5a")
+enemy_units = NodePath("../GreenTeam/units")
+color = Color(1, 0.247059, 0.188235, 1)
 
 [node name="units" type="Node" parent="teams/RedTeam"]
 script = ExtResource("8_4k8im")

@@ -15,6 +15,9 @@ var facing = 0 # default/right
 var requested_direction = null
 var in_city = null
 var sleep_turns = 0
+var movement_tween : Tween
+
+signal finished_movement
 
 @export var moves_per_turn = 2
 var moves_remaining
@@ -113,6 +116,9 @@ func is_sleeping() -> bool:
     return (sleep_turns != 0)
 
 func request_move(direction):
+    if is_moving():
+        return
+
     if not has_more_moves():
         deny_move()
         return
@@ -206,15 +212,16 @@ func move(direction):
     $Sounds.play_move()
     face_toward(direction)
 
-    var tween = create_tween()
-    tween.tween_property(self, "position",
+    movement_tween = create_tween()
+    movement_tween.tween_property(self, "position",
         position +
         inputs[direction] *
         Global.tile_size,
         1.0/move_animation_speed
         ).set_trans(Tween.TRANS_SINE)
     moving = true
-    await tween.finished
+    await movement_tween.finished
+    finished_movement.emit()
     moving = false
 
     if(in_city != null):
@@ -260,4 +267,5 @@ func refill_moves():
         $Inactive.awaken()
 
 func disband():
+    SignalBus.unit_disbanded.emit(self)
     queue_free()

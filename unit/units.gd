@@ -14,6 +14,11 @@ func create(team_name, coordinates):
     add_child(new_unit)
     return(new_unit)
 
+func get_first() -> Area2D:
+    if get_child_count() == 0:
+        return(null)
+    return(get_children()[0])
+
 func get_next() -> Area2D:
     for unit in get_children():
         if unit.has_more_moves():

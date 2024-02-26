@@ -9,6 +9,7 @@ var controller_team = Global.human_team
 func _ready():
     units_under_mouse = {}
     selected_unit = null
+    SignalBus.unit_disbanded.connect(_unit_disbanded)
     SignalBus.units_selected_next.connect(_units_selected_next)
     SignalBus.mouse_entered_unit.connect(_mouse_entered_unit)
     SignalBus.mouse_exited_unit.connect(_mouse_exited_unit)
@@ -22,6 +23,19 @@ func _mouse_entered_unit(unit):
 
 func _mouse_exited_unit(unit):
     units_under_mouse[unit] = false
+
+func _unit_disbanded(unit):
+    if selected_unit == null:
+        return
+
+    if not is_instance_valid(selected_unit):
+        print("here1")
+        deselect_unit()
+        return
+
+    if unit == selected_unit:
+        deselect_unit()
+        return
 
 func _unhandled_input(event):
     if event.is_action_pressed("click"):
@@ -46,6 +60,11 @@ func try_input_to_unit(event) -> bool:
 
     selected_unit.handle_cursor_input_event(event)
 
+    # handle unit disappearing as result of move
+    if not is_instance_valid(selected_unit):
+        deselect_unit()
+        return true
+
     if selected_unit.is_moving():
         deactivate()
     else:
@@ -56,6 +75,10 @@ func try_input_to_unit(event) -> bool:
 func _units_selected_next(unit):
     selected_unit = unit
     activate(unit.position)
+
+func deselect_unit():
+    selected_unit = null
+    deactivate()
 
 func select_first_mouseover_unit() -> Area2D:
     for unit in units_under_mouse.keys():
