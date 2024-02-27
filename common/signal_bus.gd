@@ -1,5 +1,8 @@
 extends Node
 
+signal battle_started
+signal battle_finished
+
 signal city_captured
 signal city_requested_unit
 signal city_resisted_unit

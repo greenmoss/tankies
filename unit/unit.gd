@@ -17,6 +17,7 @@ var in_city = null
 var sleep_turns = 0
 var movement_tween : Tween
 
+signal finished_fighting
 signal finished_movement
 
 @export var moves_per_turn = 2
@@ -39,9 +40,9 @@ func handle_cursor_input_event(event):
 
     if event.is_action_pressed("click"):
         if on_my_team():
-            select_me()
+            await select_me()
             if is_sleeping():
-                awaken()
+                await awaken()
 
             return
 
@@ -50,11 +51,11 @@ func handle_cursor_input_event(event):
 
     for direction in inputs.keys():
         if event.is_action_pressed(direction):
-            request_move(direction)
+            await request_move(direction)
             return
 
     if event.is_action_pressed('sleep'):
-        toggle_sleep()
+        await toggle_sleep()
         return
 
     if event.is_action_pressed('next'):
@@ -65,8 +66,8 @@ func _ready():
     moves_per_turn = 2
     sleep_turns = 0
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
-    refill_moves()
-    assign_groups()
+    await refill_moves()
+    await assign_groups()
 
 func attack(defender):
     if(defender.my_team == my_team):
@@ -83,6 +84,7 @@ func start_fighting():
 
 func stop_fighting():
     fighting = false
+    finished_fighting.emit()
 
 func awaken():
     sleep_turns = 0
@@ -99,9 +101,9 @@ func go_to_sleep():
 
 func toggle_sleep():
     if is_sleeping():
-        awaken()
+        await awaken()
     else:
-        go_to_sleep()
+        await go_to_sleep()
 
 func is_awake() -> bool:
     return (sleep_turns == 0)
@@ -120,7 +122,7 @@ func request_move(direction):
         return
 
     if not has_more_moves():
-        deny_move()
+        await deny_move()
         return
 
     requested_direction = direction
@@ -129,7 +131,7 @@ func request_move(direction):
 
     # nothing's there, free to move
     if not(ray.is_colliding()):
-        move_to_requested()
+        await move_to_requested()
         return
 
     # TODO: get all ray collision targets
@@ -152,34 +154,34 @@ func request_move(direction):
     SignalBus.unit_collided.emit(self, target)
 
     if target.is_in_group("Cities"):
-        request_move_into_city(target)
+        await request_move_into_city(target)
         return
 
     if target.is_in_group("Units"):
-        request_move_into_unit(target)
+        await request_move_into_unit(target)
         return
 
     # fallback case
-    deny_move()
+    await deny_move()
 
 func request_move_into_city(city):
     if city.is_open_to_team(my_team):
-        move_to_requested()
-        enter_city(city)
+        await move_to_requested()
+        await enter_city(city)
         return
 
-    city.attacked_by(self)
+    await city.attacked_by(self)
 
 func request_move_into_unit(unit):
     if unit.my_team == my_team:
-        move_to_requested()
+        await move_to_requested()
         return
 
-    attack(unit)
-    reduce_moves()
+    await attack(unit)
+    await reduce_moves()
 
 func enter_city(city):
-    city.occupy_by(self)
+    await city.occupy_by(self)
     in_city = city
     $Sprite2D.scale = Vector2(0.05, 0.05)
     # TODO: derive these from sprite/size properties instead of hard coding -10, etc
@@ -187,7 +189,7 @@ func enter_city(city):
     #$Sprite2D.centered = false
 
 func leave_city(city):
-    city.vacated_by(self)
+    await city.vacated_by(self)
     in_city = null
     # TODO: read this from resource, instead of hard coding here
     $Sprite2D.scale = Vector2(0.07, 0.07)
@@ -206,11 +208,11 @@ func move_to_requested():
     if(requested_direction == null):
         print("Error! Avoiding move towards undefined direction")
         return
-    move(requested_direction)
+    await move(requested_direction)
 
 func move(direction):
     $Sounds.play_move()
-    face_toward(direction)
+    await face_toward(direction)
 
     movement_tween = create_tween()
     movement_tween.tween_property(self, "position",
@@ -226,21 +228,21 @@ func move(direction):
 
     if(in_city != null):
         if(position != in_city.position):
-            leave_city(in_city)
+            await leave_city(in_city)
 
-    reduce_moves()
+    await reduce_moves()
 
 func reduce_moves():
     moves_remaining -= 1
     if not has_more_moves():
         SignalBus.unit_completed_moves.emit(my_team)
-        deselect_me()
+        await deselect_me()
         $Inactive.done_moving()
 
 func assign_groups():
     modulate = Global.team_colors[my_team]
-    add_to_group(my_team)
-    add_to_group("Units")
+    await add_to_group(my_team)
+    await add_to_group("Units")
 
 func on_my_team() -> bool:
     # TODO: look for a better way to implement debugging overrides

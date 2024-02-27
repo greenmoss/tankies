@@ -17,21 +17,21 @@ func _ready():
 
 func _city_captured(city):
     if city.my_team != name: return
-    move_next_unit()
+    await move_next_unit()
 
 func _handle_next_unit_signals(wanted_team):
     if wanted_team != name: return
-    move_next_unit()
+    await move_next_unit()
 
 func build_unit_in(city):
     var new_unit = $units.create(city.my_team, city.position)
-    new_unit.enter_city(city)
+    await new_unit.enter_city(city)
 
 func is_done():
     return units.are_done()
 
 func refill_moves():
-    units.refill_moves()
+    await units.refill_moves()
 
 func move_next_unit():
-    print("ERROR: override this stub in a subclass")
+    print("WARNING: ignoring stub call to move_next_unit for team ", self)

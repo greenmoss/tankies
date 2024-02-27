@@ -18,6 +18,7 @@ func _city_resisted_unit(attacker, defender):
             attacker.my_team)
         return
 
+    SignalBus.battle_started.emit(attacker, defender)
     fighting = true
     attacker.start_fighting()
     $Target1.position = attacker.position
@@ -28,6 +29,7 @@ func _city_resisted_unit(attacker, defender):
     await $Target2.damaged
     defender.surrender()
     attacker.request_move_into_city(defender)
+    SignalBus.battle_finished.emit(attacker, defender)
 
 func _unit_attacked_unit(attacker, defender):
     if(attacker.my_team == defender.my_team):
@@ -38,6 +40,7 @@ func _unit_attacked_unit(attacker, defender):
             attacker.my_team)
         return
 
+    SignalBus.battle_started.emit(attacker, defender)
     fighting = true
     attacker.start_fighting()
     defender.start_fighting()
@@ -50,6 +53,7 @@ func _unit_attacked_unit(attacker, defender):
     await $Target2.destroyed
     $Boom.play()
     fighting = false
-    attacker.stop_fighting()
+    await attacker.stop_fighting()
     # TBD: pop up message
-    defender.disband()
+    await defender.disband()
+    SignalBus.battle_finished.emit(attacker, defender)

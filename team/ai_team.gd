@@ -17,32 +17,42 @@ func move():
     paused = false
     if selected_unit == null:
         selected_unit = units.get_next()
-        assign_move(selected_unit)
+        # no active units, so pause ai
+        if selected_unit == null:
+            pause()
+            return
+        await run_ai_moves(selected_unit)
 
-func assign_move(unit):
+func run_ai_moves(unit):
+    while unit.has_more_moves():
+        await run_ai_single_move(unit)
+        if unit.is_queued_for_deletion(): return
+
+func run_ai_single_move(unit):
+
+    var enemy_unit: Area2D = await enemy_units.get_first()
+    # temporary until we get city attack logic
+    if enemy_unit == null:
+        await unit.reduce_moves()
+        return
+
+    var move_direction: Vector2 = (unit.position - enemy_unit.position).normalized()
+    var move_text = ''
+    if(move_direction[0] > 0):
+        move_text = "left"
+    elif(move_direction[1] > 0):
+        move_text = "up"
+    elif(move_direction[0] < 0):
+        move_text = "right"
+    elif(move_direction[1] < 0):
+        move_text = "down"
+    await unit.request_move(move_text)
+
     if unit.is_moving():
         await unit.finished_movement
 
-    var enemy_unit: Area2D = enemy_units.get_first()
-    if enemy_unit == null:
-        unit.reduce_moves()
-        return
+    if unit.is_fighting():
+        await SignalBus.battle_finished
 
-    var move_direction: Vector2 = (selected_unit.position - enemy_unit.position).normalized()
-    print("ai team moving unit ",selected_unit, " at coords ",unit.position, " to attack unit ",enemy_unit, " at coords ",enemy_unit.position, "at direction ",move_direction)
-    if(move_direction[0] > 0):
-        unit.request_move("left")
-        selected_unit = null
-        return
-    if(move_direction[1] > 0):
-        unit.request_move("up")
-        selected_unit = null
-        return
-    if(move_direction[0] < 0):
-        unit.request_move("right")
-        selected_unit = null
-        return
-    if(move_direction[1] < 0):
-        unit.request_move("down")
-        selected_unit = null
-        return
+func move_next_unit():
+    move()

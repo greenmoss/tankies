@@ -31,7 +31,7 @@ func are_done():
     return false
 
 func start():
-    ai_team.pause()
-    ai_team.refill_moves()
-    human_team.refill_moves()
+    await ai_team.pause()
+    await ai_team.refill_moves()
+    await human_team.refill_moves()
     human_team.move()

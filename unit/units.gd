@@ -15,12 +15,14 @@ func create(team_name, coordinates):
     return(new_unit)
 
 func get_first() -> Area2D:
-    if get_child_count() == 0:
-        return(null)
-    return(get_children()[0])
+    for unit in get_children():
+        if unit.is_queued_for_deletion(): continue
+        return(unit)
+    return(null)
 
 func get_next() -> Area2D:
     for unit in get_children():
+        if unit.is_queued_for_deletion(): continue
         if unit.has_more_moves():
             return(unit)
     # not units with moves
@@ -31,8 +33,8 @@ func select_next():
     if unit == null:
         return
     SignalBus.units_selected_next.emit(unit)
-    unit.select_me()
+    await unit.select_me()
 
 func refill_moves():
     for unit in get_children():
-        unit.refill_moves()
+        await unit.refill_moves()

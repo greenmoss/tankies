@@ -29,7 +29,6 @@ func _unit_disbanded(unit):
         return
 
     if not is_instance_valid(selected_unit):
-        print("here1")
         deselect_unit()
         return
 
