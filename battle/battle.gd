@@ -55,5 +55,6 @@ func _unit_attacked_unit(attacker, defender):
     fighting = false
     await attacker.stop_fighting()
     # TBD: pop up message
-    await defender.disband()
+    if is_instance_valid(defender):
+        await defender.disband()
     SignalBus.battle_finished.emit(attacker, defender)

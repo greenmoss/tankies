@@ -71,8 +71,8 @@ func _on_countdown_timeout():
     damaged.emit()
 
     if not blows_up: return
-    destroyed.emit()
     $explosion.show()
     $explosion.play()
     await $explosion.animation_finished
+    destroyed.emit()
     $explosion.hide()
