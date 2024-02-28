@@ -1,8 +1,10 @@
 extends Node
 
 func build_units():
-    # only human cities build units for now
+    # only human and ai cities build units, not neutral
     for city in make_team_queue(Global.human_team):
+        city.build_unit()
+    for city in make_team_queue(Global.ai_team):
         city.build_unit()
 
 func make_team_queue(team_name):

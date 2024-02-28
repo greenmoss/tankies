@@ -26,7 +26,8 @@ func move():
 func run_ai_moves(unit):
     while unit.has_more_moves():
         await run_ai_single_move(unit)
-        if unit.is_queued_for_deletion(): return
+        if unit.is_queued_for_deletion(): break
+    selected_unit = null
 
 func run_ai_single_move(unit):
 
