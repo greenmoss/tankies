@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bufvbk6y65jkb"]
+[gd_scene load_steps=23 format=3 uid="uid://bufvbk6y65jkb"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_555vv"]
 [ext_resource type="Texture2D" uid="uid://dtvh1ni0qoylk" path="res://world/grasslands.png" id="1_oiwoi"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bjftff5tujhp2" path="res://battle/target.tscn" id="15_kgld4"]
 [ext_resource type="AudioStream" uid="uid://dsm5ba5uleamw" path="res://battle/245372__quaker540__hq-explosion.wav" id="16_g2frl"]
 [ext_resource type="AudioStream" uid="uid://dsxpcakhsi8bk" path="res://battle/far_off_battle.wav" id="17_51lqp"]
+[ext_resource type="AudioStream" uid="uid://byicytvkaueha" path="res://world/varyag_war_drum.ogg" id="20_bch13"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kqt2o"]
 texture = ExtResource("1_oiwoi")
@@ -104,6 +105,7 @@ sources/3 = SubResource("TileSetAtlasSource_kqt2o")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_555vv")
+auto_start = true
 
 [node name="Terrain" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_g70uw")
@@ -204,5 +206,9 @@ stream = ExtResource("16_g2frl")
 
 [node name="FarOffBattle" type="AudioStreamPlayer" parent="battle"]
 stream = ExtResource("17_51lqp")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_bch13")
+volume_db = -1.874
 
 [connection signal="timeout" from="turns/banner/CoolDownTimer" to="turns/banner" method="_on_cool_down_timer_timeout"]

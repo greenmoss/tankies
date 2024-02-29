@@ -1,11 +1,21 @@
 extends Node2D
 
+@export var auto_start : bool
+
+var music_tween : Tween
+var fade_out_time = 0.25
+
+func _ready():
+    if(auto_start): start()
+
+func _on_introduction_faded_out():
+    start()
+
 func _physics_process(_delta):
     var winner = check_winner()
     if(winner != null):
         SignalBus.team_won.emit(winner, $turns.turn_number)
-        $turns.stop()
-        set_physics_process(false)
+        stop()
 
 func check_winner():
     var teams_with_cities = []
@@ -16,3 +26,18 @@ func check_winner():
     if(teams_with_cities.size() != 1):
         return null
     return(teams_with_cities[0])
+
+func stop():
+    # fade music to silent and stop
+    if $Music.playing:
+        music_tween = create_tween()
+        music_tween.tween_property($Music, "volume_db", -80, fade_out_time)
+        await music_tween.finished
+        $Music.stop()
+
+    $turns.stop()
+    set_physics_process(false)
+
+func start():
+    $turns.enable()
+    $Music.play()

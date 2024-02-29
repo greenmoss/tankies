@@ -7,9 +7,9 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jbass")
 
-[node name="World" parent="." instance=ExtResource("1_oc00n")]
-visible = false
-
 [node name="Introduction" parent="." instance=ExtResource("2_ejf8v")]
 
-[connection signal="visibility_changed" from="Introduction" to="." method="_on_introduction_visibility_changed"]
+[node name="World" parent="." instance=ExtResource("1_oc00n")]
+auto_start = false
+
+[connection signal="faded_out" from="Introduction" to="World" method="_on_introduction_faded_out"]

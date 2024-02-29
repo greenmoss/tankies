@@ -10,6 +10,7 @@ var start_next_turn : bool
 @export var teams: Node
 
 func _ready():
+    disable()
     previous_turn_number = -1
     turn_number = 0
     start_next_turn = true
@@ -34,9 +35,15 @@ func check_done():
     if teams.are_done():
         end()
 
+func enable():
+    set_physics_process(true)
+
 func end():
     start_next_turn = true
 
+func disable():
+    set_physics_process(false)
+
 func stop():
     'stop checking for next turn, e.g. game is over'
-    set_physics_process(false)
+    disable()

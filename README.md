@@ -15,8 +15,10 @@ Until there's a real "credits" screen in this game, tracking licensed art here:
 
 ### https://opengameart.org
 * 7-space-sounds: CC0 by Joth
+* Background music: `varyag_war_drum` CC-BY 3.0 by Tausdei
 * Bullet animation: CC-BY 4.0 by JoesAlotofthings
 * Explosion animation: CC0 by Cuzco
+* Intro music: `oga_secret_devastates` OGA-BY 3.0: SOUND AIRYLUVS by ISAo https://airyluvs.com/
 * Tank sounds: CC-BY 3.0 by qubodup
 
 # License
