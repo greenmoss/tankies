@@ -17,6 +17,9 @@ var in_city = null
 var sleep_turns = 0
 var movement_tween : Tween
 
+# path-finding
+var _path = PackedVector2Array()
+
 signal finished_fighting
 signal finished_movement
 
@@ -26,6 +29,7 @@ var moves_remaining
 @export var my_team = "NoTeam"
 
 @onready var ray = $RayCast2D
+#@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 func _on_mouse_entered():
     SignalBus.mouse_entered_unit.emit(self)

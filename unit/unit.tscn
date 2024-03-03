@@ -74,7 +74,6 @@ script = ExtResource("3_jpn2r")
 
 [node name="Move" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("3_3c04l")
-volume_db = 3.28
 
 [node name="Ready" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("5_hjqgu")
