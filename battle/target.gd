@@ -17,7 +17,7 @@ func _ready():
     randomize()
     blows_up = false
     cease_fire = true
-    boundary = floor(float(Global.tile_size) / 2)
+    boundary = int(floor(float(Global.tile_size) / 2))
     impact1 = $bullet_spray/impact1
     delay1 = $bullet_spray/impact1/delay
     impact2 = $bullet_spray/impact2

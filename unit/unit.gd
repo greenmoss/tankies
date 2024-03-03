@@ -186,7 +186,7 @@ func request_move_into_unit(unit):
         await move_to_requested()
         return
 
-    await attack(unit)
+    attack(unit)
     await reduce_moves()
 
 func enter_city(city):
@@ -197,7 +197,7 @@ func enter_city(city):
     $Sprite2D.position = Vector2(-10, 10)
     #$Sprite2D.centered = false
 
-func leave_city(city):
+func leave_city():
     in_city = null
     # TODO: read this from resource, instead of hard coding here
     $Sprite2D.scale = Vector2(0.07, 0.07)
@@ -220,7 +220,7 @@ func move_to_requested():
 
 func move(direction):
     $Sounds.play_move()
-    await face_toward(direction)
+    face_toward(direction)
 
     movement_tween = create_tween()
     movement_tween.tween_property(self, "position",
@@ -236,7 +236,7 @@ func move(direction):
 
     if(in_city != null):
         if(position != in_city.position):
-            await leave_city(in_city)
+            await leave_city()
 
     await reduce_moves()
 
@@ -249,8 +249,8 @@ func reduce_moves():
 
 func assign_groups():
     modulate = Global.team_colors[my_team]
-    await add_to_group(my_team)
-    await add_to_group("Units")
+    add_to_group(my_team)
+    add_to_group("Units")
 
 func on_my_team() -> bool:
     # TODO: look for a better way to implement debugging overrides
