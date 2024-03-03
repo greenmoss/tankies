@@ -4,7 +4,7 @@ var unit_scene : PackedScene = preload("res://unit/unit.tscn")
 
 func are_done():
     for unit in get_children():
-        if unit.has_more_moves(): return false
+        if not unit.is_done(): return false
     return true
 
 func create(team_name, coordinates):

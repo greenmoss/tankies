@@ -108,6 +108,12 @@ func toggle_sleep():
 func is_awake() -> bool:
     return (sleep_turns == 0)
 
+func is_done() -> bool:
+    if has_more_moves(): return false
+    if is_moving(): return false
+    if is_fighting(): return false
+    return true
+
 func is_fighting() -> bool:
     return fighting
 
@@ -134,31 +140,34 @@ func request_move(direction):
         await move_to_requested()
         return
 
-    # TODO: get all ray collision targets
+    # get all ray collision targets
     # units can be inside other units or in cities, so ray can collide with multiple
     # technique from https://forum.godotengine.org/t/27326
-    # bug though: Godot dies on collision with terrain blocker, so currently I can not do this:
-    #var targets = []
-    #while ray.is_colliding():
-        #var target = ray.get_collider()
-        #targets.append(target)
-        #print("target is ", target)
-        #ray.add_exception(target)
-        #ray.force_raycast_update()
-    #for target in targets:
-        #ray.remove_exception(target)
+    var targets = []
+    while ray.is_colliding():
+        var target = ray.get_collider()
+        targets.append(target)
 
-    # something's there, find out what it is
-    # signal that we collided with it
-    var target = ray.get_collider()
-    SignalBus.unit_collided.emit(self, target)
+        if target is TileMap:
+            await deny_move()
+            return
 
-    if target.is_in_group("Cities"):
-        await request_move_into_city(target)
+        ray.add_exception(target)
+        ray.force_raycast_update()
+
+    var target_city : Area2D = null
+    var target_unit : Area2D = null
+    for target in targets:
+        ray.remove_exception(target)
+        if target.is_in_group("Cities"): target_city = target
+        if target.is_in_group("Units"): target_unit = target
+
+    if target_unit != null:
+        await request_move_into_unit(target_unit)
         return
 
-    if target.is_in_group("Units"):
-        await request_move_into_unit(target)
+    if target_city != null:
+        await request_move_into_city(target_city)
         return
 
     # fallback case
@@ -189,7 +198,6 @@ func enter_city(city):
     #$Sprite2D.centered = false
 
 func leave_city(city):
-    await city.vacated_by(self)
     in_city = null
     # TODO: read this from resource, instead of hard coding here
     $Sprite2D.scale = Vector2(0.07, 0.07)

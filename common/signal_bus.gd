@@ -13,7 +13,6 @@ signal mouse_exited_unit
 signal team_won
 
 signal unit_attacked_unit
-signal unit_collided
 signal unit_completed_moves
 signal unit_disbanded
 

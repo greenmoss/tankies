@@ -78,6 +78,7 @@ volume_db = 3.28
 
 [node name="Ready" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("5_hjqgu")
+volume_db = -21.549
 
 [node name="Denied" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("6_ejjmt")
