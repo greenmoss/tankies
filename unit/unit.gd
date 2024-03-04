@@ -72,6 +72,7 @@ func _ready():
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
     await refill_moves()
     await assign_groups()
+    _path.clear()
 
 func attack(defender):
     if(defender.my_team == my_team):

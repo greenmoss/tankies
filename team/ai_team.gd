@@ -6,11 +6,6 @@ class_name AiTeam
 var paused: bool
 var selected_unit: Area2D
 
-# AI targets this team's units
-@export var enemy_units: Node
-
-@export var _tile_map: TileMap
-
 func pause():
     selected_unit = null
     paused = true
@@ -33,7 +28,6 @@ func run_ai_moves(unit):
     selected_unit = null
 
 func run_ai_single_move(unit):
-
     var move_target: Area2D = await enemy_units.get_first()
 
     # temporary until we get city attack logic
@@ -42,12 +36,12 @@ func run_ai_single_move(unit):
         unit._path.clear()
         return
 
-    if not _tile_map.is_point_walkable(move_target.position):
+    if not terrain.is_point_walkable(move_target.position):
         await unit.reduce_moves()
         return
 
     if unit._path.is_empty():
-        unit._path = _tile_map.find_path(unit.position, move_target.position)
+        unit._path = terrain.find_path(unit.position, move_target.position)
 
     # target disappeared, so recalculate
     if not is_instance_valid(move_target):

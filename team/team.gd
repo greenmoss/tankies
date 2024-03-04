@@ -5,7 +5,11 @@ class_name Team
 @export var color : Color
 @export var controller: Global.Controllers
 
+@export var enemy_team: Team
+@export var terrain: TileMap
+
 var units : Node = null
+var enemy_units: Node = null
 
 func _ready():
     SignalBus.want_next_unit.connect(_handle_next_unit_signals)
@@ -14,6 +18,8 @@ func _ready():
     # if we are an instance in the world, find our units
     # otherwise, we are only a scene without units
     units = find_child('units', false)
+    if enemy_team != null:
+        enemy_units = enemy_team.units
 
 func _city_captured(city):
     if city.my_team != name: return
