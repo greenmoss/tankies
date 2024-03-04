@@ -4,6 +4,8 @@ extends Node2D
 
 var music_tween : Tween
 var fade_out_time = 0.25
+var start_epoch: float = 0.0
+var elapsed_seconds: float = 0.0
 
 func _ready():
     if(auto_start): start()
@@ -14,8 +16,7 @@ func _on_introduction_faded_out():
 func _physics_process(_delta):
     var winner = check_winner()
     if(winner != null):
-        SignalBus.team_won.emit(winner, $turns.turn_number)
-        stop()
+        win(winner)
 
 func check_winner():
     var teams_with_cities = []
@@ -27,7 +28,12 @@ func check_winner():
         return null
     return(teams_with_cities[0])
 
-func stop():
+func win(winner):
+    elapsed_seconds = Time.get_unix_time_from_system() - start_epoch
+
+    $turns.stop()
+    set_physics_process(false)
+
     # fade music to silent and stop
     if $Music.playing:
         music_tween = create_tween()
@@ -35,9 +41,9 @@ func stop():
         await music_tween.finished
         $Music.stop()
 
-    $turns.stop()
-    set_physics_process(false)
+    SignalBus.team_won.emit(winner, $turns.turn_number, $teams.summarize(), elapsed_seconds)
 
 func start():
+    start_epoch = Time.get_unix_time_from_system()
     $turns.enable()
     $Music.play()

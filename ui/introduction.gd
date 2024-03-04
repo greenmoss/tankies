@@ -10,8 +10,23 @@ signal faded_out
 func _ready():
     SignalBus.team_won.connect(_team_won)
 
-func _team_won(winning_team, turn_number):
-    fade_in("Victory!\n\nThe winner is\n\n"+winning_team+"\n\nOn turn "+str(turn_number))
+func _team_won(winning_team, turn_number, teams_summary, elapsed_seconds):
+    var game_over_template = '''
+    Game over!
+
+    The winner is {winner}
+
+    Turns: {turn_count}
+    Time Spent (HH:MM:SS): {elapsed}
+
+    Teams:
+    {teams_summary}
+    '''
+    var game_over_message = game_over_template.format(
+        {'winner': winning_team, 'turn_count': turn_number, 'elapsed': Time.get_time_string_from_unix_time(elapsed_seconds), 'teams_summary': "\n".join(teams_summary)}
+    )
+    fade_in(game_over_message)
+    #fade_in("Game over!\n\nThe winner is\n\n"+winning_team+"\n\nOn turn "+str(turn_number))
 
 func _on_button_pressed():
     fade_out()

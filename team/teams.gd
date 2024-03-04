@@ -35,3 +35,6 @@ func start():
     await ai_team.refill_moves()
     await human_team.refill_moves()
     human_team.move()
+
+func summarize() -> Array:
+    return [human_team.summarize(), ai_team.summarize()]
