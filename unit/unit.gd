@@ -129,7 +129,7 @@ func is_sleeping() -> bool:
     return (sleep_turns != 0)
 
 func request_move(direction):
-    if is_moving():
+    if is_fighting() or is_moving():
         return
 
     if not has_more_moves():

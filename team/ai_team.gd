@@ -6,26 +6,40 @@ class_name AiTeam
 var paused: bool
 var selected_unit: Area2D
 
+func _ready():
+    super._ready()
+    pause()
+
 func pause():
     selected_unit = null
     paused = true
 
+# asynchronous, thus assume repeated stacking calls
+# set flags to exit as needed
 func move():
     paused = false
+
     if selected_unit == null:
         selected_unit = units.get_next()
+
         # no active units, so pause ai
         if selected_unit == null:
             pause()
             return
-        await run_ai_moves(selected_unit)
 
-func run_ai_moves(unit):
-    while unit.has_more_moves():
-        await run_ai_single_move(unit)
-        if not is_instance_valid(unit): break
-        if unit.is_queued_for_deletion(): break
-    selected_unit = null
+    if not is_instance_valid(selected_unit):
+        selected_unit = null
+        return
+
+    if selected_unit.is_queued_for_deletion():
+        selected_unit = null
+        return
+
+    if not selected_unit.has_more_moves():
+        selected_unit = null
+        return
+
+    await run_ai_single_move(selected_unit)
 
 func run_ai_single_move(unit):
     var move_target: Area2D = await enemy_units.get_first()
@@ -34,6 +48,15 @@ func run_ai_single_move(unit):
     if move_target == null:
         await unit.reduce_moves()
         unit._path.clear()
+        return
+
+    # these two can happen after a battle where the target was destroyed
+    # consider the move invalid and try again
+    if not is_instance_valid(move_target):
+        return
+    if move_target.is_queued_for_deletion():
+        return
+    if move_target.is_fighting():
         return
 
     if not terrain.is_point_walkable(move_target.position):
