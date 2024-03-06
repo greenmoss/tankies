@@ -20,7 +20,7 @@ func _physics_process(_delta):
 
 func check_winner():
     var teams_with_cities = []
-    var city_owners = $cities.tally_owners()
+    var city_owners = $Map/cities.tally_owners()
     for team in city_owners.keys():
         if city_owners[team] == 0: continue
         if (team != Global.ai_team) and (team != Global.human_team): continue
