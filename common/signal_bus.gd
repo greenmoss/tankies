@@ -17,5 +17,3 @@ signal unit_completed_moves
 signal unit_disbanded
 
 signal units_selected_next
-
-signal want_next_unit

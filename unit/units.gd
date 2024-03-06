@@ -14,17 +14,38 @@ func create(team_name, coordinates):
     add_child(new_unit)
     return(new_unit)
 
+# this checks for cardinal distance on the map
+# terrain and obstacles are *NOT* considered
+func get_cardinal_closest_active(coords) -> Area2D:
+    var current_closest: Area2D = null
+    var current_distance: float = -1.0
+    for unit in get_children():
+        if not is_instance_valid(unit): continue
+        if unit.is_queued_for_deletion(): continue
+        if not unit.has_more_moves(): continue
+        if current_closest == null:
+            current_closest = unit
+            current_distance = coords.distance_to(unit.position)
+            continue
+        var new_distance: float = coords.distance_to(unit.position)
+        if(new_distance < current_distance):
+            current_closest = unit
+            current_distance = new_distance
+    return(current_closest)
+
 func get_first() -> Area2D:
     for unit in get_children():
+        if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
         return(unit)
     return(null)
 
 func get_next() -> Area2D:
     for unit in get_children():
+        if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
-        if unit.has_more_moves():
-            return(unit)
+        if not unit.has_more_moves(): continue
+        return(unit)
     # there are no units with moves, so return nothing
     return(null)
 

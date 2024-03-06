@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m744y4a4jmal"
-path="res://.godot/imported/wide_circle_gradient.png-eccd5fdf4cd8a6d443b02f7450ed344a.ctex"
+uid="uid://78uj1p8xjotd"
+path="res://.godot/imported/cursor_box.png-8b15d8eb78ad358ab9d744a843bef0b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/cursor/wide_circle_gradient.png"
-dest_files=["res://.godot/imported/wide_circle_gradient.png-eccd5fdf4cd8a6d443b02f7450ed344a.ctex"]
+source_file="res://team/cursor/cursor_box.png"
+dest_files=["res://.godot/imported/cursor_box.png-8b15d8eb78ad358ab9d744a843bef0b6.ctex"]
 
 [params]
 

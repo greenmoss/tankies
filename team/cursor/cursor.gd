@@ -6,11 +6,14 @@ var target_time = 0
 var target_duration = 0.75  # duration of the cursor target animation
 var units_under_mouse = {}
 var selected_unit : Area2D
-var controller_team = Global.human_team
+var controller_team
+
+signal want_next_unit
 
 func _ready():
     units_under_mouse = {}
     selected_unit = null
+    SignalBus.unit_completed_moves.connect(_unit_completed_moves)
     SignalBus.unit_disbanded.connect(_unit_disbanded)
     SignalBus.units_selected_next.connect(_units_selected_next)
     SignalBus.mouse_entered_unit.connect(_mouse_entered_unit)
@@ -22,39 +25,66 @@ func _physics_process(delta):
     target(delta)
 
 func _mouse_entered_unit(unit):
+    if not is_instance_valid(unit): return
+    if unit.is_queued_for_deletion(): return
+    if unit.my_team != controller_team: return
     units_under_mouse[unit] = true
 
 func _mouse_exited_unit(unit):
+    if not is_instance_valid(unit): return
     units_under_mouse[unit] = false
 
+func _unit_completed_moves(unit_team):
+    if unit_team != controller_team: return
+    signal_for_next_unit(null)
+    #SignalBus.cursor_wants_next_unit.emit(controller_team, position)
+
 func _unit_disbanded(unit):
-    if not is_instance_valid(selected_unit):
-        deselect_unit()
-        SignalBus.want_next_unit.emit(controller_team)
-        return
-
-    if selected_unit.is_queued_for_deletion():
-        deselect_unit()
-        SignalBus.want_next_unit.emit(controller_team)
-        return
-
-    if unit == selected_unit:
-        deselect_unit()
-        SignalBus.want_next_unit.emit(controller_team)
-        return
+    '''
+    If the disbanded unit was our current selected unit,
+    unmark the current unit, and request a new unit
+    '''
+    signal_for_next_unit(unit)
+    #SignalBus.cursor_wants_next_unit.emit(controller_team, position)
 
 func _unhandled_input(event):
     if event.is_action_pressed("click"):
-        select_unit(get_first_mouseover_unit())
+        var clicked_unit:Area2D = get_first_mouseover_unit()
+        if clicked_unit == null:
+             unmark_unit()
+             return
+        mark_unit(clicked_unit)
+        return
+
+    if event.is_action_pressed('next'):
+        signal_for_next_unit(selected_unit)
+        #SignalBus.cursor_wants_next_unit.emit(controller_team, position)
         return
 
     if try_input_to_unit(event):
         return
 
-    if event.is_action_pressed('next'):
-        SignalBus.want_next_unit.emit(controller_team)
+func signal_for_next_unit(previous_unit):
+    if previous_unit == null:
+        unmark_unit()
+        want_next_unit.emit(position)
         return
 
+    if not is_instance_valid(previous_unit):
+        unmark_unit()
+        want_next_unit.emit(position)
+        return
+
+    if previous_unit.is_queued_for_deletion():
+        unmark_unit()
+        want_next_unit.emit(position)
+        return
+
+    unmark_unit()
+    want_next_unit.emit(previous_unit.position)
+
+#TODO: just call this "send_input_to_unit -> void"
+# assume we already filtered out cursor keystrokes
 func try_input_to_unit(event) -> bool:
     if selected_unit == null:
         deactivate()
@@ -68,7 +98,7 @@ func try_input_to_unit(event) -> bool:
 
     # handle unit disappearing as result of move
     if not is_instance_valid(selected_unit):
-        deselect_unit()
+        unmark_unit()
         return true
 
     if selected_unit.is_active():
@@ -82,11 +112,11 @@ func try_input_to_unit(event) -> bool:
     return true
 
 func _units_selected_next(unit):
-    select_unit(unit)
+    mark_unit(unit)
 
-func select_unit(unit):
+func mark_unit(unit):
     if unit == null:
-        deselect_unit()
+        unmark_unit()
         return
     throbber_time = 0
     target_time = 0
@@ -95,7 +125,7 @@ func select_unit(unit):
     activate(unit.position)
     unit.select_me()
 
-func deselect_unit():
+func unmark_unit():
     selected_unit = null
     deactivate()
 

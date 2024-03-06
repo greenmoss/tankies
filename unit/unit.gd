@@ -51,10 +51,6 @@ func handle_cursor_input_event(event):
         await toggle_sleep()
         return
 
-    if event.is_action_pressed('next'):
-        SignalBus.want_next_unit.emit(self.my_team)
-        return
-
 func _ready():
     moves_per_turn = 2
     sleep_turns = 0

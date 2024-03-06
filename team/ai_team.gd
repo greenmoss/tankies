@@ -101,6 +101,3 @@ func run_ai_single_move(unit):
 
     if unit.is_fighting():
         await SignalBus.battle_finished
-
-func move_next_unit():
-    move()
