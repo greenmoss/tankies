@@ -35,6 +35,7 @@ func _battle_finished(winner, loser):
         return
 
 func _city_captured(city):
+    # handle neutral team, which has no units
     if city.my_team != name: return
     await move_next_unit()
 

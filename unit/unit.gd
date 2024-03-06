@@ -42,17 +42,6 @@ func _on_mouse_exited():
 func handle_cursor_input_event(event):
     if moving or fighting: return
 
-    if event.is_action_pressed("click"):
-        if on_my_team():
-            await select_me()
-            if is_sleeping():
-                await awaken()
-
-            return
-
-        $Sounds.play_denied()
-        return
-
     for direction in inputs.keys():
         if event.is_action_pressed(direction):
             await request_move(direction)
@@ -270,7 +259,12 @@ func deny_move():
     $Sounds.play_denied()
 
 func select_me():
-    $Sounds.play_ready()
+    if is_sleeping():
+        awaken()
+    if has_more_moves():
+        $Sounds.play_ready()
+    else:
+        deny_move()
 
 func deselect_me():
     $Sounds.stop_all()
@@ -285,5 +279,5 @@ func refill_moves():
         $Inactive.awaken()
 
 func disband():
-    SignalBus.unit_disbanded.emit(self)
     queue_free()
+    SignalBus.unit_disbanded.emit(self)

@@ -25,7 +25,7 @@ func get_next() -> Area2D:
         if unit.is_queued_for_deletion(): continue
         if unit.has_more_moves():
             return(unit)
-    # not units with moves
+    # there are no units with moves, so return nothing
     return(null)
 
 func select_next():

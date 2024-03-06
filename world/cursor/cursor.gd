@@ -28,15 +28,19 @@ func _mouse_exited_unit(unit):
     units_under_mouse[unit] = false
 
 func _unit_disbanded(unit):
-    if selected_unit == null:
-        return
-
     if not is_instance_valid(selected_unit):
         deselect_unit()
+        SignalBus.want_next_unit.emit(controller_team)
+        return
+
+    if selected_unit.is_queued_for_deletion():
+        deselect_unit()
+        SignalBus.want_next_unit.emit(controller_team)
         return
 
     if unit == selected_unit:
         deselect_unit()
+        SignalBus.want_next_unit.emit(controller_team)
         return
 
 func _unhandled_input(event):
@@ -79,7 +83,6 @@ func try_input_to_unit(event) -> bool:
 
 func _units_selected_next(unit):
     select_unit(unit)
-    activate(unit.position)
 
 func select_unit(unit):
     if unit == null:
@@ -89,6 +92,8 @@ func select_unit(unit):
     target_time = 0
     selected_unit = unit
     $big_circle.visible = true
+    activate(unit.position)
+    unit.select_me()
 
 func deselect_unit():
     selected_unit = null
