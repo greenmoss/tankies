@@ -37,15 +37,21 @@ func _mouse_exited_unit(unit):
 func _unit_completed_moves(unit_team):
     if unit_team != controller_team: return
     signal_for_next_unit(null)
-    #SignalBus.cursor_wants_next_unit.emit(controller_team, position)
 
-func _unit_disbanded(unit):
+func _unit_disbanded(ignored_unit):
     '''
-    If the disbanded unit was our current selected unit,
-    unmark the current unit, and request a new unit
+    Remove any invalid units that we are tracking.
+
+    If needed, signal to select a new unit.
     '''
-    signal_for_next_unit(unit)
-    #SignalBus.cursor_wants_next_unit.emit(controller_team, position)
+    var new_units_under_mouse = {}
+    for unit in units_under_mouse.keys():
+        if not is_instance_valid(unit): continue
+        if unit.is_queued_for_deletion(): continue
+        new_units_under_mouse[unit] = units_under_mouse[unit]
+    units_under_mouse = new_units_under_mouse
+    if not units_under_mouse.has(selected_unit):
+        signal_for_next_unit(null)
 
 func _unhandled_input(event):
     if event.is_action_pressed("click"):
@@ -58,7 +64,6 @@ func _unhandled_input(event):
 
     if event.is_action_pressed('next'):
         signal_for_next_unit(selected_unit)
-        #SignalBus.cursor_wants_next_unit.emit(controller_team, position)
         return
 
     if try_input_to_unit(event):
