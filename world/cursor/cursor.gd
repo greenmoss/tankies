@@ -1,7 +1,9 @@
 extends Sprite2D
 
-var time = 0
-var duration = 1.5  # duration of the cursor throbber animation
+var throbber_time = 0
+var throbber_duration = 1.5  # duration of the cursor throbber animation
+var target_time = 0
+var target_duration = 0.75  # duration of the cursor target animation
 var units_under_mouse = {}
 var selected_unit : Area2D
 var controller_team = Global.human_team
@@ -17,6 +19,7 @@ func _ready():
 func _physics_process(delta):
     if not visible: return
     throb(delta)
+    target(delta)
 
 func _mouse_entered_unit(unit):
     units_under_mouse[unit] = true
@@ -38,7 +41,7 @@ func _unit_disbanded(unit):
 
 func _unhandled_input(event):
     if event.is_action_pressed("click"):
-        selected_unit = select_first_mouseover_unit()
+        select_unit(get_first_mouseover_unit())
         return
 
     if try_input_to_unit(event):
@@ -64,22 +67,34 @@ func try_input_to_unit(event) -> bool:
         deselect_unit()
         return true
 
-    if selected_unit.is_moving():
+    if selected_unit.is_active():
         deactivate()
+        # immediately hide the big circle
+        # since presumably the human is already looking at this unit
+        $big_circle.visible = false
     else:
         activate(selected_unit.position)
 
     return true
 
 func _units_selected_next(unit):
-    selected_unit = unit
+    select_unit(unit)
     activate(unit.position)
+
+func select_unit(unit):
+    if unit == null:
+        deselect_unit()
+        return
+    throbber_time = 0
+    target_time = 0
+    selected_unit = unit
+    $big_circle.visible = true
 
 func deselect_unit():
     selected_unit = null
     deactivate()
 
-func select_first_mouseover_unit() -> Area2D:
+func get_first_mouseover_unit() -> Area2D:
     for unit in units_under_mouse.keys():
         if units_under_mouse[unit] == false: continue
         return(unit)
@@ -87,15 +102,23 @@ func select_first_mouseover_unit() -> Area2D:
 
 func throb(delta):
     # animate alpha
-    if time < duration:
-        time += delta
-        modulate.a = lerp(1.0, 0.25, time / duration)
+    if throbber_time < throbber_duration:
+        throbber_time += delta
+        modulate.a = lerp(1.0, 0.25, throbber_time / throbber_duration)
     else:
-        time = 0
+        throbber_time = 0
+
+func target(delta):
+    if not $big_circle.visible: return
+    target_time += delta
+    $big_circle.modulate.a = lerp(1.0, 0.25, target_time / target_duration)
+    if target_time > target_duration:
+        target_time = 0
+        $big_circle.visible = false
 
 func activate(new_position):
     if not visible:
-        time = 0
+        throbber_time = 0
     position = new_position
     visible = true
 

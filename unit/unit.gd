@@ -83,6 +83,7 @@ func attack(defender):
             my_team)
         return
     SignalBus.unit_attacked_unit.emit(self, defender)
+    await SignalBus.battle_finished
 
 func start_fighting():
     fighting = true
@@ -115,9 +116,11 @@ func is_awake() -> bool:
 
 func is_done() -> bool:
     if has_more_moves(): return false
-    if is_moving(): return false
-    if is_fighting(): return false
+    if is_active(): return false
     return true
+
+func is_active() -> bool:
+    return is_fighting() or is_moving()
 
 func is_fighting() -> bool:
     return fighting
@@ -129,7 +132,7 @@ func is_sleeping() -> bool:
     return (sleep_turns != 0)
 
 func request_move(direction):
-    if is_fighting() or is_moving():
+    if is_active():
         return
 
     if not has_more_moves():
@@ -191,7 +194,7 @@ func request_move_into_unit(unit):
         await move_to_requested()
         return
 
-    attack(unit)
+    await attack(unit)
     await reduce_moves()
 
 func enter_city(city):
