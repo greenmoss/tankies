@@ -38,7 +38,7 @@ func _unit_completed_moves(unit_team):
     if unit_team != controller_team: return
     signal_for_next_unit(null)
 
-func _unit_disbanded(ignored_unit):
+func _unit_disbanded(_unit):
     '''
     Remove any invalid units that we are tracking.
 
@@ -66,8 +66,11 @@ func _unhandled_input(event):
         signal_for_next_unit(selected_unit)
         return
 
-    if try_input_to_unit(event):
-        return
+    send_input_to_unit(event)
+    return
+
+func _units_selected_next(unit):
+    mark_unit(unit)
 
 func signal_for_next_unit(previous_unit):
     if previous_unit == null:
@@ -88,36 +91,31 @@ func signal_for_next_unit(previous_unit):
     unmark_unit()
     want_next_unit.emit(previous_unit.position)
 
-#TODO: just call this "send_input_to_unit -> void"
-# assume we already filtered out cursor keystrokes
-func try_input_to_unit(event) -> bool:
+func send_input_to_unit(event):
     if selected_unit == null:
         deactivate()
-        return false
-
-    if selected_unit.my_team != controller_team:
-        deactivate()
-        return false
+        return
 
     selected_unit.handle_cursor_input_event(event)
 
     # handle unit disappearing as result of move
     if not is_instance_valid(selected_unit):
         unmark_unit()
-        return true
+        return
 
     if selected_unit.is_active():
         deactivate()
         # immediately hide the big circle
         # since presumably the human is already looking at this unit
         $big_circle.visible = false
-    else:
-        activate(selected_unit.position)
 
-    return true
+    if selected_unit.is_fighting():
+        await selected_unit.finished_fighting
 
-func _units_selected_next(unit):
-    mark_unit(unit)
+    if selected_unit.is_moving():
+        await selected_unit.finished_movement
+
+    activate(selected_unit.position)
 
 func mark_unit(unit):
     if unit == null:

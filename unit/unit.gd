@@ -276,4 +276,6 @@ func refill_moves():
 
 func disband():
     queue_free()
+    # are we an invalid reference?
+    # If not, perhaps a listener can benefit from knowing what we were
     SignalBus.unit_disbanded.emit(self)
