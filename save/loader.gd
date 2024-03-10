@@ -15,7 +15,7 @@ func restore(save_name:String) -> SavedWorld:
     var data = load(full_save_path)
 
     cities.restore(data.cities)
-    #teams.restore(data.teams)
+    teams.restore(data.teams)
 
     return data
 

@@ -45,7 +45,9 @@ func summarize() -> String:
     return summary_template.format({'name': name, 'battles_won': battles_won, 'battles_lost': battles_lost})
 
 func restore(saved_team):
-    units.restore(saved_team.units)
+    var saved_units: Array = saved_team.saved_units
+    if saved_units.is_empty(): return
+    units.restore(saved_units)
 
 func save(saved: SavedWorld):
     units.save(saved)

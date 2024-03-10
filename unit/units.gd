@@ -61,6 +61,9 @@ func refill_moves():
     for unit in get_children():
         await unit.refill_moves()
 
+# team object saves units
+# func save()
+
 func restore(saved_units):
     for unit in get_children():
         self.remove_child(unit)
