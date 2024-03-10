@@ -3,7 +3,7 @@ class_name SavedWorld
 
 @export var cities: Array[SavedCity]
 @export var teams: Array[SavedTeam]
-@export var terrain: Array
+@export var terrain: SavedTerrain
 
 # properties below must be set by editing the scenario file
 @export var objective: String
@@ -18,3 +18,7 @@ func save_team(team: Team):
     saved_team.save(team)
     teams.append(saved_team)
 
+func save_terrain(previous_terrain: TileMap):
+    var saved_terrain = SavedTerrain.new()
+    saved_terrain.save(previous_terrain)
+    terrain = saved_terrain

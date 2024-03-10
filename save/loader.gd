@@ -8,6 +8,12 @@ class_name Loader
 @onready var terrain = world.terrain
 
 func get_full_path(save_name) -> String:
+    # TODO: figure out how to use this instead:
+    #get_script().resource_path
+    # currently returns
+    #res://save/loader.gd
+    # but we want
+    #res://save
     return 'res://save/scenarios/'+save_name+'.tres'
 
 func restore(save_name:String) -> SavedWorld:
@@ -16,22 +22,18 @@ func restore(save_name:String) -> SavedWorld:
 
     cities.restore(data.cities)
     teams.restore(data.teams)
+    terrain.restore(data.terrain)
 
     return data
 
 func save(save_name:String):
     var data = SavedWorld.new()
-    var full_save_path = get_full_path(save_name)
-    # clear any existing save file
-    # overwrites without asking!
-    ResourceSaver.save(data, full_save_path)
 
     cities.save(data)
     teams.save(data)
+    terrain.save(data)
 
-    var tile_map_layers = []
-    for layer_number in terrain.get_layers_count():
-        tile_map_layers.append(terrain.get("layer_"+str(layer_number)+"/tile_data"))
-    data.terrain = tile_map_layers
-
+    var full_save_path = get_full_path(save_name)
+    # clear any existing save file
+    # overwrites without asking!
     ResourceSaver.save(data, full_save_path)

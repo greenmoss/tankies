@@ -188,6 +188,7 @@ color = Color(1, 1, 1, 1)
 controller = 2
 
 [node name="units" type="Node" parent="teams/neutral"]
+script = ExtResource("8_4k8im")
 
 [node name="turns" type="Node" parent="." node_paths=PackedStringArray("cities", "teams") groups=["TurnsManager"]]
 script = ExtResource("5_tktke")

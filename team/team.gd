@@ -46,7 +46,6 @@ func summarize() -> String:
 
 func restore(saved_team):
     var saved_units: Array = saved_team.saved_units
-    if saved_units.is_empty(): return
     units.restore(saved_units)
 
 func save(saved: SavedWorld):

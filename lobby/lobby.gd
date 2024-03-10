@@ -5,7 +5,7 @@ class_name Lobby
 @onready var world = $World
 
 func _ready():
-    #loader.save('0-1-0')
+    #loader.save('1-2-1')
     var saved_world = loader.restore('0-1-0')
     $Introduction.set_message(saved_world.objective)
 

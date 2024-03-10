@@ -1,4 +1,5 @@
 extends TileMap
+class_name Terrain
 
 # heavily inspired by
 # https://github.com/godotengine/godot-demo-projects/tree/master/2d/navigation_astar
@@ -14,6 +15,9 @@ var _end_point = Vector2i()
 var _path = PackedVector2Array()
 
 func _ready():
+    set_astar()
+
+func set_astar():
     # Region should match the size of the playable area plus one (in tiles).
     # The playable area is 24x14 tiles
     _astar.region = Rect2i(0, 0, 25, 15)
@@ -48,3 +52,14 @@ func find_path(local_start_point, local_end_point):
     _path = _astar.get_point_path(_start_point, _end_point)
 
     return _path.duplicate()
+
+func save(saved: SavedWorld):
+    saved.save_terrain(self)
+
+func restore(saved_terrain: SavedTerrain):
+    clear()
+    var layer_number = 0
+    for saved_layer in saved_terrain.layers:
+        set("layer_"+str(layer_number)+"/tile_data", saved_layer)
+        layer_number += 1
+    set_astar()
