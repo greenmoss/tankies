@@ -9,6 +9,7 @@
 script = ExtResource("1_cbooc")
 
 [node name="Introduction" parent="." instance=ExtResource("2_i664r")]
+layer = 2
 
 [node name="World" parent="." instance=ExtResource("3_got4q")]
 auto_start = false
