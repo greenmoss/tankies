@@ -26,14 +26,13 @@ func _team_won(winning_team, turn_number, teams_summary, elapsed_seconds):
         {'winner': winning_team, 'turn_count': turn_number, 'elapsed': Time.get_time_string_from_unix_time(elapsed_seconds), 'teams_summary': "\n".join(teams_summary)}
     )
     fade_in(game_over_message)
-    #fade_in("Game over!\n\nThe winner is\n\n"+winning_team+"\n\nOn turn "+str(turn_number))
 
 func _on_button_pressed():
     fade_out()
 
 func fade_in(message):
     $Background/Button.hide()
-    $Background/Label.text = message
+    set_message(message)
     # start with transparent background
     $Background.modulate.a = 0.0
 
@@ -62,3 +61,6 @@ func fade_out():
     $Music.stop()
 
     faded_out.emit()
+
+func set_message(message):
+    $Background/Label.text = message

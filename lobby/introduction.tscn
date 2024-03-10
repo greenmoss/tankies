@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://t6cf0w8k2f4f"]
 
-[ext_resource type="Script" path="res://ui/introduction.gd" id="1_35xql"]
-[ext_resource type="AudioStream" uid="uid://n1q2b5lwftnm" path="res://ui/oga_secret_devastates.mp3" id="2_awbw0"]
+[ext_resource type="Script" path="res://lobby/introduction.gd" id="1_35xql"]
+[ext_resource type="AudioStream" uid="uid://n1q2b5lwftnm" path="res://lobby/oga_secret_devastates.mp3" id="2_awbw0"]
 
 [sub_resource type="SystemFont" id="SystemFont_bfihn"]
 subpixel_positioning = 0

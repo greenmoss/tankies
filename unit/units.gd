@@ -1,4 +1,5 @@
 extends Node
+class_name Units
 
 var unit_scene : PackedScene = preload("res://unit/unit.tscn")
 
@@ -59,3 +60,19 @@ func select_next():
 func refill_moves():
     for unit in get_children():
         await unit.refill_moves()
+
+func restore(saved_units):
+    for unit in get_children():
+        self.remove_child(unit)
+        unit.queue_free()
+
+    if(saved_units.is_empty()): return
+
+    var unit_template = unit_scene.instantiate()
+
+    for saved_unit in saved_units:
+        var unit = unit_template.duplicate()
+        saved_unit.restore(unit)
+        add_child(unit)
+
+    unit_template.queue_free()

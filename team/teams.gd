@@ -1,4 +1,5 @@
 extends Node
+class_name Teams
 
 var teams = []
 var teams_by_name = {}
@@ -38,3 +39,15 @@ func start():
 
 func summarize() -> Array:
     return [human_team.summarize(), ai_team.summarize()]
+
+func restore(saved_teams):
+    if(saved_teams.is_empty()): return
+
+    for saved_team in saved_teams:
+        for team in get_children():
+            if saved_team.name != team.name: continue
+            team.restore(saved_team)
+
+func save(saved: SavedWorld):
+    for team in get_children():
+        saved.save_team(team)

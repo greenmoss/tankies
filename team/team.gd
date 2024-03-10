@@ -1,5 +1,4 @@
 extends Node
-
 class_name Team
 
 @export var color : Color
@@ -44,3 +43,9 @@ func refill_moves():
 func summarize() -> String:
     var summary_template = "{name}: won battles - {battles_won}; lost battles - {battles_lost}"
     return summary_template.format({'name': name, 'battles_won': battles_won, 'battles_lost': battles_lost})
+
+func restore(saved_team):
+    units.restore(saved_team.units)
+
+func save(saved: SavedWorld):
+    units.save(saved)

@@ -1,4 +1,5 @@
 extends Node2D
+class_name World
 
 @export var auto_start : bool
 
@@ -6,6 +7,10 @@ var music_tween : Tween
 var fade_out_time = 0.25
 var start_epoch: float = 0.0
 var elapsed_seconds: float = 0.0
+
+@onready var cities = $Map/cities
+@onready var teams = $teams
+@onready var terrain = $Map/Terrain
 
 func _ready():
     if(auto_start): start()
@@ -20,7 +25,7 @@ func _physics_process(_delta):
 
 func check_winner():
     var teams_with_cities = []
-    var city_owners = $Map/cities.tally_owners()
+    var city_owners = cities.tally_owners()
     for team in city_owners.keys():
         if city_owners[team] == 0: continue
         if (team != Global.ai_team) and (team != Global.human_team): continue
@@ -42,7 +47,7 @@ func win(winner):
         await music_tween.finished
         $Music.stop()
 
-    SignalBus.team_won.emit(winner, $turns.turn_number, $teams.summarize(), elapsed_seconds)
+    SignalBus.team_won.emit(winner, $turns.turn_number, teams.summarize(), elapsed_seconds)
 
 func start():
     start_epoch = Time.get_unix_time_from_system()

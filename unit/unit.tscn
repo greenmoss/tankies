@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/engine_heavy_loop.mp3" id="3_3c04l"]
 [ext_resource type="Script" path="res://unit/Inactive.gd" id="3_dk2lf"]
 [ext_resource type="Script" path="res://unit/sounds.gd" id="3_jpn2r"]
-[ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://ui/theme.tres" id="3_wycgt"]
+[ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="4_d0ylj"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/cduckett-01-ready.mp3" id="5_hjqgu"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/denied.mp3" id="6_ejjmt"]
 
@@ -58,7 +58,7 @@ offset_right = 25.0
 offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_wycgt")
+theme = ExtResource("4_d0ylj")
 theme_override_constants/outline_size = -10
 theme_override_constants/line_spacing = -10
 theme_override_font_sizes/font_size = 40

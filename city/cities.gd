@@ -1,4 +1,7 @@
 extends Node
+class_name Cities
+
+var city_scene : PackedScene = preload("res://city/city.tscn")
 
 func build_units():
     # only human and ai cities build units, not neutral
@@ -21,3 +24,23 @@ func tally_owners():
             team_owners[city.my_team] = 0
         team_owners[city.my_team] += 1
     return(team_owners)
+
+func restore(saved_cities):
+    for city in get_children():
+        self.remove_child(city)
+        city.queue_free()
+
+    if(saved_cities.is_empty()): return
+
+    var city_template = city_scene.instantiate()
+
+    for saved_city in saved_cities:
+        var city = city_template.duplicate()
+        saved_city.restore(city)
+        add_child(city)
+
+    city_template.queue_free()
+
+func save(saved: SavedWorld):
+    for city in get_children():
+        saved.save_city(city)
