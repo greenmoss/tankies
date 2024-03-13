@@ -19,6 +19,9 @@ var scenarios = []
 
 func _ready():
     for scenario_file in DirAccess.get_files_at(scenarios_path):
+        # exported resources get ".remap" suffix; workaround:
+        # https://github.com/godotengine/godot/issues/66014#issuecomment-1832998685
+        if scenario_file.ends_with(".remap"): scenario_file = scenario_file.trim_suffix(".remap")
         var scenario = load(get_full_path(scenario_file))
         scenarios.append(scenario)
 
