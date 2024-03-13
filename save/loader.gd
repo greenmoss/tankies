@@ -7,14 +7,23 @@ class_name Loader
 @onready var teams = world.teams
 @onready var terrain = world.terrain
 
+# TODO: figure out how to use this instead:
+#get_script().resource_path
+# currently returns
+#res://save/loader.gd
+# but we want
+#res://save
+var scenarios_path = 'res://save/scenarios'
+
+var scenarios = []
+
+func _ready():
+    for scenario_file in DirAccess.get_files_at(scenarios_path):
+        var scenario = load(get_full_path(scenario_file))
+        scenarios.append(scenario)
+
 func get_full_path(save_name) -> String:
-    # TODO: figure out how to use this instead:
-    #get_script().resource_path
-    # currently returns
-    #res://save/loader.gd
-    # but we want
-    #res://save
-    return 'res://save/scenarios/'+save_name+'.tres'
+    return scenarios_path+'/'+save_name
 
 func restore(save_name:String) -> SavedWorld:
     var full_save_path = get_full_path(save_name)

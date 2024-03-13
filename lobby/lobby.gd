@@ -1,13 +1,22 @@
 extends Node2D
 class_name Lobby
 
+@onready var introduction = $Introduction
 @onready var loader = $Loader
 @onready var world = $World
 
-func _ready():
-    #loader.save('1-2-1')
-    var saved_world = loader.restore('0-1-0')
-    $Introduction.set_message(saved_world.objective)
+var selected_scenario_name: String
 
-func _on_introduction_visibility_changed():
-    world.show()
+func _ready():
+    SignalBus.introduction_pressed_start.connect(_introduction_pressed_start)
+    SignalBus.introduction_selected_scenario.connect(_introduction_selected_scenario)
+    introduction.set_scenarios(loader.scenarios)
+
+func _introduction_selected_scenario(scenario_name):
+    selected_scenario_name = scenario_name
+
+func _introduction_pressed_start():
+    loader.restore(selected_scenario_name)
+
+func _on_introduction_faded_out():
+    world.start()

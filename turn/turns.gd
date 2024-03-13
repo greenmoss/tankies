@@ -36,7 +36,11 @@ func check_done():
         end()
 
 func enable():
+    previous_turn_number = -1
+    turn_number = 0
+    start_next_turn = true
     set_physics_process(true)
+    start()
 
 func end():
     start_next_turn = true

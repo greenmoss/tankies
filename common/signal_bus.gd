@@ -7,6 +7,9 @@ signal city_captured
 signal city_requested_unit
 signal city_resisted_unit
 
+signal introduction_pressed_start
+signal introduction_selected_scenario
+
 signal mouse_entered_unit
 signal mouse_exited_unit
 

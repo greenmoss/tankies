@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SavedWorld" load_steps=10 format=3 uid="uid://dwh25pdv0uxls"]
+[gd_resource type="Resource" script_class="SavedWorld" load_steps=12 format=3 uid="uid://dwh25pdv0uxls"]
 
 [ext_resource type="Script" path="res://save/schema/saved_city.gd" id="1_7i074"]
 [ext_resource type="Script" path="res://save/schema/saved_world.gd" id="1_l3i4b"]
@@ -49,6 +49,7 @@ script = ExtResource("1_l3i4b")
 cities = Array[ExtResource("1_7i074")]([SubResource("Resource_a8e1e")])
 teams = Array[ExtResource("4_110p0")]([SubResource("Resource_cgk10"), SubResource("Resource_h2pem"), SubResource("Resource_npgkl")])
 terrain = SubResource("Resource_nrnq3")
+name = "The Beginning"
 objective = "Click on the green tank.
 
 Use the arrow keys to move the tank.

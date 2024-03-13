@@ -18,4 +18,4 @@ auto_start = false
 script = ExtResource("4_vne7r")
 world = NodePath("../World")
 
-[connection signal="faded_out" from="Introduction" to="World" method="_on_introduction_faded_out"]
+[connection signal="faded_out" from="Introduction" to="." method="_on_introduction_faded_out"]

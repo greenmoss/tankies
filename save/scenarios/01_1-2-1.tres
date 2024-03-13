@@ -80,6 +80,7 @@ script = ExtResource("1_sevky")
 cities = Array[ExtResource("1_mvhij")]([SubResource("Resource_lgtj0"), SubResource("Resource_x056j"), SubResource("Resource_gg37m"), SubResource("Resource_7lt3k")])
 teams = Array[ExtResource("4_lefdr")]([SubResource("Resource_i1kks"), SubResource("Resource_o4pad"), SubResource("Resource_yhlt3")])
 terrain = SubResource("Resource_nrnq3")
+name = "Enemy Alert"
 objective = "Watch out for the enemy on the other side of the screen.
 
 Take all of the neutral and enemy cities.

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://t6cf0w8k2f4f"]
+[gd_scene load_steps=9 format=3 uid="uid://t6cf0w8k2f4f"]
 
 [ext_resource type="Script" path="res://lobby/introduction.gd" id="1_35xql"]
 [ext_resource type="AudioStream" uid="uid://n1q2b5lwftnm" path="res://lobby/oga_secret_devastates.mp3" id="2_awbw0"]
+[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_skuq0"]
+[ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://team/cursor/cursor_box.png" id="3_c8bbn"]
 
 [sub_resource type="SystemFont" id="SystemFont_bfihn"]
 subpixel_positioning = 0
@@ -10,8 +12,14 @@ subpixel_positioning = 0
 font = SubResource("SystemFont_bfihn")
 font_size = 32
 
+[sub_resource type="Theme" id="Theme_is2cn"]
+
+[sub_resource type="Theme" id="Theme_pd0yc"]
+
 [node name="Introduction" type="CanvasLayer"]
 script = ExtResource("1_35xql")
+selected_icon = ExtResource("2_skuq0")
+deselected_icon = ExtResource("3_c8bbn")
 
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 8
@@ -29,17 +37,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0.133333, 0.337255, 0.133333, 1)
 
-[node name="Label" type="Label" parent="Background"]
+[node name="objective" type="Label" parent="Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -673.0
-offset_top = -477.0
-offset_right = 635.0
-offset_bottom = -86.0
+offset_left = -657.0
+offset_top = -504.0
+offset_right = 651.0
+offset_bottom = -90.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -50,21 +58,76 @@ label_settings = SubResource("LabelSettings_5yce5")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="Background"]
+[node name="start_button" type="Button" parent="Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -155.0
-offset_top = -50.0
-offset_right = 147.0
-offset_bottom = 48.0
+offset_left = -150.0
+offset_top = -49.0
+offset_right = 152.0
+offset_bottom = 49.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_is2cn")
 theme_override_font_sizes/font_size = 32
 text = "    Got it. Let's go!    "
+
+[node name="or_text" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -650.0
+offset_top = 119.0
+offset_right = 658.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "OR"
+label_settings = SubResource("LabelSettings_5yce5")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="choose_button" type="Button" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 237.0
+offset_right = 152.0
+offset_bottom = 335.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_is2cn")
+theme_override_font_sizes/font_size = 32
+text = "Choose another"
+
+[node name="scenario_chooser" type="ItemList" parent="Background"]
+visible = false
+layout_mode = 0
+offset_left = 755.0
+offset_top = 506.0
+offset_right = 1167.0
+offset_bottom = 1041.0
+theme = SubResource("Theme_pd0yc")
+theme_override_font_sizes/font_size = 30
+item_count = 3
+fixed_icon_size = Vector2i(40, 40)
+item_0/text = "item 1"
+item_0/icon = ExtResource("2_skuq0")
+item_1/text = "item 2"
+item_1/icon = ExtResource("3_c8bbn")
+item_2/text = "item 3"
+item_2/icon = ExtResource("3_c8bbn")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_awbw0")
@@ -72,4 +135,6 @@ autoplay = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
-[connection signal="pressed" from="Background/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Background/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Background/choose_button" to="." method="_on_choose_button_pressed"]
+[connection signal="item_selected" from="Background/scenario_chooser" to="." method="_on_scenario_chooser_item_selected"]

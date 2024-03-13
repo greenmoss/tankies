@@ -6,7 +6,11 @@ class_name SavedWorld
 @export var terrain: SavedTerrain
 
 # properties below must be set by editing the scenario file
+@export var name: String
 @export var objective: String
+
+func get_information() -> Dictionary:
+    return({'name': name, 'objective': objective, 'file_name': self.resource_path.get_file()})
 
 func save_city(city: City):
     var saved_city = SavedCity.new()

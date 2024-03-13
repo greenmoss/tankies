@@ -15,9 +15,6 @@ var elapsed_seconds: float = 0.0
 func _ready():
     if(auto_start): start()
 
-func _on_introduction_faded_out():
-    start()
-
 func _physics_process(_delta):
     var winner = check_winner()
     if(winner != null):
@@ -53,3 +50,4 @@ func start():
     start_epoch = Time.get_unix_time_from_system()
     $turns.enable()
     $Music.play()
+    set_physics_process(true)
