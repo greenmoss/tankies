@@ -50,3 +50,7 @@ func restore(saved_team):
 
 func save(saved: SavedWorld):
     units.save(saved)
+
+func tally_units() -> int:
+    # includes units being freed
+    return units.get_children().size()

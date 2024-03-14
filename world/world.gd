@@ -20,16 +20,23 @@ func _physics_process(_delta):
     if(winner != null):
         win(winner)
 
-func check_winner():
-    var teams_with_cities = []
-    var city_owners = cities.tally_owners()
-    for team in city_owners.keys():
-        if city_owners[team] == 0: continue
-        if (team != Global.ai_team) and (team != Global.human_team): continue
-        teams_with_cities.append(team)
-    if(teams_with_cities.size() != 1):
+func get_remaining_team(team_tallies):
+    var remaining_team_tallies = []
+    for team in team_tallies.keys():
+        if team_tallies[team] == 0: continue
+        remaining_team_tallies.append(team)
+    if(remaining_team_tallies.size() != 1):
         return null
-    return(teams_with_cities[0])
+    return(remaining_team_tallies[0])
+
+func check_winner():
+    var unit_winner = get_remaining_team(teams.tally_units())
+    var city_winner = get_remaining_team(cities.tally_owners())
+
+    if city_winner != unit_winner:
+        return null
+
+    return(city_winner)
 
 func win(winner):
     elapsed_seconds = Time.get_unix_time_from_system() - start_epoch

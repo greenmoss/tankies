@@ -11,8 +11,9 @@ var default_team = "NoTeam"
 ## open cities do not resist capture
 @export var open = false
 
-var build_duration :int = 4
-var build_remaining :int = build_duration
+var build_duration = 4
+var build_remaining: int = build_duration
+var defense_strength = 1
 
 func _ready():
     SignalBus.city_captured.connect(_city_captured)

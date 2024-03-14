@@ -15,7 +15,7 @@ var facing = 0 # default/right
 var requested_direction = null
 var in_city = null
 var sleep_turns = 0
-var movement_tween : Tween
+var movement_tween: Tween
 
 # path-finding
 var _path = PackedVector2Array()
@@ -23,9 +23,11 @@ var _path = PackedVector2Array()
 signal finished_fighting
 signal finished_movement
 
-@export var moves_per_turn = 2
-var moves_remaining
+var moves_remaining: int
+var attack_strength = 4
+var defense_strength = 2
 
+@export var moves_per_turn = 2
 @export var my_team = "NoTeam"
 
 @onready var ray = $RayCast2D

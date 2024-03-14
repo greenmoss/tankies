@@ -51,3 +51,9 @@ func restore(saved_teams):
 func save(saved: SavedWorld):
     for team in get_children():
         saved.save_team(team)
+
+func tally_units() -> Dictionary:
+    var team_units = {}
+    for team in get_children():
+        team_units[team.name] = team.tally_units()
+    return team_units
