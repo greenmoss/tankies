@@ -11,3 +11,5 @@ data_*/
 html5
 *.zip
 **/.DS_Store
+
+deploy_config.sh
