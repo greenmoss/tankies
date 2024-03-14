@@ -11,4 +11,4 @@ export itch_version=$(butler status $itch_project:html5 | grep html5 | cut -d '|
 
 # if we don't already have it, set local git tag
 export itch_local_tag=itch-html5-$itch_version
-git tag -l | grep $itch_local_tag | git tag $itch_local_tag
+git tag -l | grep $itch_local_tag || git tag $itch_local_tag
