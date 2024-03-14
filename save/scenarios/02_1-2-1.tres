@@ -81,8 +81,8 @@ cities = Array[ExtResource("1_mvhij")]([SubResource("Resource_lgtj0"), SubResour
 teams = Array[ExtResource("4_lefdr")]([SubResource("Resource_i1kks"), SubResource("Resource_o4pad"), SubResource("Resource_yhlt3")])
 terrain = SubResource("Resource_nrnq3")
 name = "Enemy Alert"
-objective = "Watch out for the enemy on the other side of the screen.
+objective = "Capture all cities.
 
-Take all of the neutral and enemy cities.
+The enemy has a city, producing enemy tanks.
 
 Do not let the enemy take your cities."
