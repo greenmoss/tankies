@@ -107,7 +107,6 @@ sources/3 = SubResource("TileSetAtlasSource_kqt2o")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_555vv")
-auto_start = true
 
 [node name="Map" type="Node2D" parent="."]
 

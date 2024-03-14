@@ -3,7 +3,6 @@ class_name Lobby
 
 @onready var introduction = $Introduction
 @onready var loader = $Loader
-@onready var world = $World
 
 var selected_scenario_name: String
 
@@ -23,4 +22,4 @@ func _introduction_pressed_start():
     loader.restore(selected_scenario_name)
 
 func _on_introduction_faded_out():
-    world.start()
+    loader.world.start()

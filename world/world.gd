@@ -1,19 +1,15 @@
 extends Node2D
 class_name World
 
-@export var auto_start : bool
-
 var music_tween : Tween
 var fade_out_time = 0.25
-var start_epoch: float = 0.0
+var start_epoch = Time.get_unix_time_from_system()
 var elapsed_seconds: float = 0.0
 
 @onready var cities = $Map/cities
 @onready var teams = $teams
 @onready var terrain = $Map/Terrain
-
-func _ready():
-    if(auto_start): start()
+@onready var fresh = true
 
 func _physics_process(_delta):
     var winner = check_winner()
@@ -38,6 +34,9 @@ func check_winner():
 
     return(city_winner)
 
+func is_fresh():
+    return fresh
+
 func win(winner):
     elapsed_seconds = Time.get_unix_time_from_system() - start_epoch
 
@@ -54,6 +53,7 @@ func win(winner):
     SignalBus.team_won.emit(winner, $turns.turn_number, teams.summarize(), elapsed_seconds)
 
 func start():
+    fresh = false
     start_epoch = Time.get_unix_time_from_system()
     $turns.enable()
     $Music.play()

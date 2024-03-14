@@ -11,11 +11,8 @@ script = ExtResource("1_cbooc")
 [node name="Introduction" parent="." instance=ExtResource("2_i664r")]
 layer = 2
 
-[node name="World" parent="." instance=ExtResource("3_got4q")]
-auto_start = false
-
-[node name="Loader" type="Node" parent="." node_paths=PackedStringArray("world")]
+[node name="Loader" type="Node" parent="."]
 script = ExtResource("4_vne7r")
-world = NodePath("../World")
+world_scene = ExtResource("3_got4q")
 
 [connection signal="faded_out" from="Introduction" to="." method="_on_introduction_faded_out"]
