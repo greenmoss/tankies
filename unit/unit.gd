@@ -1,21 +1,28 @@
 extends Area2D
+#extends "state.gd"
 
 class_name Unit
 
-var inputs = {
-    "right": Vector2.RIGHT,
-    "left": Vector2.LEFT,
-    "up": Vector2.UP,
-    "down": Vector2.DOWN,
-    }
-var move_animation_speed = 10
+#REF
+#var inputs = {
+#    "right": Vector2.RIGHT,
+#    "left": Vector2.LEFT,
+#    "up": Vector2.UP,
+#    "down": Vector2.DOWN,
+#    }
+#var move_animation_speed = 10
 var fighting = false
 var moving = false
 var facing = 0 # default/right
 var requested_direction = null
 var in_city = null
 var sleep_turns = 0
-var movement_tween: Tween
+#REF
+#var movement_tween: Tween
+
+# if we are running this scene as an instantiated child, this is false
+# set to true for debugging, e.g. to test cursor input
+var standalone: bool
 
 # path-finding
 var _path = PackedVector2Array()
@@ -26,12 +33,15 @@ signal finished_movement
 var moves_remaining: int
 var attack_strength = 4
 var defense_strength = 2
+var look_direction = Vector2.RIGHT
 
 @export var moves_per_turn = 2
 @export var my_team = "NoTeam"
 
 @onready var ray = $RayCast2D
-#@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var sounds = $Sounds
+@onready var sprite = $Sprite2D
+@onready var inactive = $Inactive
 
 func _on_mouse_entered():
     SignalBus.mouse_entered_unit.emit(self)
@@ -39,21 +49,35 @@ func _on_mouse_entered():
 func _on_mouse_exited():
     SignalBus.mouse_exited_unit.emit(self)
 
+# when we are debugging, e.g. in a standalone scene
+# assume all input is for us, since there's no cursor
+func _unhandled_input(event):
+    if not standalone: return
+    handle_cursor_input_event(event)
+
 # the cursor chooses who gets the events
-# thus, we do not use _unhandle_input() here
+# thus, we do not use _unhandled_input() here
 func handle_cursor_input_event(event):
-    if moving or fighting: return
+    $state.handle_cursor_input(event)
 
-    for direction in inputs.keys():
-        if event.is_action_pressed(direction):
-            await request_move(direction)
-            return
+    #REF
+    #if moving or fighting: return
 
-    if event.is_action_pressed('sleep'):
-        await toggle_sleep()
-        return
+    #for direction in inputs.keys():
+    #    if event.is_action_pressed(direction):
+    #        await request_move(direction)
+    #        return
+
+    #if event.is_action_pressed('sleep'):
+    #    await toggle_sleep()
+    #    return
 
 func _ready():
+    # for debugging
+    if self.owner == null:
+        standalone = true
+        position = Vector2(80,80)
+
     moves_per_turn = 2
     sleep_turns = 0
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
@@ -118,55 +142,56 @@ func is_moving() -> bool:
 func is_sleeping() -> bool:
     return (sleep_turns != 0)
 
-func request_move(direction):
-    if is_active():
-        return
-
-    if not has_more_moves():
-        await deny_move()
-        return
-
-    requested_direction = direction
-    ray.target_position = inputs[direction] * Global.tile_size
-    ray.force_raycast_update()
-
-    # nothing's there, free to move
-    if not(ray.is_colliding()):
-        await move_to_requested()
-        return
-
-    # get all ray collision targets
-    # units can be inside other units or in cities, so ray can collide with multiple
-    # technique from https://forum.godotengine.org/t/27326
-    var targets = []
-    while ray.is_colliding():
-        var target = ray.get_collider()
-        targets.append(target)
-
-        if target is TileMap:
-            await deny_move()
-            return
-
-        ray.add_exception(target)
-        ray.force_raycast_update()
-
-    var target_city : Area2D = null
-    var target_unit : Area2D = null
-    for target in targets:
-        ray.remove_exception(target)
-        if target.is_in_group("Cities"): target_city = target
-        if target.is_in_group("Units"): target_unit = target
-
-    if target_unit != null:
-        await request_move_into_unit(target_unit)
-        return
-
-    if target_city != null:
-        await request_move_into_city(target_city)
-        return
-
-    # fallback case
-    await deny_move()
+#REF
+#func request_move(direction):
+#    if is_active():
+#        return
+#
+#    if not has_more_moves():
+#        await deny_move()
+#        return
+#
+#    requested_direction = direction
+#    ray.target_position = inputs[direction] * Global.tile_size
+#    ray.force_raycast_update()
+#
+#    # nothing's there, free to move
+#    if not(ray.is_colliding()):
+#        await move_to_requested()
+#        return
+#
+#    # get all ray collision targets
+#    # units can be inside other units or in cities, so ray can collide with multiple
+#    # technique from https://forum.godotengine.org/t/27326
+#    var targets = []
+#    while ray.is_colliding():
+#        var target = ray.get_collider()
+#        targets.append(target)
+#
+#        if target is TileMap:
+#            await deny_move()
+#            return
+#
+#        ray.add_exception(target)
+#        ray.force_raycast_update()
+#
+#    var target_city : Area2D = null
+#    var target_unit : Area2D = null
+#    for target in targets:
+#        ray.remove_exception(target)
+#        if target.is_in_group("Cities"): target_city = target
+#        if target.is_in_group("Units"): target_unit = target
+#
+#    if target_unit != null:
+#        await request_move_into_unit(target_unit)
+#        return
+#
+#    if target_city != null:
+#        await request_move_into_city(target_city)
+#        return
+#
+#    # fallback case
+#    await deny_move()
 
 func request_move_into_city(city):
     if city.is_open_to_team(my_team):
@@ -192,20 +217,21 @@ func enter_city(city):
     $Sprite2D.position = Vector2(-10, 10)
     #$Sprite2D.centered = false
 
-func leave_city():
-    in_city = null
-    # TODO: read this from resource, instead of hard coding here
-    $Sprite2D.scale = Vector2(0.07, 0.07)
-    $Sprite2D.position = Vector2(0, 0)
-    #$Sprite2D.centered = true
+#REF
+#func leave_city():
+#    in_city = null
+#    # TODO: read this from resource, instead of hard coding here
+#    $Sprite2D.scale = Vector2(0.07, 0.07)
+#    $Sprite2D.position = Vector2(0, 0)
+#    #$Sprite2D.centered = true
 
-func face_toward(direction):
-    if(direction == "right"):
-        $Sprite2D.flip_h = false
-        return
-    if(direction == "left"):
-        $Sprite2D.flip_h = true
-        return
+#func face_toward(direction):
+#    if(direction == "right"):
+#        $Sprite2D.flip_h = false
+#        return
+#    if(direction == "left"):
+#        $Sprite2D.flip_h = true
+#        return
 
 func move_to_requested():
     if(requested_direction == null):
@@ -213,38 +239,45 @@ func move_to_requested():
         return
     await move(requested_direction)
 
-func move(direction):
-    $Sounds.play_move()
-    face_toward(direction)
+#REF
+func move(_direction):
+    pass
+#func move(direction):
+#    $Sounds.play_move()
+#    face_toward(direction)
+#
+#    movement_tween = create_tween()
+#    movement_tween.tween_property(self, "position",
+#        position +
+#        inputs[direction] *
+#        Global.tile_size,
+#        1.0/move_animation_speed
+#        ).set_trans(Tween.TRANS_SINE)
+#    moving = true
+#    await movement_tween.finished
+#    finished_movement.emit()
+#    moving = false
+#
+#    if(in_city != null):
+#        if(position != in_city.position):
+#            await leave_city()
+#
+#    await reduce_moves()
 
-    movement_tween = create_tween()
-    movement_tween.tween_property(self, "position",
-        position +
-        inputs[direction] *
-        Global.tile_size,
-        1.0/move_animation_speed
-        ).set_trans(Tween.TRANS_SINE)
-    moving = true
-    await movement_tween.finished
-    finished_movement.emit()
-    moving = false
-
-    if(in_city != null):
-        if(position != in_city.position):
-            await leave_city()
-
-    await reduce_moves()
-
+#REF
 func reduce_moves():
-    moves_remaining -= 1
-    if not has_more_moves():
-        SignalBus.unit_completed_moves.emit(my_team)
-        await deselect_me()
-        $Inactive.done_moving()
+    pass
+#func reduce_moves():
+#    moves_remaining -= 1
+#    if not has_more_moves():
+#        SignalBus.unit_completed_moves.emit(my_team)
+#        await deselect_me()
+#        $Inactive.done_moving()
 
 func assign_groups():
-    modulate = Global.team_colors[my_team]
-    add_to_group(my_team)
+    if my_team != null:
+        modulate = Global.team_colors[my_team]
+        add_to_group(my_team)
     add_to_group("Units")
 
 func on_my_team() -> bool:
@@ -253,8 +286,11 @@ func on_my_team() -> bool:
         return true
     return false
 
+#REF
 func deny_move():
-    $Sounds.play_denied()
+    pass
+#func deny_move():
+#    $Sounds.play_denied()
 
 func select_me():
     if is_sleeping():
@@ -264,12 +300,18 @@ func select_me():
     else:
         deny_move()
 
+#REF
+#func deselect_me():
 func deselect_me():
-    $Sounds.stop_all()
+    pass
+#    $Sounds.stop_all()
 
+#REF
+#func has_more_moves():
 func has_more_moves():
-    if is_sleeping(): return false
-    return moves_remaining > 0
+    return false
+#    if is_sleeping(): return false
+#    return moves_remaining > 0
 
 func refill_moves():
     moves_remaining = moves_per_turn

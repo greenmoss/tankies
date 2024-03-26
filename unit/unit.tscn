@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=17 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
@@ -8,6 +8,13 @@
 [ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="4_d0ylj"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/cduckett-01-ready.mp3" id="5_hjqgu"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/denied.mp3" id="6_ejjmt"]
+[ext_resource type="Script" path="res://unit/state/unit_state_machine.gd" id="9_wvbuq"]
+[ext_resource type="Script" path="res://unit/state/states/attack.gd" id="10_a4mfw"]
+[ext_resource type="Script" path="res://unit/state/states/collide.gd" id="11_7dpcl"]
+[ext_resource type="Script" path="res://unit/state/states/end.gd" id="12_1wbwm"]
+[ext_resource type="Script" path="res://unit/state/states/idle.gd" id="13_7sran"]
+[ext_resource type="Script" path="res://unit/state/states/move.gd" id="14_0bjrh"]
+[ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="15_6ojmj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
@@ -16,6 +23,8 @@ size = Vector2(80, 80)
 editor_description = "A unit that can fight, move, or capture"
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_8naok")
+moves_per_turn = null
+my_team = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -81,6 +90,28 @@ volume_db = -21.549
 
 [node name="Denied" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("6_ejjmt")
+
+[node name="state" type="Node" parent="."]
+script = ExtResource("9_wvbuq")
+start_state = NodePath("idle")
+
+[node name="attack" type="Node" parent="state"]
+script = ExtResource("10_a4mfw")
+
+[node name="collide" type="Node" parent="state"]
+script = ExtResource("11_7dpcl")
+
+[node name="end" type="Node" parent="state"]
+script = ExtResource("12_1wbwm")
+
+[node name="idle" type="Node" parent="state"]
+script = ExtResource("13_7sran")
+
+[node name="move" type="Node" parent="state"]
+script = ExtResource("14_0bjrh")
+
+[node name="sleep" type="Node" parent="state"]
+script = ExtResource("15_6ojmj")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
