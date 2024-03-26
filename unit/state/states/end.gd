@@ -13,7 +13,7 @@ func handle_input(event):
     print("in state:end handle input: ",event)
 
     if event.is_action_pressed('sleep'):
-        emit_signal("finished", "sleep")
+        emit_signal("next_state", "sleep")
         return
     #owner.sounds.play_denied()
     #return super.handle_input(event)
@@ -24,4 +24,4 @@ func update(_delta):
     #print("in state:idle for unit ",self,", update")
     #var input_direction = get_input_direction()
     #if input_direction:
-    #    emit_signal("finished", "move")
+    #    emit_signal("next_state", "move")

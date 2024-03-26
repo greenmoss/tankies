@@ -21,7 +21,7 @@ func enter():
     owner.ray.force_raycast_update()
 
     if owner.ray.is_colliding():
-        emit_signal("finished", "collide")
+        emit_signal("next_state", "collide")
         return
 
     print("in state:move, no ray collision")
@@ -71,10 +71,10 @@ func leave_city():
 func reduce_moves():
     owner.moves_remaining -= 1
     if owner.moves_remaining <= 0:
-        emit_signal("finished", "end")
+        emit_signal("next_state", "end")
         return
 
-    emit_signal("finished", "idle")
+    emit_signal("next_state", "idle")
 
 
 func update(_delta):
@@ -82,7 +82,7 @@ func update(_delta):
     #print("in state:move update")
     #var input_direction = get_input_direction()
     #if input_direction.is_zero_approx():
-    #    emit_signal("finished", "idle")
+    #    emit_signal("next_state", "idle")
     #update_look_direction(input_direction)
 
     #REF

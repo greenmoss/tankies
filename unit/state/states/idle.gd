@@ -20,11 +20,11 @@ func handle_input(event):
         if event.is_action_pressed(direction):
             print("requested direction ",direction)
             owner.look_direction = inputs[direction]
-            emit_signal("finished", "move")
+            emit_signal("next_state", "move")
             return
 
     if event.is_action_pressed('sleep'):
-        emit_signal("finished", "sleep")
+        emit_signal("next_state", "sleep")
         return
     #return super.handle_input(event)
 
@@ -33,4 +33,4 @@ func update(_delta):
     #print("in state:idle for unit ",self,", update")
     #var input_direction = get_input_direction()
     #if input_direction:
-    #    emit_signal("finished", "move")
+    #    emit_signal("next_state", "move")

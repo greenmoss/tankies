@@ -25,7 +25,7 @@ func _enter_tree():
         start_state = get_child(0).get_path()
     for child in get_children():
         print("child is ",child)
-        var err = child.finished.connect(self._change_state)
+        var err = child.next_state.connect(self._change_state)
         if err:
             printerr(err)
     initialize(start_state)

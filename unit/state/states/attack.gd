@@ -6,4 +6,4 @@ func enter():
 
 
 #func _on_Sword_attack_finished():
-#    emit_signal("finished", "previous")
+#    emit_signal("next_state", "previous")

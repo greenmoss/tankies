@@ -4,7 +4,7 @@ extends Node
 # and makes sure every State object had all of these methods.
 
 # warning-ignore:unused_signal
-signal finished(next_state_name)
+signal next_state(next_state_name)
 
 # Initialize the state. E.g. change the animation.
 func enter():

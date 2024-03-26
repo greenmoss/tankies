@@ -15,4 +15,4 @@ func update(_delta):
     #print("in state:idle for unit ",self,", update")
     #var input_direction = get_input_direction()
     #if input_direction:
-    #    emit_signal("finished", "move")
+    #    emit_signal("next_state", "move")

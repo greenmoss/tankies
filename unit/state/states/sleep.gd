@@ -10,9 +10,9 @@ func handle_input(event):
     if event.is_action_pressed('sleep'):
         owner.inactive.awaken()
         if owner.moves_remaining > 0:
-            emit_signal("finished", "idle")
+            emit_signal("next_state", "idle")
         else:
-            emit_signal("finished", "end")
+            emit_signal("next_state", "end")
         return
 
 
