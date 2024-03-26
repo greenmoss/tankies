@@ -9,6 +9,8 @@ var inputs = {
 
 func enter():
     print("in state:idle enter")
+    #REF new intermediate state for "clicked on"?
+    #owner.sounds.play_ready()
     #owner.get_node(^"AnimationPlayer").play("idle")
 
 
@@ -19,8 +21,12 @@ func handle_input(event):
             print("requested direction ",direction)
             owner.look_direction = inputs[direction]
             emit_signal("finished", "move")
-    #return super.handle_input(event)
+            return
 
+    if event.is_action_pressed('sleep'):
+        emit_signal("finished", "sleep")
+        return
+    #return super.handle_input(event)
 
 func update(_delta):
     pass

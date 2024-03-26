@@ -103,46 +103,46 @@ func stop_fighting():
     fighting = false
     finished_fighting.emit()
 
-func awaken():
-    sleep_turns = 0
-    if has_more_moves():
-        $Inactive.awaken()
-    else:
-        $Inactive.done_moving()
-
-func go_to_sleep():
-    deselect_me()
-    sleep_turns = -1
-    $Inactive.sleep_infinity()
-    SignalBus.unit_completed_moves.emit(my_team)
-
-func toggle_sleep():
-    if is_sleeping():
-        await awaken()
-    else:
-        await go_to_sleep()
-
-func is_awake() -> bool:
-    return (sleep_turns == 0)
-
-func is_done() -> bool:
-    if has_more_moves(): return false
-    if is_active(): return false
-    return true
-
-func is_active() -> bool:
-    return is_fighting() or is_moving()
-
-func is_fighting() -> bool:
-    return fighting
-
-func is_moving() -> bool:
-    return moving
-
-func is_sleeping() -> bool:
-    return (sleep_turns != 0)
-
 #REF
+#func awaken():
+#    sleep_turns = 0
+#    if has_more_moves():
+#        $Inactive.awaken()
+#    else:
+#        $Inactive.done_moving()
+#
+#func go_to_sleep():
+#    deselect_me()
+#    sleep_turns = -1
+#    $Inactive.sleep_infinity()
+#    SignalBus.unit_completed_moves.emit(my_team)
+#
+#func toggle_sleep():
+#    if is_sleeping():
+#        await awaken()
+#    else:
+#        await go_to_sleep()
+#
+#func is_awake() -> bool:
+#    return (sleep_turns == 0)
+#
+#func is_done() -> bool:
+#    if has_more_moves(): return false
+#    if is_active(): return false
+#    return true
+#
+#func is_active() -> bool:
+#    return is_fighting() or is_moving()
+#
+#func is_fighting() -> bool:
+#    return fighting
+#
+#func is_moving() -> bool:
+#    return moving
+#
+#func is_sleeping() -> bool:
+#    return (sleep_turns != 0)
+#
 #func request_move(direction):
 #    if is_active():
 #        return
@@ -192,39 +192,38 @@ func is_sleeping() -> bool:
 #
 #    # fallback case
 #    await deny_move()
-
-func request_move_into_city(city):
-    if city.is_open_to_team(my_team):
-        await move_to_requested()
-        await enter_city(city)
-        return
-
-    await city.attacked_by(self)
-
-func request_move_into_unit(unit):
-    if unit.my_team == my_team:
-        await move_to_requested()
-        return
-
-    await attack(unit)
-    await reduce_moves()
-
-func enter_city(city):
-    await city.occupy_by(self)
-    in_city = city
-    $Sprite2D.scale = Vector2(0.05, 0.05)
-    # TODO: derive these from sprite/size properties instead of hard coding -10, etc
-    $Sprite2D.position = Vector2(-10, 10)
-    #$Sprite2D.centered = false
-
-#REF
+#
+#func request_move_into_city(city):
+#    if city.is_open_to_team(my_team):
+#        await move_to_requested()
+#        await enter_city(city)
+#        return
+#
+#    await city.attacked_by(self)
+#
+#func request_move_into_unit(unit):
+#    if unit.my_team == my_team:
+#        await move_to_requested()
+#        return
+#
+#    await attack(unit)
+#    await reduce_moves()
+#
+#func enter_city(city):
+#    await city.occupy_by(self)
+#    in_city = city
+#    $Sprite2D.scale = Vector2(0.05, 0.05)
+#    # TODO: derive these from sprite/size properties instead of hard coding -10, etc
+#    $Sprite2D.position = Vector2(-10, 10)
+#    #$Sprite2D.centered = false
+#
 #func leave_city():
 #    in_city = null
 #    # TODO: read this from resource, instead of hard coding here
 #    $Sprite2D.scale = Vector2(0.07, 0.07)
 #    $Sprite2D.position = Vector2(0, 0)
 #    #$Sprite2D.centered = true
-
+#
 #func face_toward(direction):
 #    if(direction == "right"):
 #        $Sprite2D.flip_h = false
@@ -232,16 +231,13 @@ func enter_city(city):
 #    if(direction == "left"):
 #        $Sprite2D.flip_h = true
 #        return
-
-func move_to_requested():
-    if(requested_direction == null):
-        print("Error! Avoiding move towards undefined direction")
-        return
-    await move(requested_direction)
-
-#REF
-func move(_direction):
-    pass
+#
+#func move_to_requested():
+#    if(requested_direction == null):
+#        print("Error! Avoiding move towards undefined direction")
+#        return
+#    await move(requested_direction)
+#
 #func move(direction):
 #    $Sounds.play_move()
 #    face_toward(direction)
@@ -263,10 +259,7 @@ func move(_direction):
 #            await leave_city()
 #
 #    await reduce_moves()
-
-#REF
-func reduce_moves():
-    pass
+#
 #func reduce_moves():
 #    moves_remaining -= 1
 #    if not has_more_moves():
@@ -287,36 +280,29 @@ func on_my_team() -> bool:
     return false
 
 #REF
-func deny_move():
-    pass
 #func deny_move():
 #    $Sounds.play_denied()
-
-func select_me():
-    if is_sleeping():
-        awaken()
-    if has_more_moves():
-        $Sounds.play_ready()
-    else:
-        deny_move()
-
-#REF
+#
+#func select_me():
+#    if is_sleeping():
+#        awaken()
+#    if has_more_moves():
+#        $Sounds.play_ready()
+#    else:
+#        deny_move()
+#
 #func deselect_me():
-func deselect_me():
-    pass
 #    $Sounds.stop_all()
-
-#REF
+#
 #func has_more_moves():
-func has_more_moves():
-    return false
 #    if is_sleeping(): return false
 #    return moves_remaining > 0
 
 func refill_moves():
     moves_remaining = moves_per_turn
-    if is_awake():
-        $Inactive.awaken()
+#REF
+#    if is_awake():
+#        $Inactive.awaken()
 
 func disband():
     queue_free()

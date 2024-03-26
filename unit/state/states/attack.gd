@@ -1,7 +1,7 @@
 extends "res://common/state.gd"
 
 func enter():
-    print("in state:move enter")
+    print("in state:attack enter")
     #owner.get_node(^"AnimationPlayer").play("idle")
 
 

@@ -11,6 +11,10 @@ func enter():
 
 func handle_input(event):
     print("in state:end handle input: ",event)
+
+    if event.is_action_pressed('sleep'):
+        emit_signal("finished", "sleep")
+        return
     #owner.sounds.play_denied()
     #return super.handle_input(event)
 
