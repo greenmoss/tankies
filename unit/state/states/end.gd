@@ -1,4 +1,4 @@
-extends "res://common/state.gd"
+extends "../common/idle.gd"
 
 
 func enter():
@@ -11,6 +11,13 @@ func enter():
 
 func handle_input(event):
     print("in state:end handle input: ",event)
+
+    for direction in input_directions.keys():
+        if event.is_action_pressed(direction):
+            print("requested direction ",direction)
+            owner.look_direction = input_directions[direction]
+            owner.sounds.play_denied()
+            return
 
     if event.is_action_pressed('sleep'):
         emit_signal("next_state", "sleep")

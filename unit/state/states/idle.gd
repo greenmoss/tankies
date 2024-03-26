@@ -1,11 +1,5 @@
-extends "res://common/state.gd"
+extends "../common/idle.gd"
 
-var inputs = {
-    "right": Vector2.RIGHT,
-    "left": Vector2.LEFT,
-    "up": Vector2.UP,
-    "down": Vector2.DOWN,
-    }
 
 func enter():
     print("in state:idle enter")
@@ -16,10 +10,10 @@ func enter():
 
 func handle_input(event):
     print("in state:idle handle input: ",event)
-    for direction in inputs.keys():
+    for direction in input_directions.keys():
         if event.is_action_pressed(direction):
             print("requested direction ",direction)
-            owner.look_direction = inputs[direction]
+            owner.look_direction = input_directions[direction]
             emit_signal("next_state", "move")
             return
 
