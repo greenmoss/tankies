@@ -1,5 +1,4 @@
 extends Area2D
-#extends "state.gd"
 
 class_name Unit
 
@@ -11,10 +10,10 @@ class_name Unit
 #    "down": Vector2.DOWN,
 #    }
 #var move_animation_speed = 10
-var fighting = false
-var moving = false
+#var fighting = false
+#var moving = false
+#var requested_direction = null
 var facing = 0 # default/right
-var requested_direction = null
 var in_city = null
 var sleep_turns = 0
 #REF
@@ -27,8 +26,10 @@ var standalone: bool
 # path-finding
 var _path = PackedVector2Array()
 
-signal finished_fighting
-signal finished_movement
+signal became_idle
+#REF
+#signal finished_fighting
+#signal finished_movement
 
 var moves_remaining: int
 var attack_strength = 4
@@ -38,10 +39,11 @@ var look_direction = Vector2.RIGHT
 @export var moves_per_turn = 2
 @export var my_team = "NoTeam"
 
+@onready var inactive = $Inactive
 @onready var ray = $RayCast2D
 @onready var sounds = $Sounds
 @onready var sprite = $Sprite2D
-@onready var inactive = $Inactive
+@onready var state = $state
 
 func _on_mouse_entered():
     SignalBus.mouse_entered_unit.emit(self)
@@ -58,7 +60,7 @@ func _unhandled_input(event):
 # the cursor chooses who gets the events
 # thus, we do not use _unhandled_input() here
 func handle_cursor_input_event(event):
-    $state.handle_cursor_input(event)
+    state.handle_cursor_input(event)
 
     #REF
     #if moving or fighting: return
@@ -85,25 +87,29 @@ func _ready():
     await assign_groups()
     _path.clear()
 
-func attack(defender):
-    if(defender.my_team == my_team):
-        print(
-            "Warning: refusing to attack unit ",
-            defender,
-            " already owned by, ",
-            my_team)
-        return
-    SignalBus.unit_attacked_unit.emit(self, defender)
-    await SignalBus.battle_finished
-
-func start_fighting():
-    fighting = true
-
-func stop_fighting():
-    fighting = false
-    finished_fighting.emit()
+func is_active() -> bool:
+    print("checking if active, state is ",state.current_state.name)
+    return state.current_state.name in ['attack', 'collide', 'move']
 
 #REF
+#func attack(defender):
+#    if(defender.my_team == my_team):
+#        print(
+#            "Warning: refusing to attack unit ",
+#            defender,
+#            " already owned by, ",
+#            my_team)
+#        return
+#    SignalBus.unit_attacked_unit.emit(self, defender)
+#    await SignalBus.battle_finished
+#
+#func start_fighting():
+#    fighting = true
+#
+#func stop_fighting():
+#    fighting = false
+#    finished_fighting.emit()
+#
 #func awaken():
 #    sleep_turns = 0
 #    if has_more_moves():
@@ -278,6 +284,9 @@ func on_my_team() -> bool:
     if Global.debug_select_any or my_team == Global.human_team:
         return true
     return false
+
+func select_me():
+    print("handling select")
 
 #REF
 #func deny_move():

@@ -108,12 +108,14 @@ func send_input_to_unit(event):
         # immediately hide the big circle
         # since presumably the human is already looking at this unit
         $big_circle.visible = false
+        await selected_unit.became_idle
 
-    if selected_unit.is_fighting():
-        await selected_unit.finished_fighting
+    #REF
+    #if selected_unit.is_fighting():
+    #    await selected_unit.finished_fighting
 
-    if selected_unit.is_moving():
-        await selected_unit.finished_movement
+    #if selected_unit.is_moving():
+    #    await selected_unit.finished_movement
 
     activate(selected_unit.position)
 

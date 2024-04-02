@@ -6,6 +6,7 @@ func enter():
     #REF new intermediate state for "clicked on"?
     #owner.sounds.play_ready()
     #owner.get_node(^"AnimationPlayer").play("idle")
+    owner.became_idle.emit()
 
 
 func handle_input(event):

@@ -15,7 +15,6 @@ func handle_input(event):
     for direction in input_directions.keys():
         if event.is_action_pressed(direction):
             print("requested direction ",direction)
-            owner.look_direction = input_directions[direction]
             owner.sounds.play_denied()
             return
 
