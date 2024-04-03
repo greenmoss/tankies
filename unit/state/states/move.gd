@@ -15,7 +15,7 @@ var movement_tween: Tween
 var move_animation_speed = 7.5
 
 func enter():
-    print("in state:move enter, moving toward ", owner.look_direction)
+    #print("in state:move enter, moving toward ", owner.look_direction)
 
     owner.ray.target_position = owner.look_direction * Global.tile_size
     owner.ray.force_raycast_update()
@@ -24,7 +24,7 @@ func enter():
         emit_signal("next_state", "collide")
         return
 
-    print("in state:move, no ray collision")
+    #print("in state:move, no ray collision")
 
     face_toward(owner.look_direction)
     owner.sounds.play_move()

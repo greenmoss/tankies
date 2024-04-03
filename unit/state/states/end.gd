@@ -2,7 +2,7 @@ extends "../common/idle.gd"
 
 
 func enter():
-    print("in state:end enter")
+    #print("in state:end enter")
     #owner.get_node(^"AnimationPlayer").play("idle")
     SignalBus.unit_completed_moves.emit(owner.my_team)
     owner.sounds.stop_all()
@@ -10,11 +10,11 @@ func enter():
 
 
 func handle_input(event):
-    print("in state:end handle input: ",event)
+    #print("in state:end handle input: ",event)
 
     for direction in input_directions.keys():
         if event.is_action_pressed(direction):
-            print("requested direction ",direction)
+            #print("requested direction ",direction)
             owner.sounds.play_denied()
             return
 

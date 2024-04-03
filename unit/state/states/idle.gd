@@ -2,7 +2,7 @@ extends "../common/idle.gd"
 
 
 func enter():
-    print("in state:idle enter")
+    #print("in state:idle enter")
     #REF new intermediate state for "clicked on"?
     #owner.sounds.play_ready()
     #owner.get_node(^"AnimationPlayer").play("idle")
@@ -10,10 +10,10 @@ func enter():
 
 
 func handle_input(event):
-    print("in state:idle handle input: ",event)
+    #print("in state:idle handle input: ",event)
     for direction in input_directions.keys():
         if event.is_action_pressed(direction):
-            print("requested direction ",direction)
+            #print("requested direction ",direction)
             owner.look_direction = input_directions[direction]
             emit_signal("next_state", "move")
             return

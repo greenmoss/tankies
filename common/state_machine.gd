@@ -24,7 +24,7 @@ func _enter_tree():
     if start_state.is_empty():
         start_state = get_child(0).get_path()
     for child in get_children():
-        print("child is ",child)
+        #print("child is ",child)
         var err = child.next_state.connect(self._change_state)
         if err:
             printerr(err)

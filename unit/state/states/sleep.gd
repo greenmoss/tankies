@@ -2,16 +2,16 @@ extends "../common/idle.gd"
 
 
 func enter():
-    print("in state:sleep enter")
+    #print("in state:sleep enter")
     owner.inactive.sleep_infinity()
 
 
 func handle_input(event):
-    print("in state:sleep handle input: ",event)
+    #print("in state:sleep handle input: ",event)
 
     for direction in input_directions.keys():
         if event.is_action_pressed(direction):
-            print("requested direction ",direction)
+            #print("requested direction ",direction)
             owner.sounds.play_denied()
             return
 

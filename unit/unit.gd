@@ -88,7 +88,7 @@ func _ready():
     _path.clear()
 
 func is_active() -> bool:
-    print("checking if active, state is ",state.current_state.name)
+    #print("checking if active, state is ",state.current_state.name)
     return state.current_state.name in ['attack', 'collide', 'move']
 
 #REF
@@ -306,6 +306,15 @@ func select_me():
 #func has_more_moves():
 #    if is_sleeping(): return false
 #    return moves_remaining > 0
+
+func has_more_moves() -> bool:
+    print("state is ",state.current_state.name)
+    if state.current_state.name in ['end', 'sleep']:
+        print("no more moves")
+        return false
+    print("has more moves")
+    return true
+    #return false
 
 func refill_moves():
     moves_remaining = moves_per_turn
