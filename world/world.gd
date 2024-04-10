@@ -11,6 +11,12 @@ var elapsed_seconds: float = 0.0
 @onready var terrain = $Map/Terrain
 @onready var fresh = true
 
+func _ready():
+    # if we are running this scene as an instantiated child, let the owner start
+    # otherwise we are in debugging mode, so start now
+    if self.owner == null:
+        start()
+
 func _physics_process(_delta):
     var winner = check_winner()
     if(winner != null):

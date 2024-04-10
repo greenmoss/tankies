@@ -308,11 +308,9 @@ func select_me():
 #    return moves_remaining > 0
 
 func has_more_moves() -> bool:
-    print("state is ",state.current_state.name)
     if state.current_state.name in ['end', 'sleep']:
         print("no more moves")
         return false
-    print("has more moves")
     return true
     #return false
 

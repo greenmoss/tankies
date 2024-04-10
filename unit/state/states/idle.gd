@@ -4,7 +4,9 @@ extends "../common/idle.gd"
 func enter():
     #print("in state:idle enter")
     #REF new intermediate state for "clicked on"?
-    #owner.sounds.play_ready()
+    if owner.sounds != null:
+        print("playing ready")
+        owner.sounds.play_ready()
     #owner.get_node(^"AnimationPlayer").play("idle")
     owner.became_idle.emit()
 
