@@ -46,7 +46,9 @@ func run_ai_single_move(unit):
 
     # temporary until we get city attack logic
     if move_target == null:
-        await unit.reduce_moves()
+        await unit.end_moves()
+        #REF
+        #await unit.reduce_moves()
         unit._path.clear()
         return
 
@@ -56,25 +58,31 @@ func run_ai_single_move(unit):
         return
     if move_target.is_queued_for_deletion():
         return
-    if move_target.is_fighting():
-        return
+    #REF
+    # Do we still need this? other side units should all be idle by now
+    #if move_target.is_fighting():
+    #    return
 
     if not terrain.is_point_walkable(move_target.position):
-        await unit.reduce_moves()
+        await unit.end_moves()
+        #REF
+        #await unit.reduce_moves()
         return
 
     if unit._path.is_empty():
         unit._path = terrain.find_path(unit.position, move_target.position)
 
-    # target disappeared, so recalculate
-    if not is_instance_valid(move_target):
-        unit._path.clear()
-        return
+    #REF
+    # not needed? targets should all be in "idle" by now
+    ## target disappeared, so recalculate
+    #if not is_instance_valid(move_target):
+    #    unit._path.clear()
+    #    return
 
-    # target moved, so recalculate
-    if move_target.position != unit._path[-1]:
-        unit._path.clear()
-        return
+    ## target moved, so recalculate
+    #if move_target.position != unit._path[-1]:
+    #    unit._path.clear()
+    #    return
 
     if unit.position == unit._path[0]:
         unit._path.remove_at(0)
@@ -83,21 +91,24 @@ func run_ai_single_move(unit):
     if unit._path.is_empty():
         return
 
-    var move_direction: Vector2 = (unit.position - unit._path[0]).normalized()
+    unit.move_toward(unit._path[0])
+    #REF
+    #var move_direction: Vector2 = (unit.position - unit._path[0]).normalized()
 
-    var move_text = ''
-    if(move_direction[0] > 0):
-        move_text = "left"
-    elif(move_direction[1] > 0):
-        move_text = "up"
-    elif(move_direction[0] < 0):
-        move_text = "right"
-    elif(move_direction[1] < 0):
-        move_text = "down"
-    await unit.request_move(move_text)
+    #var move_text = ''
+    #if(move_direction[0] > 0):
+    #    move_text = "left"
+    #elif(move_direction[1] > 0):
+    #    move_text = "up"
+    #elif(move_direction[0] < 0):
+    #    move_text = "right"
+    #elif(move_direction[1] < 0):
+    #    move_text = "down"
+    #await unit.request_move(move_text)
 
-    if unit.is_moving():
-        await unit.finished_movement
+    # not needed? unit should be in idle if we reach here
+    #if unit.is_moving():
+    #    await unit.finished_movement
 
-    if unit.is_fighting():
-        await SignalBus.battle_finished
+    #if unit.is_fighting():
+    #    await SignalBus.battle_finished

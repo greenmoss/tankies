@@ -273,6 +273,30 @@ func is_active() -> bool:
 #        await deselect_me()
 #        $Inactive.done_moving()
 
+func end_moves():
+    # ignore any remaining moves
+    # humans use "sleep", ai uses this instead
+    #REF
+    #print("in unit, checking state ",state.current_state, "; signal is ",state.current_state.next_state)
+    state.current_state.next_state.emit('end')
+
+func move_toward(new_position):
+    # NOTE: this makes no attempt at real path finding
+    # consequently, this is best used to move to a neighboring coordinate/position
+    var move_direction: Vector2 = (position - new_position).normalized()
+
+    var move_text = ''
+    if(move_direction[0] > 0):
+        look_direction = Vector2.LEFT
+    elif(move_direction[1] > 0):
+        look_direction = Vector2.UP
+    elif(move_direction[0] < 0):
+        look_direction = Vector2.RIGHT
+    else:
+        look_direction = Vector2.DOWN
+
+    state.current_state.next_state.emit('move')
+
 func assign_groups():
     if my_team != null:
         modulate = Global.team_colors[my_team]
@@ -309,7 +333,6 @@ func select_me():
 
 func has_more_moves() -> bool:
     if state.current_state.name in ['end', 'sleep']:
-        print("no more moves")
         return false
     return true
     #return false
