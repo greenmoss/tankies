@@ -1,19 +1,21 @@
 extends "res://common/state_machine.gd"
 
 @onready var attack = $attack
-@onready var collide = $collide
+#REF
+#@onready var collide = $collide
 @onready var end = $end
 # "ready" would be nice, but it's reserved
 @onready var idle = $idle
+@onready var look = $look
 @onready var move = $move
 @onready var sleep = $sleep
 
 func _ready():
     states_map = {
         "attack": attack,
-        "collide": collide,
         "end": end,
         "idle": idle,
+        "look": look,
         "move": move,
         "sleep": sleep,
     }
@@ -23,7 +25,7 @@ func _change_state(state_name):
     # The base state_machine interface this node extends does most of the work.
     if not _active:
         return
-    if state_name in ["attack"]:
+    if state_name in ["attack", "collide"]:
         states_stack.push_front(states_map[state_name])
     super._change_state(state_name)
 

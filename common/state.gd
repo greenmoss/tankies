@@ -6,6 +6,7 @@ extends Node
 # warning-ignore:unused_signal
 signal next_state(next_state_name)
 
+
 # Initialize the state. E.g. change the animation.
 func enter():
     pass

@@ -17,12 +17,13 @@ var move_animation_speed = 7.5
 func enter():
     #print("in state:move enter, moving toward ", owner.look_direction)
 
-    owner.ray.target_position = owner.look_direction * Global.tile_size
-    owner.ray.force_raycast_update()
+    #REF
+    #owner.ray.target_position = owner.look_direction * Global.tile_size
+    #owner.ray.force_raycast_update()
 
-    if owner.ray.is_colliding():
-        emit_signal("next_state", "collide")
-        return
+    #if owner.ray.is_colliding():
+    #    emit_signal("next_state", "collide")
+    #    return
 
     #print("in state:move, no ray collision")
 
@@ -41,7 +42,9 @@ func enter():
     #moving = false
 
     if(owner.in_city != null):
-        if(owner.position != owner.in_city.position):
+        if(owner.position == owner.in_city.position):
+            await enter_city()
+        else:
             await leave_city()
 
     reduce_moves()
@@ -58,6 +61,13 @@ func face_toward(direction):
 
 func handle_input(event):
     return super.handle_input(event)
+
+
+func enter_city():
+    owner.sprite.scale = Vector2(0.05, 0.05)
+    # TODO: derive these from sprite/size properties instead of hard coding -10, etc
+    owner.sprite.position = Vector2(-10, 10)
+    #$Sprite2D.centered = false
 
 
 func leave_city():

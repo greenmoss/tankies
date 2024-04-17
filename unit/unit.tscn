@@ -10,9 +10,9 @@
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/denied.mp3" id="6_ejjmt"]
 [ext_resource type="Script" path="res://unit/state/unit_state_machine.gd" id="9_wvbuq"]
 [ext_resource type="Script" path="res://unit/state/states/attack.gd" id="10_a4mfw"]
-[ext_resource type="Script" path="res://unit/state/states/collide.gd" id="11_7dpcl"]
 [ext_resource type="Script" path="res://unit/state/states/end.gd" id="12_1wbwm"]
 [ext_resource type="Script" path="res://unit/state/states/idle.gd" id="13_7sran"]
+[ext_resource type="Script" path="res://unit/state/states/look.gd" id="13_wfux8"]
 [ext_resource type="Script" path="res://unit/state/states/move.gd" id="14_0bjrh"]
 [ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="15_6ojmj"]
 
@@ -96,14 +96,14 @@ start_state = NodePath("idle")
 [node name="attack" type="Node" parent="state"]
 script = ExtResource("10_a4mfw")
 
-[node name="collide" type="Node" parent="state"]
-script = ExtResource("11_7dpcl")
-
 [node name="end" type="Node" parent="state"]
 script = ExtResource("12_1wbwm")
 
 [node name="idle" type="Node" parent="state"]
 script = ExtResource("13_7sran")
+
+[node name="look" type="Node" parent="state"]
+script = ExtResource("13_wfux8")
 
 [node name="move" type="Node" parent="state"]
 script = ExtResource("14_0bjrh")
