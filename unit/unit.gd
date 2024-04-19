@@ -269,13 +269,13 @@ func _ready():
 #        SignalBus.unit_completed_moves.emit(my_team)
 #        await deselect_me()
 #        $Inactive.done_moving()
-
-func end_moves():
-    # ignore any remaining moves
-    # humans use "sleep", ai uses this instead
-    #REF
-    #print("in unit, checking state ",state.current_state, "; signal is ",state.current_state.next_state)
-    state.current_state.next_state.emit('end')
+#
+#func end_moves():
+#    # ignore any remaining moves
+#    # humans use "sleep", ai uses this instead
+#    #REF
+#    #print("in unit, checking state ",state.current_state, "; signal is ",state.current_state.next_state)
+#    state.current_state.next_state.emit('end')
 
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding

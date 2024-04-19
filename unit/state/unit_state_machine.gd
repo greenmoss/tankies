@@ -26,6 +26,11 @@ func _ready():
     }
 
 
+func force_end():
+    # ignore any remaining moves
+    current_state.next_state.emit('end')
+
+
 func is_active() -> bool:
     #print("checking if active, state is ",state.current_state.name)
     return current_state.name in ['attack', 'move', 'look']

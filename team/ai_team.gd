@@ -50,7 +50,7 @@ func run_ai_single_move(unit):
 
     # temporary until we get city attack logic
     if move_target == null:
-        await unit.end_moves()
+        await unit.state.force_end()
         #REF
         #await unit.reduce_moves()
         unit._path.clear()
@@ -62,13 +62,14 @@ func run_ai_single_move(unit):
         return
     if move_target.is_queued_for_deletion():
         return
-    #REF
-    # Do we still need this? other side units should all be idle by now
-    #if move_target.is_fighting():
-    #    return
+
+    # we should never see this, because we should only be moving on our turn
+    if move_target.state.is_active():
+        print("WARNING: target unit ",move_target," is active, even though it is our turn")
+        return
 
     if not terrain.is_point_walkable(move_target.position):
-        await unit.end_moves()
+        await unit.state.force_end()
         #REF
         #await unit.reduce_moves()
         return
@@ -83,10 +84,10 @@ func run_ai_single_move(unit):
     #    unit._path.clear()
     #    return
 
-    ## target moved, so recalculate
-    #if move_target.position != unit._path[-1]:
-    #    unit._path.clear()
-    #    return
+    # target moved, so recalculate
+    if move_target.position != unit._path[-1]:
+        unit._path.clear()
+        return
 
     if unit.position == unit._path[0]:
         unit._path.remove_at(0)
