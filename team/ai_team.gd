@@ -35,8 +35,12 @@ func move():
         selected_unit = null
         return
 
-    if not selected_unit.has_more_moves():
+    if selected_unit.state.is_done():
         selected_unit = null
+        return
+
+    # if unit is moving/fighting/whatever, try again later
+    if selected_unit.state.is_active():
         return
 
     await run_ai_single_move(selected_unit)

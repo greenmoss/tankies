@@ -12,13 +12,38 @@ extends "res://common/state_machine.gd"
 
 func _ready():
     states_map = {
+        # active
         "attack": attack,
-        "end": end,
-        "idle": idle,
         "look": look,
         "move": move,
+
+        # done
+        "end": end,
         "sleep": sleep,
+
+        # idle
+        "idle": idle,
     }
+
+
+func is_active() -> bool:
+    #print("checking if active, state is ",state.current_state.name)
+    return current_state.name in ['attack', 'move', 'look']
+
+
+func is_idle() -> bool:
+    return current_state.name == 'idle'
+
+
+func is_done() -> bool:
+    return current_state.name in ['end', 'sleep']
+
+
+# typically used at the end of a turn
+func rotate():
+    if current_state.name == 'end':
+        current_state.next_state.emit('idle')
+    #pass
 
 
 func _change_state(state_name):

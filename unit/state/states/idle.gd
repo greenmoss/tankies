@@ -8,7 +8,6 @@ func enter():
         print("playing ready")
         owner.sounds.play_ready()
     #owner.get_node(^"AnimationPlayer").play("idle")
-    owner.became_idle.emit()
 
 
 func handle_input(event):
@@ -17,13 +16,15 @@ func handle_input(event):
         if event.is_action_pressed(direction):
             #print("requested direction ",direction)
             owner.look_direction = input_directions[direction]
-            emit_signal("next_state", "look")
+            emit_signal("next_state", "move")
             return
 
     if event.is_action_pressed('sleep'):
         emit_signal("next_state", "sleep")
         return
     #return super.handle_input(event)
+
+#func handle_move(move_direction):
 
 func update(_delta):
     pass

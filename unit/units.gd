@@ -5,7 +5,7 @@ var unit_scene : PackedScene = preload("res://unit/unit.tscn")
 
 func are_done():
     for unit in get_children():
-        if unit.has_more_moves(): return false
+        if not unit.state.is_done(): return false
         #REF
         #if not unit.is_done(): return false
     return true
@@ -25,7 +25,7 @@ func get_cardinal_closest_active(coords) -> Area2D:
     for unit in get_children():
         if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
-        if not unit.has_more_moves(): continue
+        if unit.state.is_done(): continue
         if current_closest == null:
             current_closest = unit
             current_distance = coords.distance_to(unit.position)
@@ -47,7 +47,7 @@ func get_next() -> Area2D:
     for unit in get_children():
         if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
-        if not unit.has_more_moves(): continue
+        if unit.state.is_done(): continue
         return(unit)
     # there are no units with moves, so return nothing
     return(null)

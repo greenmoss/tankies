@@ -31,3 +31,7 @@ func update(_delta):
     #var input_direction = get_input_direction()
     #if input_direction:
     #    emit_signal("next_state", "move")
+
+func exit():
+    if owner.moves_remaining > 0:
+        owner.inactive.awaken()

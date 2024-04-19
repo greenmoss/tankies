@@ -20,7 +20,19 @@ func _ready():
     SignalBus.mouse_exited_unit.connect(_mouse_exited_unit)
 
 func _physics_process(delta):
-    if not visible: return
+    if selected_unit == null:
+        unmark_unit()
+        return
+
+    if not is_instance_valid(selected_unit):
+        unmark_unit()
+        return
+
+    if selected_unit.state.is_active():
+        deactivate()
+        return
+
+    activate(selected_unit.position)
     throb(delta)
     target(delta)
 
@@ -93,22 +105,22 @@ func signal_for_next_unit(previous_unit):
 
 func send_input_to_unit(event):
     if selected_unit == null:
-        deactivate()
+        unmark_unit()
         return
 
-    selected_unit.handle_cursor_input_event(event)
+    #selected_unit.handle_cursor_input_event(event)
 
     # handle unit disappearing as result of move
     if not is_instance_valid(selected_unit):
         unmark_unit()
         return
 
-    if selected_unit.is_active():
+    if selected_unit.state.is_active():
         deactivate()
         # immediately hide the big circle
         # since presumably the human is already looking at this unit
-        $big_circle.visible = false
-        await selected_unit.became_idle
+        return
+        #await selected_unit.became_idle
 
     #REF
     #if selected_unit.is_fighting():
@@ -117,7 +129,8 @@ func send_input_to_unit(event):
     #if selected_unit.is_moving():
     #    await selected_unit.finished_movement
 
-    activate(selected_unit.position)
+    #activate(selected_unit.position)
+    selected_unit.handle_cursor_input_event(event)
 
 func mark_unit(unit):
     if unit == null:
@@ -164,3 +177,4 @@ func activate(new_position):
 
 func deactivate():
     visible = false
+    $big_circle.visible = false

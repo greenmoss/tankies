@@ -31,8 +31,10 @@ func _battle_finished(winner, loser):
         return
 
 func build_unit_in(city):
-    var new_unit = $units.create(city.my_team, city.position)
-    await new_unit.enter_city(city)
+    $units.create(city.my_team, city.position)
+    #REF
+    #var new_unit = $units.create(city.my_team, city.position)
+    #await new_unit.enter_city(city)
 
 func is_done():
     return units.are_done()

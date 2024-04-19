@@ -26,7 +26,6 @@ var standalone: bool
 # path-finding
 var _path = PackedVector2Array()
 
-signal became_idle
 #REF
 #signal finished_fighting
 #signal finished_movement
@@ -74,6 +73,7 @@ func handle_cursor_input_event(event):
     #    await toggle_sleep()
     #    return
 
+
 func _ready():
     # for debugging
     if self.owner == null:
@@ -87,9 +87,6 @@ func _ready():
     await assign_groups()
     _path.clear()
 
-func is_active() -> bool:
-    #print("checking if active, state is ",state.current_state.name)
-    return state.current_state.name in ['attack', 'collide', 'move']
 
 #REF
 #func attack(defender):
@@ -285,7 +282,6 @@ func move_toward(new_position):
     # consequently, this is best used to move to a neighboring coordinate/position
     var move_direction: Vector2 = (position - new_position).normalized()
 
-    var move_text = ''
     if(move_direction[0] > 0):
         look_direction = Vector2.LEFT
     elif(move_direction[1] > 0):
@@ -331,14 +327,9 @@ func select_me():
 #    if is_sleeping(): return false
 #    return moves_remaining > 0
 
-func has_more_moves() -> bool:
-    if state.current_state.name in ['end', 'sleep']:
-        return false
-    return true
-    #return false
-
 func refill_moves():
     moves_remaining = moves_per_turn
+    state.rotate()
 #REF
 #    if is_awake():
 #        $Inactive.awaken()
