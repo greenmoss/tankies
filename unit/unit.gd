@@ -44,17 +44,21 @@ var look_direction = Vector2.RIGHT
 @onready var icon = $Icon
 @onready var state = $state
 
+
 func _on_mouse_entered():
     SignalBus.mouse_entered_unit.emit(self)
 
+
 func _on_mouse_exited():
     SignalBus.mouse_exited_unit.emit(self)
+
 
 # when we are debugging, e.g. in a standalone scene
 # assume all input is for us, since there's no cursor
 func _unhandled_input(event):
     if not standalone: return
     handle_cursor_input_event(event)
+
 
 # the cursor chooses who gets the events
 # thus, we do not use _unhandled_input() here
@@ -277,6 +281,7 @@ func _ready():
 #    #print("in unit, checking state ",state.current_state, "; signal is ",state.current_state.next_state)
 #    state.current_state.next_state.emit('end')
 
+
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding
     # consequently, this is best used to move to a neighboring coordinate/position
@@ -293,11 +298,13 @@ func move_toward(new_position):
 
     state.current_state.next_state.emit('pre_move')
 
+
 func assign_groups():
     if my_team != null:
         modulate = Global.team_colors[my_team]
         add_to_group(my_team)
     add_to_group("Units")
+
 
 func on_my_team() -> bool:
     # TODO: look for a better way to implement debugging overrides
@@ -305,8 +312,15 @@ func on_my_team() -> bool:
         return true
     return false
 
+
 func select_me():
     print("handling select")
+
+
+func set_in_city(city:City):
+    in_city = city
+    icon.set_from_city()
+
 
 #REF
 #func deny_move():
@@ -327,12 +341,14 @@ func select_me():
 #    if is_sleeping(): return false
 #    return moves_remaining > 0
 
+
 func refill_moves():
     moves_remaining = moves_per_turn
     state.rotate()
 #REF
 #    if is_awake():
 #        $Inactive.awaken()
+
 
 func disband():
     queue_free()

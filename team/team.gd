@@ -30,8 +30,9 @@ func _battle_finished(winner, loser):
         battles_lost += 1
         return
 
-func build_unit_in(city):
-    $units.create(city.my_team, city.position)
+func build_unit_in(city:City):
+    var new_unit:Unit = $units.create(city.my_team, city.position)
+    new_unit.set_in_city(city)
     #REF
     #var new_unit = $units.create(city.my_team, city.position)
     #await new_unit.enter_city(city)
