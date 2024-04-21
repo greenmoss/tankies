@@ -12,8 +12,8 @@
 [ext_resource type="Script" path="res://unit/state/states/attack.gd" id="10_a4mfw"]
 [ext_resource type="Script" path="res://unit/state/states/end.gd" id="12_1wbwm"]
 [ext_resource type="Script" path="res://unit/state/states/idle.gd" id="13_7sran"]
-[ext_resource type="Script" path="res://unit/state/states/look.gd" id="13_wfux8"]
 [ext_resource type="Script" path="res://unit/state/states/move.gd" id="14_0bjrh"]
+[ext_resource type="Script" path="res://unit/state/states/pre_move.gd" id="14_ikruk"]
 [ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="15_6ojmj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
@@ -102,11 +102,11 @@ script = ExtResource("12_1wbwm")
 [node name="idle" type="Node" parent="state"]
 script = ExtResource("13_7sran")
 
-[node name="look" type="Node" parent="state"]
-script = ExtResource("13_wfux8")
-
 [node name="move" type="Node" parent="state"]
 script = ExtResource("14_0bjrh")
+
+[node name="pre_move" type="Node" parent="state"]
+script = ExtResource("14_ikruk")
 
 [node name="sleep" type="Node" parent="state"]
 script = ExtResource("15_6ojmj")

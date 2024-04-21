@@ -35,9 +35,15 @@ func enter():
 
     if target_unit != null:
         if owner.my_team == target_unit.my_team:
+
+            if target_city != null:
+                owner.in_city = target_city
+
             emit_signal("next_state", "move")
             return
 
+        # it does not matter if this would move us into a city
+        # we first have to destroy any enemy units, then check again
         emit_signal("next_state", "attack")
         return
 
