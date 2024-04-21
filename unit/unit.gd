@@ -75,8 +75,8 @@ func handle_cursor_input_event(event):
 
 
 func _ready():
-    # for debugging
-    if self.owner == null:
+    # when debugging, we are the root scene
+    if get_parent() == get_tree().root:
         standalone = true
         position = Vector2(80,80)
 

@@ -12,9 +12,8 @@ var elapsed_seconds: float = 0.0
 @onready var fresh = true
 
 func _ready():
-    # if we are running this scene as an instantiated child, let the owner start
-    # otherwise we are in debugging mode, so start now
-    if self.owner == null:
+    # if we are the root scene, we are debugging/standalone so start now
+    if get_parent() == get_tree().root:
         start()
 
 func _physics_process(_delta):
