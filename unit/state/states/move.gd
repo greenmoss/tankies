@@ -14,6 +14,7 @@ extends "res://common/state.gd"
 var movement_tween: Tween
 var move_animation_speed = 7.5
 
+
 func enter():
     #print("in state:move enter, moving toward ", owner.look_direction)
 
@@ -27,7 +28,6 @@ func enter():
 
     #print("in state:move, no ray collision")
 
-    face_toward(owner.look_direction)
     owner.sounds.play_move()
 
     movement_tween = create_tween()
@@ -42,40 +42,33 @@ func enter():
     #moving = false
 
     if(owner.in_city != null):
-        if(owner.position == owner.in_city.position):
-            await enter_city()
-        else:
-            await leave_city()
+        # moved out of city
+        if(owner.position != owner.in_city.position):
+            owner.in_city = null
+
+        owner.icon.set_from_city()
 
     reduce_moves()
-
-
-func face_toward(direction):
-    # if it's 0, maintain current facing
-    match int(direction.x):
-        -1:
-            owner.sprite.flip_h = true
-        1:
-            owner.sprite.flip_h = false
 
 
 func handle_input(event):
     return super.handle_input(event)
 
 
-func enter_city():
-    owner.sprite.scale = Vector2(0.05, 0.05)
-    # TODO: derive these from sprite/size properties instead of hard coding -10, etc
-    owner.sprite.position = Vector2(-10, 10)
-    #$Sprite2D.centered = false
-
-
-func leave_city():
-    owner.in_city = null
-    # TODO: read this from resource, instead of hard coding here
-    owner.sprite.scale = Vector2(0.07, 0.07)
-    owner.sprite.position = Vector2(0, 0)
-    #$Sprite2D.centered = true
+#REF
+#func enter_city():
+#    owner.sprite.scale = Vector2(0.05, 0.05)
+#    # TODO: derive these from sprite/size properties instead of hard coding -10, etc
+#    owner.sprite.position = Vector2(-10, 10)
+#    #$Sprite2D.centered = false
+#
+#
+#func leave_city():
+#    owner.in_city = null
+#    # TODO: read this from resource, instead of hard coding here
+#    owner.sprite.scale = Vector2(0.07, 0.07)
+#    owner.sprite.position = Vector2(0, 0)
+#    #$Sprite2D.centered = true
 
 
 func reduce_moves():

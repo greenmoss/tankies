@@ -41,7 +41,7 @@ var look_direction = Vector2.RIGHT
 @onready var inactive = $Inactive
 @onready var ray = $RayCast2D
 @onready var sounds = $Sounds
-@onready var sprite = $Sprite2D
+@onready var icon = $Icon
 @onready var state = $state
 
 func _on_mouse_entered():

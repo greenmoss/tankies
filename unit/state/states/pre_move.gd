@@ -1,6 +1,8 @@
 extends "res://common/state.gd"
 
 func enter():
+    face_toward(owner.look_direction)
+
     owner.ray.target_position = owner.look_direction * Global.tile_size
     owner.ray.force_raycast_update()
 
@@ -57,6 +59,10 @@ func enter():
 
     emit_signal("next_state", "attack")
     return
+
+
+func face_toward(direction):
+    owner.icon.set_from_direction()
 
 
 func handle_input(event):

@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=18 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/engine_heavy_loop.mp3" id="3_3c04l"]
 [ext_resource type="Script" path="res://unit/Inactive.gd" id="3_dk2lf"]
 [ext_resource type="Script" path="res://unit/sounds.gd" id="3_jpn2r"]
+[ext_resource type="Script" path="res://unit/Icon.gd" id="3_pj16b"]
 [ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="4_d0ylj"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/cduckett-01-ready.mp3" id="5_hjqgu"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/denied.mp3" id="6_ejjmt"]
@@ -23,15 +24,18 @@ size = Vector2(80, 80)
 editor_description = "A unit that can fight, move, or capture"
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_8naok")
+moves_per_turn = null
+my_team = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("RectangleShape2D_hbtie")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_e42fy")
+script = ExtResource("3_pj16b")
 
 [node name="Inactive" type="ColorRect" parent="."]
 visible = false
