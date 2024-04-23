@@ -9,21 +9,28 @@ extends "res://common/state_machine.gd"
 @onready var pre_move = $pre_move
 @onready var sleep = $sleep
 
+var active_states = {}
+var done_states = {}
+var idle_states = {}
+
 func _ready():
-    states_map = {
-        # active
+
+    active_states = {
         "attack": attack,
         "capture": capture,
         "move": move,
         "pre_move": pre_move,
-
-        # done
+    }
+    done_states = {
         "end": end,
         "sleep": sleep,
-
-        # idle
+    }
+    idle_states = {
         "idle": idle,
     }
+    states_map.merge(active_states)
+    states_map.merge(done_states)
+    states_map.merge(idle_states)
 
 
 func force_end():
@@ -32,22 +39,21 @@ func force_end():
 
 
 func is_active() -> bool:
-    return current_state.name in ['attack', 'capture', 'move', 'pre_move']
+    return current_state.name in active_states.keys()
 
 
 func is_idle() -> bool:
-    return current_state.name == 'idle'
+    return current_state.name in idle_states.keys()
 
 
 func is_done() -> bool:
-    return current_state.name in ['end', 'sleep']
+    return current_state.name in done_states.keys()
 
 
 # typically used at the end of a turn
 func rotate():
     if current_state.name == 'end':
         current_state.next_state.emit('idle')
-    #pass
 
 
 func _change_state(state_name):
