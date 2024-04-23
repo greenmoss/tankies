@@ -5,7 +5,7 @@ var throbber_duration = 1.5  # duration of the cursor throbber animation
 var target_time = 0
 var target_duration = 0.75  # duration of the cursor target animation
 var units_under_mouse = {}
-var selected_unit : Area2D
+var selected_unit: Unit
 var controller_team
 
 signal want_next_unit
@@ -32,6 +32,11 @@ func _physics_process(delta):
 
     if selected_unit.state.is_active():
         deactivate()
+        return
+
+    if selected_unit.state.current_state.name == 'sleep':
+        deactivate()
+        signal_for_next_unit(selected_unit)
         return
 
     activate(selected_unit.position)
@@ -74,11 +79,13 @@ func _unit_disbanded(_unit):
 
 func _unhandled_input(event):
     if event.is_action_pressed("click"):
-        var clicked_unit:Area2D = get_first_mouseover_unit()
+        var clicked_unit:Unit = get_first_mouseover_unit()
         if clicked_unit == null:
              unmark_unit()
              return
+
         mark_unit(clicked_unit)
+        send_input_to_unit(event)
         return
 
     if event.is_action_pressed('next'):
@@ -149,7 +156,7 @@ func unmark_unit():
     deactivate()
 
 
-func get_first_mouseover_unit() -> Area2D:
+func get_first_mouseover_unit() -> Unit:
     for unit in units_under_mouse.keys():
         if units_under_mouse[unit] == false: continue
         return(unit)
