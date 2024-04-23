@@ -1,4 +1,5 @@
-extends "res://common/state.gd"
+extends "../common/move.gd"
+
 
 var battle:Battle
 
@@ -27,20 +28,23 @@ func attack_city():
         emit_signal("next_state", "capture")
         return
 
-    # we lost
-    owner.disband()
-    return
+    lose()
 
 
 func attack_unit():
-    if(owner.target_city.my_team == owner.my_team):
+    if(owner.target_unit.my_team == owner.my_team):
         deny_invalid(owner.target_unit)
         return
 
-    print("battle against unit goes here")
-    owner.clear_targets()
-    emit_signal("next_state", "move")
-    return
+    battle.attack_unit(owner, owner.target_unit)
+    await SignalBus.battle_finished
+
+    if battle.winner == owner:
+        owner.clear_targets()
+        reduce_moves()
+        return
+
+    lose()
 
 
 func deny_invalid(target):
@@ -52,3 +56,9 @@ func deny_invalid(target):
     owner.sounds.play_denied()
     owner.clear_targets()
     emit_signal("next_state", "idle")
+
+
+func lose():
+    # Normally we expect battle to disband this unit
+    # but sometimes we get here, so handle this just in case
+    reduce_moves()
