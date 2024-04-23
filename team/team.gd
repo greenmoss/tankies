@@ -21,6 +21,7 @@ func _ready():
     if enemy_team != null:
         enemy_units = enemy_team.units
 
+
 func _battle_finished(winner, loser):
     if loser.is_in_group("Cities"): return
     if winner.my_team == name:
@@ -30,29 +31,33 @@ func _battle_finished(winner, loser):
         battles_lost += 1
         return
 
+
 func build_unit_in(city:City):
     var new_unit:Unit = $units.create(city.my_team, city.position)
     new_unit.set_in_city(city)
-    #REF
-    #var new_unit = $units.create(city.my_team, city.position)
-    #await new_unit.enter_city(city)
 
-func is_done():
+
+func is_done() -> bool:
     return units.are_done()
+
 
 func refill_moves():
     await units.refill_moves()
+
 
 func summarize() -> String:
     var summary_template = "{name}: won battles - {battles_won}; lost battles - {battles_lost}"
     return summary_template.format({'name': name, 'battles_won': battles_won, 'battles_lost': battles_lost})
 
+
 func restore(saved_team):
     var saved_units: Array = saved_team.saved_units
     units.restore(saved_units)
 
+
 func save(saved: SavedWorld):
     units.save(saved)
+
 
 func tally_units() -> int:
     # includes units being freed

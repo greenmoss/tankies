@@ -3,7 +3,6 @@ extends "../common/idle.gd"
 
 func enter():
     if owner.sounds != null:
-        print("playing ready")
         owner.sounds.play_ready()
 
 

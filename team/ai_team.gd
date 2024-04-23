@@ -51,8 +51,6 @@ func run_ai_single_move(unit):
     # temporary until we get city attack logic
     if move_target == null:
         await unit.state.force_end()
-        #REF
-        #await unit.reduce_moves()
         unit._path.clear()
         return
 
@@ -70,19 +68,10 @@ func run_ai_single_move(unit):
 
     if not terrain.is_point_walkable(move_target.position):
         await unit.state.force_end()
-        #REF
-        #await unit.reduce_moves()
         return
 
     if unit._path.is_empty():
         unit._path = terrain.find_path(unit.position, move_target.position)
-
-    #REF
-    # not needed? targets should all be in "idle" by now
-    ## target disappeared, so recalculate
-    #if not is_instance_valid(move_target):
-    #    unit._path.clear()
-    #    return
 
     # target moved, so recalculate
     if move_target.position != unit._path[-1]:
@@ -97,23 +86,3 @@ func run_ai_single_move(unit):
         return
 
     unit.move_toward(unit._path[0])
-    #REF
-    #var move_direction: Vector2 = (unit.position - unit._path[0]).normalized()
-
-    #var move_text = ''
-    #if(move_direction[0] > 0):
-    #    move_text = "left"
-    #elif(move_direction[1] > 0):
-    #    move_text = "up"
-    #elif(move_direction[0] < 0):
-    #    move_text = "right"
-    #elif(move_direction[1] < 0):
-    #    move_text = "down"
-    #await unit.request_move(move_text)
-
-    # not needed? unit should be in idle if we reach here
-    #if unit.is_moving():
-    #    await unit.finished_movement
-
-    #if unit.is_fighting():
-    #    await SignalBus.battle_finished

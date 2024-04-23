@@ -19,8 +19,6 @@ func enter():
         targets.append(target)
 
         if target is TileMap:
-            #REF
-            #await deny_move()
             owner.sounds.play_denied()
             emit_signal("next_state", "idle")
             return
@@ -38,6 +36,8 @@ func enter():
     if target_unit != null:
         if owner.my_team == target_unit.my_team:
 
+            # If one of our units in the city, the city must already belong to us
+            # So it is safe to assume we can move into the city
             if target_city != null:
                 owner.in_city = target_city
 

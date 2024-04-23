@@ -10,6 +10,7 @@ var controller_team
 
 signal want_next_unit
 
+
 func _ready():
     units_under_mouse = {}
     selected_unit = null
@@ -18,6 +19,7 @@ func _ready():
     SignalBus.units_selected_next.connect(_units_selected_next)
     SignalBus.mouse_entered_unit.connect(_mouse_entered_unit)
     SignalBus.mouse_exited_unit.connect(_mouse_exited_unit)
+
 
 func _physics_process(delta):
     if selected_unit == null:
@@ -36,19 +38,23 @@ func _physics_process(delta):
     throb(delta)
     target(delta)
 
+
 func _mouse_entered_unit(unit):
     if not is_instance_valid(unit): return
     if unit.is_queued_for_deletion(): return
     if unit.my_team != controller_team: return
     units_under_mouse[unit] = true
 
+
 func _mouse_exited_unit(unit):
     if not is_instance_valid(unit): return
     units_under_mouse[unit] = false
 
+
 func _unit_completed_moves(unit_team):
     if unit_team != controller_team: return
     signal_for_next_unit(null)
+
 
 func _unit_disbanded(_unit):
     '''
@@ -64,6 +70,7 @@ func _unit_disbanded(_unit):
     units_under_mouse = new_units_under_mouse
     if not units_under_mouse.has(selected_unit):
         signal_for_next_unit(null)
+
 
 func _unhandled_input(event):
     if event.is_action_pressed("click"):
@@ -81,8 +88,10 @@ func _unhandled_input(event):
     send_input_to_unit(event)
     return
 
+
 func _units_selected_next(unit):
     mark_unit(unit)
+
 
 func signal_for_next_unit(previous_unit):
     if previous_unit == null:
@@ -103,12 +112,11 @@ func signal_for_next_unit(previous_unit):
     unmark_unit()
     want_next_unit.emit(previous_unit.position)
 
+
 func send_input_to_unit(event):
     if selected_unit == null:
         unmark_unit()
         return
-
-    #selected_unit.handle_cursor_input_event(event)
 
     # handle unit disappearing as result of move
     if not is_instance_valid(selected_unit):
@@ -120,17 +128,9 @@ func send_input_to_unit(event):
         # immediately hide the big circle
         # since presumably the human is already looking at this unit
         return
-        #await selected_unit.became_idle
 
-    #REF
-    #if selected_unit.is_fighting():
-    #    await selected_unit.finished_fighting
-
-    #if selected_unit.is_moving():
-    #    await selected_unit.finished_movement
-
-    #activate(selected_unit.position)
     selected_unit.handle_cursor_input_event(event)
+
 
 func mark_unit(unit):
     if unit == null:
@@ -143,15 +143,18 @@ func mark_unit(unit):
     activate(unit.position)
     unit.select_me()
 
+
 func unmark_unit():
     selected_unit = null
     deactivate()
+
 
 func get_first_mouseover_unit() -> Area2D:
     for unit in units_under_mouse.keys():
         if units_under_mouse[unit] == false: continue
         return(unit)
     return null
+
 
 func throb(delta):
     # animate alpha
@@ -161,6 +164,7 @@ func throb(delta):
     else:
         throbber_time = 0
 
+
 func target(delta):
     if not $big_circle.visible: return
     target_time += delta
@@ -169,11 +173,13 @@ func target(delta):
         target_time = 0
         $big_circle.visible = false
 
+
 func activate(new_position):
     if not visible:
         throbber_time = 0
     position = new_position
     visible = true
+
 
 func deactivate():
     visible = false
