@@ -1,7 +1,7 @@
 extends "res://common/state.gd"
 
 func enter():
-    face_toward(owner.look_direction)
+    owner.icon.set_from_direction()
 
     owner.ray.target_position = owner.look_direction * Global.tile_size
     owner.ray.force_raycast_update()
@@ -28,8 +28,8 @@ func enter():
         owner.ray.add_exception(target)
         owner.ray.force_raycast_update()
 
-    var target_city : Area2D = null
-    var target_unit : Area2D = null
+    var target_city:City = null
+    var target_unit:Unit = null
     for target in targets:
         owner.ray.remove_exception(target)
         if target.is_in_group("Cities"): target_city = target
@@ -46,51 +46,18 @@ func enter():
 
         # it does not matter if this would move us into a city
         # we first have to destroy any enemy units, then check again
+        owner.target_unit = target_unit
         emit_signal("next_state", "attack")
         return
 
     if target_city == null:
-        print("WARNING: we should have a city here, but we don't; what did the ray collide with?")
+        print("WARNING: we should have a city here, but we don't; ray collision targets: ",targets)
 
-    owner.in_city = target_city
     if owner.my_team == target_city.my_team:
+        owner.in_city = target_city
         emit_signal("next_state", "move")
         return
 
+    owner.target_city = target_city
     emit_signal("next_state", "attack")
     return
-
-
-func face_toward(direction):
-    owner.icon.set_from_direction()
-
-
-func handle_input(event):
-    return super.handle_input(event)
-
-
-func update(_delta):
-    pass
-    #print("in state:move update")
-    #var input_direction = get_input_direction()
-    #if input_direction.is_zero_approx():
-    #    emit_signal("next_state", "idle")
-    #update_look_direction(input_direction)
-
-    #REF
-    #for direction in inputs.keys():
-    #    if Input.is_action_pressed(direction):
-    #        print("requested direction ",direction)
-
-    #if Input.is_action_pressed("run"):
-    #    speed = max_run_speed
-    #else:
-    #    speed = max_walk_speed
-
-    #var collision_info = move(speed, input_direction)
-    #if not collision_info:
-    #    return
-    #if speed == max_run_speed and collision_info.collider.is_in_group("environment"):
-    #    return null
-
-

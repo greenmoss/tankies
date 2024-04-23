@@ -1,74 +1,13 @@
-extends "res://common/state.gd"
-
-#@export var max_walk_speed: float = 450
-#@export var max_run_speed: float = 700
-
-#REF
-#var inputs = {
-#    "right": Vector2.RIGHT,
-#    "left": Vector2.LEFT,
-#    "up": Vector2.UP,
-#    "down": Vector2.DOWN,
-#    }
-
-var movement_tween: Tween
-var move_animation_speed = 7.5
+extends "../common/move.gd"
 
 
 func enter():
-    #print("in state:move enter, moving toward ", owner.look_direction)
-
-    #REF
-    #owner.ray.target_position = owner.look_direction * Global.tile_size
-    #owner.ray.force_raycast_update()
-
-    #if owner.ray.is_colliding():
-    #    emit_signal("next_state", "collide")
-    #    return
-
-    #print("in state:move, no ray collision")
-
-    owner.sounds.play_move()
-
-    movement_tween = create_tween()
-    movement_tween.tween_property(owner, "position",
-        owner.position +
-        owner.look_direction * Global.tile_size,
-        1.0/move_animation_speed
-        ).set_trans(Tween.TRANS_SINE)
-    #moving = true
-    await movement_tween.finished
-    #finished_movement.emit()
-    #moving = false
-
-    if(owner.in_city != null):
-        # moved out of city
-        if(owner.position != owner.in_city.position):
-            owner.in_city = null
-
-        owner.icon.set_from_city()
-
+    await animate()
     reduce_moves()
 
 
 func handle_input(event):
     return super.handle_input(event)
-
-
-#REF
-#func enter_city():
-#    owner.sprite.scale = Vector2(0.05, 0.05)
-#    # TODO: derive these from sprite/size properties instead of hard coding -10, etc
-#    owner.sprite.position = Vector2(-10, 10)
-#    #$Sprite2D.centered = false
-#
-#
-#func leave_city():
-#    owner.in_city = null
-#    # TODO: read this from resource, instead of hard coding here
-#    owner.sprite.scale = Vector2(0.07, 0.07)
-#    owner.sprite.position = Vector2(0, 0)
-#    #$Sprite2D.centered = true
 
 
 func reduce_moves():
@@ -78,38 +17,3 @@ func reduce_moves():
         return
 
     emit_signal("next_state", "idle")
-
-
-func update(_delta):
-    pass
-    #print("in state:move update")
-    #var input_direction = get_input_direction()
-    #if input_direction.is_zero_approx():
-    #    emit_signal("next_state", "idle")
-    #update_look_direction(input_direction)
-
-    #REF
-    #for direction in inputs.keys():
-    #    if Input.is_action_pressed(direction):
-    #        print("requested direction ",direction)
-
-    #if Input.is_action_pressed("run"):
-    #    speed = max_run_speed
-    #else:
-    #    speed = max_walk_speed
-
-    #var collision_info = move(speed, input_direction)
-    #if not collision_info:
-    #    return
-    #if speed == max_run_speed and collision_info.collider.is_in_group("environment"):
-    #    return null
-
-
-#func move(speed, direction):
-func move():
-    print("in state:move move")
-    #owner.velocity = direction.normalized() * speed
-    #owner.move_and_slide()
-    #if owner.get_slide_collision_count() == 0:
-    #    return
-    #return owner.get_slide_collision(0)

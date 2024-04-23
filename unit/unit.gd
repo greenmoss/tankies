@@ -34,6 +34,8 @@ var moves_remaining: int
 var attack_strength = 4
 var defense_strength = 2
 var look_direction = Vector2.RIGHT
+var target_city:City = null
+var target_unit:Unit = null
 
 @export var moves_per_turn = 2
 @export var my_team = "NoTeam"
@@ -58,6 +60,11 @@ func _on_mouse_exited():
 func _unhandled_input(event):
     if not standalone: return
     handle_cursor_input_event(event)
+
+
+func clear_targets():
+    target_city = null
+    target_unit = null
 
 
 # the cursor chooses who gets the events
@@ -304,13 +311,6 @@ func assign_groups():
         modulate = Global.team_colors[my_team]
         add_to_group(my_team)
     add_to_group("Units")
-
-
-func on_my_team() -> bool:
-    # TODO: look for a better way to implement debugging overrides
-    if Global.debug_select_any or my_team == Global.human_team:
-        return true
-    return false
 
 
 func select_me():

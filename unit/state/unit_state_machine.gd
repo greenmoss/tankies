@@ -1,8 +1,7 @@
 extends "res://common/state_machine.gd"
 
 @onready var attack = $attack
-#REF
-#@onready var collide = $collide
+@onready var capture = $capture
 @onready var end = $end
 # "ready" would be nice, but it's reserved
 @onready var idle = $idle
@@ -14,6 +13,7 @@ func _ready():
     states_map = {
         # active
         "attack": attack,
+        "capture": capture,
         "move": move,
         "pre_move": pre_move,
 
@@ -32,8 +32,7 @@ func force_end():
 
 
 func is_active() -> bool:
-    #print("checking if active, state is ",state.current_state.name)
-    return current_state.name in ['attack', 'move', 'pre_move']
+    return current_state.name in ['attack', 'capture', 'move', 'pre_move']
 
 
 func is_idle() -> bool:
@@ -55,8 +54,8 @@ func _change_state(state_name):
     # The base state_machine interface this node extends does most of the work.
     if not _active:
         return
-    if state_name in ["attack"]:
-        states_stack.push_front(states_map[state_name])
+    #if state_name in ["attack"]:
+    #    states_stack.push_front(states_map[state_name])
     super._change_state(state_name)
 
 #func _unhandled_input(_event):

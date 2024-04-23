@@ -1,52 +1,58 @@
 extends Node
 class_name Battle
 
-var fighting: bool
+var fighting:bool
+var winner
 
 func _ready():
-    SignalBus.unit_attacked_unit.connect(_unit_attacked_unit)
-    SignalBus.city_resisted_unit.connect(_city_resisted_unit)
+    #REF
+    #SignalBus.unit_attacked_unit.connect(_unit_attacked_unit)
+    #SignalBus.city_resisted_unit.connect(_city_resisted_unit)
     fighting = false
 
-func _city_resisted_unit(attacker, defender):
+func attack_city(unit, city):
     # TBD: pop up message
-    if(attacker.my_team == defender.my_team):
+    if(unit.my_team == city.my_team):
         print(
             "Warning: refusing to attack city ",
-            defender,
+            city,
             " already owned by, ",
-            attacker.my_team)
+            unit.my_team)
         return
 
-    SignalBus.battle_started.emit(attacker, defender)
+    SignalBus.battle_started.emit(unit, city)
     fighting = true
 
-    var winner = choose_winner(attacker, defender)
+    winner = choose_winner(unit, city)
 
-    attacker.start_fighting()
-    $Target1.position = attacker.position
-    $Target2.position = defender.position
+    #REF
+    #unit.start_fighting()
+    $Target1.position = unit.position
+    $Target2.position = city.position
     $FarOffBattle.play()
 
-    if winner == attacker:
+    if winner == unit:
         $Target1.take_fire(false)
         $Target2.take_fire(false)
         await $Target2.damaged
-        defender.surrender()
-        attacker.request_move_into_city(defender)
-        SignalBus.battle_finished.emit(attacker, defender)
+        #city.surrender()
+        #REF
+        #unit.request_move_into_city(city)
 
     else:
         $Target1.take_fire(true)
         $Target2.take_fire(false)
         await $Target1.destroyed
         $Boom.play()
-        fighting = false
-        if is_instance_valid(attacker):
-            await attacker.disband()
-        SignalBus.battle_finished.emit(defender, attacker)
+        #REF
+        #fighting = false
+        #if is_instance_valid(unit):
+        #    await unit.disband()
 
-func _unit_attacked_unit(attacker, defender):
+    fighting = false
+    SignalBus.battle_finished.emit(city, unit)
+
+func attack_unit(attacker, defender):
     if(attacker.my_team == defender.my_team):
         print(
             "Warning: refusing to attack unit ",
@@ -58,7 +64,7 @@ func _unit_attacked_unit(attacker, defender):
     SignalBus.battle_started.emit(attacker, defender)
     fighting = true
 
-    var winner = attacker
+    winner = attacker
     var loser = defender
     var win_target = $Target1
     var lose_target = $Target2
