@@ -8,6 +8,7 @@ var units_under_mouse = {}
 var selected_unit: Unit
 var controller_team
 
+signal want_nearest_unit
 signal want_next_unit
 
 
@@ -89,6 +90,10 @@ func _unhandled_input(event):
         return
 
     if event.is_action_pressed('next'):
+        if selected_unit == null:
+            want_nearest_unit.emit(position)
+            return
+
         signal_for_next_unit(selected_unit)
         return
 
@@ -103,21 +108,21 @@ func _units_selected_next(unit):
 func signal_for_next_unit(previous_unit):
     if previous_unit == null:
         unmark_unit()
-        want_next_unit.emit(position)
+        want_nearest_unit.emit(position)
         return
 
     if not is_instance_valid(previous_unit):
         unmark_unit()
-        want_next_unit.emit(position)
+        want_nearest_unit.emit(position)
         return
 
     if previous_unit.is_queued_for_deletion():
         unmark_unit()
-        want_next_unit.emit(position)
+        want_nearest_unit.emit(position)
         return
 
     unmark_unit()
-    want_next_unit.emit(previous_unit.position)
+    want_next_unit.emit(previous_unit)
 
 
 func send_input_to_unit(event):

@@ -22,25 +22,40 @@ func create(team_name, coordinates) -> Unit:
 
 # this checks for cardinal distance on the map
 # terrain and obstacles are *NOT* considered
-func get_cardinal_closest_active(coords) -> Area2D:
-    var current_closest: Area2D = null
-    var current_distance: float = -1.0
+func get_all_by_cardinal_distance(position) -> Dictionary:
+    var distance_map = {}
     for unit in get_children():
         if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
-        if unit.state.is_done(): continue
-        if current_closest == null:
-            current_closest = unit
-            current_distance = coords.distance_to(unit.position)
-            continue
-        var new_distance: float = coords.distance_to(unit.position)
-        if(new_distance < current_distance):
-            current_closest = unit
-            current_distance = new_distance
-    return(current_closest)
+        var distance: float = position.distance_to(unit.position)
+        if distance not in distance_map:
+            distance_map[distance] = []
+        distance_map[distance].append(unit)
+    return(distance_map)
 
 
-func get_first() -> Area2D:
+func get_cardinal_closest_active(position) -> Unit:
+    var nearby = get_all_by_cardinal_distance(position)
+    var distances = nearby.keys()
+    distances.sort()
+
+    for distance in distances:
+        for unit in nearby[distance]:
+            if not is_instance_valid(unit):
+                continue
+
+            if unit.is_queued_for_deletion():
+                continue
+
+            if unit.state.is_done():
+                continue
+
+            return unit
+
+    return null
+
+
+func get_first() -> Unit:
     for unit in get_children():
         if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
@@ -48,7 +63,7 @@ func get_first() -> Area2D:
     return(null)
 
 
-func get_next() -> Area2D:
+func get_next() -> Unit:
     for unit in get_children():
         if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
@@ -59,7 +74,7 @@ func get_next() -> Area2D:
 
 
 func select_next():
-    var unit : Area2D = get_next()
+    var unit:Unit = get_next()
     if unit == null:
         return
     SignalBus.units_selected_next.emit(unit)

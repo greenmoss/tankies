@@ -224,5 +224,6 @@ stream = ExtResource("17_51lqp")
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("20_bch13")
 
+[connection signal="want_nearest_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_nearest_unit"]
 [connection signal="want_next_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_next_unit"]
 [connection signal="timeout" from="turns/banner/CoolDownTimer" to="turns/banner" method="_on_cool_down_timer_timeout"]
