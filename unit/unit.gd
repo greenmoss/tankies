@@ -95,7 +95,7 @@ func assign_groups():
 
 
 func select_me():
-    pass
+    sounds.play_ready()
 
 
 func set_in_city(city:City):

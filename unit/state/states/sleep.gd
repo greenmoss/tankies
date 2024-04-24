@@ -12,7 +12,6 @@ func handle_input(event):
             emit_signal("next_state", "idle")
         else:
             emit_signal("next_state", "end")
-        return
 
 
 func update(_delta):

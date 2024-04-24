@@ -1,12 +1,10 @@
 extends "../common/idle.gd"
 
 
-func enter():
-    if owner.sounds != null:
+func handle_input(event):
+    if event.is_action_pressed("click"):
         owner.sounds.play_ready()
 
-
-func handle_input(event):
     for direction in input_directions.keys():
         if event.is_action_pressed(direction):
             owner.look_direction = input_directions[direction]
