@@ -160,8 +160,9 @@ wait_time = 0.5
 [node name="big_circle" type="Sprite2D" parent="teams/GreenTeam/cursor"]
 texture = ExtResource("11_pam1f")
 
-[node name="units" type="Node" parent="teams/GreenTeam"]
+[node name="units" type="Node" parent="teams/GreenTeam" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
+battle = NodePath("../../../battle")
 
 [node name="g1" parent="teams/GreenTeam/units" instance=ExtResource("2_lyn5p")]
 modulate = Color(0, 0.862745, 0, 1)
@@ -174,8 +175,9 @@ color = Color(1, 0.247059, 0.188235, 1)
 enemy_team = NodePath("../GreenTeam")
 terrain = NodePath("../../Map/Terrain")
 
-[node name="units" type="Node" parent="teams/RedTeam"]
+[node name="units" type="Node" parent="teams/RedTeam" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
+battle = NodePath("../../../battle")
 
 [node name="r1" parent="teams/RedTeam/units" instance=ExtResource("2_lyn5p")]
 modulate = Color(1, 0.247059, 0.188235, 1)
@@ -186,8 +188,9 @@ my_team = "RedTeam"
 color = Color(1, 1, 1, 1)
 controller = 2
 
-[node name="units" type="Node" parent="teams/neutral"]
+[node name="units" type="Node" parent="teams/neutral" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
+battle = NodePath("../../../battle")
 
 [node name="turns" type="Node" parent="." node_paths=PackedStringArray("cities", "teams") groups=["TurnsManager"]]
 script = ExtResource("5_tktke")
@@ -200,7 +203,7 @@ visible = false
 [node name="CoolDownTimer" type="Timer" parent="turns/banner"]
 wait_time = 2.0
 
-[node name="battle" type="Node" parent="."]
+[node name="battle" type="Node" parent="." groups=["Battle"]]
 script = ExtResource("13_vrmg3")
 
 [node name="Cacophony" type="AudioStreamPlayer" parent="battle"]
@@ -221,5 +224,6 @@ stream = ExtResource("17_51lqp")
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("20_bch13")
 
+[connection signal="want_nearest_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_nearest_unit"]
 [connection signal="want_next_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_next_unit"]
 [connection signal="timeout" from="turns/banner/CoolDownTimer" to="turns/banner" method="_on_cool_down_timer_timeout"]

@@ -11,6 +11,11 @@ var elapsed_seconds: float = 0.0
 @onready var terrain = $Map/Terrain
 @onready var fresh = true
 
+func _ready():
+    # if we are the root scene, we are debugging/standalone so start now
+    if get_parent() == get_tree().root:
+        start()
+
 func _physics_process(_delta):
     var winner = check_winner()
     if(winner != null):
