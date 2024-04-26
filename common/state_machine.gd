@@ -12,6 +12,7 @@ signal state_changed(current_state)
 # the first state in the state machine's children.
 @export var start_state: NodePath
 var states_map = {}
+var states_vars = {}
 
 var states_stack = []
 var current_state = null
@@ -20,11 +21,13 @@ var _active = false:
         _active = value
         set_active(value)
 
+
 func _enter_tree():
     if start_state.is_empty():
         start_state = get_child(0).get_path()
     for child in get_children():
         var err = child.next_state.connect(self._change_state)
+        states_vars[child.name] = {}
         if err:
             printerr(err)
     initialize(start_state)
@@ -43,6 +46,10 @@ func set_active(value):
     if not _active:
         states_stack = []
         current_state = null
+
+
+func set_var(key:String, value):
+    states_vars[current_state.name][key] = value
 
 
 func _physics_process(delta):

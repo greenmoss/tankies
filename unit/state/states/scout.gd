@@ -1,7 +1,9 @@
 extends "res://common/state.gd"
 
+
 func enter():
     owner.icon.set_from_direction()
+    clear_targets()
 
     owner.ray.target_position = owner.look_direction * Global.tile_size
     owner.ray.force_raycast_update()
@@ -46,7 +48,8 @@ func enter():
 
         # it does not matter if this would move us into a city
         # we first have to destroy any enemy units, then check again
-        owner.target_unit = target_unit
+        owner.state.set_var('target_unit', target_unit)
+        owner.state.set_var('target_city', null)
         emit_signal("next_state", "attack")
         return
 
@@ -58,6 +61,13 @@ func enter():
         emit_signal("next_state", "move")
         return
 
-    owner.target_city = target_city
+    owner.state.set_var('target_unit', null)
+    owner.state.set_var('target_city', target_city)
     emit_signal("next_state", "attack")
     return
+
+
+# safe to invoke from any state
+func clear_targets():
+    owner.state.set_var('target_city', null)
+    owner.state.set_var('target_unit', null)

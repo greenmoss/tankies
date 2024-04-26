@@ -2,6 +2,6 @@ extends "../common/move.gd"
 
 
 func enter():
-    owner.target_city.capture_by(owner)
+    owner.state.states_vars['scout']['target_city'].capture_by(owner)
     await animate()
     owner.disband()
