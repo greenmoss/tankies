@@ -24,7 +24,10 @@ func _ready():
         enemy_units = enemy_team.units
 
 
-func _battle_finished(winner:Unit, loser):
+# winner is always a Unit
+# however if we set "winner:Unit", we get error
+# `Cannot convert argument 1 from Object to Object.`
+func _battle_finished(winner, loser):
     if loser.is_in_group("Cities"): return
     if winner.my_team == name:
         battles_won += 1

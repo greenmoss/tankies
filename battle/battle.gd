@@ -7,7 +7,7 @@ var winner
 func _ready():
     fighting = false
 
-func attack_city(unit, city):
+func attack_city(unit:Unit, city:City):
     # TBD: pop up message
     SignalBus.battle_started.emit(unit, city)
     fighting = true
@@ -36,7 +36,7 @@ func attack_city(unit, city):
     SignalBus.battle_finished.emit(city, unit)
 
 
-func attack_unit(attacker, defender):
+func attack_unit(attacker:Unit, defender:Unit):
     SignalBus.battle_started.emit(attacker, defender)
     fighting = true
 
@@ -66,7 +66,7 @@ func attack_unit(attacker, defender):
     SignalBus.battle_finished.emit(winner, loser)
 
 
-func choose_winner(attacker, defender):
+func choose_winner(attacker:Unit, defender):
     var strength_total = attacker.attack_strength + defender.defense_strength
     var result = randi() % strength_total
     if result >= attacker.attack_strength:
