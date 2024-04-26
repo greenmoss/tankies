@@ -84,7 +84,7 @@ func move_toward(new_position):
     else:
         look_direction = Vector2.DOWN
 
-    state.current_state.next_state.emit('pre_move')
+    state.current_state.next_state.emit('scout')
 
 
 func assign_groups():

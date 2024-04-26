@@ -8,7 +8,7 @@ func handle_input(event):
     for direction in input_directions.keys():
         if event.is_action_pressed(direction):
             owner.look_direction = input_directions[direction]
-            emit_signal("next_state", "pre_move")
+            emit_signal("next_state", "scout")
             return
 
     if event.is_action_pressed('sleep'):

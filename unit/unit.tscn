@@ -15,8 +15,8 @@
 [ext_resource type="Script" path="res://unit/state/states/capture.gd" id="12_eovvr"]
 [ext_resource type="Script" path="res://unit/state/states/idle.gd" id="13_7sran"]
 [ext_resource type="Script" path="res://unit/state/states/move.gd" id="14_0bjrh"]
-[ext_resource type="Script" path="res://unit/state/states/pre_move.gd" id="14_ikruk"]
 [ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="15_6ojmj"]
+[ext_resource type="Script" path="res://unit/state/states/scout.gd" id="16_irg8u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
@@ -111,8 +111,8 @@ script = ExtResource("13_7sran")
 [node name="move" type="Node" parent="state"]
 script = ExtResource("14_0bjrh")
 
-[node name="pre_move" type="Node" parent="state"]
-script = ExtResource("14_ikruk")
+[node name="scout" type="Node" parent="state"]
+script = ExtResource("16_irg8u")
 
 [node name="sleep" type="Node" parent="state"]
 script = ExtResource("15_6ojmj")

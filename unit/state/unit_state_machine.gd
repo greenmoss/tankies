@@ -6,7 +6,7 @@ extends "res://common/state_machine.gd"
 # "ready" would be nice, but it's reserved
 @onready var idle = $idle
 @onready var move = $move
-@onready var pre_move = $pre_move
+@onready var scout = $scout
 @onready var sleep = $sleep
 
 var active_states = {}
@@ -19,7 +19,7 @@ func _ready():
         "attack": attack,
         "capture": capture,
         "move": move,
-        "pre_move": pre_move,
+        "scout": scout,
     }
     done_states = {
         "end": end,
