@@ -1,8 +1,7 @@
 extends 'team.gd'
-
 class_name HumanTeam
 
-@onready var cursor:Sprite2D = $cursor
+@onready var cursor:Cursor = $cursor
 
 var skipped_next_units = {}
 
@@ -77,10 +76,3 @@ func _on_cursor_want_next_unit(previous_unit:Unit):
     skipped_next_units[next_unit] = 1
     next_unit.select_me()
     cursor.mark_unit(next_unit)
-
-
-func move():
-    var next:Unit = units.get_cardinal_closest_active(cursor.position)
-    if next != null:
-        next.select_me()
-        cursor.mark_unit(next)

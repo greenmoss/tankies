@@ -1,4 +1,5 @@
 extends Sprite2D
+class_name Cursor
 
 var throbber_time = 0
 var throbber_duration = 1.5  # duration of the cursor throbber animation

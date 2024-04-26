@@ -1,17 +1,19 @@
 extends Node
 class_name Team
 
-@export var color : Color
-@export var controller: Global.Controllers
+@onready var state = $state
 
-@export var enemy_team: Team
-@export var terrain: TileMap
+@export var color:Color
+@export var controller:Global.Controllers
+@export var enemy_team:Team
+@export var terrain:TileMap
 
-var units : Node = null
-var enemy_units: Node = null
+var units:Units = null
+var enemy_units:Units = null
 
-var battles_won: int = 0
-var battles_lost: int = 0
+var battles_won:int = 0
+var battles_lost:int = 0
+
 
 func _ready():
     SignalBus.battle_finished.connect(_battle_finished)
@@ -22,7 +24,7 @@ func _ready():
         enemy_units = enemy_team.units
 
 
-func _battle_finished(winner, loser):
+func _battle_finished(winner:Unit, loser):
     if loser.is_in_group("Cities"): return
     if winner.my_team == name:
         battles_won += 1
@@ -38,11 +40,15 @@ func build_unit_in(city:City):
 
 
 func is_done() -> bool:
-    return units.are_done()
+    return state.current_state.name == 'end'
 
 
-func refill_moves():
-    await units.refill_moves()
+func begin():
+    state.current_state.next_state.emit('begin')
+
+
+func move():
+    state.current_state.next_state.emit('plan')
 
 
 func summarize() -> String:

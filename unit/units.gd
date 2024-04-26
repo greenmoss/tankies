@@ -12,6 +12,12 @@ func are_done() -> bool:
     return true
 
 
+func are_active() -> bool:
+    for unit in get_children():
+        if unit.state.is_active(): return true
+    return false
+
+
 func create(team_name, coordinates) -> Unit:
     var new_unit = unit_scene.instantiate()
     new_unit.my_team = team_name
