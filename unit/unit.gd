@@ -10,7 +10,7 @@ var sleep_turns = 0
 var standalone: bool
 
 # path-finding
-var _path = PackedVector2Array()
+#var _path = PackedVector2Array()
 
 var moves_remaining: int
 var attack_strength = 4
@@ -22,6 +22,7 @@ var look_direction = Vector2.RIGHT
 
 @onready var inactive = $Inactive
 @onready var ray = $RayCast2D
+@onready var plan = $plan
 @onready var sounds = $Sounds
 @onready var icon = $Icon
 @onready var state = $state
@@ -59,7 +60,7 @@ func _ready():
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
     await refill_moves()
     await assign_groups()
-    _path.clear()
+    #_path.clear()
 
 
 func move_toward(new_position):

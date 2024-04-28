@@ -5,15 +5,20 @@ func enter():
     var my_unit:Unit = select_own_unit()
     if my_unit == null: return
 
-    var enemy_unit:Unit = select_enemy_unit(my_unit)
+    var enemy_unit:Unit = select_enemy_unit()
     if enemy_unit == null: return
 
-    my_unit.move_toward(my_unit._path[0])
+    var found_path = my_unit.plan.set_path_to_position(enemy_unit.position, owner.terrain)
+    if not found_path:
+        my_unit.state.force_end()
+        emit_signal("next_state", "plan")
+        return
+
+    my_unit.move_toward(my_unit.plan._path[0])
     emit_signal("next_state", "move")
 
 
-# also sets path on my unit to enemy unit
-func select_enemy_unit(my_unit:Unit) -> Unit:
+func select_enemy_unit() -> Unit:
     var enemy_unit:Unit = owner.enemy_units.get_first()
 
     # temporary until we get city attack logic
@@ -33,28 +38,6 @@ func select_enemy_unit(my_unit:Unit) -> Unit:
     # we should never see this, because we should only be moving on our turn
     if enemy_unit.state.is_active():
         print("WARNING: target unit ",enemy_unit," is active, even though it is our turn")
-        emit_signal("next_state", "plan")
-        return null
-
-    if not owner.terrain.is_point_walkable(enemy_unit.position):
-        my_unit.state.force_end()
-        emit_signal("next_state", "plan")
-        return null
-
-    if my_unit._path.is_empty():
-        my_unit._path = owner.terrain.find_path(my_unit.position, enemy_unit.position)
-
-    # target moved, so recalculate
-    if enemy_unit.position != my_unit._path[-1]:
-        my_unit._path.clear()
-        emit_signal("next_state", "plan")
-        return null
-
-    if my_unit.position == my_unit._path[0]:
-        my_unit._path.remove_at(0)
-
-    # reached end of path, so recalculate
-    if my_unit._path.is_empty():
         emit_signal("next_state", "plan")
         return null
 
