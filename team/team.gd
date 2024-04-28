@@ -6,7 +6,10 @@ class_name Team
 @export var color:Color
 @export var controller:Global.Controllers
 @export var enemy_team:Team
+# for path finding, we require terrain variable
 @export var terrain:TileMap
+# for finding cities, we require cities variable
+@export var cities:Cities
 
 var units:Units = null
 var enemy_units:Units = null

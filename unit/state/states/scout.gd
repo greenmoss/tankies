@@ -54,7 +54,7 @@ func enter():
         return
 
     if target_city == null:
-        print("WARNING: we should have a city here, but we don't; ray collision targets: ",targets)
+        push_warning("we should have a city here, but we don't; ray collision targets: ",targets)
 
     if owner.my_team == target_city.my_team:
         owner.in_city = target_city

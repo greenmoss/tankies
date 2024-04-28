@@ -3,12 +3,26 @@ class_name Cities
 
 var city_scene : PackedScene = preload("res://city/city.tscn")
 
+
 func build_units():
     # only human and ai cities build units, not neutral
     for city in make_team_queue(Global.human_team):
         city.build_unit()
     for city in make_team_queue(Global.ai_team):
         city.build_unit()
+
+
+# this checks for cardinal distance on the map
+# terrain and obstacles are *NOT* considered
+func get_all_by_cardinal_distance(position:Vector2) -> Dictionary:
+    var distance_map = {}
+    for city in get_children():
+        var distance: float = position.distance_to(city.position)
+        if distance not in distance_map:
+            distance_map[distance] = []
+        distance_map[distance].append(city)
+    return(distance_map)
+
 
 func make_team_queue(team_name):
     var team_queue = []
@@ -17,6 +31,7 @@ func make_team_queue(team_name):
         team_queue.append(city)
     return(team_queue)
 
+
 func tally_owners():
     var team_owners = {}
     for city in get_children():
@@ -24,6 +39,7 @@ func tally_owners():
             team_owners[city.my_team] = 0
         team_owners[city.my_team] += 1
     return(team_owners)
+
 
 func restore(saved_cities):
     for city in get_children():
@@ -40,6 +56,7 @@ func restore(saved_cities):
         add_child(city)
 
     city_template.queue_free()
+
 
 func save(saved: SavedWorld):
     for city in get_children():

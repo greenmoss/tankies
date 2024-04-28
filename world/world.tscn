@@ -125,7 +125,7 @@ my_team = "GreenTeam"
 
 [node name="City1" parent="Map/cities" instance=ExtResource("3_k81tp")]
 modulate = Color(1, 0.247059, 0.188235, 1)
-position = Vector2(1800, 1000)
+position = Vector2(1802, 1000)
 my_team = "RedTeam"
 
 [node name="City2" parent="Map/cities" instance=ExtResource("3_k81tp")]
@@ -139,12 +139,13 @@ open = true
 [node name="teams" type="Node" parent="." groups=["TeamsManager"]]
 script = ExtResource("7_au7yj")
 
-[node name="GreenTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "terrain") instance=ExtResource("8_y6rer")]
+[node name="GreenTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "terrain", "cities") instance=ExtResource("8_y6rer")]
 script = ExtResource("7_s0hci")
 color = Color(0, 0.862745, 0, 1)
 controller = 1
 enemy_team = NodePath("../RedTeam")
 terrain = NodePath("../../Map/Terrain")
+cities = NodePath("../../Map/cities")
 
 [node name="cursor" type="Sprite2D" parent="teams/GreenTeam"]
 visible = false
@@ -168,10 +169,11 @@ modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(200, 200)
 my_team = "GreenTeam"
 
-[node name="RedTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "terrain") instance=ExtResource("8_y6rer")]
+[node name="RedTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "terrain", "cities") instance=ExtResource("8_y6rer")]
 color = Color(1, 0.247059, 0.188235, 1)
 enemy_team = NodePath("../GreenTeam")
 terrain = NodePath("../../Map/Terrain")
+cities = NodePath("../../Map/cities")
 
 [node name="units" type="Node" parent="teams/RedTeam" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")

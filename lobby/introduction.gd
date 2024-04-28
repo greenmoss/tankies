@@ -84,7 +84,7 @@ func fade_out():
 
 func set_current_scenario(scenario_number):
     if scenario_number >= scenario_information.size():
-        print("Testing? scenario number ",scenario_number," is missing from scenario information; ignoring")
+        push_warning("Testing? scenario number ",scenario_number," is missing from scenario information; ignoring")
         return
 
     set_message(scenario_information[scenario_number]['objective'])

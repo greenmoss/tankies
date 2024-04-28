@@ -17,7 +17,7 @@ func set_from_city():
         return
 
     if owner.position != owner.in_city.position:
-        print("WARNING: unit is in a city, but city position doesn't match unit position; minifying anyway")
+        push_warning("WARNING: unit is in a city, but city position doesn't match unit position; minifying anyway")
 
     set_mini()
 

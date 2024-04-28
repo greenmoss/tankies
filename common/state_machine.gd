@@ -29,7 +29,7 @@ func _enter_tree():
         var err = child.next_state.connect(self._change_state)
         states_vars[child.name] = {}
         if err:
-            printerr(err)
+            push_error(err)
     initialize(start_state)
 
 

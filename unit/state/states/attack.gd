@@ -49,8 +49,8 @@ func attack_unit():
 
 
 func deny_invalid(target):
-    print(
-        "Warning: refusing to attack target ",
+    push_warning(
+        "refusing to attack target ",
         target,
         " already owned by, ",
         owner.my_team)
