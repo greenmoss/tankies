@@ -84,7 +84,7 @@ func select_next():
     if unit == null:
         return
     SignalBus.units_selected_next.emit(unit)
-    await unit.select_me()
+    unit.select_me()
 
 
 func refill_moves():

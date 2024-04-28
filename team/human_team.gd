@@ -22,6 +22,7 @@ func _on_cursor_want_nearest_unit(position:Vector2):
 # find an active unit with moves, nearest to a unit
 # try not to select the same unit
 # try not to select a previously-selected unit
+# if all are done, don't select anything
 # if none match, select the previous unit
 func _on_cursor_want_next_unit(previous_unit:Unit):
     var next_unit = null
@@ -68,6 +69,9 @@ func _on_cursor_want_next_unit(previous_unit:Unit):
     # didn't find any, so clear the skipped list, and re-select the previous
     if next_unit == null:
         skipped_next_units = {previous_unit: 1}
+        # all units sleeping, and it's end of turn
+        if previous_unit.state.is_done():
+            return
         previous_unit.select_me()
         cursor.mark_unit(previous_unit)
         return
