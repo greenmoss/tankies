@@ -18,17 +18,17 @@ func are_active() -> bool:
     return false
 
 
-func create(team_name, coordinates) -> Unit:
+func create(team_name, position:Vector2) -> Unit:
     var new_unit = unit_scene.instantiate()
     new_unit.my_team = team_name
-    new_unit.position = coordinates
+    new_unit.position = position
     add_child(new_unit)
     return(new_unit)
 
 
 # this checks for cardinal distance on the map
 # terrain and obstacles are *NOT* considered
-func get_all_by_cardinal_distance(position) -> Dictionary:
+func get_all_by_cardinal_distance(position:Vector2) -> Dictionary:
     var distance_map = {}
     for unit in get_children():
         if not is_instance_valid(unit): continue
@@ -40,7 +40,7 @@ func get_all_by_cardinal_distance(position) -> Dictionary:
     return(distance_map)
 
 
-func get_cardinal_closest_active(position) -> Unit:
+func get_cardinal_closest_active(position:Vector2) -> Unit:
     var nearby = get_all_by_cardinal_distance(position)
     var distances = nearby.keys()
     distances.sort()
