@@ -6,6 +6,7 @@ func enter():
     if my_unit == null:
         # none of my units are available
         # thus select_own_unit already emitted a signal
+        # do not emit signal here, or you will miss remaining unit moves
         return
 
     var enemy_unit:Unit = target_enemy_unit(my_unit)
@@ -25,6 +26,7 @@ func enter():
     if enemy_city == null:
         my_unit.move_toward(my_unit.plan.path_to_unit[0])
         emit_signal("next_state", "move")
+        return
 
     # we have both a unit and a city
     # find whichever is closest
