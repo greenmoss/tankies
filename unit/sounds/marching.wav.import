@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://7gcvb01w07wj"
-path="res://.godot/imported/marching.wav-1f0da7f8abf6e9878aa0ee09d530d18d.sample"
+path="res://.godot/imported/marching.wav-5383eb0c520013e0f7c8325b8476ce9e.sample"
 
 [deps]
 
-source_file="res://city/marching.wav"
-dest_files=["res://.godot/imported/marching.wav-1f0da7f8abf6e9878aa0ee09d530d18d.sample"]
+source_file="res://unit/sounds/marching.wav"
+dest_files=["res://.godot/imported/marching.wav-5383eb0c520013e0f7c8325b8476ce9e.sample"]
 
 [params]
 

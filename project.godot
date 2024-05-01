@@ -19,6 +19,7 @@ config/icon="res://unit/tank.png"
 
 SignalBus="*res://common/signal_bus.gd"
 Global="*res://common/global.gd"
+SoundManager="*res://common/sound_manager.gd"
 
 [display]
 
