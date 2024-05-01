@@ -1,5 +1,8 @@
 extends "res://common/state.gd"
 
+var target_city:City = null
+var target_unit:Unit = null
+
 
 func enter():
     owner.icon.set_from_direction()
@@ -28,8 +31,8 @@ func enter():
         owner.ray.add_exception(target)
         owner.ray.force_raycast_update()
 
-    var target_city:City = null
-    var target_unit:Unit = null
+    target_city = null
+    target_unit = null
     for target in targets:
         owner.ray.remove_exception(target)
         if target.is_in_group("Cities"): target_city = target
@@ -48,8 +51,8 @@ func enter():
 
         # it does not matter if this would move us into a city
         # we first have to destroy any enemy units, then check again
-        owner.state.set_var('target_unit', target_unit)
-        owner.state.set_var('target_city', null)
+        target_unit = target_unit
+        target_city = null
         emit_signal("next_state", "attack")
         return
 
@@ -61,13 +64,13 @@ func enter():
         emit_signal("next_state", "move")
         return
 
-    owner.state.set_var('target_unit', null)
-    owner.state.set_var('target_city', target_city)
+    target_unit = null
+    target_city = target_city
     emit_signal("next_state", "attack")
     return
 
 
 # safe to invoke from any state
 func clear_targets():
-    owner.state.set_var('target_city', null)
-    owner.state.set_var('target_unit', null)
+    target_city = null
+    target_unit = null
