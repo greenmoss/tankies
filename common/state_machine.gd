@@ -77,3 +77,11 @@ func _change_state(state_name):
 
     if state_name != "previous":
         current_state.enter()
+
+
+func is_named(state_name:String) -> bool:
+    return current_state.name == state_name
+
+
+func switch_to(state_name:String):
+    current_state.next_state.emit(state_name)

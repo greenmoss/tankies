@@ -9,9 +9,6 @@ var sleep_turns = 0
 # set to true for debugging, e.g. to test cursor input
 var standalone: bool
 
-# path-finding
-#var _path = PackedVector2Array()
-
 var moves_remaining: int
 var attack_strength = 4
 var defense_strength = 2
@@ -60,7 +57,6 @@ func _ready():
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
     await refill_moves()
     await assign_groups()
-    #_path.clear()
 
 
 func move_toward(new_position):
@@ -77,7 +73,7 @@ func move_toward(new_position):
     else:
         look_direction = Vector2.DOWN
 
-    state.current_state.next_state.emit('scout')
+    state.switch_to('scout')
 
 
 func assign_groups():

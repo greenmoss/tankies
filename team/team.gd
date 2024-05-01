@@ -46,15 +46,15 @@ func build_unit_in(city:City):
 
 
 func is_done() -> bool:
-    return state.current_state.name == 'end'
+    return state.is_named('end')
 
 
 func begin():
-    state.current_state.next_state.emit('begin')
+    state.switch_to('begin')
 
 
 func move():
-    state.current_state.next_state.emit('plan')
+    state.switch_to('plan')
 
 
 func summarize() -> String:

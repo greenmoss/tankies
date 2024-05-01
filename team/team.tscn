@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://sgl6kqwi4tqx"]
+[gd_scene load_steps=11 format=3 uid="uid://sgl6kqwi4tqx"]
 
 [ext_resource type="Script" path="res://team/team.gd" id="1_xuuym"]
 [ext_resource type="Script" path="res://team/state/team_state_machine.gd" id="2_qpcv6"]
 [ext_resource type="Script" path="res://team/state/states/end.gd" id="3_4hdkt"]
 [ext_resource type="Script" path="res://team/state/states/begin.gd" id="3_4ktwo"]
 [ext_resource type="Script" path="res://team/state/states/move.gd" id="4_m15pt"]
+[ext_resource type="Script" path="res://team/state/states/human_begin.gd" id="4_r26uf"]
 [ext_resource type="Script" path="res://team/state/states/plan.gd" id="6_fsufs"]
 [ext_resource type="Script" path="res://team/state/states/wait.gd" id="6_ybu3p"]
 [ext_resource type="Script" path="res://team/state/states/ai_plan.gd" id="7_tejo1"]
@@ -12,6 +13,8 @@
 
 [node name="Team" type="Node"]
 script = ExtResource("1_xuuym")
+color = null
+controller = null
 
 [node name="state" type="Node" parent="."]
 script = ExtResource("2_qpcv6")
@@ -19,6 +22,9 @@ start_state = NodePath("wait")
 
 [node name="begin" type="Node" parent="state"]
 script = ExtResource("3_4ktwo")
+
+[node name="human_begin" type="Node" parent="state"]
+script = ExtResource("4_r26uf")
 
 [node name="end" type="Node" parent="state"]
 script = ExtResource("3_4hdkt")

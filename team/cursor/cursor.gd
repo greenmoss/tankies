@@ -36,7 +36,7 @@ func _physics_process(delta):
         deactivate()
         return
 
-    if selected_unit.state.current_state.name == 'sleep':
+    if selected_unit.state.is_named('sleep'):
         deactivate()
         signal_for_next_unit(selected_unit)
         return
