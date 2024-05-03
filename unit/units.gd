@@ -30,14 +30,22 @@ func create(team_name, position:Vector2) -> Unit:
 # terrain and obstacles are *NOT* considered
 func get_all_by_cardinal_distance(position:Vector2) -> Dictionary:
     var distance_map = {}
-    for unit in get_children():
-        if not is_instance_valid(unit): continue
-        if unit.is_queued_for_deletion(): continue
+    for unit in get_all_valid():
         var distance: float = position.distance_to(unit.position)
         if distance not in distance_map:
             distance_map[distance] = []
         distance_map[distance].append(unit)
     return(distance_map)
+
+
+func get_all_valid() -> Array:
+    var valid_units = []
+    for unit in get_children():
+        # exclude invalid/deleted units
+        if not is_instance_valid(unit): continue
+        if unit.is_queued_for_deletion(): continue
+        valid_units.append(unit)
+    return valid_units
 
 
 func get_cardinal_closest_active(position:Vector2) -> Unit:

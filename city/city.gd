@@ -15,6 +15,8 @@ var build_duration = 4
 var build_remaining: int = build_duration
 var defense_strength = 1
 
+@onready var vision = $vision
+
 
 func _ready():
     if my_team == null: my_team = "NoTeam"

@@ -24,6 +24,14 @@ func get_all_by_cardinal_distance(position:Vector2) -> Dictionary:
     return(distance_map)
 
 
+func get_from_team(team_name:String) -> Array[City]:
+    var cities:Array[City] = []
+    for city in get_children():
+        if city.my_team != team_name: continue
+        cities.append(city)
+    return cities
+
+
 func make_team_queue(team_name):
     var team_queue = []
     for city in get_children():

@@ -23,6 +23,7 @@ var look_direction = Vector2.RIGHT
 @onready var sounds = $Sounds
 @onready var icon = $Icon
 @onready var state = $state
+@onready var vision = $vision
 
 
 func _on_mouse_entered():

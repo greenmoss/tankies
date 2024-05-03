@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=21 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="15_6ojmj"]
 [ext_resource type="Script" path="res://unit/state/states/scout.gd" id="16_irg8u"]
 [ext_resource type="Script" path="res://unit/plan.gd" id="18_pj64v"]
+[ext_resource type="Script" path="res://unit/vision.gd" id="19_rwfiy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
@@ -120,6 +121,9 @@ script = ExtResource("15_6ojmj")
 
 [node name="plan" type="Node" parent="."]
 script = ExtResource("18_pj64v")
+
+[node name="vision" type="Node" parent="."]
+script = ExtResource("19_rwfiy")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

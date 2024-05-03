@@ -6,7 +6,7 @@ class_name SavedTerrain
 # track this to make the save file easier to read
 @export var _class_name: String
 
-func save(terrain:TileMap):
+func save(terrain:Terrain):
     self._class_name = 'SavedTerrain'
 
     layers = []

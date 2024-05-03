@@ -6,6 +6,7 @@ signal battle_finished
 signal city_captured
 signal city_requested_unit
 signal city_resisted_unit
+signal city_updated_vision
 
 signal introduction_pressed_start
 signal introduction_selected_scenario
@@ -18,5 +19,6 @@ signal team_won
 signal unit_attacked_unit
 signal unit_completed_moves
 signal unit_disbanded
+signal unit_updated_vision
 
 signal units_selected_next

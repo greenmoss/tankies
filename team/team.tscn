@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://sgl6kqwi4tqx"]
+[gd_scene load_steps=12 format=3 uid="uid://sgl6kqwi4tqx"]
 
 [ext_resource type="Script" path="res://team/team.gd" id="1_xuuym"]
 [ext_resource type="Script" path="res://team/state/team_state_machine.gd" id="2_qpcv6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://team/state/states/wait.gd" id="6_ybu3p"]
 [ext_resource type="Script" path="res://team/state/states/ai_plan.gd" id="7_tejo1"]
 [ext_resource type="Script" path="res://team/state/states/human_plan.gd" id="8_qs071"]
+[ext_resource type="Script" path="res://team/vision.gd" id="11_exhbn"]
 
 [node name="Team" type="Node"]
 script = ExtResource("1_xuuym")
@@ -43,3 +44,6 @@ script = ExtResource("8_qs071")
 
 [node name="wait" type="Node" parent="state"]
 script = ExtResource("6_ybu3p")
+
+[node name="vision" type="Node" parent="."]
+script = ExtResource("11_exhbn")

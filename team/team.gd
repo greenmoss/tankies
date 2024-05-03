@@ -2,6 +2,7 @@ extends Node
 class_name Team
 
 @onready var state = $state
+@onready var vision = $vision
 
 @export var color:Color
 @export var controller:Global.Controllers
@@ -11,20 +12,51 @@ class_name Team
 # for finding cities, we require cities variable
 @export var cities:Cities
 
+# these two are only set if we're within a world
 var units:Units = null
 var enemy_units:Units = null
 
 var battles_won:int = 0
 var battles_lost:int = 0
 
+var standalone:bool = false
+
+# use this to make friendlier team names which helps with debugging
+var name_counter = 0
 
 func _ready():
     SignalBus.battle_finished.connect(_battle_finished)
-    # if we are an instance in the world, find our units
-    # otherwise, we are only a scene without units
-    units = find_child('units', false)
-    if enemy_team != null:
+    set_world_vars()
+
+
+func get_my_cities() -> Array:
+    if cities == null:
+        return []
+    return cities.get_from_team(name)
+
+
+func get_my_valid_units() -> Array:
+    if units == null:
+        return []
+    return units.get_all_valid()
+
+
+# if we are an instance in the world, set up all variables connected to the world
+# otherwise, we are only a scene without units, terrain, etc
+func set_world_vars():
+    if terrain == null:
+        standalone = true
+
+    if enemy_team == null:
+        standalone = true
+    else:
         enemy_units = enemy_team.units
+
+    units = find_child('units', false)
+    if units == null:
+        standalone = true
+    else:
+        vision.update()
 
 
 # winner is always a Unit
@@ -42,6 +74,8 @@ func _battle_finished(winner, loser):
 
 func build_unit_in(city:City):
     var new_unit:Unit = $units.create(city.my_team, city.position)
+    name_counter += 1
+    new_unit.name = name+"_unit"+str(name_counter)
     new_unit.set_in_city(city)
 
 
