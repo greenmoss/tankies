@@ -7,7 +7,7 @@ var sleep_turns = 0
 
 # if we are running this scene as an instantiated child, this is false
 # set to true for debugging, e.g. to test cursor input
-var standalone: bool
+var standalone:bool
 
 var moves_remaining: int
 var attack_strength = 4
@@ -17,11 +17,12 @@ var look_direction = Vector2.RIGHT
 @export var moves_per_turn = 2
 @export var my_team = "NoTeam"
 
-@onready var inactive = $Inactive
-@onready var ray = $RayCast2D
-@onready var plan = $plan
-@onready var sounds = $Sounds
+@onready var automation = $automation
 @onready var icon = $Icon
+@onready var inactive = $Inactive
+@onready var plan = $plan
+@onready var ray = $RayCast2D
+@onready var sounds = $Sounds
 @onready var state = $state
 @onready var vision = $vision
 
@@ -88,9 +89,23 @@ func select_me():
     sounds.play_ready()
 
 
+func set_automatic():
+    automation.enabled = true
+
+
 func set_in_city(city:City):
     in_city = city
     icon.set_from_city()
+
+
+func set_manual():
+    automation.enabled = false
+
+
+# TODO: find a way to use `new_team:Team`.
+# We can not right now due to error with circular dependency.
+func set_team(new_team:Node):
+    my_team = new_team.name
 
 
 func refill_moves():

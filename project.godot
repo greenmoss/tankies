@@ -20,12 +20,18 @@ config/icon="res://unit/tank.png"
 SignalBus="*res://common/signal_bus.gd"
 Global="*res://common/global.gd"
 SoundManager="*res://common/sound_manager.gd"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1120
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg")
 
 [input]
 

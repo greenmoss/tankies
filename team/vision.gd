@@ -4,6 +4,7 @@ extends Node
 # because we want to avoid duplicate positions/coordinates
 # to do that in gdscript we use a dict with positions/coordinates as keys
 var explored:Dictionary
+# TODO: var obscured:Dictionary
 var visible:Dictionary
 
 var my_city_vision:Dictionary

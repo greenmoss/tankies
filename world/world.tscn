@@ -171,6 +171,7 @@ my_team = "GreenTeam"
 
 [node name="RedTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "terrain", "cities") instance=ExtResource("8_y6rer")]
 color = Color(1, 0.247059, 0.188235, 1)
+controller = 0
 enemy_team = NodePath("../GreenTeam")
 terrain = NodePath("../../Map/Terrain")
 cities = NodePath("../../Map/cities")
