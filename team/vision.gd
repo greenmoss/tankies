@@ -1,8 +1,9 @@
-extends Node
+extends "res://common/vision.gd"
+class_name TeamVision
 
 # we use dict instead of array
-# because we want to avoid duplicate positions/coordinates
-# to do that in gdscript we use a dict with positions/coordinates as keys
+# because we want to avoid duplicate coordinates
+# to do that in gdscript we use a dict with coordinates as keys
 var explored:Dictionary
 # TODO: var obscured:Dictionary
 var visible:Dictionary
@@ -10,11 +11,12 @@ var visible:Dictionary
 var my_city_vision:Dictionary
 var my_unit_vision:Dictionary
 
-var cities_seen:Dictionary
-var units_seen:Dictionary
-
 
 func _ready():
+    # vision is union of all cities and units
+    # unlike cities and units, there is no additional vision distance
+    distance = 0
+
     explored = {}
     visible = {}
     SignalBus.city_updated_vision.connect(_city_updated_vision)
@@ -37,11 +39,27 @@ func _unit_updated_vision(unit:Unit):
     update()
 
 
+func has_explored_position(position:Vector2) -> bool:
+    var coordinate = convert_from_world_position(position)
+    if coordinate in explored.keys():
+        if explored[coordinate] == true:
+            return true
+    return false
+
+
+func sees_position(position:Vector2) -> bool:
+    var coordinate = convert_from_world_position(position)
+    if coordinate in visible.keys():
+        if visible[coordinate] == true:
+            return true
+    return false
+
+
 func set_city_vision():
     my_city_vision = {}
     for city in owner.get_my_cities():
-        for position in city.vision.positions:
-            my_city_vision[position] = true
+        for city_coordinates in city.vision.coordinates:
+            my_city_vision[city_coordinates] = true
 
 
 func set_unit_vision():
@@ -49,16 +67,15 @@ func set_unit_vision():
     if owner.units == null: return
     for unit in owner.get_my_valid_units():
         if unit.vision == null: continue
-        for position in unit.vision.positions:
-            my_unit_vision[position] = true
+        for unit_coordinates in unit.vision.coordinates:
+            my_unit_vision[unit_coordinates] = true
 
 
 func update():
     visible = {}
-    for position in my_city_vision.keys():
-        explored[position] = true
-        visible[position] = true
-    for position in my_unit_vision.keys():
-        explored[position] = true
-        visible[position] = true
-    print("for team ",owner.name," visible count is ",visible.size()," and explored count is ",explored.size())
+    for city_coordinates in my_city_vision.keys():
+        explored[city_coordinates] = true
+        visible[city_coordinates] = true
+    for unit_coordinates in my_unit_vision.keys():
+        explored[unit_coordinates] = true
+        visible[unit_coordinates] = true

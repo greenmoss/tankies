@@ -12,11 +12,13 @@ func build_units():
         city.build_unit()
 
 
-# this checks for cardinal distance on the map
+# return cities keyed by cardinal distance on the map
+# only include cities that the team has explored
 # terrain and obstacles are *NOT* considered
-func get_all_by_cardinal_distance(position:Vector2) -> Dictionary:
+func get_explored_by_cardinal_distance(position:Vector2, vision:TeamVision) -> Dictionary:
     var distance_map = {}
     for city in get_children():
+        if not vision.has_explored_position(city.position): continue
         var distance: float = position.distance_to(city.position)
         if distance not in distance_map:
             distance_map[distance] = []

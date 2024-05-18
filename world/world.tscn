@@ -182,7 +182,7 @@ battle = NodePath("../../../battle")
 
 [node name="r1" parent="teams/RedTeam/units" instance=ExtResource("2_lyn5p")]
 modulate = Color(1, 0.247059, 0.188235, 1)
-position = Vector2(1720, 920)
+position = Vector2(1560, 920)
 my_team = "RedTeam"
 
 [node name="neutral" parent="teams" instance=ExtResource("8_y6rer")]

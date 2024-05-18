@@ -27,11 +27,17 @@ func create(position:Vector2, new_unit_name:String) -> Unit:
     return(new_unit)
 
 
-# this checks for cardinal distance on the map
+# return team units keyed by cardinal distance on the map
 # terrain and obstacles are *NOT* considered
-func get_all_by_cardinal_distance(position:Vector2) -> Dictionary:
+# if we provide team vision, only include units the team currently sees
+# TODO: use decorator style plus dedicated functions
+# for example `get_visible_by_cardinal_distance`
+# which makes for clearer, more targeted functions
+func get_all_by_cardinal_distance(position:Vector2, vision:TeamVision = null) -> Dictionary:
     var distance_map = {}
     for unit in get_all_valid():
+        if vision != null:
+            if not vision.sees_position(unit.position): continue
         var distance: float = position.distance_to(unit.position)
         if distance not in distance_map:
             distance_map[distance] = []
