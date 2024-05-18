@@ -19,20 +19,20 @@
 [ext_resource type="Script" path="res://unit/state/states/scout.gd" id="16_irg8u"]
 [ext_resource type="Script" path="res://unit/plan.gd" id="18_pj64v"]
 [ext_resource type="Script" path="res://unit/vision.gd" id="19_rwfiy"]
-[ext_resource type="Script" path="res://unit/behavior_tree/automation.gd" id="20_uljc3"]
+[ext_resource type="Script" path="res://unit/automation/automation.gd" id="20_pvctj"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="21_tfaxg"]
-[ext_resource type="Script" path="res://unit/behavior_tree/choose_closest_city.gd" id="22_4g8r1"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="22_83v4n"]
-[ext_resource type="Script" path="res://unit/behavior_tree/stop_moving.gd" id="22_c1gkj"]
-[ext_resource type="Script" path="res://unit/behavior_tree/find_closest_city.gd" id="22_sa7mw"]
-[ext_resource type="Script" path="res://unit/behavior_tree/choose_closest_unit.gd" id="23_jd2qh"]
-[ext_resource type="Script" path="res://unit/behavior_tree/find_closest_unit.gd" id="23_qe8m2"]
-[ext_resource type="Script" path="res://unit/behavior_tree/has_city_target.gd" id="25_qq6pw"]
-[ext_resource type="Script" path="res://unit/behavior_tree/move_to_position.gd" id="26_nlalt"]
-[ext_resource type="Script" path="res://unit/behavior_tree/has_unit_target.gd" id="26_ygb51"]
-[ext_resource type="Script" path="res://unit/behavior_tree/choose_closer_enemy.gd" id="27_vd7uk"]
-[ext_resource type="Script" path="res://unit/behavior_tree/invalidate_move.gd" id="30_2u7m2"]
-[ext_resource type="Script" path="res://unit/behavior_tree/has_valid_move.gd" id="31_kj6lx"]
+[ext_resource type="Script" path="res://unit/automation/find_closest_city.gd" id="22_gkn4v"]
+[ext_resource type="Script" path="res://unit/automation/find_closest_unit.gd" id="23_45n3t"]
+[ext_resource type="Script" path="res://unit/automation/has_city_target.gd" id="25_suj7i"]
+[ext_resource type="Script" path="res://unit/automation/has_unit_target.gd" id="26_p5mmd"]
+[ext_resource type="Script" path="res://unit/automation/choose_closer_enemy.gd" id="27_umix8"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_city.gd" id="28_hjhhq"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_unit.gd" id="29_kqfo0"]
+[ext_resource type="Script" path="res://unit/automation/invalidate_move.gd" id="30_r3out"]
+[ext_resource type="Script" path="res://unit/automation/has_valid_move.gd" id="31_sc1sq"]
+[ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="32_7psug"]
+[ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="33_ml7rk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
@@ -142,17 +142,17 @@ script = ExtResource("18_pj64v")
 script = ExtResource("19_rwfiy")
 
 [node name="automation" type="Node" parent="."]
-script = ExtResource("20_uljc3")
+script = ExtResource("20_pvctj")
 enabled = false
 
 [node name="move_sequence" type="Node" parent="automation"]
 script = ExtResource("22_83v4n")
 
 [node name="find_closest_city" type="Node" parent="automation/move_sequence"]
-script = ExtResource("22_sa7mw")
+script = ExtResource("22_gkn4v")
 
 [node name="find_closest_unit" type="Node" parent="automation/move_sequence"]
-script = ExtResource("23_qe8m2")
+script = ExtResource("23_45n3t")
 
 [node name="choose_best_move" type="Node" parent="automation/move_sequence"]
 script = ExtResource("21_tfaxg")
@@ -161,34 +161,34 @@ script = ExtResource("21_tfaxg")
 script = ExtResource("22_83v4n")
 
 [node name="if_has_city_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("25_qq6pw")
+script = ExtResource("25_suj7i")
 
 [node name="if_has_unit_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("26_ygb51")
+script = ExtResource("26_p5mmd")
 
 [node name="choose_closer_enemy" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("27_vd7uk")
+script = ExtResource("27_umix8")
 
 [node name="move_to_enemy_city" type="Node" parent="automation/move_sequence/choose_best_move"]
 script = ExtResource("22_83v4n")
 
 [node name="if_has_city_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_city"]
-script = ExtResource("25_qq6pw")
+script = ExtResource("25_suj7i")
 
 [node name="choose_closest_city" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_city"]
-script = ExtResource("22_4g8r1")
+script = ExtResource("28_hjhhq")
 
 [node name="move_to_enemy_unit" type="Node" parent="automation/move_sequence/choose_best_move"]
 script = ExtResource("22_83v4n")
 
 [node name="if_has_unit_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_unit"]
-script = ExtResource("26_ygb51")
+script = ExtResource("26_p5mmd")
 
 [node name="choose_closest_unit" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_unit"]
-script = ExtResource("23_jd2qh")
+script = ExtResource("29_kqfo0")
 
 [node name="invalidate_move" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("30_2u7m2")
+script = ExtResource("30_r3out")
 
 [node name="move_if_possible" type="Node" parent="automation/move_sequence"]
 script = ExtResource("21_tfaxg")
@@ -197,13 +197,13 @@ script = ExtResource("21_tfaxg")
 script = ExtResource("22_83v4n")
 
 [node name="if_has_valid_move" type="Node" parent="automation/move_sequence/move_if_possible/make_valid_move"]
-script = ExtResource("31_kj6lx")
+script = ExtResource("31_sc1sq")
 
 [node name="move_to_position" type="Node" parent="automation/move_sequence/move_if_possible/make_valid_move"]
-script = ExtResource("26_nlalt")
+script = ExtResource("32_7psug")
 
 [node name="stop_moving" type="Node" parent="automation/move_sequence/move_if_possible"]
-script = ExtResource("22_c1gkj")
+script = ExtResource("33_ml7rk")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
