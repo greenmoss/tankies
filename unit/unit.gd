@@ -9,7 +9,8 @@ var sleep_turns = 0
 # set to true for debugging, e.g. to test cursor input
 var standalone:bool
 
-var moves_remaining: int
+var automation:BTUnitAutomation
+var moves_remaining:int
 var attack_strength = 4
 var defense_strength = 2
 var look_direction = Vector2.RIGHT
@@ -17,7 +18,6 @@ var look_direction = Vector2.RIGHT
 @export var moves_per_turn = 2
 @export var my_team = "NoTeam"
 
-@onready var automation = $automation
 @onready var icon = $Icon
 @onready var inactive = $Inactive
 @onready var plan = $plan
@@ -53,6 +53,8 @@ func _ready():
     if get_parent() == get_tree().root:
         standalone = true
         position = Vector2(80,80)
+
+    automation = get_node("BT"+name)
 
     moves_per_turn = 2
     sleep_turns = 0

@@ -18,8 +18,9 @@ func are_active() -> bool:
     return false
 
 
-func create(position:Vector2) -> Unit:
+func create(position:Vector2, new_unit_name:String) -> Unit:
     var new_unit = unit_scene.instantiate()
+    new_unit.name = new_unit_name
     new_unit.set_team(get_parent())
     new_unit.position = position
     add_child(new_unit)
