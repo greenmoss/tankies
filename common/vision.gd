@@ -1,6 +1,7 @@
 extends Node
+class_name Vision
 # Base interface for vision
-# Could be one unit, one city, or a while team
+# Could be one unit, one city, or a whole team
 
 # NOTE: TileMap layer uses its own coordinates system
 # This is different than the global positions

@@ -1,4 +1,4 @@
-extends "res://common/vision.gd"
+extends Vision
 class_name TeamVision
 
 # we use dict instead of array

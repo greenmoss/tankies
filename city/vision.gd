@@ -1,4 +1,4 @@
-extends "res://common/vision.gd"
+extends Vision
 
 
 func _ready():
