@@ -24,6 +24,7 @@ func create(position:Vector2, new_unit_name:String) -> Unit:
     new_unit.set_team(get_parent())
     new_unit.position = position
     add_child(new_unit)
+    SignalBus.unit_updated_vision.emit(new_unit)
     return(new_unit)
 
 

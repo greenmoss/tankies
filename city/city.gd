@@ -63,6 +63,7 @@ func assign():
         ).set_trans(Tween.TRANS_SINE)
     add_to_group(my_team)
     add_to_group("Cities")
+    SignalBus.city_updated_vision.emit(self)
 
 
 func build_unit():

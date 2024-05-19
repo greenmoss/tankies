@@ -56,7 +56,7 @@ func set_world_vars():
     if units == null:
         standalone = true
     else:
-        vision.update()
+        vision.update_all()
 
 
 # winner is always a Unit

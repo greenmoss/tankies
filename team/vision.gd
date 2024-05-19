@@ -22,21 +22,30 @@ func _ready():
     SignalBus.city_updated_vision.connect(_city_updated_vision)
     SignalBus.unit_updated_vision.connect(_unit_updated_vision)
 
-    set_city_vision()
-    set_unit_vision()
-    update()
-
 
 func _city_updated_vision(city:City):
     if city.my_team != owner.name: return
-    set_city_vision()
-    update()
+    sum_cities()
+    derive()
 
 
 func _unit_updated_vision(unit:Unit):
     if unit.my_team != owner.name: return
-    set_unit_vision()
-    update()
+    sum_units()
+    derive()
+
+
+# from unit and city vision
+# derive currently visible
+# derive previously explored
+func derive():
+    visible = {}
+    for city_coordinates in my_city_vision.keys():
+        explored[city_coordinates] = true
+        visible[city_coordinates] = true
+    for unit_coordinates in my_unit_vision.keys():
+        explored[unit_coordinates] = true
+        visible[unit_coordinates] = true
 
 
 func has_explored_position(position:Vector2) -> bool:
@@ -55,14 +64,14 @@ func sees_position(position:Vector2) -> bool:
     return false
 
 
-func set_city_vision():
+func sum_cities():
     my_city_vision = {}
     for city in owner.get_my_cities():
         for city_coordinates in city.vision.coordinates:
             my_city_vision[city_coordinates] = true
 
 
-func set_unit_vision():
+func sum_units():
     my_unit_vision = {}
     if owner.units == null: return
     for unit in owner.get_my_valid_units():
@@ -71,11 +80,7 @@ func set_unit_vision():
             my_unit_vision[unit_coordinates] = true
 
 
-func update():
-    visible = {}
-    for city_coordinates in my_city_vision.keys():
-        explored[city_coordinates] = true
-        visible[city_coordinates] = true
-    for unit_coordinates in my_unit_vision.keys():
-        explored[unit_coordinates] = true
-        visible[unit_coordinates] = true
+func update_all():
+    sum_cities()
+    sum_units()
+    derive()
