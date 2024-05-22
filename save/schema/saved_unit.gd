@@ -1,9 +1,9 @@
 extends Resource
 class_name SavedUnit
 
-@export var my_team: String
-@export var position: Vector2
-@export var modulate: Color
+@export var my_team:String
+@export var position:Vector2
+@export var modulate:Color
 
 # track this to make the save file easier to read
 @export var _class_name: String

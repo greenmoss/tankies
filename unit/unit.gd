@@ -18,6 +18,7 @@ var look_direction = Vector2.RIGHT
 @export var moves_per_turn = 2
 @export var my_team = "NoTeam"
 
+@onready var blackboard = $Blackboard
 @onready var icon = $Icon
 @onready var inactive = $Inactive
 @onready var plan = $plan
@@ -54,7 +55,13 @@ func _ready():
         standalone = true
         position = Vector2(80,80)
 
-    automation = get_node("BT"+name)
+    # We assigned a unique BT/automation node name
+    # So find it below
+    for child in get_children():
+        if '_class_name' in child:
+            if child._class_name == 'BehaviorTree':
+                automation = child
+                break
 
     moves_per_turn = 2
     sleep_turns = 0

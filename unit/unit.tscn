@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=36 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" path="res://unit/automation/has_valid_move.gd" id="31_sc1sq"]
 [ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="32_7psug"]
 [ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="33_ml7rk"]
+[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="34_pa40u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
@@ -41,8 +42,6 @@ size = Vector2(80, 80)
 editor_description = "A unit that can fight, move, or capture"
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_8naok")
-moves_per_turn = null
-my_team = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -141,9 +140,11 @@ script = ExtResource("18_pj64v")
 [node name="vision" type="Node" parent="."]
 script = ExtResource("19_rwfiy")
 
-[node name="automation" type="Node" parent="."]
+[node name="automation" type="Node" parent="." node_paths=PackedStringArray("blackboard")]
 script = ExtResource("20_pvctj")
 enabled = false
+actor_node_path = NodePath("..")
+blackboard = NodePath("../Blackboard")
 
 [node name="move_sequence" type="Node" parent="automation"]
 script = ExtResource("22_83v4n")
@@ -204,6 +205,9 @@ script = ExtResource("32_7psug")
 
 [node name="stop_moving" type="Node" parent="automation/move_sequence/move_if_possible"]
 script = ExtResource("33_ml7rk")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("34_pa40u")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
