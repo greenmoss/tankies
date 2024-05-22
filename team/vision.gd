@@ -67,6 +67,8 @@ func sees_position(position:Vector2) -> bool:
 func sum_cities():
     my_city_vision = {}
     for city in owner.get_my_cities():
+        # when we load saved cities, they start with null vision
+        if city.vision == null: continue
         for city_coordinates in city.vision.coordinates:
             my_city_vision[city_coordinates] = true
 
@@ -75,6 +77,7 @@ func sum_units():
     my_unit_vision = {}
     if owner.units == null: return
     for unit in owner.get_my_valid_units():
+        # when we load saved units, they start with null vision
         if unit.vision == null: continue
         for unit_coordinates in unit.vision.coordinates:
             my_unit_vision[unit_coordinates] = true
