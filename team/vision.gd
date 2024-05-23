@@ -64,6 +64,17 @@ func sees_position(position:Vector2) -> bool:
     return false
 
 
+func set_all_unexplored(terrain):
+    explored = {}
+    if terrain == null: return
+    for layer_number in terrain.get_layers_count():
+        for cell in terrain.get_used_cells(layer_number):
+            # terrain map coordinate returns typeof() 5
+            # Vector2 is typeof() 6, so convert
+            var coordinate:Vector2 = cell
+            explored[coordinate] = false
+
+
 func sum_cities():
     my_city_vision = {}
     for city in owner.get_my_cities():

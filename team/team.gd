@@ -56,6 +56,7 @@ func set_world_vars():
     if units == null:
         standalone = true
     else:
+        vision.set_all_unexplored(terrain)
         vision.update_all()
 
 

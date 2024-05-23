@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=37 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://unit/automation/choose_closer_enemy.gd" id="27_umix8"]
 [ext_resource type="Script" path="res://unit/automation/choose_closest_city.gd" id="28_hjhhq"]
 [ext_resource type="Script" path="res://unit/automation/choose_closest_unit.gd" id="29_kqfo0"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_unexplored.gd" id="30_0derm"]
 [ext_resource type="Script" path="res://unit/automation/invalidate_move.gd" id="30_r3out"]
 [ext_resource type="Script" path="res://unit/automation/has_valid_move.gd" id="31_sc1sq"]
 [ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="32_7psug"]
@@ -187,6 +188,9 @@ script = ExtResource("26_p5mmd")
 
 [node name="choose_closest_unit" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_unit"]
 script = ExtResource("29_kqfo0")
+
+[node name="choose_closest_unexplored" type="Node" parent="automation/move_sequence/choose_best_move"]
+script = ExtResource("30_0derm")
 
 [node name="invalidate_move" type="Node" parent="automation/move_sequence/choose_best_move"]
 script = ExtResource("30_r3out")

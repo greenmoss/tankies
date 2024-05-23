@@ -19,7 +19,11 @@ func set_cities(candidates:Dictionary):
     blackboard.set_value("city_candidates", candidates)
 
 
-func set_terrain(terrain):
+func set_explored(explored:Dictionary):
+    blackboard.set_value("explored", explored)
+
+
+func set_terrain(terrain:TileMap):
     blackboard.set_value("terrain", terrain)
 
 
