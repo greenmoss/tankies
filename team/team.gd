@@ -57,8 +57,7 @@ func set_world_vars():
     if units == null:
         standalone = true
     else:
-        vision.set_all_unexplored(terrain)
-        vision.update_all()
+        vision.reset(terrain)
 
 
 # winner is always a Unit
@@ -94,8 +93,19 @@ func move():
 
 
 func summarize() -> String:
-    var summary_template = "{name}: won battles - {battles_won}; lost battles - {battles_lost}"
-    return summary_template.format({'name': name, 'battles_won': battles_won, 'battles_lost': battles_lost})
+    var exploration = vision.tally_explored()
+    var total_tiles = exploration['explored'] + exploration['unexplored']
+    var percent_explored = 0.0
+    if total_tiles > 0:
+        percent_explored = float(exploration['explored']) / float(total_tiles) * 100.0
+
+    var total_battles = battles_won + battles_lost
+    var percent_won = 0.0
+    if total_battles > 0:
+        percent_won = float(battles_won) / float(total_battles) * 100.0
+
+    var summary_template = "{name}: won battles - {percent_won}%; exploration: {percent_explored}%"
+    return summary_template.format({'name': name, 'percent_won': '%0.0f'%percent_won, 'percent_explored': '%0.0f'%percent_explored})
 
 
 func restore(saved_team):

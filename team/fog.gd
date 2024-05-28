@@ -37,6 +37,7 @@ func _on_vision_derived():
         if is_explored:
             if owner.vision.visible.has(explored_coordinate):
                 set_seen(local_coordinate)
+            # TODO: see below
             #else:
             #    set_unseen(local_coordinate)
         else:
@@ -49,13 +50,17 @@ func set_seen(local_coordinate):
     set_cell(tile_layer, local_coordinate, tile_source, states['visible'])
 
 
+# TODO: missing code before I can enable this:
+# find unit and/or city at this coordinate
+# find terrain at this coordinate
+# either show terrain, city, or unit, depending on conditions
+# fade out the unit over time?
 func set_unseen(local_coordinate):
     if were_seen.has(local_coordinate): return
 
     set_cell(tile_layer, local_coordinate, tile_source, states['unseen'])
     var global_coordinate = Vector2i(local_coordinate.x * 80, local_coordinate.y * 80)
     query.position = Vector2i(global_coordinate.x, global_coordinate.y)
-    var intersects = space_state.intersect_point(query)
-    print("intersects: ",intersects)
+    var _intersects = space_state.intersect_point(query)
 
     were_seen[local_coordinate] = true

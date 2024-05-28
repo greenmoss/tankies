@@ -42,12 +42,12 @@ func _unit_updated_vision(unit:Unit):
 # derive previously explored
 func derive():
     visible = {}
-    for city_coordinates in my_city_vision.keys():
-        explored[city_coordinates] = true
-        visible[city_coordinates] = true
-    for unit_coordinates in my_unit_vision.keys():
-        explored[unit_coordinates] = true
-        visible[unit_coordinates] = true
+    for city_coordinate in my_city_vision.keys():
+        explored[city_coordinate] = true
+        visible[city_coordinate] = true
+    for unit_coordinate in my_unit_vision.keys():
+        explored[unit_coordinate] = true
+        visible[unit_coordinate] = true
     derived.emit()
 
 
@@ -67,7 +67,7 @@ func sees_position(position:Vector2) -> bool:
     return false
 
 
-func set_all_unexplored(terrain):
+func reset(terrain):
     explored = {}
     if terrain == null: return
     for layer_number in terrain.get_layers_count():
@@ -77,14 +77,18 @@ func set_all_unexplored(terrain):
             var coordinate:Vector2 = cell
             explored[coordinate] = false
 
+    sum_cities()
+    sum_units()
+    derive()
+
 
 func sum_cities():
     my_city_vision = {}
     for city in owner.get_my_cities():
         # when we load saved cities, they start with null vision
         if city.vision == null: continue
-        for city_coordinates in city.vision.coordinates:
-            my_city_vision[city_coordinates] = true
+        for city_coordinate in city.vision.coordinates:
+            my_city_vision[city_coordinate] = true
 
 
 func sum_units():
@@ -93,11 +97,18 @@ func sum_units():
     for unit in owner.get_my_valid_units():
         # when we load saved units, they start with null vision
         if unit.vision == null: continue
-        for unit_coordinates in unit.vision.coordinates:
-            my_unit_vision[unit_coordinates] = true
+        for unit_coordinate in unit.vision.coordinates:
+            my_unit_vision[unit_coordinate] = true
 
 
-func update_all():
-    sum_cities()
-    sum_units()
-    derive()
+func tally_explored() -> Dictionary:
+    var totals = {
+        'explored': 0,
+        'unexplored': 0
+    }
+    for coordinate in explored.keys():
+        if explored[coordinate] == true:
+            totals['explored'] += 1
+        else:
+            totals['unexplored'] += 1
+    return totals
