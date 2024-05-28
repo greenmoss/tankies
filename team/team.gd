@@ -1,6 +1,7 @@
 extends Node
 class_name Team
 
+@onready var fog = $fog
 @onready var state = $state
 @onready var vision = $vision
 
@@ -11,6 +12,7 @@ class_name Team
 @export var terrain:TileMap
 # for finding cities, we require cities variable
 @export var cities:Cities
+@export var show_fog:bool
 
 # these two are only set if we're within a world
 var units:Units = null
@@ -27,7 +29,6 @@ var name_counter = 0
 func _ready():
     SignalBus.battle_finished.connect(_battle_finished)
     set_world_vars()
-
 
 func get_my_cities() -> Array:
     if cities == null:

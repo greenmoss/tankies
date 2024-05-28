@@ -147,6 +147,7 @@ controller = 1
 enemy_team = NodePath("../RedTeam")
 terrain = NodePath("../../Map/Terrain")
 cities = NodePath("../../Map/cities")
+show_fog = true
 
 [node name="cursor" type="Sprite2D" parent="teams/GreenTeam"]
 visible = false

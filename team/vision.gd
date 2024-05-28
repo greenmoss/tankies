@@ -11,6 +11,8 @@ var visible:Dictionary
 var my_city_vision:Dictionary
 var my_unit_vision:Dictionary
 
+signal derived
+
 
 func _ready():
     # vision is union of all cities and units
@@ -46,6 +48,7 @@ func derive():
     for unit_coordinates in my_unit_vision.keys():
         explored[unit_coordinates] = true
         visible[unit_coordinates] = true
+    derived.emit()
 
 
 func has_explored_position(position:Vector2) -> bool:
