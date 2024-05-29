@@ -5,8 +5,10 @@ var throbber_time = 0
 var throbber_duration = 1.5  # duration of the cursor throbber animation
 var target_time = 0
 var target_duration = 0.75  # duration of the cursor target animation
+var cities_under_mouse = {}
 var units_under_mouse = {}
-var selected_unit: Unit
+var selected_city:City
+var selected_unit:Unit
 var controller_team
 
 signal want_nearest_unit
@@ -19,6 +21,8 @@ func _ready():
     SignalBus.unit_completed_moves.connect(_unit_completed_moves)
     SignalBus.unit_disbanded.connect(_unit_disbanded)
     SignalBus.units_selected_next.connect(_units_selected_next)
+    SignalBus.mouse_entered_city.connect(_mouse_entered_city)
+    SignalBus.mouse_exited_city.connect(_mouse_exited_city)
     SignalBus.mouse_entered_unit.connect(_mouse_entered_unit)
     SignalBus.mouse_exited_unit.connect(_mouse_exited_unit)
 
@@ -46,14 +50,23 @@ func _physics_process(delta):
     target(delta)
 
 
-func _mouse_entered_unit(unit):
+func _mouse_entered_city(city:City):
+    if city.my_team != controller_team: return
+    cities_under_mouse[city] = true
+
+
+func _mouse_exited_city(city:City):
+    cities_under_mouse[city] = false
+
+
+func _mouse_entered_unit(unit:Unit):
     if not is_instance_valid(unit): return
     if unit.is_queued_for_deletion(): return
     if unit.my_team != controller_team: return
     units_under_mouse[unit] = true
 
 
-func _mouse_exited_unit(unit):
+func _mouse_exited_unit(unit:Unit):
     if not is_instance_valid(unit): return
     units_under_mouse[unit] = false
 

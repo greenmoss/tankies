@@ -11,6 +11,8 @@ signal city_updated_vision
 signal introduction_pressed_start
 signal introduction_selected_scenario
 
+signal mouse_entered_city
+signal mouse_exited_city
 signal mouse_entered_unit
 signal mouse_exited_unit
 

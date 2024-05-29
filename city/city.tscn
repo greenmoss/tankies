@@ -19,3 +19,6 @@ texture = ExtResource("1_2jb7b")
 
 [node name="vision" type="Node" parent="."]
 script = ExtResource("3_j6d3n")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

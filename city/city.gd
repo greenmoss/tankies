@@ -5,6 +5,10 @@ class_name City
 var selected = false
 var mouse_is_over_me = false
 
+# if we are running this scene as an instantiated child, this is false
+# set to true for debugging, e.g. to test cursor input
+var standalone:bool
+
 var default_team = "NoTeam"
 @export var my_team = default_team
 
@@ -18,7 +22,34 @@ var defense_strength = 1
 @onready var vision = $vision
 
 
+func _on_mouse_entered():
+    SignalBus.mouse_entered_city.emit(self)
+
+
+func _on_mouse_exited():
+    SignalBus.mouse_exited_city.emit(self)
+
+
+# when we are debugging, e.g. in a standalone scene
+# assume all input is for us, since there's no cursor
+func _unhandled_input(event):
+    if not standalone: return
+    handle_cursor_input_event(event)
+
+
+# the cursor chooses who gets the events
+# thus, we do not use _unhandled_input() here
+func handle_cursor_input_event(event):
+    pass
+    #print("got event ",event)
+
+
 func _ready():
+    # when debugging, we are the root scene
+    if get_parent() == get_tree().root:
+        standalone = true
+        position = Vector2(80,80)
+
     if my_team == null: my_team = "NoTeam"
     clear_build()
     position = position.snapped(Vector2.ONE * Global.tile_size/2)
