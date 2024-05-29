@@ -4,6 +4,10 @@ var movement_tween: Tween
 var move_animation_speed = 7.5
 
 
+func exit():
+    owner.vision.update()
+
+
 func animate():
     owner.sounds.play_move()
 

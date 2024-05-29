@@ -14,6 +14,9 @@ var _start_point = Vector2i()
 var _end_point = Vector2i()
 var _path = PackedVector2Array()
 
+# if we have blocker tiles surrounding the tilemap, how wide are they
+@export var blocker_margin:int
+
 func _ready():
     set_astar()
 
@@ -44,6 +47,19 @@ func is_point_walkable(local_position):
     if _astar.is_in_boundsv(map_position):
         return not _astar.is_point_solid(map_position)
     return false
+
+
+func find_coordinate_path(map_start_coordinate, map_end_coordinate):
+    # they are off by one, not sure why
+    map_start_coordinate.x -= 1
+    map_start_coordinate.y -= 1
+    map_end_coordinate.x -= 1
+    map_end_coordinate.y -= 1
+    _start_point = map_start_coordinate
+    _end_point = map_end_coordinate
+    _path = _astar.get_point_path(_start_point, _end_point)
+
+    return _path.duplicate()
 
 
 func find_path(local_start_point, local_end_point):

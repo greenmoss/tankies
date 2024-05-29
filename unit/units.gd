@@ -2,8 +2,8 @@ extends Node
 class_name Units
 
 # we store this here so units can access it
-@export var battle: Battle
-var unit_scene : PackedScene = preload("res://unit/unit.tscn")
+@export var battle:Battle
+var unit_scene:PackedScene = preload("res://unit/unit.tscn")
 
 
 func are_done() -> bool:
@@ -18,26 +18,42 @@ func are_active() -> bool:
     return false
 
 
-func create(team_name, position:Vector2) -> Unit:
+func create(position:Vector2, new_unit_name:String) -> Unit:
     var new_unit = unit_scene.instantiate()
-    new_unit.my_team = team_name
+    new_unit.name = new_unit_name
+    new_unit.set_team(get_parent())
     new_unit.position = position
     add_child(new_unit)
+    SignalBus.unit_updated_vision.emit(new_unit)
     return(new_unit)
 
 
-# this checks for cardinal distance on the map
+# return team units keyed by cardinal distance on the map
 # terrain and obstacles are *NOT* considered
-func get_all_by_cardinal_distance(position:Vector2) -> Dictionary:
+# if we provide team vision, only include units the team currently sees
+# TODO: use decorator style plus dedicated functions
+# for example `get_visible_by_cardinal_distance`
+# which makes for clearer, more targeted functions
+func get_all_by_cardinal_distance(position:Vector2, vision:TeamVision = null) -> Dictionary:
     var distance_map = {}
-    for unit in get_children():
-        if not is_instance_valid(unit): continue
-        if unit.is_queued_for_deletion(): continue
+    for unit in get_all_valid():
+        if vision != null:
+            if not vision.sees_position(unit.position): continue
         var distance: float = position.distance_to(unit.position)
         if distance not in distance_map:
             distance_map[distance] = []
         distance_map[distance].append(unit)
     return(distance_map)
+
+
+func get_all_valid() -> Array:
+    var valid_units = []
+    for unit in get_children():
+        # exclude invalid/deleted units
+        if not is_instance_valid(unit): continue
+        if unit.is_queued_for_deletion(): continue
+        valid_units.append(unit)
+    return valid_units
 
 
 func get_cardinal_closest_active(position:Vector2) -> Unit:

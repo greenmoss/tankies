@@ -1,7 +1,9 @@
 extends Node
 class_name Team
 
+@onready var fog = $fog
 @onready var state = $state
+@onready var vision = $vision
 
 @export var color:Color
 @export var controller:Global.Controllers
@@ -10,21 +12,52 @@ class_name Team
 @export var terrain:TileMap
 # for finding cities, we require cities variable
 @export var cities:Cities
+@export var show_fog:bool
 
+# these two are only set if we're within a world
 var units:Units = null
 var enemy_units:Units = null
 
 var battles_won:int = 0
 var battles_lost:int = 0
 
+var standalone:bool = false
+
+# use this to make friendlier team names which helps with debugging
+var name_counter = 0
 
 func _ready():
     SignalBus.battle_finished.connect(_battle_finished)
-    # if we are an instance in the world, find our units
-    # otherwise, we are only a scene without units
-    units = find_child('units', false)
-    if enemy_team != null:
+    set_world_vars()
+
+func get_my_cities() -> Array:
+    if cities == null:
+        return []
+    return cities.get_from_team(name)
+
+
+func get_my_valid_units() -> Array:
+    if units == null:
+        return []
+    return units.get_all_valid()
+
+
+# if we are an instance in the world, set up all variables connected to the world
+# otherwise, we are only a scene without units, terrain, etc
+func set_world_vars():
+    if terrain == null:
+        standalone = true
+
+    if enemy_team == null:
+        standalone = true
+    else:
         enemy_units = enemy_team.units
+
+    units = find_child('units', false)
+    if units == null:
+        standalone = true
+    else:
+        vision.reset(terrain)
 
 
 # winner is always a Unit
@@ -41,7 +74,9 @@ func _battle_finished(winner, loser):
 
 
 func build_unit_in(city:City):
-    var new_unit:Unit = $units.create(city.my_team, city.position)
+    name_counter += 1
+    var unit_name = name+"_unit"+str(name_counter)
+    var new_unit:Unit = $units.create(city.position, unit_name)
     new_unit.set_in_city(city)
 
 
@@ -58,8 +93,19 @@ func move():
 
 
 func summarize() -> String:
-    var summary_template = "{name}: won battles - {battles_won}; lost battles - {battles_lost}"
-    return summary_template.format({'name': name, 'battles_won': battles_won, 'battles_lost': battles_lost})
+    var exploration = vision.tally_explored()
+    var total_tiles = exploration['explored'] + exploration['unexplored']
+    var percent_explored = 0.0
+    if total_tiles > 0:
+        percent_explored = float(exploration['explored']) / float(total_tiles) * 100.0
+
+    var total_battles = battles_won + battles_lost
+    var percent_won = 0.0
+    if total_battles > 0:
+        percent_won = float(battles_won) / float(total_battles) * 100.0
+
+    var summary_template = "{name}: won battles - {percent_won}%; exploration: {percent_explored}%"
+    return summary_template.format({'name': name, 'percent_won': '%0.0f'%percent_won, 'percent_explored': '%0.0f'%percent_explored})
 
 
 func restore(saved_team):

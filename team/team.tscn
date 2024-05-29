@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://sgl6kqwi4tqx"]
+[gd_scene load_steps=16 format=3 uid="uid://sgl6kqwi4tqx"]
 
 [ext_resource type="Script" path="res://team/team.gd" id="1_xuuym"]
 [ext_resource type="Script" path="res://team/state/team_state_machine.gd" id="2_qpcv6"]
@@ -10,11 +10,26 @@
 [ext_resource type="Script" path="res://team/state/states/wait.gd" id="6_ybu3p"]
 [ext_resource type="Script" path="res://team/state/states/ai_plan.gd" id="7_tejo1"]
 [ext_resource type="Script" path="res://team/state/states/human_plan.gd" id="8_qs071"]
+[ext_resource type="Script" path="res://team/vision.gd" id="11_exhbn"]
+[ext_resource type="Texture2D" uid="uid://7v4a7i7po6qs" path="res://team/fog.svg" id="12_l63hk"]
+[ext_resource type="Script" path="res://team/fog.gd" id="13_tmtby"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p3rdr"]
+texture = ExtResource("12_l63hk")
+separation = Vector2i(0, 1)
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_qb0v8"]
+resource_name = "fog"
+tile_size = Vector2i(80, 80)
+custom_data_layer_0/name = ""
+custom_data_layer_0/type = 0
+sources/0 = SubResource("TileSetAtlasSource_p3rdr")
 
 [node name="Team" type="Node"]
 script = ExtResource("1_xuuym")
-color = null
-controller = null
 
 [node name="state" type="Node" parent="."]
 script = ExtResource("2_qpcv6")
@@ -43,3 +58,22 @@ script = ExtResource("8_qs071")
 
 [node name="wait" type="Node" parent="state"]
 script = ExtResource("6_ybu3p")
+
+[node name="vision" type="Node" parent="."]
+script = ExtResource("11_exhbn")
+
+[node name="fog" type="TileMap" parent="."]
+visible = false
+z_index = 3
+tile_set = SubResource("TileSet_qb0v8")
+collision_visibility_mode = 2
+navigation_visibility_mode = 2
+format = 2
+script = ExtResource("13_tmtby")
+
+[node name="phantoms" type="CanvasLayer" parent="fog"]
+
+[node name="template" type="Sprite2D" parent="fog/phantoms"]
+visible = false
+
+[connection signal="derived" from="vision" to="fog" method="_on_vision_derived"]

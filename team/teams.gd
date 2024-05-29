@@ -53,6 +53,7 @@ func restore(saved_teams):
         for team in get_children():
             if saved_team.name != team.name: continue
             team.restore(saved_team)
+            team.vision.reset(team.terrain)
 
 
 func save(saved: SavedWorld):

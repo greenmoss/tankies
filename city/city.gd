@@ -15,6 +15,8 @@ var build_duration = 4
 var build_remaining: int = build_duration
 var defense_strength = 1
 
+@onready var vision = $vision
+
 
 func _ready():
     if my_team == null: my_team = "NoTeam"
@@ -61,6 +63,7 @@ func assign():
         ).set_trans(Tween.TRANS_SINE)
     add_to_group(my_team)
     add_to_group("Cities")
+    SignalBus.city_updated_vision.emit(self)
 
 
 func build_unit():
