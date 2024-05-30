@@ -39,7 +39,7 @@ func _unhandled_input(event):
 
 # the cursor chooses who gets the events
 # thus, we do not use _unhandled_input() here
-func handle_cursor_input_event(event):
+func handle_cursor_input_event(_event):
     pass
     #print("got event ",event)
 

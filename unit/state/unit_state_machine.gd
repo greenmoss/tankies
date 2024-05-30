@@ -63,4 +63,5 @@ func _change_state(state_name):
 
 
 func handle_cursor_input(event):
-    current_state.handle_input(event)
+    if not 'handle_cursor_input' in current_state: return
+    current_state.handle_cursor_input(event)

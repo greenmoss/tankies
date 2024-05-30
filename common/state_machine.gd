@@ -73,6 +73,12 @@ func _change_state(state_name):
         current_state.enter()
 
 
+func _unhandled_input(event):
+    if not _active:
+        return
+    current_state.handle_input(event)
+
+
 func is_named(state_name:String) -> bool:
     return current_state.name == state_name
 

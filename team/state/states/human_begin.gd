@@ -15,7 +15,7 @@ func maybe_activate_unit():
     wake up that unit
     '''
 
-    var nearby = owner.units.get_all_by_cardinal_distance(owner.cursor.position)
+    var nearby = owner.units.get_all_by_cardinal_distance(owner.cursor.get_position())
     var distances = nearby.keys()
     distances.sort()
 

@@ -1,7 +1,7 @@
 extends "../common/idle.gd"
 
 
-func handle_input(event):
+func handle_cursor_input(event):
     if event.is_action_pressed("click"):
         owner.sounds.play_ready()
 
