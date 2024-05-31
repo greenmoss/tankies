@@ -1,6 +1,7 @@
 extends "../common/unit.gd"
 
 var marked:Unit
+var previous_marked:Unit
 
 var square_throb_time = 0
 var square_throb_duration = 1.5  # duration of the cursor square throb animation
@@ -24,13 +25,20 @@ func enter():
         emit_signal("next_state", "find_unit")
         return
 
+    if marked.state.is_asleep():
+        marked.state.awaken()
+
     owner.position = marked.position
 
     square_throb_time = 0
     big_circle_time = 0
 
     square_marker.visible = true
-    big_circle.visible = true
+
+    if marked != previous_marked:
+        marked.select_me()
+        big_circle.visible = true
+        previous_marked = marked
 
 
 func exit():
@@ -42,9 +50,11 @@ func handle_input(event):
     if event.is_action_pressed("click"):
         var clicked_unit:Unit = get_first_unit_under_mouse()
         if clicked_unit == null:
+            previous_marked = null
             marked = null
             emit_signal("next_state", "none")
             return
+
         # already selected, so deselect
         if clicked_unit == marked:
             marked = null
@@ -56,6 +66,7 @@ func handle_input(event):
         return
 
     if event.is_action_pressed('next'):
+        owner.state.find_unit.nearby = marked
         emit_signal("next_state", "find_unit")
         return
 
@@ -78,6 +89,10 @@ func update(delta):
         owner.state.track_unit.tracked = marked
         emit_signal("next_state", "track_unit")
         return
+
+    if marked.state.is_asleep():
+        owner.state.find_unit.nearby = marked
+        emit_signal("next_state", "find_unit")
 
     if square_marker.visible:
         if square_throb_time < square_throb_duration:

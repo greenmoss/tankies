@@ -33,6 +33,11 @@ func _ready():
     states_map.merge(idle_states)
 
 
+func awaken():
+    if is_asleep():
+        current_state.awaken()
+
+
 func force_end():
     # ignore any remaining moves
     current_state.next_state.emit('end')
@@ -40,6 +45,10 @@ func force_end():
 
 func is_active() -> bool:
     return current_state.name in active_states.keys()
+
+
+func is_asleep() -> bool:
+    return current_state.name == 'sleep'
 
 
 func is_idle() -> bool:

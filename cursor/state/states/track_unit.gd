@@ -15,5 +15,13 @@ func update(_delta):
         tracked = null
         emit_signal("next_state", "find_unit")
         return
-    if not tracked.state.is_active():
-        owner.state.mark_unit(tracked)
+
+    # try again, until unit stops being active
+    if tracked.state.is_active():
+        return
+
+    if not tracked.state.is_idle():
+        emit_signal("next_state", "find_unit")
+        return
+    
+    owner.state.mark_unit(tracked)
