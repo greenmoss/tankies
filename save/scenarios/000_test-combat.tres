@@ -10,7 +10,7 @@
 script = ExtResource("1_duc0p")
 my_team = "NoTeam"
 position = Vector2(440, 120)
-modulate = Color(1, 1, 1, 1)
+icon_modulate = Color(1, 1, 1, 1)
 open = false
 _class_name = "SavedCity"
 
@@ -18,7 +18,7 @@ _class_name = "SavedCity"
 script = ExtResource("1_duc0p")
 my_team = "NoTeam"
 position = Vector2(440, 200)
-modulate = Color(1, 1, 1, 1)
+icon_modulate = Color(1, 1, 1, 1)
 open = false
 _class_name = "SavedCity"
 
@@ -26,7 +26,7 @@ _class_name = "SavedCity"
 script = ExtResource("1_duc0p")
 my_team = "NoTeam"
 position = Vector2(440, 280)
-modulate = Color(1, 1, 1, 1)
+icon_modulate = Color(1, 1, 1, 1)
 open = false
 _class_name = "SavedCity"
 
@@ -34,7 +34,7 @@ _class_name = "SavedCity"
 script = ExtResource("1_duc0p")
 my_team = "NoTeam"
 position = Vector2(440, 360)
-modulate = Color(1, 1, 1, 1)
+icon_modulate = Color(1, 1, 1, 1)
 open = false
 _class_name = "SavedCity"
 

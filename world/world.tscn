@@ -118,14 +118,18 @@ blocker_margin = 1
 script = ExtResource("3_bgbrx")
 
 [node name="City0" parent="Map/cities" instance=ExtResource("3_k81tp")]
-modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(120, 120)
 my_team = "GreenTeam"
 
+[node name="icon" parent="Map/cities/City0" index="2"]
+modulate = Color(0, 0.862745, 0, 1)
+
 [node name="City1" parent="Map/cities" instance=ExtResource("3_k81tp")]
-modulate = Color(1, 0.247059, 0.188235, 1)
-position = Vector2(1802, 1000)
+position = Vector2(1800, 1000)
 my_team = "RedTeam"
+
+[node name="icon" parent="Map/cities/City1" index="2"]
+modulate = Color(1, 0.247059, 0.188235, 1)
 
 [node name="City2" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(440, 120)
@@ -216,3 +220,6 @@ stream = ExtResource("20_bch13")
 [connection signal="want_nearest_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_nearest_unit"]
 [connection signal="want_next_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_next_unit"]
 [connection signal="timeout" from="turns/banner/CoolDownTimer" to="turns/banner" method="_on_cool_down_timer_timeout"]
+
+[editable path="Map/cities/City0"]
+[editable path="Map/cities/City1"]

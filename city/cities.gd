@@ -64,6 +64,7 @@ func restore(saved_cities):
         var city = city_template.duplicate()
         saved_city.restore(city)
         add_child(city)
+        saved_city.restore_children(city)
 
     city_template.queue_free()
 

@@ -19,6 +19,8 @@ var build_duration = 4
 var build_remaining: int = build_duration
 var defense_strength = 1
 
+@onready var display_panel = $display_panel
+@onready var icon = $icon
 @onready var vision = $vision
 
 
@@ -88,7 +90,7 @@ func surrender():
 
 func assign():
     var tween = create_tween()
-    tween.tween_property(self, "modulate",
+    tween.tween_property(icon, "modulate",
         Global.team_colors[my_team],
         1.0
         ).set_trans(Tween.TRANS_SINE)
