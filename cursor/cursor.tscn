@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://j8ul2q0ae4n1"]
+[gd_scene load_steps=13 format=3 uid="uid://j8ul2q0ae4n1"]
 
 [ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://cursor/cursor_box.png" id="1_q7v2r"]
 [ext_resource type="Script" path="res://cursor/cursor.gd" id="2_qtmun"]
 [ext_resource type="Texture2D" uid="uid://m744y4a4jmal" path="res://cursor/wide_circle_gradient.png" id="3_mk38k"]
 [ext_resource type="Script" path="res://cursor/state/state_machine.gd" id="4_46c4k"]
+[ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="4_bwri6"]
 [ext_resource type="Script" path="res://cursor/state/states/find_unit.gd" id="4_ryggc"]
+[ext_resource type="Texture2D" uid="uid://bnwo1hs4e50qw" path="res://city/modern-city.png" id="4_yswa2"]
 [ext_resource type="Script" path="res://cursor/state/states/city.gd" id="5_wx3cu"]
 [ext_resource type="Script" path="res://cursor/state/states/none.gd" id="6_fphdq"]
+[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="6_xn555"]
 [ext_resource type="Script" path="res://cursor/state/states/unit.gd" id="7_2yapj"]
 [ext_resource type="Script" path="res://cursor/state/states/track_unit.gd" id="9_8xy0a"]
 
@@ -17,8 +20,56 @@ script = ExtResource("2_qtmun")
 script = ExtResource("4_46c4k")
 start_state = NodePath("none")
 
-[node name="city" type="Node" parent="state"]
+[node name="city" type="Node2D" parent="state"]
 script = ExtResource("5_wx3cu")
+
+[node name="detail" type="ColorRect" parent="state/city"]
+visible = false
+z_index = 4
+
+[node name="lists" type="ColorRect" parent="state/city/detail"]
+offset_right = 240.0
+offset_bottom = 240.0
+color = Color(0.137255, 0.341176, 0.137255, 0.890196)
+
+[node name="building_label" type="Label" parent="state/city/detail/lists"]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 24.0
+offset_right = 210.0
+offset_bottom = 58.0
+theme = ExtResource("4_bwri6")
+text = "Build"
+
+[node name="icon" type="Sprite2D" parent="state/city/detail"]
+position = Vector2(40, 40)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_yswa2")
+
+[node name="build_progress" type="TextureProgressBar" parent="state/city/detail"]
+layout_mode = 0
+offset_left = 160.0
+offset_right = 1184.0
+offset_bottom = 1024.0
+scale = Vector2(0.075, 0.075)
+fill_mode = 4
+texture_under = ExtResource("6_xn555")
+texture_progress = ExtResource("6_xn555")
+tint_under = Color(0.489622, 0.489622, 0.489622, 1)
+
+[node name="build_turns_margin" type="MarginContainer" parent="state/city/detail"]
+offset_left = 160.0
+offset_right = 200.0
+offset_bottom = 40.0
+theme = ExtResource("4_bwri6")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = -5
+
+[node name="build_turns_remaining" type="Label" parent="state/city/detail/build_turns_margin"]
+layout_mode = 2
+theme = ExtResource("4_bwri6")
+theme_override_font_sizes/font_size = 40
+text = "1"
 
 [node name="find_unit" type="Node" parent="state"]
 script = ExtResource("4_ryggc")

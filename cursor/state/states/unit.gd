@@ -48,6 +48,13 @@ func exit():
 
 func handle_input(event):
     if event.is_action_pressed("click"):
+        var clicked_city:City = get_first_city_under_mouse()
+        if clicked_city != null:
+            previous_marked = null
+            marked = null
+            owner.state.mark_city(clicked_city)
+            return
+
         var clicked_unit:Unit = get_first_unit_under_mouse()
         if clicked_unit == null:
             previous_marked = null
@@ -57,6 +64,7 @@ func handle_input(event):
 
         # already selected, so deselect
         if clicked_unit == marked:
+            previous_marked = null
             marked = null
             emit_signal("next_state", "none")
             return
@@ -68,6 +76,12 @@ func handle_input(event):
     if event.is_action_pressed('next'):
         owner.state.find_unit.nearby = marked
         emit_signal("next_state", "find_unit")
+        return
+
+    if event.is_action_pressed("escape"):
+        previous_marked = null
+        marked = null
+        emit_signal("next_state", "none")
         return
 
     marked.handle_cursor_input_event(event)

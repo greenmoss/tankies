@@ -13,13 +13,6 @@ script = ExtResource("1_86gs3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8uh4n")
 
-[node name="display_panel" type="ColorRect" parent="."]
-visible = false
-offset_left = -40.0
-offset_top = -40.0
-offset_right = 280.0
-offset_bottom = 280.0
-
 [node name="icon" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_2jb7b")

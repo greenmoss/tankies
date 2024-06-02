@@ -18,6 +18,15 @@ func _ready():
     }
 
 
-func mark_unit(marked_unit):
+func mark_city(marked_city:City):
+    if marked_city == null:
+        return
+    city.marked = marked_city
+    current_state.emit_signal("next_state", "city")
+
+
+func mark_unit(marked_unit:Unit):
+    if marked_unit == null:
+        return
     unit.marked = marked_unit
     current_state.emit_signal("next_state", "unit")

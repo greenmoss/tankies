@@ -121,14 +121,14 @@ script = ExtResource("3_bgbrx")
 position = Vector2(120, 120)
 my_team = "GreenTeam"
 
-[node name="icon" parent="Map/cities/City0" index="2"]
+[node name="icon" parent="Map/cities/City0" index="1"]
 modulate = Color(0, 0.862745, 0, 1)
 
 [node name="City1" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(1800, 1000)
 my_team = "RedTeam"
 
-[node name="icon" parent="Map/cities/City1" index="2"]
+[node name="icon" parent="Map/cities/City1" index="1"]
 modulate = Color(1, 0.247059, 0.188235, 1)
 
 [node name="City2" parent="Map/cities" instance=ExtResource("3_k81tp")]

@@ -19,7 +19,6 @@ var build_duration = 4
 var build_remaining: int = build_duration
 var defense_strength = 1
 
-@onready var display_panel = $display_panel
 @onready var icon = $icon
 @onready var vision = $vision
 
