@@ -10,6 +10,7 @@ var marked:City
 @onready var units1 = $detail/units1
 @onready var units2 = $detail/units2
 @onready var unit_slots = [
+    $detail/unit0,
     $detail/units1/unit1,
     $detail/units1/unit2,
     $detail/units1/unit3,
@@ -31,46 +32,51 @@ var tween_speed = 7.5
 var alpha_tween:Tween
 var position_tween:Tween
 
+var default_display_text = "Turns: "
 var default_tooltip_text = "Turns until built: "
 @onready var default_size_y = $detail/background.size.y
 
 var units:Array[Unit]
 
 
-func _on_unit_1_pressed():
+func _on_unit_0_pressed():
     activate_unit(0)
 
 
-func _on_unit_2_pressed():
+func _on_unit_1_pressed():
     activate_unit(1)
 
 
-func _on_unit_3_pressed():
+func _on_unit_2_pressed():
     activate_unit(2)
 
 
-func _on_unit_4_pressed():
+func _on_unit_3_pressed():
     activate_unit(3)
 
 
-func _on_unit_5_pressed():
+func _on_unit_4_pressed():
     activate_unit(4)
 
 
-func _on_unit_6_pressed():
+func _on_unit_5_pressed():
     activate_unit(5)
 
 
-func _on_unit_7_pressed():
+func _on_unit_6_pressed():
     activate_unit(6)
 
 
-func _on_unit_8_pressed():
+func _on_unit_7_pressed():
     activate_unit(7)
 
 
-func _on_unit_9_pressed():
+func _on_unit_8_pressed():
     activate_unit(8)
+
+
+func _on_unit_9_pressed():
+    activate_unit(9)
 
 
 func activate_unit(unit_number:int):
@@ -93,6 +99,7 @@ func enter():
     build_progress_max = (float(marked.build_duration) - float(marked.build_remaining) + 1.0) / float(marked.build_duration) * 100.0
     build_turns_remaining.text = str(marked.build_remaining)
     build_progress.tooltip_text = default_tooltip_text+str(marked.build_remaining)
+    build_turns_remaining.text = default_display_text+str(marked.build_remaining)
     build_turns_remaining.tooltip_text = default_tooltip_text+str(marked.build_remaining)
 
     units = []
@@ -110,7 +117,8 @@ func enter():
         unit_slots[slot_index].modulate = units[slot_index].modulate
         unit_slots[slot_index].flip_h = units[slot_index].icon.flip_h
 
-    if units.size() > units1.get_children().size():
+    # row 1 of displayed units, plus one unit displayed over the city
+    if units.size() > (units1.get_children().size() + 1):
         units2.visible = true
         detail.size.y += default_size_y / 2
         background.size.y += default_size_y / 2
