@@ -14,6 +14,12 @@ var build_progress_animation_time = 0.0
 var build_progress_animation_duration = 0.75
 var build_progress_animation_pause = 0.5
 
+var tween_speed = 7.5
+var alpha_tween:Tween
+var position_tween:Tween
+
+var default_tooltip_text = "Turns until built: "
+
 
 func enter():
     if marked == null:
@@ -26,18 +32,39 @@ func enter():
     build_progress_min = (float(marked.build_duration) - float(marked.build_remaining)) / float(marked.build_duration) * 100.0
     build_progress_max = (float(marked.build_duration) - float(marked.build_remaining) + 1.0) / float(marked.build_duration) * 100.0
     build_turns_remaining.text = str(marked.build_remaining)
+    build_progress.tooltip_text = default_tooltip_text+str(marked.build_remaining)
+    build_turns_remaining.tooltip_text = default_tooltip_text+str(marked.build_remaining)
 
     owner.position = Vector2(marked.position.x - Global.half_tile_size, marked.position.y - Global.half_tile_size)
 
     var right_extent = owner.position.x + lists.size.x
-    if right_extent > get_viewport().size.x:
-        detail.position.x -= lists.size.x - Global.tile_size
-
     var bottom_extent = owner.position.y + lists.size.y
-    if bottom_extent > get_viewport().size.y:
-        detail.position.y -= lists.size.y - Global.tile_size
+    var updated_x = detail.position.x
+    var updated_y = detail.position.y
 
+    if right_extent > get_viewport().size.x:
+        updated_x = detail.position.x - lists.size.x + Global.tile_size
+
+    if bottom_extent > get_viewport().size.y:
+        updated_y = detail.position.y - lists.size.y + Global.tile_size
+
+    detail.modulate.a = 0.0
     detail.visible = true
+
+    # fade in the panel
+    alpha_tween = create_tween()
+    alpha_tween.tween_property(detail, "modulate:a",
+        1.0,
+        1.0/tween_speed
+        ).set_trans(Tween.TRANS_SINE)
+
+    # if panel would be offscreen, slide it onscreen
+    if (updated_x != owner.position.x) or (updated_y != owner.position.y):
+        position_tween = create_tween()
+        position_tween.tween_property(detail, "position",
+            Vector2(updated_x, updated_y),
+            1.0/tween_speed
+            ).set_trans(Tween.TRANS_SINE)
 
 
 func exit():

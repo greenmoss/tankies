@@ -6,6 +6,7 @@ Until there's a real "credits" screen in this game, tracking licensed art here:
 * Marching sound: CC0 by stib
 
 ### https://game-icons.net
+* Auto repair icon: CC-BY 3.0 by Lorc
 * Tank icon: CC-BY 3.0 by Lorc
 
 ### https://opengameart.org

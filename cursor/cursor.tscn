@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://j8ul2q0ae4n1"]
+[gd_scene load_steps=14 format=3 uid="uid://j8ul2q0ae4n1"]
 
 [ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://cursor/cursor_box.png" id="1_q7v2r"]
 [ext_resource type="Script" path="res://cursor/cursor.gd" id="2_qtmun"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://cursor/state/states/none.gd" id="6_fphdq"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="6_xn555"]
 [ext_resource type="Script" path="res://cursor/state/states/unit.gd" id="7_2yapj"]
+[ext_resource type="Texture2D" uid="uid://c346jyasbkrsv" path="res://cursor/auto-repair.svg" id="7_f2s1w"]
 [ext_resource type="Script" path="res://cursor/state/states/track_unit.gd" id="9_8xy0a"]
 
 [node name="cursor" type="Node2D"]
@@ -32,19 +33,21 @@ offset_right = 240.0
 offset_bottom = 240.0
 color = Color(0.137255, 0.341176, 0.137255, 0.890196)
 
-[node name="building_label" type="Label" parent="state/city/detail/lists"]
-layout_mode = 0
-offset_left = 94.0
-offset_top = 24.0
-offset_right = 210.0
-offset_bottom = 58.0
-theme = ExtResource("4_bwri6")
-text = "Build"
-
 [node name="icon" type="Sprite2D" parent="state/city/detail"]
 position = Vector2(40, 40)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_yswa2")
+
+[node name="build_selector" type="TextureButton" parent="state/city/detail"]
+layout_mode = 0
+offset_left = 80.0
+offset_right = 160.0
+offset_bottom = 80.0
+tooltip_text = "Currently building"
+texture_normal = ExtResource("7_f2s1w")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
 
 [node name="build_progress" type="TextureProgressBar" parent="state/city/detail"]
 layout_mode = 0
@@ -52,6 +55,7 @@ offset_left = 160.0
 offset_right = 1184.0
 offset_bottom = 1024.0
 scale = Vector2(0.075, 0.075)
+tooltip_text = "DYNAMIC/GENERATED"
 fill_mode = 4
 texture_under = ExtResource("6_xn555")
 texture_progress = ExtResource("6_xn555")
@@ -67,6 +71,8 @@ theme_override_constants/margin_top = -5
 
 [node name="build_turns_remaining" type="Label" parent="state/city/detail/build_turns_margin"]
 layout_mode = 2
+tooltip_text = "DYNAMIC/GENERATED"
+mouse_filter = 1
 theme = ExtResource("4_bwri6")
 theme_override_font_sizes/font_size = 40
 text = "1"
