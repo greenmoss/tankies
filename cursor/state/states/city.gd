@@ -114,7 +114,7 @@ func enter():
         if slot_index >= units.size():
             break
         unit_slots[slot_index].texture_normal = units[slot_index].icon.texture
-        unit_slots[slot_index].modulate = units[slot_index].modulate
+        unit_slots[slot_index].modulate = units[slot_index].icon.modulate
         unit_slots[slot_index].flip_h = units[slot_index].icon.flip_h
 
     # row 1 of displayed units, plus one unit displayed over the city
