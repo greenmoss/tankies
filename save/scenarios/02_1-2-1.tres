@@ -10,7 +10,7 @@
 script = ExtResource("1_mvhij")
 my_team = "GreenTeam"
 position = Vector2(120, 120)
-modulate = Color(0, 0.862745, 0, 1)
+icon_modulate = Color(0, 0.862745, 0, 1)
 open = false
 _class_name = "SavedCity"
 
@@ -18,7 +18,7 @@ _class_name = "SavedCity"
 script = ExtResource("1_mvhij")
 my_team = "RedTeam"
 position = Vector2(1800, 1000)
-modulate = Color(1, 0.247059, 0.188235, 1)
+icon_modulate = Color(1, 0.247059, 0.188235, 1)
 open = false
 _class_name = "SavedCity"
 
@@ -26,7 +26,7 @@ _class_name = "SavedCity"
 script = ExtResource("1_mvhij")
 my_team = "NoTeam"
 position = Vector2(440, 120)
-modulate = Color(1, 1, 1, 1)
+icon_modulate = Color(1, 1, 1, 1)
 open = true
 _class_name = "SavedCity"
 
@@ -34,7 +34,7 @@ _class_name = "SavedCity"
 script = ExtResource("1_mvhij")
 my_team = "NoTeam"
 position = Vector2(1480, 1000)
-modulate = Color(1, 1, 1, 1)
+icon_modulate = Color(1, 1, 1, 1)
 open = true
 _class_name = "SavedCity"
 

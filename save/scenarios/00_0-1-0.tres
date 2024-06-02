@@ -10,7 +10,7 @@
 script = ExtResource("1_7i074")
 my_team = "NoTeam"
 position = Vector2(280, 120)
-modulate = Color(1, 1, 1, 1)
+icon_modulate = Color(1, 1, 1, 1)
 open = true
 _class_name = "SavedCity"
 

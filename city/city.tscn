@@ -13,9 +13,12 @@ script = ExtResource("1_86gs3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8uh4n")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="icon" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_2jb7b")
 
 [node name="vision" type="Node" parent="."]
 script = ExtResource("3_j6d3n")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

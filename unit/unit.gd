@@ -89,7 +89,7 @@ func move_toward(new_position):
 
 func assign_groups():
     if my_team != null:
-        modulate = Global.team_colors[my_team]
+        icon.modulate = Global.team_colors[my_team]
         add_to_group(my_team)
     add_to_group("Units")
 

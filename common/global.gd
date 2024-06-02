@@ -1,6 +1,7 @@
 extends Node
 
 const tile_size = 80
+const half_tile_size = 40
 
 const ai_team = "RedTeam"
 const human_team = "GreenTeam"

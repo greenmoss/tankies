@@ -5,10 +5,10 @@ extends "res://common/state.gd"
 # human will do the magic of selecting, moving, waiting, go again
 # this might change in the future once we have auto-units, go-to, etc
 func enter():
-    var next:Unit = owner.units.get_cardinal_closest_active(owner.cursor.position)
+    var next:Unit = owner.units.get_cardinal_closest_active(owner.cursor.get_position())
     if next != null:
         next.select_me()
-        owner.cursor.mark_unit(next)
+        owner.cursor.state.mark_unit(next)
 
 
 func update(_delta):

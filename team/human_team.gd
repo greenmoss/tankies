@@ -8,7 +8,7 @@ var skipped_next_units = {}
 
 func _ready():
     super._ready()
-    cursor.controller_team = name
+    cursor.set_controller_team(name)
 
 
 # find an active unit with moves, nearest to the given position
@@ -16,7 +16,7 @@ func _on_cursor_want_nearest_unit(position:Vector2):
     var unit:Unit = units.get_cardinal_closest_active(position)
     if unit != null:
         unit.select_me()
-        cursor.mark_unit(unit)
+        cursor.state.mark_unit(unit)
 
 
 # find an active unit with moves, nearest to a unit
@@ -73,10 +73,10 @@ func _on_cursor_want_next_unit(previous_unit:Unit):
         if previous_unit.state.is_done():
             return
         previous_unit.select_me()
-        cursor.mark_unit(previous_unit)
+        cursor.state.mark_unit(previous_unit)
         return
 
     # found new unselected, so select it
     skipped_next_units[next_unit] = 1
     next_unit.select_me()
-    cursor.mark_unit(next_unit)
+    cursor.state.mark_unit(next_unit)

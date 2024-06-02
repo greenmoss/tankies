@@ -7,7 +7,7 @@ func enter():
     owner.inactive.done_moving()
 
 
-func handle_input(event):
+func handle_cursor_input(event):
     for direction in input_directions.keys():
         if event.is_action_pressed(direction):
             owner.sounds.play_denied()

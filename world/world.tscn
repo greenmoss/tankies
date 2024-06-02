@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bufvbk6y65jkb"]
+[gd_scene load_steps=22 format=3 uid="uid://bufvbk6y65jkb"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_555vv"]
 [ext_resource type="Texture2D" uid="uid://dtvh1ni0qoylk" path="res://world/grasslands.png" id="1_oiwoi"]
@@ -12,9 +12,7 @@
 [ext_resource type="Script" path="res://team/human_team.gd" id="7_s0hci"]
 [ext_resource type="Script" path="res://unit/units.gd" id="8_4k8im"]
 [ext_resource type="PackedScene" uid="uid://sgl6kqwi4tqx" path="res://team/team.tscn" id="8_y6rer"]
-[ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://team/cursor/cursor_box.png" id="9_tm1a5"]
-[ext_resource type="Script" path="res://team/cursor/cursor.gd" id="10_wybu0"]
-[ext_resource type="Texture2D" uid="uid://m744y4a4jmal" path="res://team/cursor/wide_circle_gradient.png" id="11_pam1f"]
+[ext_resource type="PackedScene" uid="uid://j8ul2q0ae4n1" path="res://cursor/cursor.tscn" id="9_q1kf1"]
 [ext_resource type="Script" path="res://battle/battle.gd" id="13_vrmg3"]
 [ext_resource type="AudioStream" uid="uid://bq41j0phwcn4l" path="res://battle/machine_gun_and_explosion.mp3" id="14_edf21"]
 [ext_resource type="PackedScene" uid="uid://bjftff5tujhp2" path="res://battle/target.tscn" id="15_kgld4"]
@@ -120,14 +118,18 @@ blocker_margin = 1
 script = ExtResource("3_bgbrx")
 
 [node name="City0" parent="Map/cities" instance=ExtResource("3_k81tp")]
-modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(120, 120)
 my_team = "GreenTeam"
 
+[node name="icon" parent="Map/cities/City0" index="1"]
+modulate = Color(0, 0.862745, 0, 1)
+
 [node name="City1" parent="Map/cities" instance=ExtResource("3_k81tp")]
-modulate = Color(1, 0.247059, 0.188235, 1)
-position = Vector2(1802, 1000)
+position = Vector2(1800, 1000)
 my_team = "RedTeam"
+
+[node name="icon" parent="Map/cities/City1" index="1"]
+modulate = Color(1, 0.247059, 0.188235, 1)
 
 [node name="City2" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(440, 120)
@@ -149,19 +151,6 @@ terrain = NodePath("../../Map/Terrain")
 cities = NodePath("../../Map/cities")
 show_fog = true
 
-[node name="cursor" type="Sprite2D" parent="teams/GreenTeam"]
-visible = false
-modulate = Color(0.831373, 0.831373, 0.831373, 1)
-z_index = 1
-texture = ExtResource("9_tm1a5")
-script = ExtResource("10_wybu0")
-
-[node name="CoolDownTimer" type="Timer" parent="teams/GreenTeam/cursor"]
-wait_time = 0.5
-
-[node name="big_circle" type="Sprite2D" parent="teams/GreenTeam/cursor"]
-texture = ExtResource("11_pam1f")
-
 [node name="units" type="Node" parent="teams/GreenTeam" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
 battle = NodePath("../../../battle")
@@ -170,6 +159,8 @@ battle = NodePath("../../../battle")
 modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(200, 200)
 my_team = "GreenTeam"
+
+[node name="cursor" parent="teams/GreenTeam" instance=ExtResource("9_q1kf1")]
 
 [node name="RedTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "terrain", "cities") instance=ExtResource("8_y6rer")]
 color = Color(1, 0.247059, 0.188235, 1)
@@ -229,3 +220,6 @@ stream = ExtResource("20_bch13")
 [connection signal="want_nearest_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_nearest_unit"]
 [connection signal="want_next_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_next_unit"]
 [connection signal="timeout" from="turns/banner/CoolDownTimer" to="turns/banner" method="_on_cool_down_timer_timeout"]
+
+[editable path="Map/cities/City0"]
+[editable path="Map/cities/City1"]
