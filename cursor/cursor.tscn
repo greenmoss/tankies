@@ -27,10 +27,14 @@ script = ExtResource("5_wx3cu")
 [node name="detail" type="ColorRect" parent="state/city"]
 visible = false
 z_index = 4
-
-[node name="lists" type="ColorRect" parent="state/city/detail"]
 offset_right = 240.0
-offset_bottom = 240.0
+offset_bottom = 160.0
+color = Color(1, 1, 1, 0)
+
+[node name="background" type="ColorRect" parent="state/city/detail"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 160.0
 color = Color(0.137255, 0.341176, 0.137255, 0.890196)
 
 [node name="icon" type="Sprite2D" parent="state/city/detail"]
@@ -62,6 +66,7 @@ texture_progress = ExtResource("6_xn555")
 tint_under = Color(0.489622, 0.489622, 0.489622, 1)
 
 [node name="build_turns_margin" type="MarginContainer" parent="state/city/detail"]
+layout_mode = 0
 offset_left = 160.0
 offset_right = 200.0
 offset_bottom = 40.0
@@ -76,6 +81,74 @@ mouse_filter = 1
 theme = ExtResource("4_bwri6")
 theme_override_font_sizes/font_size = 40
 text = "1"
+
+[node name="units1" type="Node2D" parent="state/city/detail"]
+position = Vector2(2.08165e-12, 80)
+
+[node name="unit1" type="TextureButton" parent="state/city/detail/units1"]
+offset_right = 80.0
+offset_bottom = 80.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit2" type="TextureButton" parent="state/city/detail/units1"]
+offset_left = 80.0
+offset_right = 160.0
+offset_bottom = 80.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit3" type="TextureButton" parent="state/city/detail/units1"]
+offset_left = 160.0
+offset_right = 240.0
+offset_bottom = 80.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="units2" type="Node2D" parent="state/city/detail"]
+visible = false
+position = Vector2(2.08165e-12, 160)
+
+[node name="unit4" type="TextureButton" parent="state/city/detail/units2"]
+offset_right = 40.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit5" type="TextureButton" parent="state/city/detail/units2"]
+offset_left = 40.0
+offset_right = 80.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit6" type="TextureButton" parent="state/city/detail/units2"]
+offset_left = 80.0
+offset_right = 120.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit7" type="TextureButton" parent="state/city/detail/units2"]
+offset_left = 120.0
+offset_right = 160.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit8" type="TextureButton" parent="state/city/detail/units2"]
+offset_left = 160.0
+offset_right = 200.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit9" type="TextureButton" parent="state/city/detail/units2"]
+offset_left = 200.0
+offset_right = 240.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="find_unit" type="Node" parent="state"]
 script = ExtResource("4_ryggc")
@@ -99,3 +172,13 @@ texture = ExtResource("1_q7v2r")
 
 [node name="track_unit" type="Node" parent="state"]
 script = ExtResource("9_8xy0a")
+
+[connection signal="pressed" from="state/city/detail/units1/unit1" to="state/city" method="_on_unit_1_pressed"]
+[connection signal="pressed" from="state/city/detail/units1/unit2" to="state/city" method="_on_unit_2_pressed"]
+[connection signal="pressed" from="state/city/detail/units1/unit3" to="state/city" method="_on_unit_3_pressed"]
+[connection signal="pressed" from="state/city/detail/units2/unit4" to="state/city" method="_on_unit_4_pressed"]
+[connection signal="pressed" from="state/city/detail/units2/unit5" to="state/city" method="_on_unit_5_pressed"]
+[connection signal="pressed" from="state/city/detail/units2/unit6" to="state/city" method="_on_unit_6_pressed"]
+[connection signal="pressed" from="state/city/detail/units2/unit7" to="state/city" method="_on_unit_7_pressed"]
+[connection signal="pressed" from="state/city/detail/units2/unit8" to="state/city" method="_on_unit_8_pressed"]
+[connection signal="pressed" from="state/city/detail/units2/unit9" to="state/city" method="_on_unit_9_pressed"]
