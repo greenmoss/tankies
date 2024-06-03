@@ -1,40 +1,40 @@
 [gd_scene load_steps=37 format=3 uid="uid://d0cfmyfdmy8mo"]
 
-[ext_resource type="Script" path="res://unit/unit.gd" id="1_8naok"]
-[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/tank.png" id="2_e42fy"]
-[ext_resource type="Script" path="res://unit/Inactive.gd" id="3_dk2lf"]
-[ext_resource type="Script" path="res://unit/Icon.gd" id="3_pj16b"]
-[ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="4_d0ylj"]
-[ext_resource type="Script" path="res://unit/sounds/sounds.gd" id="6_hoyde"]
-[ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/sounds/engine_heavy_loop.mp3" id="7_q7qdi"]
-[ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="8_6roe4"]
-[ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="9_2xm75"]
-[ext_resource type="Script" path="res://unit/state/unit_state_machine.gd" id="9_wvbuq"]
-[ext_resource type="Script" path="res://unit/state/states/attack.gd" id="10_a4mfw"]
-[ext_resource type="Script" path="res://unit/state/states/end.gd" id="12_1wbwm"]
-[ext_resource type="Script" path="res://unit/state/states/capture.gd" id="12_eovvr"]
-[ext_resource type="Script" path="res://unit/state/states/idle.gd" id="13_7sran"]
-[ext_resource type="Script" path="res://unit/state/states/move.gd" id="14_0bjrh"]
-[ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="15_6ojmj"]
-[ext_resource type="Script" path="res://unit/state/states/scout.gd" id="16_irg8u"]
-[ext_resource type="Script" path="res://unit/plan.gd" id="18_pj64v"]
-[ext_resource type="Script" path="res://unit/vision.gd" id="19_rwfiy"]
-[ext_resource type="Script" path="res://unit/automation/automation.gd" id="20_pvctj"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="21_tfaxg"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="22_83v4n"]
-[ext_resource type="Script" path="res://unit/automation/find_closest_city.gd" id="22_gkn4v"]
-[ext_resource type="Script" path="res://unit/automation/find_closest_unit.gd" id="23_45n3t"]
-[ext_resource type="Script" path="res://unit/automation/has_city_target.gd" id="25_suj7i"]
-[ext_resource type="Script" path="res://unit/automation/has_unit_target.gd" id="26_p5mmd"]
-[ext_resource type="Script" path="res://unit/automation/choose_closer_enemy.gd" id="27_umix8"]
-[ext_resource type="Script" path="res://unit/automation/choose_closest_city.gd" id="28_hjhhq"]
-[ext_resource type="Script" path="res://unit/automation/choose_closest_unit.gd" id="29_kqfo0"]
-[ext_resource type="Script" path="res://unit/automation/choose_closest_unexplored.gd" id="30_0derm"]
-[ext_resource type="Script" path="res://unit/automation/invalidate_move.gd" id="30_r3out"]
-[ext_resource type="Script" path="res://unit/automation/has_valid_move.gd" id="31_sc1sq"]
-[ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="32_7psug"]
-[ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="33_ml7rk"]
-[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="34_pa40u"]
+[ext_resource type="Script" path="res://unit/types/unit.gd" id="1_lbkrg"]
+[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank.png" id="2_xp70k"]
+[ext_resource type="Script" path="res://unit/Icon.gd" id="3_66mqe"]
+[ext_resource type="Script" path="res://unit/Inactive.gd" id="4_2a152"]
+[ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="5_jq63v"]
+[ext_resource type="Script" path="res://unit/sounds/sounds.gd" id="6_5l77u"]
+[ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/sounds/engine_heavy_loop.mp3" id="7_eeq7x"]
+[ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="8_mx5j1"]
+[ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="9_jf4ar"]
+[ext_resource type="Script" path="res://unit/state/unit_state_machine.gd" id="10_5xdc0"]
+[ext_resource type="Script" path="res://unit/state/states/attack.gd" id="11_7gr5g"]
+[ext_resource type="Script" path="res://unit/state/states/capture.gd" id="12_w1ja1"]
+[ext_resource type="Script" path="res://unit/state/states/end.gd" id="13_s75vk"]
+[ext_resource type="Script" path="res://unit/state/states/idle.gd" id="14_sbvy2"]
+[ext_resource type="Script" path="res://unit/state/states/move.gd" id="15_neyjs"]
+[ext_resource type="Script" path="res://unit/state/states/scout.gd" id="16_32eam"]
+[ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="17_swebq"]
+[ext_resource type="Script" path="res://unit/plan.gd" id="18_41f43"]
+[ext_resource type="Script" path="res://unit/vision.gd" id="19_xnqix"]
+[ext_resource type="Script" path="res://unit/automation/automation.gd" id="20_mswyk"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="21_l4hus"]
+[ext_resource type="Script" path="res://unit/automation/find_closest_city.gd" id="22_e5xjt"]
+[ext_resource type="Script" path="res://unit/automation/find_closest_unit.gd" id="23_ichms"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="24_ck4s7"]
+[ext_resource type="Script" path="res://unit/automation/has_city_target.gd" id="25_d7cb1"]
+[ext_resource type="Script" path="res://unit/automation/has_unit_target.gd" id="26_osn5w"]
+[ext_resource type="Script" path="res://unit/automation/choose_closer_enemy.gd" id="27_aiu8i"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_city.gd" id="28_pqa20"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_unit.gd" id="29_vkdcj"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_unexplored.gd" id="30_nh8xh"]
+[ext_resource type="Script" path="res://unit/automation/invalidate_move.gd" id="31_sqc3x"]
+[ext_resource type="Script" path="res://unit/automation/has_valid_move.gd" id="32_ihrip"]
+[ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="33_luua1"]
+[ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="34_o08li"]
+[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="35_36ycv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
@@ -42,7 +42,7 @@ size = Vector2(80, 80)
 [node name="Unit" type="Area2D" groups=["Units"]]
 editor_description = "A unit that can fight, move, or capture"
 position = Vector2(2.08165e-12, 2.08165e-12)
-script = ExtResource("1_8naok")
+script = ExtResource("1_lbkrg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -51,8 +51,8 @@ shape = SubResource("RectangleShape2D_hbtie")
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.07, 0.07)
-texture = ExtResource("2_e42fy")
-script = ExtResource("3_pj16b")
+texture = ExtResource("2_xp70k")
+script = ExtResource("3_66mqe")
 
 [node name="Inactive" type="ColorRect" parent="."]
 visible = false
@@ -62,7 +62,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.372549)
-script = ExtResource("3_dk2lf")
+script = ExtResource("4_2a152")
 
 [node name="SleepBackground" type="ColorRect" parent="Inactive"]
 layout_mode = 0
@@ -86,7 +86,7 @@ offset_right = 25.0
 offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_d0ylj")
+theme = ExtResource("5_jq63v")
 theme_override_constants/outline_size = -10
 theme_override_constants/line_spacing = -10
 theme_override_font_sizes/font_size = 40
@@ -98,120 +98,120 @@ vertical_alignment = 1
 collide_with_areas = true
 
 [node name="Sounds" type="Node" parent="."]
-script = ExtResource("6_hoyde")
+script = ExtResource("6_5l77u")
 
 [node name="Move" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("7_q7qdi")
+stream = ExtResource("7_eeq7x")
 
 [node name="Ready" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("8_6roe4")
+stream = ExtResource("8_mx5j1")
 volume_db = -21.549
 
 [node name="Denied" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("9_2xm75")
+stream = ExtResource("9_jf4ar")
 
 [node name="state" type="Node" parent="."]
-script = ExtResource("9_wvbuq")
+script = ExtResource("10_5xdc0")
 start_state = NodePath("idle")
 
 [node name="attack" type="Node" parent="state"]
-script = ExtResource("10_a4mfw")
+script = ExtResource("11_7gr5g")
 
 [node name="capture" type="Node" parent="state"]
-script = ExtResource("12_eovvr")
+script = ExtResource("12_w1ja1")
 
 [node name="end" type="Node" parent="state"]
-script = ExtResource("12_1wbwm")
+script = ExtResource("13_s75vk")
 
 [node name="idle" type="Node" parent="state"]
-script = ExtResource("13_7sran")
+script = ExtResource("14_sbvy2")
 
 [node name="move" type="Node" parent="state"]
-script = ExtResource("14_0bjrh")
+script = ExtResource("15_neyjs")
 
 [node name="scout" type="Node" parent="state"]
-script = ExtResource("16_irg8u")
+script = ExtResource("16_32eam")
 
 [node name="sleep" type="Node" parent="state"]
-script = ExtResource("15_6ojmj")
+script = ExtResource("17_swebq")
 
 [node name="plan" type="Node" parent="."]
-script = ExtResource("18_pj64v")
+script = ExtResource("18_41f43")
 
 [node name="vision" type="Node" parent="."]
-script = ExtResource("19_rwfiy")
+script = ExtResource("19_xnqix")
 
 [node name="automation" type="Node" parent="." node_paths=PackedStringArray("blackboard")]
-script = ExtResource("20_pvctj")
+script = ExtResource("20_mswyk")
 enabled = false
 actor_node_path = NodePath("..")
 blackboard = NodePath("../Blackboard")
 
 [node name="move_sequence" type="Node" parent="automation"]
-script = ExtResource("22_83v4n")
+script = ExtResource("21_l4hus")
 
 [node name="find_closest_city" type="Node" parent="automation/move_sequence"]
-script = ExtResource("22_gkn4v")
+script = ExtResource("22_e5xjt")
 
 [node name="find_closest_unit" type="Node" parent="automation/move_sequence"]
-script = ExtResource("23_45n3t")
+script = ExtResource("23_ichms")
 
 [node name="choose_best_move" type="Node" parent="automation/move_sequence"]
-script = ExtResource("21_tfaxg")
+script = ExtResource("24_ck4s7")
 
 [node name="move_to_closest_enemy" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("22_83v4n")
+script = ExtResource("21_l4hus")
 
 [node name="if_has_city_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("25_suj7i")
+script = ExtResource("25_d7cb1")
 
 [node name="if_has_unit_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("26_p5mmd")
+script = ExtResource("26_osn5w")
 
 [node name="choose_closer_enemy" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("27_umix8")
+script = ExtResource("27_aiu8i")
 
 [node name="move_to_enemy_city" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("22_83v4n")
+script = ExtResource("21_l4hus")
 
 [node name="if_has_city_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_city"]
-script = ExtResource("25_suj7i")
+script = ExtResource("25_d7cb1")
 
 [node name="choose_closest_city" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_city"]
-script = ExtResource("28_hjhhq")
+script = ExtResource("28_pqa20")
 
 [node name="move_to_enemy_unit" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("22_83v4n")
+script = ExtResource("21_l4hus")
 
 [node name="if_has_unit_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_unit"]
-script = ExtResource("26_p5mmd")
+script = ExtResource("26_osn5w")
 
 [node name="choose_closest_unit" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_unit"]
-script = ExtResource("29_kqfo0")
+script = ExtResource("29_vkdcj")
 
 [node name="choose_closest_unexplored" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("30_0derm")
+script = ExtResource("30_nh8xh")
 
 [node name="invalidate_move" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("30_r3out")
+script = ExtResource("31_sqc3x")
 
 [node name="move_if_possible" type="Node" parent="automation/move_sequence"]
-script = ExtResource("21_tfaxg")
+script = ExtResource("24_ck4s7")
 
 [node name="make_valid_move" type="Node" parent="automation/move_sequence/move_if_possible"]
-script = ExtResource("22_83v4n")
+script = ExtResource("21_l4hus")
 
 [node name="if_has_valid_move" type="Node" parent="automation/move_sequence/move_if_possible/make_valid_move"]
-script = ExtResource("31_sc1sq")
+script = ExtResource("32_ihrip")
 
 [node name="move_to_position" type="Node" parent="automation/move_sequence/move_if_possible/make_valid_move"]
-script = ExtResource("32_7psug")
+script = ExtResource("33_luua1")
 
 [node name="stop_moving" type="Node" parent="automation/move_sequence/move_if_possible"]
-script = ExtResource("33_ml7rk")
+script = ExtResource("34_o08li")
 
 [node name="Blackboard" type="Node" parent="."]
-script = ExtResource("34_pa40u")
+script = ExtResource("35_36ycv")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
