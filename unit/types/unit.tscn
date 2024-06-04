@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank.png" id="2_xp70k"]
 [ext_resource type="Script" path="res://unit/Icon.gd" id="3_66mqe"]
 [ext_resource type="PackedScene" uid="uid://bepehu0bh607k" path="res://unit/inactive.tscn" id="4_yv6cu"]
-[ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state.tscn" id="6_2gaug"]
-[ext_resource type="PackedScene" uid="uid://cdr7tnct2d14f" path="res://unit/sounds.tscn" id="6_m3e4i"]
-[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation.tscn" id="9_85mmh"]
+[ext_resource type="PackedScene" uid="uid://cdr7tnct2d14f" path="res://unit/sounds/sounds.tscn" id="5_kw587"]
+[ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state/state.tscn" id="6_t1ex6"]
+[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_s0mtd"]
 [ext_resource type="Script" path="res://unit/plan.gd" id="18_41f43"]
 [ext_resource type="Script" path="res://unit/vision.gd" id="19_xnqix"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="35_36ycv"]
@@ -34,9 +34,9 @@ script = ExtResource("3_66mqe")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true
 
-[node name="Sounds" parent="." instance=ExtResource("6_m3e4i")]
+[node name="Sounds" parent="." instance=ExtResource("5_kw587")]
 
-[node name="state" parent="." instance=ExtResource("6_2gaug")]
+[node name="state" parent="." instance=ExtResource("6_t1ex6")]
 
 [node name="plan" type="Node" parent="."]
 script = ExtResource("18_41f43")
@@ -44,7 +44,7 @@ script = ExtResource("18_41f43")
 [node name="vision" type="Node" parent="."]
 script = ExtResource("19_xnqix")
 
-[node name="automation" parent="." instance=ExtResource("9_85mmh")]
+[node name="automation" parent="." instance=ExtResource("9_s0mtd")]
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("35_36ycv")
