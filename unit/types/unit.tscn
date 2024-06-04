@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=12 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/types/unit.gd" id="1_lbkrg"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank.png" id="2_xp70k"]
@@ -6,23 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bepehu0bh607k" path="res://unit/inactive.tscn" id="4_yv6cu"]
 [ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state.tscn" id="6_2gaug"]
 [ext_resource type="PackedScene" uid="uid://cdr7tnct2d14f" path="res://unit/sounds.tscn" id="6_m3e4i"]
+[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation.tscn" id="9_85mmh"]
 [ext_resource type="Script" path="res://unit/plan.gd" id="18_41f43"]
 [ext_resource type="Script" path="res://unit/vision.gd" id="19_xnqix"]
-[ext_resource type="Script" path="res://unit/automation/automation.gd" id="20_mswyk"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="21_l4hus"]
-[ext_resource type="Script" path="res://unit/automation/find_closest_city.gd" id="22_e5xjt"]
-[ext_resource type="Script" path="res://unit/automation/find_closest_unit.gd" id="23_ichms"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="24_ck4s7"]
-[ext_resource type="Script" path="res://unit/automation/has_city_target.gd" id="25_d7cb1"]
-[ext_resource type="Script" path="res://unit/automation/has_unit_target.gd" id="26_osn5w"]
-[ext_resource type="Script" path="res://unit/automation/choose_closer_enemy.gd" id="27_aiu8i"]
-[ext_resource type="Script" path="res://unit/automation/choose_closest_city.gd" id="28_pqa20"]
-[ext_resource type="Script" path="res://unit/automation/choose_closest_unit.gd" id="29_vkdcj"]
-[ext_resource type="Script" path="res://unit/automation/choose_closest_unexplored.gd" id="30_nh8xh"]
-[ext_resource type="Script" path="res://unit/automation/invalidate_move.gd" id="31_sqc3x"]
-[ext_resource type="Script" path="res://unit/automation/has_valid_move.gd" id="32_ihrip"]
-[ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="33_luua1"]
-[ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="34_o08li"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="35_36ycv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
@@ -58,74 +44,7 @@ script = ExtResource("18_41f43")
 [node name="vision" type="Node" parent="."]
 script = ExtResource("19_xnqix")
 
-[node name="automation" type="Node" parent="." node_paths=PackedStringArray("blackboard")]
-script = ExtResource("20_mswyk")
-enabled = false
-actor_node_path = NodePath("..")
-blackboard = NodePath("../Blackboard")
-
-[node name="move_sequence" type="Node" parent="automation"]
-script = ExtResource("21_l4hus")
-
-[node name="find_closest_city" type="Node" parent="automation/move_sequence"]
-script = ExtResource("22_e5xjt")
-
-[node name="find_closest_unit" type="Node" parent="automation/move_sequence"]
-script = ExtResource("23_ichms")
-
-[node name="choose_best_move" type="Node" parent="automation/move_sequence"]
-script = ExtResource("24_ck4s7")
-
-[node name="move_to_closest_enemy" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("21_l4hus")
-
-[node name="if_has_city_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("25_d7cb1")
-
-[node name="if_has_unit_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("26_osn5w")
-
-[node name="choose_closer_enemy" type="Node" parent="automation/move_sequence/choose_best_move/move_to_closest_enemy"]
-script = ExtResource("27_aiu8i")
-
-[node name="move_to_enemy_city" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("21_l4hus")
-
-[node name="if_has_city_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_city"]
-script = ExtResource("25_d7cb1")
-
-[node name="choose_closest_city" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_city"]
-script = ExtResource("28_pqa20")
-
-[node name="move_to_enemy_unit" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("21_l4hus")
-
-[node name="if_has_unit_target" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_unit"]
-script = ExtResource("26_osn5w")
-
-[node name="choose_closest_unit" type="Node" parent="automation/move_sequence/choose_best_move/move_to_enemy_unit"]
-script = ExtResource("29_vkdcj")
-
-[node name="choose_closest_unexplored" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("30_nh8xh")
-
-[node name="invalidate_move" type="Node" parent="automation/move_sequence/choose_best_move"]
-script = ExtResource("31_sqc3x")
-
-[node name="move_if_possible" type="Node" parent="automation/move_sequence"]
-script = ExtResource("24_ck4s7")
-
-[node name="make_valid_move" type="Node" parent="automation/move_sequence/move_if_possible"]
-script = ExtResource("21_l4hus")
-
-[node name="if_has_valid_move" type="Node" parent="automation/move_sequence/move_if_possible/make_valid_move"]
-script = ExtResource("32_ihrip")
-
-[node name="move_to_position" type="Node" parent="automation/move_sequence/move_if_possible/make_valid_move"]
-script = ExtResource("33_luua1")
-
-[node name="stop_moving" type="Node" parent="automation/move_sequence/move_if_possible"]
-script = ExtResource("34_o08li")
+[node name="automation" parent="." instance=ExtResource("9_85mmh")]
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("35_36ycv")
