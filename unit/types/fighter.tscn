@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://d0cfmyfdmy8mo"]
 
-[ext_resource type="Script" path="res://unit/types/unit.gd" id="1_lbkrg"]
-[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank.png" id="2_xp70k"]
+[ext_resource type="Script" path="res://unit/types/fighter.gd" id="1_x1auo"]
+[ext_resource type="Texture2D" uid="uid://b1v1bfgfavl4c" path="res://unit/types/F100.svg" id="2_p5gw8"]
 [ext_resource type="Script" path="res://unit/Icon.gd" id="3_66mqe"]
 [ext_resource type="PackedScene" uid="uid://bepehu0bh607k" path="res://unit/inactive.tscn" id="4_yv6cu"]
 [ext_resource type="PackedScene" uid="uid://cdr7tnct2d14f" path="res://unit/sounds/sounds.tscn" id="5_kw587"]
@@ -14,10 +14,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
 
-[node name="Unit" type="Area2D" groups=["Units"]]
+[node name="Fighter" type="Area2D" groups=["Units"]]
 editor_description = "A unit that can fight, move, or capture"
 position = Vector2(2.08165e-12, 2.08165e-12)
-script = ExtResource("1_lbkrg")
+script = ExtResource("1_x1auo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -25,8 +25,8 @@ shape = SubResource("RectangleShape2D_hbtie")
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("2_xp70k")
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("2_p5gw8")
 script = ExtResource("3_66mqe")
 
 [node name="Inactive" parent="." instance=ExtResource("4_yv6cu")]

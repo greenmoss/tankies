@@ -1,5 +1,10 @@
 Until there's a real "credits" screen in this game, tracking licensed art here:
 
+# Art
+
+### https://commons.wikimedia.org
+* North American F-100 Super Sabre silhouette - modified: CC 4.0 by FOX 52
+
 ### https://freesound.org
 * Battle sounds: CC0 by Dragout, CC0 by TheBuilder15
 * Boom sound: CC0 by Quaker540

@@ -1,5 +1,13 @@
 extends Sprite2D
 
+var full_scale:Vector2
+var smaller_scale:Vector2
+
+
+func _ready():
+    full_scale = scale
+    smaller_scale = scale * 0.7
+
 
 func set_from_direction():
     # if it's 0, we moved up or down
@@ -23,11 +31,10 @@ func set_from_city():
 
 
 func set_mini():
-    scale = Vector2(0.05, 0.05)
-    # TODO: derive these from sprite/size properties instead of hard coding -10, etc
+    scale = smaller_scale
     position = Vector2(-10, 10)
 
 
 func set_full():
-    scale = Vector2(0.07, 0.07)
+    scale = full_scale
     position = Vector2(0, 0)
