@@ -1,8 +1,8 @@
 extends Vision
 
 
-func _ready():
-    distance = 1
+func set_distance(new_distance):
+    distance = new_distance
     update()
 
 

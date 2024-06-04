@@ -16,6 +16,7 @@ var look_direction = Vector2.RIGHT
 var attack_strength = 1
 var defense_strength = 1
 var moves_per_turn = 1
+var vision_distance = 1
 
 @export var my_team = "NoTeam"
 
@@ -63,6 +64,8 @@ func _ready():
             if child._class_name == 'BehaviorTree':
                 automation = child
                 break
+
+    vision.set_distance(vision_distance)
 
     sleep_turns = 0
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
