@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://lobby/introduction.gd" id="1_35xql"]
 [ext_resource type="AudioStream" uid="uid://n1q2b5lwftnm" path="res://lobby/oga_secret_devastates.mp3" id="2_awbw0"]
-[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank.png" id="2_skuq0"]
+[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank/tank.png" id="2_skuq0"]
 [ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://cursor/cursor_box.png" id="3_c8bbn"]
 
 [sub_resource type="SystemFont" id="SystemFont_bfihn"]

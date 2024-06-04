@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bnwo1hs4e50qw" path="res://city/modern-city.png" id="4_yswa2"]
 [ext_resource type="Script" path="res://cursor/state/states/city.gd" id="5_wx3cu"]
 [ext_resource type="Script" path="res://cursor/state/states/none.gd" id="6_fphdq"]
-[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank.png" id="6_xn555"]
+[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank/tank.png" id="6_xn555"]
 [ext_resource type="Script" path="res://cursor/state/states/unit.gd" id="7_2yapj"]
 [ext_resource type="Texture2D" uid="uid://c346jyasbkrsv" path="res://cursor/auto-repair.svg" id="7_f2s1w"]
 [ext_resource type="Script" path="res://cursor/state/states/track_unit.gd" id="9_8xy0a"]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=12 format=3 uid="uid://cdnsutfu1x162"]
+
+[ext_resource type="Script" path="res://unit/types/tank/tank.gd" id="1_obpcj"]
+[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank/tank.png" id="2_3kwsu"]
+[ext_resource type="Script" path="res://unit/Icon.gd" id="3_bnu78"]
+[ext_resource type="PackedScene" uid="uid://bepehu0bh607k" path="res://unit/inactive.tscn" id="4_xvgjr"]
+[ext_resource type="PackedScene" uid="uid://cdr7tnct2d14f" path="res://unit/sounds/sounds.tscn" id="5_2n56j"]
+[ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state/state.tscn" id="6_eqdoo"]
+[ext_resource type="Script" path="res://unit/plan.gd" id="7_tw40l"]
+[ext_resource type="Script" path="res://unit/vision.gd" id="8_5mw8u"]
+[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_o7fcj"]
+[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="10_ks5ts"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
+size = Vector2(80, 80)
+
+[node name="Tank" type="Area2D" groups=["Units"]]
+editor_description = "A unit that can fight, move, or capture"
+script = ExtResource("1_obpcj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+shape = SubResource("RectangleShape2D_hbtie")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("2_3kwsu")
+script = ExtResource("3_bnu78")
+
+[node name="Inactive" parent="." instance=ExtResource("4_xvgjr")]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collide_with_areas = true
+
+[node name="Sounds" parent="." instance=ExtResource("5_2n56j")]
+
+[node name="state" parent="." instance=ExtResource("6_eqdoo")]
+
+[node name="plan" type="Node" parent="."]
+script = ExtResource("7_tw40l")
+
+[node name="vision" type="Node" parent="."]
+script = ExtResource("8_5mw8u")
+
+[node name="automation" parent="." instance=ExtResource("9_o7fcj")]
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("10_ks5ts")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
