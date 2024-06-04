@@ -13,6 +13,8 @@ var active_states = {}
 var done_states = {}
 var idle_states = {}
 
+var unit:Unit
+
 func _ready():
 
     active_states = {
@@ -31,6 +33,9 @@ func _ready():
     states_map.merge(active_states)
     states_map.merge(done_states)
     states_map.merge(idle_states)
+
+    if get_parent() is Unit:
+        unit = get_parent()
 
 
 func awaken():

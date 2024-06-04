@@ -2,15 +2,15 @@ extends "../common/idle.gd"
 
 
 func enter():
-    SignalBus.unit_completed_moves.emit(owner.my_team)
-    owner.sounds.stop_all()
-    owner.inactive.done_moving()
+    SignalBus.unit_completed_moves.emit(owner.unit.my_team)
+    owner.unit.sounds.stop_all()
+    owner.unit.inactive.done_moving()
 
 
 func handle_cursor_input(event):
     for direction in input_directions.keys():
         if event.is_action_pressed(direction):
-            owner.sounds.play_denied()
+            owner.unit.sounds.play_denied()
             return
 
     if event.is_action_pressed('sleep'):
@@ -19,5 +19,5 @@ func handle_cursor_input(event):
 
 
 func exit():
-    if owner.moves_remaining > 0:
-        owner.inactive.awaken()
+    if owner.unit.moves_remaining > 0:
+        owner.unit.inactive.awaken()

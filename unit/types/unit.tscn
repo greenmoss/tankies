@@ -1,22 +1,11 @@
-[gd_scene load_steps=37 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=26 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/types/unit.gd" id="1_lbkrg"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank.png" id="2_xp70k"]
 [ext_resource type="Script" path="res://unit/Icon.gd" id="3_66mqe"]
-[ext_resource type="Script" path="res://unit/Inactive.gd" id="4_2a152"]
-[ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="5_jq63v"]
-[ext_resource type="Script" path="res://unit/sounds/sounds.gd" id="6_5l77u"]
-[ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/sounds/engine_heavy_loop.mp3" id="7_eeq7x"]
-[ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="8_mx5j1"]
-[ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="9_jf4ar"]
-[ext_resource type="Script" path="res://unit/state/unit_state_machine.gd" id="10_5xdc0"]
-[ext_resource type="Script" path="res://unit/state/states/attack.gd" id="11_7gr5g"]
-[ext_resource type="Script" path="res://unit/state/states/capture.gd" id="12_w1ja1"]
-[ext_resource type="Script" path="res://unit/state/states/end.gd" id="13_s75vk"]
-[ext_resource type="Script" path="res://unit/state/states/idle.gd" id="14_sbvy2"]
-[ext_resource type="Script" path="res://unit/state/states/move.gd" id="15_neyjs"]
-[ext_resource type="Script" path="res://unit/state/states/scout.gd" id="16_32eam"]
-[ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="17_swebq"]
+[ext_resource type="PackedScene" uid="uid://bepehu0bh607k" path="res://unit/inactive.tscn" id="4_yv6cu"]
+[ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state.tscn" id="6_2gaug"]
+[ext_resource type="PackedScene" uid="uid://cdr7tnct2d14f" path="res://unit/sounds.tscn" id="6_m3e4i"]
 [ext_resource type="Script" path="res://unit/plan.gd" id="18_41f43"]
 [ext_resource type="Script" path="res://unit/vision.gd" id="19_xnqix"]
 [ext_resource type="Script" path="res://unit/automation/automation.gd" id="20_mswyk"]
@@ -54,86 +43,14 @@ scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_xp70k")
 script = ExtResource("3_66mqe")
 
-[node name="Inactive" type="ColorRect" parent="."]
-visible = false
-offset_left = -40.0
-offset_top = -40.0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-color = Color(0, 0, 0, 0.372549)
-script = ExtResource("4_2a152")
-
-[node name="SleepBackground" type="ColorRect" parent="Inactive"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 60.0
-offset_bottom = 60.0
-mouse_filter = 2
-color = Color(0, 0, 0, 0.635294)
-
-[node name="SleepTurns" type="Label" parent="Inactive/SleepBackground"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -27.5
-offset_right = 25.0
-offset_bottom = 27.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("5_jq63v")
-theme_override_constants/outline_size = -10
-theme_override_constants/line_spacing = -10
-theme_override_font_sizes/font_size = 40
-text = "∞"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Inactive" parent="." instance=ExtResource("4_yv6cu")]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true
 
-[node name="Sounds" type="Node" parent="."]
-script = ExtResource("6_5l77u")
+[node name="Sounds" parent="." instance=ExtResource("6_m3e4i")]
 
-[node name="Move" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("7_eeq7x")
-
-[node name="Ready" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("8_mx5j1")
-volume_db = -21.549
-
-[node name="Denied" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("9_jf4ar")
-
-[node name="state" type="Node" parent="."]
-script = ExtResource("10_5xdc0")
-start_state = NodePath("idle")
-
-[node name="attack" type="Node" parent="state"]
-script = ExtResource("11_7gr5g")
-
-[node name="capture" type="Node" parent="state"]
-script = ExtResource("12_w1ja1")
-
-[node name="end" type="Node" parent="state"]
-script = ExtResource("13_s75vk")
-
-[node name="idle" type="Node" parent="state"]
-script = ExtResource("14_sbvy2")
-
-[node name="move" type="Node" parent="state"]
-script = ExtResource("15_neyjs")
-
-[node name="scout" type="Node" parent="state"]
-script = ExtResource("16_32eam")
-
-[node name="sleep" type="Node" parent="state"]
-script = ExtResource("17_swebq")
+[node name="state" parent="." instance=ExtResource("6_2gaug")]
 
 [node name="plan" type="Node" parent="."]
 script = ExtResource("18_41f43")

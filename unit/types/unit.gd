@@ -14,8 +14,8 @@ var moves_remaining:int
 var attack_strength = 4
 var defense_strength = 2
 var look_direction = Vector2.RIGHT
+var moves_per_turn = 2
 
-@export var moves_per_turn = 2
 @export var my_team = "NoTeam"
 
 @onready var blackboard = $Blackboard
@@ -63,7 +63,6 @@ func _ready():
                 automation = child
                 break
 
-    moves_per_turn = 2
     sleep_turns = 0
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
     await refill_moves()

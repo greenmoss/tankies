@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=3 uid="uid://dce25s55qgsoy"]
+
+[ext_resource type="Script" path="res://unit/state/unit_state_machine.gd" id="1_wrvu2"]
+[ext_resource type="Script" path="res://unit/state/states/attack.gd" id="2_1i12g"]
+[ext_resource type="Script" path="res://unit/state/states/capture.gd" id="3_ust4u"]
+[ext_resource type="Script" path="res://unit/state/states/end.gd" id="4_c35s0"]
+[ext_resource type="Script" path="res://unit/state/states/idle.gd" id="5_q4tm8"]
+[ext_resource type="Script" path="res://unit/state/states/move.gd" id="6_kxpww"]
+[ext_resource type="Script" path="res://unit/state/states/scout.gd" id="7_nhamy"]
+[ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="8_jnkax"]
+
+[node name="state" type="Node"]
+script = ExtResource("1_wrvu2")
+start_state = NodePath("idle")
+
+[node name="attack" type="Node" parent="."]
+script = ExtResource("2_1i12g")
+
+[node name="capture" type="Node" parent="."]
+script = ExtResource("3_ust4u")
+
+[node name="end" type="Node" parent="."]
+script = ExtResource("4_c35s0")
+
+[node name="idle" type="Node" parent="."]
+script = ExtResource("5_q4tm8")
+
+[node name="move" type="Node" parent="."]
+script = ExtResource("6_kxpww")
+
+[node name="scout" type="Node" parent="."]
+script = ExtResource("7_nhamy")
+
+[node name="sleep" type="Node" parent="."]
+script = ExtResource("8_jnkax")
