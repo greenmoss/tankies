@@ -8,6 +8,7 @@ Until there's a real "credits" screen in this game, tracking licensed art here:
 ### https://freesound.org
 * Battle sounds: CC0 by Dragout, CC0 by TheBuilder15
 * Boom sound: CC0 by Quaker540
+* Jet fighter sound: trimmed `JetFighter2.wav` CC 4.0 by SiriusParsec
 * Marching sound: CC0 by stib
 
 ### https://game-icons.net
