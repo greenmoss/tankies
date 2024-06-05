@@ -3,8 +3,7 @@ extends "../common/unit.gd"
 var marked:City
 
 @onready var background = $detail/background
-@onready var build_progress = $detail/build_progress
-@onready var build_turns_remaining = $detail/build_turns_margin/build_turns_remaining
+@onready var build = $detail/build
 @onready var detail = $detail
 @onready var icon = $detail/icon
 @onready var units1 = $detail/units1
@@ -22,18 +21,10 @@ var marked:City
     $detail/units2/unit9,
     ]
 
-var build_progress_max:float
-var build_progress_min:float
-var build_progress_animation_time = 0.0
-var build_progress_animation_duration = 1.5
-var build_progress_animation_pause = 0.5
-
 var tween_speed = 7.5
 var alpha_tween:Tween
 var position_tween:Tween
 
-var default_display_text = "Turns: "
-var default_tooltip_text = "Turns until built: "
 @onready var default_size_y = $detail/background.size.y
 
 var units:Array[Unit]
@@ -93,14 +84,7 @@ func enter():
         return
 
     icon.modulate = marked.icon.modulate
-    build_progress.modulate = marked.icon.modulate
-
-    build_progress_min = (float(marked.build_duration) - float(marked.build_remaining)) / float(marked.build_duration) * 100.0
-    build_progress_max = (float(marked.build_duration) - float(marked.build_remaining) + 1.0) / float(marked.build_duration) * 100.0
-    build_turns_remaining.text = str(marked.build_remaining)
-    build_progress.tooltip_text = default_tooltip_text+str(marked.build_remaining)
-    build_turns_remaining.text = default_display_text+str(marked.build_remaining)
-    build_turns_remaining.tooltip_text = default_tooltip_text+str(marked.build_remaining)
+    build.set_from_city(marked)
 
     units = []
     for unit in owner.units_under_mouse.keys():
@@ -160,7 +144,7 @@ func exit():
     detail.position = Vector2.ZERO
     detail.size.y = default_size_y
     background.size.y = default_size_y
-    build_progress_animation_time = 0.0
+    build.exit()
     units2.visible = false
 
     for slot in unit_slots:
@@ -191,14 +175,3 @@ func handle_input(event):
         owner.state.find_unit.nearby = null
         emit_signal("next_state", "find_unit")
         return
-
-
-func update(delta):
-    build_progress_animation_time += delta
-    if build_progress_animation_time > (build_progress_animation_duration + build_progress_animation_pause):
-       build_progress_animation_time = 0.0
-
-    if build_progress_animation_time <= build_progress_animation_duration:
-        build_progress.value = lerp(build_progress_min, build_progress_max, build_progress_animation_time / build_progress_animation_duration)
-    else:
-        build_progress.value = build_progress_max
