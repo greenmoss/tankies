@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://j8ul2q0ae4n1"]
+[gd_scene load_steps=13 format=3 uid="uid://j8ul2q0ae4n1"]
 
 [ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://cursor/cursor_box.png" id="1_q7v2r"]
 [ext_resource type="Script" path="res://cursor/cursor.gd" id="2_qtmun"]
 [ext_resource type="Texture2D" uid="uid://m744y4a4jmal" path="res://cursor/wide_circle_gradient.png" id="3_mk38k"]
+[ext_resource type="Script" path="res://cursor/state/states/build.gd" id="3_odrk1"]
 [ext_resource type="Script" path="res://cursor/state/state_machine.gd" id="4_46c4k"]
 [ext_resource type="Script" path="res://cursor/state/states/find_unit.gd" id="4_ryggc"]
 [ext_resource type="Texture2D" uid="uid://bnwo1hs4e50qw" path="res://city/modern-city.png" id="4_yswa2"]
@@ -18,6 +19,24 @@ script = ExtResource("2_qtmun")
 [node name="state" type="Node2D" parent="."]
 script = ExtResource("4_46c4k")
 start_state = NodePath("none")
+
+[node name="build" type="Node2D" parent="state"]
+script = ExtResource("3_odrk1")
+
+[node name="detail" type="ColorRect" parent="state/build"]
+visible = false
+z_index = 4
+offset_right = 240.0
+offset_bottom = 160.0
+color = Color(1, 1, 1, 0)
+
+[node name="background" type="ColorRect" parent="state/build/detail"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 160.0
+color = Color(0.137255, 0.341176, 0.137255, 0.890196)
+
+[node name="build" parent="state/build/detail" instance=ExtResource("5_f83km")]
 
 [node name="city" type="Node2D" parent="state"]
 script = ExtResource("5_wx3cu")
@@ -146,7 +165,9 @@ texture = ExtResource("1_q7v2r")
 [node name="track_unit" type="Node" parent="state"]
 script = ExtResource("9_8xy0a")
 
+[connection signal="pressed" from="state/build/detail/build/selector" to="state/city" method="_on_selector_pressed"]
 [connection signal="pressed" from="state/city/detail/unit0" to="state/city" method="_on_unit_0_pressed"]
+[connection signal="pressed" from="state/city/detail/build/selector" to="state/city" method="_on_selector_pressed"]
 [connection signal="pressed" from="state/city/detail/units1/unit1" to="state/city" method="_on_unit_1_pressed"]
 [connection signal="pressed" from="state/city/detail/units1/unit2" to="state/city" method="_on_unit_2_pressed"]
 [connection signal="pressed" from="state/city/detail/units1/unit3" to="state/city" method="_on_unit_3_pressed"]
@@ -156,3 +177,6 @@ script = ExtResource("9_8xy0a")
 [connection signal="pressed" from="state/city/detail/units2/unit7" to="state/city" method="_on_unit_7_pressed"]
 [connection signal="pressed" from="state/city/detail/units2/unit8" to="state/city" method="_on_unit_8_pressed"]
 [connection signal="pressed" from="state/city/detail/units2/unit9" to="state/city" method="_on_unit_9_pressed"]
+
+[editable path="state/build/detail/build"]
+[editable path="state/city/detail/build"]

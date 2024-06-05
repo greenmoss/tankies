@@ -70,6 +70,13 @@ func _on_unit_9_pressed():
     activate_unit(9)
 
 
+func _on_selector_pressed():
+    owner.state.build.marked = marked
+    owner.state.build.build.progress_animation_time = build.progress_animation_time
+    emit_signal("next_state", "build")
+    return
+
+
 func activate_unit(unit_number:int):
     var unit_count = units.size()
     # ignore buttons without an attached unit
@@ -149,6 +156,7 @@ func exit():
 
     for slot in unit_slots:
         slot.texture_normal = null
+    marked = null
 
 
 func handle_input(event):
