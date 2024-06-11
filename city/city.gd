@@ -15,8 +15,9 @@ var default_team = "NoTeam"
 ## open cities do not resist capture
 @export var open = false
 
-var build_duration = 4
-var build_remaining:int = build_duration
+var build_type:String = 'tank'
+var build_duration:int = 4
+var build_remaining:int = 4
 var defense_strength = 1
 
 @onready var icon = $icon
@@ -46,6 +47,8 @@ func handle_cursor_input_event(_event):
 
 
 func _ready():
+    print("city unit type object ",UnitTypeUtilities.types)
+
     # when debugging, we are the root scene
     if get_parent() == get_tree().root:
         standalone = true

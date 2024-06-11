@@ -13,10 +13,11 @@ var automation:BTUnitAutomation
 var moves_remaining:int
 var look_direction = Vector2.RIGHT
 
-var attack_strength = 1
-var defense_strength = 1
-var moves_per_turn = 1
-var vision_distance = 1
+var attack_strength:int
+var build_time:int
+var defense_strength:int
+var moves_per_turn:int
+var vision_distance:int
 
 @export var my_team = "NoTeam"
 

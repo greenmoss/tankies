@@ -2,40 +2,17 @@
 
 [ext_resource type="Script" path="res://cursor/build.gd" id="1_gac5e"]
 [ext_resource type="Texture2D" uid="uid://c346jyasbkrsv" path="res://cursor/auto-repair.svg" id="1_k8fip"]
-[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank/tank.png" id="2_ou5xi"]
 [ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="3_c4ixv"]
+[ext_resource type="Texture2D" uid="uid://dqerqlfmbvtg7" path="res://unit/types/tank/tank.svg" id="4_kvs05"]
 
 [node name="build" type="Node2D"]
 script = ExtResource("1_gac5e")
 
-[node name="selector" type="TextureButton" parent="."]
-offset_left = 105.0
-offset_top = 30.0
-offset_right = 145.0
-offset_bottom = 70.0
-tooltip_text = "Currently building"
-theme = ExtResource("3_c4ixv")
-texture_normal = ExtResource("1_k8fip")
-ignore_texture_size = true
-stretch_mode = 0
-flip_h = true
-
-[node name="progress" type="TextureProgressBar" parent="."]
-offset_left = 165.0
-offset_top = 25.0
-offset_right = 1189.0
-offset_bottom = 1049.0
-scale = Vector2(0.05, 0.05)
-tooltip_text = "DYNAMIC/GENERATED"
-fill_mode = 4
-texture_under = ExtResource("2_ou5xi")
-texture_progress = ExtResource("2_ou5xi")
-tint_under = Color(0.489622, 0.489622, 0.489622, 1)
-
 [node name="turns_margin" type="MarginContainer" parent="."]
-offset_left = 104.0
-offset_right = 229.0
-offset_bottom = 40.0
+offset_left = 120.0
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 60.0
 theme = ExtResource("3_c4ixv")
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = -15
@@ -46,4 +23,28 @@ tooltip_text = "DYNAMIC/GENERATED"
 mouse_filter = 1
 theme = ExtResource("3_c4ixv")
 theme_override_font_sizes/font_size = 20
-text = "Turns: 1"
+text = "Days: 1"
+
+[node name="selector" type="TextureButton" parent="."]
+offset_left = 112.0
+offset_top = 28.0
+offset_right = 152.0
+offset_bottom = 68.0
+tooltip_text = "Currently building"
+theme = ExtResource("3_c4ixv")
+texture_normal = ExtResource("1_k8fip")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+
+[node name="progress" type="TextureProgressBar" parent="."]
+offset_left = 161.0
+offset_top = 28.0
+offset_right = 239.0
+offset_bottom = 106.0
+scale = Vector2(0.5, 0.5)
+tooltip_text = "DYNAMIC/GENERATED"
+fill_mode = 4
+texture_under = ExtResource("4_kvs05")
+texture_progress = ExtResource("4_kvs05")
+tint_under = Color(0.489622, 0.489622, 0.489622, 1)

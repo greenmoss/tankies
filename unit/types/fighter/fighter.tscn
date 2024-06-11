@@ -28,7 +28,6 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("RectangleShape2D_hbtie")
 
 [node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.17, 0.17)
 texture = ExtResource("2_p5gw8")
 script = ExtResource("3_66mqe")
 

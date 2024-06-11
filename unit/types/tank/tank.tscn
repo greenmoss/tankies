@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://cdnsutfu1x162"]
 
 [ext_resource type="Script" path="res://unit/types/tank/tank.gd" id="1_obpcj"]
-[ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank/tank.png" id="2_3kwsu"]
+[ext_resource type="Texture2D" uid="uid://dqerqlfmbvtg7" path="res://unit/types/tank/tank.svg" id="2_vnpyo"]
 [ext_resource type="Script" path="res://unit/Icon.gd" id="3_bnu78"]
 [ext_resource type="PackedScene" uid="uid://bepehu0bh607k" path="res://unit/inactive.tscn" id="4_xvgjr"]
 [ext_resource type="Script" path="res://unit/sounds/sounds.gd" id="5_c8awf"]
@@ -28,8 +28,7 @@ shape = SubResource("RectangleShape2D_hbtie")
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("2_3kwsu")
+texture = ExtResource("2_vnpyo")
 script = ExtResource("3_bnu78")
 
 [node name="Inactive" parent="." instance=ExtResource("4_xvgjr")]

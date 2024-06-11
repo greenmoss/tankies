@@ -72,7 +72,7 @@ func _on_unit_9_pressed():
 
 func _on_selector_pressed():
     owner.state.build.marked = marked
-    owner.state.build.build.progress_animation_time = build.progress_animation_time
+    #owner.state.build.build.progress_animation_time = build.progress_animation_time
     emit_signal("next_state", "build")
     return
 

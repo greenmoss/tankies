@@ -27,16 +27,14 @@ script = ExtResource("3_odrk1")
 visible = false
 z_index = 4
 offset_right = 240.0
-offset_bottom = 160.0
+offset_bottom = 80.0
 color = Color(1, 1, 1, 0)
 
 [node name="background" type="ColorRect" parent="state/build/detail"]
 layout_mode = 0
 offset_right = 240.0
-offset_bottom = 160.0
+offset_bottom = 80.0
 color = Color(0.137255, 0.341176, 0.137255, 0.890196)
-
-[node name="build" parent="state/build/detail" instance=ExtResource("5_f83km")]
 
 [node name="city" type="Node2D" parent="state"]
 script = ExtResource("5_wx3cu")
@@ -165,7 +163,6 @@ texture = ExtResource("1_q7v2r")
 [node name="track_unit" type="Node" parent="state"]
 script = ExtResource("9_8xy0a")
 
-[connection signal="pressed" from="state/build/detail/build/selector" to="state/city" method="_on_selector_pressed"]
 [connection signal="pressed" from="state/city/detail/unit0" to="state/city" method="_on_unit_0_pressed"]
 [connection signal="pressed" from="state/city/detail/build/selector" to="state/city" method="_on_selector_pressed"]
 [connection signal="pressed" from="state/city/detail/units1/unit1" to="state/city" method="_on_unit_1_pressed"]
@@ -178,5 +175,4 @@ script = ExtResource("9_8xy0a")
 [connection signal="pressed" from="state/city/detail/units2/unit8" to="state/city" method="_on_unit_8_pressed"]
 [connection signal="pressed" from="state/city/detail/units2/unit9" to="state/city" method="_on_unit_9_pressed"]
 
-[editable path="state/build/detail/build"]
 [editable path="state/city/detail/build"]
