@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dce25s55qgsoy"]
+[gd_scene load_steps=10 format=3 uid="uid://dce25s55qgsoy"]
 
 [ext_resource type="Script" path="res://unit/state/unit_state_machine.gd" id="1_dcagi"]
 [ext_resource type="Script" path="res://unit/state/states/attack.gd" id="2_qjtns"]
 [ext_resource type="Script" path="res://unit/state/states/capture.gd" id="3_mxuy7"]
+[ext_resource type="Script" path="res://unit/state/states/crash.gd" id="4_76w7b"]
 [ext_resource type="Script" path="res://unit/state/states/end.gd" id="4_lv6q8"]
 [ext_resource type="Script" path="res://unit/state/states/idle.gd" id="5_83wga"]
 [ext_resource type="Script" path="res://unit/state/states/move.gd" id="6_xoccn"]
@@ -18,6 +19,9 @@ script = ExtResource("2_qjtns")
 
 [node name="capture" type="Node" parent="."]
 script = ExtResource("3_mxuy7")
+
+[node name="crash" type="Node" parent="."]
+script = ExtResource("4_76w7b")
 
 [node name="end" type="Node" parent="."]
 script = ExtResource("4_lv6q8")

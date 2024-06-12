@@ -1,9 +1,6 @@
 extends "../common/move.gd"
 
 
-var battle:Battle
-
-
 func enter():
     battle = owner.unit.get_node('..').battle
     if owner.unit.state.scout.target_unit == null:

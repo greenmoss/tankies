@@ -164,10 +164,10 @@ my_team = "GreenTeam"
 
 [node name="RedTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "terrain", "cities") instance=ExtResource("8_y6rer")]
 color = Color(1, 0.247059, 0.188235, 1)
-show_fog = null
 enemy_team = NodePath("../GreenTeam")
 terrain = NodePath("../../Map/Terrain")
 cities = NodePath("../../Map/cities")
+show_fog = null
 
 [node name="units" type="Node" parent="teams/RedTeam" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")

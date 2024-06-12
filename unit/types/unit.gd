@@ -10,6 +10,7 @@ var sleep_turns = 0
 var standalone:bool
 
 var automation:BTUnitAutomation
+var fuel_remaining:int
 var moves_remaining:int
 var look_direction = Vector2.RIGHT
 
@@ -18,6 +19,8 @@ var build_time:int
 var defense_strength:int
 var moves_per_turn:int
 var vision_distance:int
+# to enable fuel/refuel mechanic, set to positive int
+var fuel_capacity = 0
 
 @export var my_team = "NoTeam"
 
@@ -124,6 +127,15 @@ func set_team(new_team:Node):
 func refill_moves():
     moves_remaining = moves_per_turn
     state.rotate()
+
+
+func refuel():
+    if fuel_capacity == 0:
+        push_warning("can not refuel a unit with 0 fuel capacity; ignoring refuel request")
+    moves_remaining -= 1
+    if moves_remaining < 0:
+        moves_remaining = 0
+    fuel_remaining = fuel_capacity
 
 
 func disband():

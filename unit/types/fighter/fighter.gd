@@ -7,5 +7,7 @@ func _ready():
     defense_strength = 2
     moves_per_turn = 20
     vision_distance = 2
+    fuel_capacity = 20
+    fuel_remaining = 20
 
     super._ready()

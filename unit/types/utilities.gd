@@ -27,4 +27,5 @@ func load_unit_type_scene(type_directory:String):
     var unit_scene:PackedScene = load(unit_types_path + '/' + type_directory + '/' + type_directory + '.tscn')
     scenes[type_directory] = unit_scene
     types[type_directory] = unit_scene.instantiate()
+    types[type_directory].visible = false
     add_child(types[type_directory])

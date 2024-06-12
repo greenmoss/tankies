@@ -1,4 +1,5 @@
 extends Node
+class_name UnitSounds
 
 var audio_tween:Tween
 var fade_in_time = 0.25

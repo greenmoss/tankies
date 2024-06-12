@@ -25,35 +25,45 @@ func _ready():
     impact3 = $bullet_spray/impact3
     delay3 = $bullet_spray/impact3/delay
 
-func take_fire(bad_day : bool):
-    if bad_day:
-        blows_up = true
-    else:
-        blows_up = false
-    cease_fire = false
-    $countdown.start()
-    $bullet_spray.show()
-    random_impact(impact1)
-    random_impact(impact2)
-    random_impact(impact3)
+
+func _on_countdown_timeout():
+    cease_fire = true
+    $bullet_spray.hide()
+    damaged.emit()
+
+    if blows_up:
+        destroy()
+
 
 func _on_impact_1_animation_finished():
     await random_wait(delay1)
     random_impact(impact1)
 
+
 func _on_impact_2_animation_finished():
     await random_wait(delay2)
     random_impact(impact2)
 
+
 func _on_impact_3_animation_finished():
     await random_wait(delay3)
     random_impact(impact3)
+
+
+func destroy():
+    destroyed.emit()
+    $explosion.show()
+    $explosion.play()
+    await $explosion.animation_finished
+    $explosion.hide()
+
 
 func random_wait(delay):
     if cease_fire: return
     delay.set_wait_time(randf_range(0.02, 0.2))
     delay.start()
     await delay.timeout
+
 
 func random_impact(impact):
     if cease_fire: return
@@ -65,14 +75,15 @@ func random_impact(impact):
     impact.show()
     impact.play()
 
-func _on_countdown_timeout():
-    cease_fire = true
-    $bullet_spray.hide()
-    damaged.emit()
 
-    if not blows_up: return
-    destroyed.emit()
-    $explosion.show()
-    $explosion.play()
-    await $explosion.animation_finished
-    $explosion.hide()
+func take_fire(bad_day : bool):
+    if bad_day:
+        blows_up = true
+    else:
+        blows_up = false
+    cease_fire = false
+    $countdown.start()
+    $bullet_spray.show()
+    random_impact(impact1)
+    random_impact(impact2)
+    random_impact(impact3)
