@@ -8,7 +8,6 @@ var marked:City
 @onready var default_size_y = $detail.size.y
 
 var tween_speed = 7.5
-var alpha_tween:Tween
 var position_tween:Tween
 
 var build_scene:PackedScene = preload("res://cursor/build.tscn")
@@ -45,7 +44,26 @@ func enter():
         detail.size.y += default_size_y
         background.size.y += default_size_y
 
+    var right_extent = owner.position.x + detail.size.x
+    var bottom_extent = owner.position.y + detail.size.y
+    var updated_x = detail.position.x
+    var updated_y = detail.position.y
+
+    if right_extent > get_viewport().size.x:
+        updated_x = detail.position.x - detail.size.x + Global.tile_size
+
+    if bottom_extent > get_viewport().size.y:
+        updated_y = detail.position.y - detail.size.y + Global.tile_size
+
     detail.visible = true
+
+    # if panel would be offscreen, slide it onscreen
+    if (updated_x != owner.position.x) or (updated_y != owner.position.y):
+        position_tween = create_tween()
+        position_tween.tween_property(detail, "position",
+            Vector2(updated_x, updated_y),
+            1.0/tween_speed
+            ).set_trans(Tween.TRANS_SINE)
 
 
 func exit():
