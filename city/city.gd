@@ -15,9 +15,10 @@ var default_team = "NoTeam"
 ## open cities do not resist capture
 @export var open = false
 
-var build_type:String = 'tank'
-var build_duration:int = 4
-var build_remaining:int = 4
+var build_type:String
+var build_duration:int
+var build_remaining:int
+
 var defense_strength = 1
 
 @onready var icon = $icon
@@ -47,15 +48,15 @@ func handle_cursor_input_event(_event):
 
 
 func _ready():
-    print("city unit type object ",UnitTypeUtilities.types)
-
     # when debugging, we are the root scene
     if get_parent() == get_tree().root:
         standalone = true
         position = Vector2(80,80)
 
     if my_team == null: my_team = "NoTeam"
-    clear_build()
+
+
+    change_build_type(UnitTypeUtilities.default)
     position = position.snapped(Vector2.ONE * Global.tile_size/2)
     assign()
 
@@ -66,6 +67,17 @@ func is_open_to_team(team) -> bool:
     if team == my_team:
         return true
     return false
+
+
+func change_build_type(unit_type:String):
+    if build_type == unit_type:
+        push_warning("ignoring request to change build type to ",unit_type," since we are already building that")
+        return
+    var unit:Unit = UnitTypeUtilities.get_type(unit_type)
+    build_type = unit_type
+    build_duration = unit.build_time
+    clear_build()
+    SignalBus.city_changed_build_type.emit(self)
 
 
 func clear_build():

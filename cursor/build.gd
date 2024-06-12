@@ -35,26 +35,27 @@ func set_from_city(city:City):
 
     progress_min = (float(city.build_duration) - float(city.build_remaining)) / float(city.build_duration) * 100.0
     progress_max = (float(city.build_duration) - float(city.build_remaining) + 1.0) / float(city.build_duration) * 100.0
-    #REF
-    #turns_remaining.text = str(city.build_remaining)
     progress.tooltip_text = default_tooltip_text+str(city.build_remaining)
     turns_remaining.text = default_display_text+str(city.build_remaining)
     turns_remaining.tooltip_text = default_tooltip_text+str(city.build_remaining)
     set_physics_process(true)
 
 
-func set_from_type(color:Color, type:String):
-    progress.modulate = color
+func set_from_type(city:City, type:String):
+    progress.modulate = city.icon.modulate
 
     var unit:Unit = UnitTypeUtilities.get_type(type)
 
     progress.value = 100.0
     progress.texture_under = unit.icon.texture
     progress.texture_progress = unit.icon.texture
-    #REF
-    #turns_remaining.text = "currently not building"
-    progress.tooltip_text = default_tooltip_text+str("progress.tooltip_text")
-    turns_remaining.text = default_display_text+str("turns_remaining.text")
-    turns_remaining.tooltip_text = default_tooltip_text+str("turns_remaining.tooltip_text")
+    progress.tooltip_text = default_tooltip_text+str(unit.build_time)
+    turns_remaining.text = default_display_text+str(unit.build_time)
+    turns_remaining.tooltip_text = default_tooltip_text+str(unit.build_time)
     set_physics_process(false)
     selector.tooltip_text = "Switch to building unit: "+type
+    selector.pressed.connect(_selector_pressed.bind(city, type))
+
+
+func _selector_pressed(city:City, type:String):
+    city.change_build_type(type)

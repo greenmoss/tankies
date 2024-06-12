@@ -1,5 +1,6 @@
 extends Node
 
+var default = 'tank'
 var types = {}
 var unit_types_path:String = get_script().resource_path.get_base_dir()
 
