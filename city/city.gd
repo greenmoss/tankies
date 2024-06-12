@@ -60,6 +60,9 @@ func _ready():
     position = position.snapped(Vector2.ONE * Global.tile_size/2)
     assign()
 
+    # at game start, add one day to build_remaining, since we immediately take a turn
+    build_remaining += 1
+
 
 func is_open_to_team(team) -> bool:
     if open:
@@ -82,7 +85,7 @@ func change_build_type(unit_type:String):
 
 func clear_build():
     # add one more, to account for current turn
-    build_remaining = build_duration + 1
+    build_remaining = build_duration
 
 
 func capture_by(unit):
