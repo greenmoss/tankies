@@ -3,6 +3,7 @@ extends "../common/unit.gd"
 var marked:City
 
 @onready var background = $detail/background
+@onready var build_types = $detail/build_types
 @onready var detail = $detail
 @onready var default_size_y = $detail.size.y
 
@@ -29,14 +30,15 @@ func enter():
         return
 
     var build:Node2D = build_scene.instantiate()
-    detail.add_child(build)
+    build_types.add_child(build)
     build.set_from_city(marked)
+    build.disable_select()
     #build.progress_animation_time = ???.build.progress_animation_time
 
     for unit_type_name in UnitTypeUtilities.get_types():
         if unit_type_name == marked.build_type: continue
         build = build_scene.instantiate()
-        detail.add_child(build)
+        build_types.add_child(build)
         build.set_from_type(marked, unit_type_name)
         build.position.y = background.size.y
         # expand background to frame additional unit build line
@@ -51,7 +53,7 @@ func exit():
     detail.position = Vector2.ZERO
     detail.size.y = default_size_y
     background.size.y = default_size_y
-    for child in background.get_children():
+    for child in build_types.get_children():
         child.queue_free()
     marked = null
 

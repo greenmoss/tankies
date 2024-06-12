@@ -151,7 +151,7 @@ func exit():
     detail.position = Vector2.ZERO
     detail.size.y = default_size_y
     background.size.y = default_size_y
-    build.exit()
+    build.set_idle()
     units2.visible = false
 
     for slot in unit_slots:
