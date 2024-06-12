@@ -75,8 +75,9 @@ func _battle_finished(winner, loser):
 
 func build_unit_in(city:City):
     name_counter += 1
-    var unit_name = name+"_unit"+str(name_counter)
-    var new_unit:Unit = units.create(city.position, unit_name)
+    var unit_type = city.build_type
+    var unit_name = name+"_"+unit_type+str(name_counter)
+    var new_unit:Unit = units.create(unit_type, city.position, unit_name)
     new_unit.set_in_city(city)
 
 

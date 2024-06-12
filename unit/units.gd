@@ -3,7 +3,6 @@ class_name Units
 
 # we store this here so units can access it
 @export var battle:Battle
-var fighter_scene:PackedScene = preload("res://unit/types/fighter/fighter.tscn")
 var tank_scene:PackedScene = preload("res://unit/types/tank/tank.tscn")
 
 
@@ -19,8 +18,8 @@ func are_active() -> bool:
     return false
 
 
-func create(position:Vector2, new_unit_name:String) -> Unit:
-    var new_unit = tank_scene.instantiate()
+func create(unit_type:String, position:Vector2, new_unit_name:String) -> Unit:
+    var new_unit = UnitTypeUtilities.get_scene(unit_type).instantiate()
     new_unit.name = new_unit_name
     new_unit.set_team(get_parent())
     new_unit.position = position
