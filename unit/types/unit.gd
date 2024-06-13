@@ -21,6 +21,8 @@ var moves_per_turn:int
 var vision_distance:int
 # to enable fuel/refuel mechanic, set to positive int
 var fuel_capacity = 0
+# to allow units to capture cities, set to true
+var can_capture = false
 
 @export var my_team = "NoTeam"
 

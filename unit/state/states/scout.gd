@@ -49,9 +49,7 @@ func enter():
             emit_signal("next_state", "move")
             return
 
-        # it does not matter if this would move us into a city
         # we first have to destroy any enemy units, then check again
-        target_unit = target_unit
         target_city = null
         emit_signal("next_state", "attack")
         return
@@ -62,6 +60,11 @@ func enter():
     if owner.unit.my_team == target_city.my_team:
         owner.unit.in_city = target_city
         emit_signal("next_state", "move")
+        return
+
+    if not owner.unit.can_capture:
+        owner.unit.sounds.play_denied()
+        emit_signal("next_state", "idle")
         return
 
     target_unit = null
