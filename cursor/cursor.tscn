@@ -162,6 +162,20 @@ texture = ExtResource("3_mk38k")
 visible = false
 texture = ExtResource("1_q7v2r")
 
+[node name="range_marker" type="Line2D" parent="state/unit"]
+visible = false
+points = PackedVector2Array(-130, -130, 130, -130, 130, 130, -130, 130)
+closed = true
+width = 20.0
+default_color = Color(1, 0.737255, 0, 0.611765)
+
+[node name="half_range_marker" type="Line2D" parent="state/unit"]
+visible = false
+points = PackedVector2Array(-130, -130, 130, -130, 130, 130, -130, 130)
+closed = true
+width = 20.0
+default_color = Color(0, 0, 0, 0.352941)
+
 [node name="track_unit" type="Node" parent="state"]
 script = ExtResource("9_8xy0a")
 

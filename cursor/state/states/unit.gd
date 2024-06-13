@@ -11,6 +11,8 @@ var big_circle_duration = 0.75  # duration of the cursor big circle fade
 
 @onready var big_circle = $big_circle
 @onready var cool_down = $cool_down
+@onready var half_range_marker = $half_range_marker
+@onready var range_marker = $range_marker
 @onready var square_marker = $square_marker
 
 
@@ -35,6 +37,24 @@ func enter():
 
     square_marker.visible = true
 
+    if marked.fuel_capacity != 0:
+        var limit = (marked.fuel_remaining * Global.tile_size) + (range_marker.width / 2) - Global.half_tile_size
+        var half = (int(float(marked.fuel_remaining) / 2.0) * Global.tile_size) + (half_range_marker.width / 2) - Global.half_tile_size
+        range_marker.points[0] = Vector2(-limit, -limit)
+        range_marker.points[1] = Vector2( limit, -limit)
+        range_marker.points[2] = Vector2( limit,  limit)
+        range_marker.points[3] = Vector2(-limit,  limit)
+
+        # only show the half-marker if it's at least a tile away
+        if half > Global.tile_size:
+            half_range_marker.points[0] = Vector2(-half, -half)
+            half_range_marker.points[1] = Vector2( half, -half)
+            half_range_marker.points[2] = Vector2( half,  half)
+            half_range_marker.points[3] = Vector2(-half,  half)
+            half_range_marker.visible = true
+
+        range_marker.visible = true
+
     if marked != previous_marked:
         marked.select_me()
         big_circle.visible = true
@@ -44,6 +64,8 @@ func enter():
 func exit():
     square_marker.visible = false
     big_circle.visible = false
+    half_range_marker.visible = false
+    range_marker.visible = false
 
 
 func handle_input(event):
