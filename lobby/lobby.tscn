@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcmlletmcku2b"]
+[gd_scene load_steps=6 format=3 uid="uid://bcmlletmcku2b"]
 
 [ext_resource type="Script" path="res://lobby/lobby.gd" id="1_cbooc"]
 [ext_resource type="PackedScene" uid="uid://t6cf0w8k2f4f" path="res://lobby/introduction.tscn" id="2_i664r"]
 [ext_resource type="PackedScene" uid="uid://bufvbk6y65jkb" path="res://world/world.tscn" id="3_got4q"]
+[ext_resource type="Texture2D" uid="uid://dqerqlfmbvtg7" path="res://unit/types/tank/tank.svg" id="3_jam5k"]
 [ext_resource type="Script" path="res://save/loader.gd" id="4_vne7r"]
 
 [node name="Lobby" type="Node2D"]
@@ -10,6 +11,7 @@ script = ExtResource("1_cbooc")
 
 [node name="Introduction" parent="." instance=ExtResource("2_i664r")]
 layer = 2
+selected_icon = ExtResource("3_jam5k")
 
 [node name="Loader" type="Node" parent="."]
 script = ExtResource("4_vne7r")

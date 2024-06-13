@@ -15,8 +15,10 @@ var default_team = "NoTeam"
 ## open cities do not resist capture
 @export var open = false
 
-var build_duration = 4
-var build_remaining: int = build_duration
+var build_type:String
+var build_duration:int
+var build_remaining:int
+
 var defense_strength = 1
 
 @onready var icon = $icon
@@ -52,9 +54,14 @@ func _ready():
         position = Vector2(80,80)
 
     if my_team == null: my_team = "NoTeam"
-    clear_build()
+
+
+    change_build_type(UnitTypeUtilities.default)
     position = position.snapped(Vector2.ONE * Global.tile_size/2)
     assign()
+
+    # at game start, add one day to build_remaining, since we immediately take a turn
+    build_remaining += 1
 
 
 func is_open_to_team(team) -> bool:
@@ -65,9 +72,20 @@ func is_open_to_team(team) -> bool:
     return false
 
 
+func change_build_type(unit_type:String):
+    if build_type == unit_type:
+        push_warning("ignoring request to change build type to ",unit_type," since we are already building that")
+        return
+    var unit:Unit = UnitTypeUtilities.get_type(unit_type)
+    build_type = unit_type
+    build_duration = unit.build_time
+    clear_build()
+    SignalBus.city_changed_build_type.emit(self)
+
+
 func clear_build():
     # add one more, to account for current turn
-    build_remaining = build_duration + 1
+    build_remaining = build_duration
 
 
 func capture_by(unit):

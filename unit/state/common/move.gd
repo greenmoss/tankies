@@ -2,34 +2,56 @@ extends "res://common/state.gd"
 
 var movement_tween: Tween
 var move_animation_speed = 7.5
+var battle:Battle
 
 
 func exit():
-    owner.vision.update()
+    owner.unit.vision.update()
 
 
 func animate():
-    owner.sounds.play_move()
+    owner.unit.sounds.play_move()
 
     movement_tween = create_tween()
-    movement_tween.tween_property(owner, "position",
-        owner.position +
-        owner.look_direction * Global.tile_size,
+    movement_tween.tween_property(owner.unit, "position",
+        owner.unit.position +
+        owner.unit.look_direction * Global.tile_size,
         1.0/move_animation_speed
         ).set_trans(Tween.TRANS_SINE)
     await movement_tween.finished
 
-    if(owner.in_city != null):
+    if(owner.unit.in_city != null):
         # moved out of city
-        if(owner.position != owner.in_city.position):
-            owner.in_city = null
+        if(owner.unit.position != owner.unit.in_city.position):
+            owner.unit.in_city = null
 
-        owner.icon.set_from_city()
+        owner.unit.icon.set_from_city()
+
+
+func reduce_fuel():
+    if owner.unit.fuel_capacity == 0:
+        push_warning("can not reduce fuel on units with 0 fuel capacity; ignoring")
+
+    if(owner.unit.in_city == null):
+        owner.unit.fuel_remaining -=1
+
+    else:
+        owner.unit.refuel()
+        # refueling takes an extra turn
+        owner.unit.moves_remaining -= 1
 
 
 func reduce_moves():
-    owner.moves_remaining -= 1
-    if owner.moves_remaining <= 0:
+    if owner.unit.fuel_capacity > 0:
+        reduce_fuel()
+
+        if owner.unit.fuel_remaining <= 0:
+            emit_signal("next_state", "crash")
+            return
+
+    owner.unit.moves_remaining -= 1
+
+    if owner.unit.moves_remaining <= 0:
         emit_signal("next_state", "end")
         return
 

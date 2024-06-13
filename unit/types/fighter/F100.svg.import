@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxvdp2v7oxpad"
-path="res://.godot/imported/tank.png-7aefcbb0e0161f5766a1c5bb2b86f50f.ctex"
+uid="uid://b1v1bfgfavl4c"
+path="res://.godot/imported/F100.svg-1c1a0a343167b1270704874d19d66ce7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://unit/tank.png"
-dest_files=["res://.godot/imported/tank.png-7aefcbb0e0161f5766a1c5bb2b86f50f.ctex"]
+source_file="res://unit/types/fighter/F100.svg"
+dest_files=["res://.godot/imported/F100.svg-1c1a0a343167b1270704874d19d66ce7.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

@@ -1,30 +1,27 @@
 extends "../common/move.gd"
 
 
-var battle:Battle
-
-
 func enter():
-    battle = owner.get_node('..').battle
-    if owner.state.scout.target_unit == null:
+    battle = owner.unit.get_node('..').battle
+    if owner.unit.state.scout.target_unit == null:
         attack_city()
     else:
         attack_unit()
 
 
 func attack_city():
-    if(owner.state.scout.target_city.my_team == owner.my_team):
-        deny_invalid(owner.state.scout.target_city)
+    if(owner.unit.state.scout.target_city.my_team == owner.unit.my_team):
+        deny_invalid(owner.unit.state.scout.target_city)
         return
 
-    if owner.state.scout.target_city.open:
+    if owner.unit.state.scout.target_city.open:
         emit_signal("next_state", "capture")
         return
 
-    battle.attack_city(owner, owner.state.scout.target_city)
+    battle.attack_city(owner.unit, owner.unit.state.scout.target_city)
     await SignalBus.battle_finished
 
-    if battle.winner == owner:
+    if battle.winner == owner.unit:
         emit_signal("next_state", "capture")
         return
 
@@ -32,14 +29,14 @@ func attack_city():
 
 
 func attack_unit():
-    if(owner.state.scout.target_unit.my_team == owner.my_team):
-        deny_invalid(owner.state.scout.target_unit.my_team)
+    if(owner.unit.state.scout.target_unit.my_team == owner.unit.my_team):
+        deny_invalid(owner.unit.state.scout.target_unit.my_team)
         return
 
-    battle.attack_unit(owner, owner.state.scout.target_unit)
+    battle.attack_unit(owner.unit, owner.unit.state.scout.target_unit)
     await SignalBus.battle_finished
 
-    if battle.winner == owner:
+    if battle.winner == owner.unit:
         reduce_moves()
         return
 
@@ -51,8 +48,8 @@ func deny_invalid(target):
         "refusing to attack target ",
         target,
         " already owned by, ",
-        owner.my_team)
-    owner.sounds.play_denied()
+        owner.unit.my_team)
+    owner.unit.sounds.play_denied()
     emit_signal("next_state", "idle")
 
 

@@ -2,6 +2,7 @@ extends "res://common/state_machine.gd"
 
 @onready var attack = $attack
 @onready var capture = $capture
+@onready var crash = $crash
 @onready var end = $end
 # "ready" would be nice, but it's reserved
 @onready var idle = $idle
@@ -13,11 +14,14 @@ var active_states = {}
 var done_states = {}
 var idle_states = {}
 
+var unit:Unit
+
 func _ready():
 
     active_states = {
         "attack": attack,
         "capture": capture,
+        "crash": crash,
         "move": move,
         "scout": scout,
     }
@@ -31,6 +35,9 @@ func _ready():
     states_map.merge(active_states)
     states_map.merge(done_states)
     states_map.merge(idle_states)
+
+    if get_parent() is Unit:
+        unit = get_parent()
 
 
 func awaken():

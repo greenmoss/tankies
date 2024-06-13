@@ -72,3 +72,12 @@ func choose_winner(attacker:Unit, defender):
     if result >= attacker.attack_strength:
         return defender
     return attacker
+
+
+func crash(lost:Unit):
+    $Target1.position = lost.position
+    $Boom.play()
+    $Target1.destroy()
+
+    if is_instance_valid(lost):
+        await lost.disband()

@@ -1,5 +1,6 @@
 extends "res://common/state_machine.gd"
 
+@onready var build = $build
 @onready var city = $city
 @onready var find_unit = $find_unit
 @onready var none = $none
@@ -10,6 +11,7 @@ extends "res://common/state_machine.gd"
 func _ready():
 
     states_map = {
+        "build": build,
         "city": city,
         "find_unit": find_unit,
         "none": none,

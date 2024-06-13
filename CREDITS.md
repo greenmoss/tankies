@@ -1,8 +1,15 @@
 Until there's a real "credits" screen in this game, tracking licensed art here:
 
+# Art
+
+### https://commons.wikimedia.org
+* North American F-100 Super Sabre silhouette - modified: CC 4.0 by FOX 52
+
 ### https://freesound.org
+* Airplane Flyby sound - airplane-flyby.wav: CC0 by oscaraudiogeek
 * Battle sounds: CC0 by Dragout, CC0 by TheBuilder15
 * Boom sound: CC0 by Quaker540
+* Jet fighter sound: trimmed `JetFighter2.wav` CC 4.0 by SiriusParsec
 * Marching sound: CC0 by stib
 
 ### https://game-icons.net
