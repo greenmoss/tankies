@@ -30,6 +30,11 @@ func enter():
     if marked.state.is_asleep():
         marked.state.awaken()
 
+    # move marked unit to bottom-most sibling
+    # ensures it is drawn last, e.g. "on top"
+    var units:Units = marked.get_parent()
+    units.move_child(marked, -1)
+
     owner.position = marked.position
 
     square_throb_time = 0
