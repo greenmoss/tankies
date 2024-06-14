@@ -79,6 +79,10 @@ func _ready():
     await assign_groups()
 
 
+func has_fuel() -> bool:
+    return fuel_capacity > 0
+
+
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding
     # consequently, this is best used to move to a neighboring coordinate/position
@@ -132,8 +136,8 @@ func refill_moves():
 
 
 func refuel():
-    if fuel_capacity == 0:
-        push_warning("can not refuel a unit with 0 fuel capacity; ignoring refuel request")
+    if not has_fuel():
+        push_warning("can not refuel a unit that does not use fuel; ignoring refuel request")
     moves_remaining -= 1
     if moves_remaining < 0:
         moves_remaining = 0

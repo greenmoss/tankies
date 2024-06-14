@@ -37,7 +37,7 @@ func enter():
 
     square_marker.visible = true
 
-    if marked.fuel_capacity != 0:
+    if marked.has_fuel():
         var limit = (marked.fuel_remaining * Global.tile_size) + (range_marker.width / 2) - Global.half_tile_size
         var half = (int(float(marked.fuel_remaining) / 2.0) * Global.tile_size) + (half_range_marker.width / 2) - Global.half_tile_size
         range_marker.points[0] = Vector2(-limit, -limit)

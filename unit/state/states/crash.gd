@@ -2,7 +2,7 @@ extends "../common/move.gd"
 
 
 func enter():
-    if owner.unit.fuel_capacity == 0:
+    if not owner.unit.has_fuel():
         push_warning("unit ",owner.unit," entered state crash, but has 0 fuel capacity; ignoring")
         emit_signal("next_state", "idle")
         return

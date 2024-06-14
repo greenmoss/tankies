@@ -29,8 +29,8 @@ func animate():
 
 
 func reduce_fuel():
-    if owner.unit.fuel_capacity == 0:
-        push_warning("can not reduce fuel on units with 0 fuel capacity; ignoring")
+    if not owner.unit.has_fuel():
+        push_warning("can not reduce fuel on units without fuel; ignoring")
 
     if(owner.unit.in_city == null):
         owner.unit.fuel_remaining -=1
@@ -42,7 +42,7 @@ func reduce_fuel():
 
 
 func reduce_moves():
-    if owner.unit.fuel_capacity > 0:
+    if owner.unit.has_fuel():
         reduce_fuel()
 
         if owner.unit.fuel_remaining <= 0:
