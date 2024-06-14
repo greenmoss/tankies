@@ -15,3 +15,7 @@ func handle_cursor_input(event):
         emit_signal("next_state", "sleep")
         return
 
+    if event.is_action_pressed('skip'):
+        emit_signal("next_state", "end")
+        return
+
