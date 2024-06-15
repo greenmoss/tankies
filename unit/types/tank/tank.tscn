@@ -1,9 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cdnsutfu1x162"]
+[gd_scene load_steps=13 format=3 uid="uid://cdnsutfu1x162"]
 
 [ext_resource type="Script" path="res://unit/types/tank/tank.gd" id="1_obpcj"]
-[ext_resource type="Texture2D" uid="uid://dqerqlfmbvtg7" path="res://unit/types/tank/tank.svg" id="2_vnpyo"]
-[ext_resource type="Script" path="res://unit/Icon.gd" id="3_bnu78"]
-[ext_resource type="PackedScene" uid="uid://bepehu0bh607k" path="res://unit/inactive.tscn" id="4_xvgjr"]
 [ext_resource type="Script" path="res://unit/sounds/sounds.gd" id="5_c8awf"]
 [ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state/state.tscn" id="6_eqdoo"]
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/types/tank/engine_heavy_loop.mp3" id="6_memw7"]
@@ -13,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="8_evx3v"]
 [ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_o7fcj"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="10_ks5ts"]
+[ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="14_6gn2j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)
@@ -25,13 +23,6 @@ my_team = null
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("RectangleShape2D_hbtie")
-
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("2_vnpyo")
-script = ExtResource("3_bnu78")
-
-[node name="Inactive" parent="." instance=ExtResource("4_xvgjr")]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true
@@ -61,6 +52,9 @@ script = ExtResource("8_5mw8u")
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("10_ks5ts")
+
+[node name="display" parent="." instance=ExtResource("14_6gn2j")]
+position = Vector2(1, 0)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

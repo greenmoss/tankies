@@ -41,8 +41,8 @@ func set_from_city(city:City):
     progress_min = (float(city.build_duration) - float(city.build_remaining)) / float(city.build_duration) * 100.0
     progress_max = (float(city.build_duration) - float(city.build_remaining) + 1.0) / float(city.build_duration) * 100.0
     progress.tooltip_text = city.build_type
-    progress.texture_under = unit.icon.texture
-    progress.texture_progress = unit.icon.texture
+    progress.texture_under = unit.display.icon.texture
+    progress.texture_progress = unit.display.icon.texture
 
     # animate the build progress dial
     set_physics_process(true)
@@ -59,8 +59,8 @@ func set_from_type(city:City, type:String):
     var unit:Unit = UnitTypeUtilities.get_type(type)
 
     progress.value = 100.0
-    progress.texture_under = unit.icon.texture
-    progress.texture_progress = unit.icon.texture
+    progress.texture_under = unit.display.icon.texture
+    progress.texture_progress = unit.display.icon.texture
     progress.tooltip_text = type
 
     # do not animate the build progress dial

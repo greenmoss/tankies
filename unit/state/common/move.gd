@@ -25,7 +25,7 @@ func animate():
         if(owner.unit.position != owner.unit.in_city.position):
             owner.unit.in_city = null
 
-        owner.unit.icon.set_from_city()
+        owner.unit.display.set_from_city()
 
 
 func reduce_fuel():

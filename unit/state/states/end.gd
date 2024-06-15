@@ -4,7 +4,7 @@ extends "../common/idle.gd"
 func enter():
     SignalBus.unit_completed_moves.emit(owner.unit.my_team)
     owner.unit.sounds.stop_all()
-    owner.unit.inactive.done_moving()
+    owner.unit.display.set_inactive()
 
 
 func handle_cursor_input(event):
@@ -20,4 +20,4 @@ func handle_cursor_input(event):
 
 func exit():
     if owner.unit.moves_remaining > 0:
-        owner.unit.inactive.awaken()
+        owner.unit.display.set_active()

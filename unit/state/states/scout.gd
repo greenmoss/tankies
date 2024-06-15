@@ -5,7 +5,7 @@ var target_unit:Unit = null
 
 
 func enter():
-    owner.unit.icon.set_from_direction()
+    owner.unit.display.set_from_direction()
     clear_targets()
 
     owner.unit.ray.target_position = owner.unit.look_direction * Global.tile_size

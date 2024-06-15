@@ -1,9 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0cfmyfdmy8mo"]
+[gd_scene load_steps=15 format=3 uid="uid://d0cfmyfdmy8mo"]
 
 [ext_resource type="Script" path="res://unit/types/fighter/fighter.gd" id="1_x1auo"]
 [ext_resource type="Texture2D" uid="uid://b1v1bfgfavl4c" path="res://unit/types/fighter/F100.svg" id="2_p5gw8"]
-[ext_resource type="Script" path="res://unit/Icon.gd" id="3_66mqe"]
-[ext_resource type="PackedScene" uid="uid://bepehu0bh607k" path="res://unit/inactive.tscn" id="4_yv6cu"]
 [ext_resource type="Script" path="res://unit/types/fighter/sounds.gd" id="5_p2065"]
 [ext_resource type="AudioStream" uid="uid://dfkp82kv2x34v" path="res://unit/types/fighter/fighter-jet.mp3" id="6_kh4b6"]
 [ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state/state.tscn" id="6_t1ex6"]
@@ -11,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="8_e1rdr"]
 [ext_resource type="AudioStream" uid="uid://bn4gfedm0ed4u" path="res://unit/types/fighter/plane_down.mp3" id="9_q2pc7"]
 [ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_s0mtd"]
+[ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="15_oucdu"]
 [ext_resource type="Script" path="res://unit/plan.gd" id="18_41f43"]
 [ext_resource type="Script" path="res://unit/vision.gd" id="19_xnqix"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="35_36ycv"]
@@ -27,12 +26,6 @@ my_team = null
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("RectangleShape2D_hbtie")
-
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("2_p5gw8")
-script = ExtResource("3_66mqe")
-
-[node name="Inactive" parent="." instance=ExtResource("4_yv6cu")]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true
@@ -66,5 +59,12 @@ script = ExtResource("19_xnqix")
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("35_36ycv")
 
+[node name="display" parent="." instance=ExtResource("15_oucdu")]
+
+[node name="icon" parent="display" index="0"]
+texture = ExtResource("2_p5gw8")
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+
+[editable path="display"]

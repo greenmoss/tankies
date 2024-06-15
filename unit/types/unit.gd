@@ -1,7 +1,6 @@
 extends Area2D
 class_name Unit
 
-var facing = 0 # default/right
 var in_city = null
 var sleep_turns = 0
 
@@ -27,8 +26,7 @@ var can_capture = false
 @export var my_team = "NoTeam"
 
 @onready var blackboard = $Blackboard
-@onready var icon = $Icon
-@onready var inactive = $Inactive
+@onready var display = $display
 @onready var plan = $plan
 @onready var ray = $RayCast2D
 @onready var sounds = $Sounds
@@ -102,7 +100,7 @@ func move_toward(new_position):
 
 func assign_groups():
     if my_team != null:
-        icon.modulate = Global.team_colors[my_team]
+        display.icon.modulate = Global.team_colors[my_team]
         add_to_group(my_team)
     add_to_group("Units")
 
@@ -117,7 +115,7 @@ func set_automatic():
 
 func set_in_city(city:City):
     in_city = city
-    icon.set_from_city()
+    display.set_from_city()
 
 
 func set_manual():
