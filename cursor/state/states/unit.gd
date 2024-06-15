@@ -111,6 +111,13 @@ func handle_input(event):
         emit_signal("next_state", "none")
         return
 
+    if event.is_action_pressed("skip"):
+        marked.handle_cursor_input_event(event)
+        previous_marked = null
+        marked = null
+        emit_signal("next_state", "find_unit")
+        return
+
     marked.handle_cursor_input_event(event)
 
 
