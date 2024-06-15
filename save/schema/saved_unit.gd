@@ -12,7 +12,7 @@ class_name SavedUnit
 # the method to automate this uses `.get_property_list()`
 # plus comparing property usage flags, which seems fragile and complex
 # for now, set them manually
-var automatic = ['my_team', 'position', 'modulate']
+var automatic = ['my_team', 'position']
 
 func save(unit:Unit):
     for property in automatic:
