@@ -26,6 +26,7 @@ var can_capture = false
 @export var my_team = "NoTeam"
 
 @onready var blackboard = $Blackboard
+@onready var collision = $CollisionShape2D
 @onready var display = $display
 @onready var plan = $plan
 @onready var ray = $RayCast2D

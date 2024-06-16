@@ -12,10 +12,13 @@ var standalone:bool
 var default_team = "NoTeam"
 @export var my_team = default_team
 
-## open cities do not resist capture
+# open cities do not resist capture
 @export var open = false
 
-var build_type:String
+@export var build_type:String
+
+# note: build duration and build remaining are not yet set!
+# they are set during `initialize_build_type`
 var build_duration:int
 var build_remaining:int
 
@@ -55,8 +58,8 @@ func _ready():
 
     if my_team == null: my_team = "NoTeam"
 
+    initialize_build_type()
 
-    change_build_type(UnitTypeUtilities.default)
     position = position.snapped(Vector2.ONE * Global.tile_size/2)
     assign()
 
@@ -100,6 +103,17 @@ func fortify():
     open = false
 
 
+# at startup we have a special case
+# build type variable is set, but build duration and remaining are not
+func initialize_build_type():
+    if build_type == null or build_type == '':
+        change_build_type(UnitTypeUtilities.default)
+    else:
+        var build_type_copy = build_type
+        build_type = ''
+        change_build_type(build_type_copy)
+
+
 func surrender():
     open = true
 
@@ -121,4 +135,3 @@ func build_unit():
     if build_remaining == 0:
         SignalBus.city_requested_unit.emit(self)
         build_remaining = build_duration
-
