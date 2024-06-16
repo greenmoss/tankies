@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://save/schema/saved_terrain.gd" id="5_6nudn"]
 
 [sub_resource type="Resource" id="Resource_oxlfs"]
+build_type = "tank"
 script = ExtResource("1_wtk6u")
 my_team = "GreenTeam"
 position = Vector2(120, 120)
@@ -15,6 +16,7 @@ open = false
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_8revb"]
+build_type = "tank"
 script = ExtResource("1_wtk6u")
 my_team = "NoTeam"
 position = Vector2(280, 200)
@@ -23,6 +25,7 @@ open = true
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_4r0lp"]
+build_type = "tank"
 script = ExtResource("1_wtk6u")
 my_team = "NoTeam"
 position = Vector2(280, 360)
@@ -31,6 +34,7 @@ open = false
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_vcr56"]
+build_type = "tank"
 script = ExtResource("1_wtk6u")
 my_team = "NoTeam"
 position = Vector2(200, 280)

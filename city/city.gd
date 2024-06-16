@@ -74,7 +74,6 @@ func is_open_to_team(team) -> bool:
 
 func change_build_type(unit_type:String):
     if build_type == unit_type:
-        push_warning("ignoring request to change build type to ",unit_type," since we are already building that")
         return
     var unit:Unit = UnitTypeUtilities.get_type(unit_type)
     build_type = unit_type

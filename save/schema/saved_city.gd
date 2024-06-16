@@ -1,6 +1,7 @@
 extends Resource
 class_name SavedCity
 
+@export var build_type:String
 @export var my_team: String
 @export var position: Vector2
 @export var icon_modulate: Color
@@ -13,7 +14,7 @@ class_name SavedCity
 # the method to automate this uses `.get_property_list()`
 # plus comparing property usage flags, which seems fragile and complex
 # for now, set them manually
-var automatic = ['my_team', 'position', 'open']
+var automatic = ['build_type', 'my_team', 'position', 'open']
 
 func save(city:City):
     for property in automatic:
