@@ -17,5 +17,5 @@ func save(team:Team):
         saved_units.append(saved_unit)
     self._class_name = 'SavedTeam'
 
-# we restore directly in the teams node
+# we restore in units.gd, not here:
 #func restore(units:Units):

@@ -29,13 +29,7 @@ var name_counter = 0
 func _ready():
     SignalBus.battle_finished.connect(_battle_finished)
     set_world_vars()
-
-    # if a unit is at same position as a city
-    # set that unit to be inside that city
-    for city in get_my_cities():
-        for unit in get_my_valid_units():
-            if unit.position != city.position: continue
-            unit.set_in_city(city)
+    set_units_in_cities()
 
 
 func get_my_cities() -> Array:
@@ -48,6 +42,15 @@ func get_my_valid_units() -> Array:
     if units == null:
         return []
     return units.get_all_valid()
+
+
+# if a unit is at same position as a city
+# set that unit to be inside that city
+func set_units_in_cities():
+    for city in get_my_cities():
+        for unit in get_my_valid_units():
+            if unit.position != city.position: continue
+            unit.set_in_city(city)
 
 
 # if we are an instance in the world, set up all variables connected to the world

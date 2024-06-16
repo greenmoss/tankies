@@ -21,6 +21,7 @@ my_team = "GreenTeam"
 position = Vector2(200, 200)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
+_unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_cgk10"]
 script = ExtResource("4_110p0")

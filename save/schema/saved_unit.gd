@@ -7,6 +7,7 @@ class_name SavedUnit
 
 # track this to make the save file easier to read
 @export var _class_name: String
+@export var _unit_type: String
 
 # how can I automatically add all properties during restore?
 # the method to automate this uses `.get_property_list()`
@@ -14,10 +15,13 @@ class_name SavedUnit
 # for now, set them manually
 var automatic = ['my_team', 'position']
 
+
 func save(unit:Unit):
     for property in automatic:
         self[property] = unit[property]
     self._class_name = 'SavedUnit'
+    self._unit_type = UnitTypeUtilities.get_type_from_unit(unit)
+
 
 func restore(unit:Unit):
     for property in automatic:

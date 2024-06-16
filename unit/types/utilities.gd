@@ -19,6 +19,10 @@ func get_type(type:String) -> Unit:
     return types[type]
 
 
+func get_type_from_unit(unit:Unit) -> String:
+    return unit.scene_file_path.get_file().get_basename()
+
+
 func get_types() -> Array:
     return types.keys()
 

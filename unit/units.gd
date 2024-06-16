@@ -119,11 +119,9 @@ func restore(saved_units):
 
     if(saved_units.is_empty()): return
 
-    var unit_template = tank_scene.instantiate()
-
     for saved_unit in saved_units:
-        var unit = unit_template.duplicate()
+        var unit =  UnitTypeUtilities.get_scene(saved_unit._unit_type).instantiate()
         saved_unit.restore(unit)
         add_child(unit)
 
-    unit_template.queue_free()
+    get_parent().set_units_in_cities()
