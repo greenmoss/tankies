@@ -11,15 +11,18 @@ var elapsed_seconds: float = 0.0
 @onready var terrain = $Map/Terrain
 @onready var fresh = true
 
+
 func _ready():
     # if we are the root scene, we are debugging/standalone so start now
     if get_parent() == get_tree().root:
         start()
 
+
 func _physics_process(_delta):
     var winner = check_winner()
     if(winner != null):
         win(winner)
+
 
 func get_remaining_team(team_tallies):
     var remaining_team_tallies = []
@@ -30,6 +33,11 @@ func get_remaining_team(team_tallies):
         return null
     return(remaining_team_tallies[0])
 
+
+func get_team_by_name(team_name:String) -> Team:
+    return teams.get_by_name(team_name)
+
+
 func check_winner():
     var unit_winner = get_remaining_team(teams.tally_units())
     var city_winner = get_remaining_team(cities.tally_owners())
@@ -39,8 +47,10 @@ func check_winner():
 
     return(city_winner)
 
+
 func is_fresh():
     return fresh
+
 
 func win(winner):
     elapsed_seconds = Time.get_unix_time_from_system() - start_epoch
@@ -56,6 +66,7 @@ func win(winner):
         $Music.stop()
 
     SignalBus.team_won.emit(winner, $turns.turn_number, teams.summarize(), elapsed_seconds)
+
 
 func start():
     fresh = false

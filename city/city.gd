@@ -103,6 +103,15 @@ func fortify():
     open = false
 
 
+func get_units() -> Array[Unit]:
+    if standalone: return []
+    var worlds = get_tree().get_nodes_in_group("World")
+    if worlds.size() != 1: return []
+    var team = worlds[0].get_team_by_name(my_team)
+    if team == null: return []
+    return(team.get_units_in_city(self))
+
+
 # at startup we have a special case
 # build type variable is set, but build duration and remaining are not
 func initialize_build_type():

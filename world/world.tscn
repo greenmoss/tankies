@@ -102,7 +102,7 @@ tile_size = Vector2i(80, 80)
 physics_layer_0/collision_layer = 1
 sources/3 = SubResource("TileSetAtlasSource_kqt2o")
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_555vv")
 
 [node name="Map" type="Node2D" parent="."]
@@ -167,7 +167,6 @@ color = Color(1, 0.247059, 0.188235, 1)
 enemy_team = NodePath("../GreenTeam")
 terrain = NodePath("../../Map/Terrain")
 cities = NodePath("../../Map/cities")
-show_fog = null
 
 [node name="units" type="Node" parent="teams/RedTeam" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
@@ -181,7 +180,6 @@ my_team = "RedTeam"
 [node name="neutral" parent="teams" instance=ExtResource("8_y6rer")]
 color = Color(1, 1, 1, 1)
 controller = 2
-show_fog = null
 
 [node name="units" type="Node" parent="teams/neutral" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")

@@ -35,6 +35,13 @@ func are_done():
     return false
 
 
+func get_by_name(team_name:String) -> Team:
+    for team in get_children():
+        if team_name != team.name: continue
+        return team
+    return null
+
+
 func start():
     ai_team.begin()
     human_team.begin()

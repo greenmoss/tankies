@@ -94,8 +94,7 @@ func enter():
     build.set_from_city(marked)
 
     units = []
-    for unit in owner.units_under_mouse.keys():
-        if not owner.units_under_mouse[unit]: continue
+    for unit in marked.get_units():
         if unit == null: continue
         if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue

@@ -1,5 +1,9 @@
 Until there's a real "credits" screen in this game, tracking licensed art here:
 
+# Production
+* Development by Kurt Yoder
+* Audio/Music by Mark Yoder - Twitch okmy
+
 # Art
 
 ### https://commons.wikimedia.org

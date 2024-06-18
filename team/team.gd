@@ -44,6 +44,14 @@ func get_my_valid_units() -> Array:
     return units.get_all_valid()
 
 
+func get_units_in_city(city:City) -> Array[Unit]:
+    var found_units:Array[Unit] = []
+    for unit in get_my_valid_units():
+        if unit.in_city != city: continue
+        found_units.append(unit)
+    return found_units
+
+
 # if a unit is at same position as a city
 # set that unit to be inside that city
 func set_units_in_cities():
