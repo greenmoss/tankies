@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://j8ul2q0ae4n1"]
+[gd_scene load_steps=15 format=3 uid="uid://j8ul2q0ae4n1"]
 
 [ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://cursor/cursor_box.png" id="1_q7v2r"]
 [ext_resource type="Script" path="res://cursor/cursor.gd" id="2_qtmun"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://cursor/state/states/city.gd" id="5_wx3cu"]
 [ext_resource type="Script" path="res://cursor/state/states/none.gd" id="6_fphdq"]
 [ext_resource type="Script" path="res://cursor/state/states/unit.gd" id="7_2yapj"]
+[ext_resource type="PackedScene" uid="uid://cr4soolyfa18i" path="res://cursor/full_units_3.tscn" id="7_f0poe"]
+[ext_resource type="PackedScene" uid="uid://b320errm37w4n" path="res://cursor/half_units_6.tscn" id="8_if123"]
 [ext_resource type="Script" path="res://cursor/state/states/track_unit.gd" id="9_8xy0a"]
 
 [node name="cursor" type="Node2D"]
@@ -70,77 +72,14 @@ stretch_mode = 0
 
 [node name="build" parent="state/city/detail" instance=ExtResource("5_f83km")]
 
-[node name="units1" type="Node2D" parent="state/city/detail"]
-position = Vector2(2.08165e-12, 80)
+[node name="units1" parent="state/city/detail" instance=ExtResource("7_f0poe")]
 
-[node name="unit1" type="TextureButton" parent="state/city/detail/units1"]
-offset_left = 5.0
-offset_top = 15.0
-offset_right = 55.0
-offset_bottom = 65.0
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="unit2" type="TextureButton" parent="state/city/detail/units1"]
-offset_left = 85.0
-offset_top = 15.0
-offset_right = 135.0
-offset_bottom = 65.0
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="unit3" type="TextureButton" parent="state/city/detail/units1"]
-offset_left = 165.0
-offset_top = 15.0
-offset_right = 215.0
-offset_bottom = 65.0
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="units2" type="Node2D" parent="state/city/detail"]
+[node name="units2" parent="state/city/detail" instance=ExtResource("8_if123")]
 visible = false
-position = Vector2(2.08165e-12, 160)
 
-[node name="unit4" type="TextureButton" parent="state/city/detail/units2"]
-offset_right = 40.0
-offset_bottom = 40.0
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="unit5" type="TextureButton" parent="state/city/detail/units2"]
-offset_left = 40.0
-offset_right = 80.0
-offset_bottom = 40.0
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="unit6" type="TextureButton" parent="state/city/detail/units2"]
-offset_left = 80.0
-offset_right = 120.0
-offset_bottom = 40.0
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="unit7" type="TextureButton" parent="state/city/detail/units2"]
-offset_left = 120.0
-offset_right = 160.0
-offset_bottom = 40.0
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="unit8" type="TextureButton" parent="state/city/detail/units2"]
-offset_left = 160.0
-offset_right = 200.0
-offset_bottom = 40.0
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="unit9" type="TextureButton" parent="state/city/detail/units2"]
-offset_left = 200.0
-offset_right = 240.0
-offset_bottom = 40.0
-ignore_texture_size = true
-stretch_mode = 0
+[node name="units3" parent="state/city/detail" instance=ExtResource("8_if123")]
+visible = false
+position = Vector2(2.08165e-12, 200)
 
 [node name="find_unit" type="Node" parent="state"]
 script = ExtResource("4_ryggc")
@@ -179,16 +118,6 @@ default_color = Color(0, 0, 0, 0.352941)
 [node name="track_unit" type="Node" parent="state"]
 script = ExtResource("9_8xy0a")
 
-[connection signal="pressed" from="state/city/detail/unit0" to="state/city" method="_on_unit_0_pressed"]
 [connection signal="pressed" from="state/city/detail/build/selector" to="state/city" method="_on_selector_pressed"]
-[connection signal="pressed" from="state/city/detail/units1/unit1" to="state/city" method="_on_unit_1_pressed"]
-[connection signal="pressed" from="state/city/detail/units1/unit2" to="state/city" method="_on_unit_2_pressed"]
-[connection signal="pressed" from="state/city/detail/units1/unit3" to="state/city" method="_on_unit_3_pressed"]
-[connection signal="pressed" from="state/city/detail/units2/unit4" to="state/city" method="_on_unit_4_pressed"]
-[connection signal="pressed" from="state/city/detail/units2/unit5" to="state/city" method="_on_unit_5_pressed"]
-[connection signal="pressed" from="state/city/detail/units2/unit6" to="state/city" method="_on_unit_6_pressed"]
-[connection signal="pressed" from="state/city/detail/units2/unit7" to="state/city" method="_on_unit_7_pressed"]
-[connection signal="pressed" from="state/city/detail/units2/unit8" to="state/city" method="_on_unit_8_pressed"]
-[connection signal="pressed" from="state/city/detail/units2/unit9" to="state/city" method="_on_unit_9_pressed"]
 
 [editable path="state/city/detail/build"]

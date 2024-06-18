@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b320errm37w4n"]
+
+[node name="half_units" type="Node2D"]
+position = Vector2(2.08165e-12, 160)
+
+[node name="unit1" type="TextureButton" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit2" type="TextureButton" parent="."]
+offset_left = 40.0
+offset_right = 80.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit3" type="TextureButton" parent="."]
+offset_left = 80.0
+offset_right = 120.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit4" type="TextureButton" parent="."]
+offset_left = 120.0
+offset_right = 160.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit5" type="TextureButton" parent="."]
+offset_left = 160.0
+offset_right = 200.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit6" type="TextureButton" parent="."]
+offset_left = 200.0
+offset_right = 240.0
+offset_bottom = 40.0
+ignore_texture_size = true
+stretch_mode = 0

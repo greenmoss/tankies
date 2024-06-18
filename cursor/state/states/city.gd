@@ -8,17 +8,25 @@ var marked:City
 @onready var icon = $detail/icon
 @onready var units1 = $detail/units1
 @onready var units2 = $detail/units2
+@onready var units3 = $detail/units3
 @onready var unit_slots = [
     $detail/unit0,
     $detail/units1/unit1,
     $detail/units1/unit2,
     $detail/units1/unit3,
+    $detail/units2/unit1,
+    $detail/units2/unit2,
+    $detail/units2/unit3,
     $detail/units2/unit4,
     $detail/units2/unit5,
     $detail/units2/unit6,
-    $detail/units2/unit7,
-    $detail/units2/unit8,
-    $detail/units2/unit9,
+    $detail/units3/unit1,
+    $detail/units3/unit2,
+    $detail/units3/unit3,
+    $detail/units3/unit4,
+    $detail/units3/unit5,
+    $detail/units3/unit6,
+    # if there are more units than this, we do not display them
     ]
 
 var tween_speed = 7.5
@@ -30,44 +38,8 @@ var position_tween:Tween
 var units:Array[Unit]
 
 
-func _on_unit_0_pressed():
-    activate_unit(0)
-
-
-func _on_unit_1_pressed():
-    activate_unit(1)
-
-
-func _on_unit_2_pressed():
-    activate_unit(2)
-
-
-func _on_unit_3_pressed():
-    activate_unit(3)
-
-
-func _on_unit_4_pressed():
-    activate_unit(4)
-
-
-func _on_unit_5_pressed():
-    activate_unit(5)
-
-
-func _on_unit_6_pressed():
-    activate_unit(6)
-
-
-func _on_unit_7_pressed():
-    activate_unit(7)
-
-
-func _on_unit_8_pressed():
-    activate_unit(8)
-
-
-func _on_unit_9_pressed():
-    activate_unit(9)
+func _on_unit_pressed(slot_index:int):
+    activate_unit(slot_index)
 
 
 func _on_selector_pressed():
@@ -99,6 +71,7 @@ func enter():
         if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
         units.append(unit)
+    units.reverse()
 
     for slot_index in unit_slots.size():
         if slot_index >= units.size():
@@ -106,10 +79,12 @@ func enter():
         unit_slots[slot_index].texture_normal = units[slot_index].display.icon.texture
         unit_slots[slot_index].modulate = units[slot_index].display.icon.modulate
         unit_slots[slot_index].flip_h = units[slot_index].display.icon.flip_h
+        unit_slots[slot_index].pressed.connect(_on_unit_pressed.bind(slot_index))
 
     # row 1 of displayed units, plus one unit displayed over the city
     if units.size() > (units1.get_children().size() + 1):
         units2.visible = true
+        units3.visible = true
         detail.size.y += default_size_y / 2
         background.size.y += default_size_y / 2
 
@@ -152,10 +127,16 @@ func exit():
     background.size.y = default_size_y
     build.set_idle()
     units2.visible = false
+    units3.visible = false
 
     for slot in unit_slots:
         slot.texture_normal = null
     marked = null
+
+    # disconnect any unit button signals
+    for slot_index in unit_slots.size():
+        if not unit_slots[slot_index].pressed.is_connected(_on_unit_pressed): continue
+        unit_slots[slot_index].pressed.disconnect(_on_unit_pressed)
 
 
 func handle_input(event):

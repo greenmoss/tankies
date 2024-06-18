@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cr4soolyfa18i"]
+
+[node name="full_units" type="Node2D"]
+position = Vector2(2.08165e-12, 80)
+
+[node name="unit1" type="TextureButton" parent="."]
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 55.0
+offset_bottom = 65.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit2" type="TextureButton" parent="."]
+offset_left = 85.0
+offset_top = 15.0
+offset_right = 135.0
+offset_bottom = 65.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="unit3" type="TextureButton" parent="."]
+offset_left = 165.0
+offset_top = 15.0
+offset_right = 215.0
+offset_bottom = 65.0
+ignore_texture_size = true
+stretch_mode = 0
