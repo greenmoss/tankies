@@ -3,7 +3,6 @@ class_name Units
 
 # we store this here so units can access it
 @export var battle:Battle
-var tank_scene:PackedScene = preload("res://unit/types/tank/tank.tscn")
 
 
 func are_done() -> bool:

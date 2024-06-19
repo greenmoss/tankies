@@ -30,6 +30,9 @@ sources/0 = SubResource("TileSetAtlasSource_p3rdr")
 
 [node name="Team" type="Node"]
 script = ExtResource("1_xuuym")
+color = null
+controller = null
+show_fog = null
 
 [node name="state" type="Node" parent="."]
 script = ExtResource("2_qpcv6")
@@ -75,5 +78,7 @@ script = ExtResource("13_tmtby")
 
 [node name="template" type="Sprite2D" parent="fog/phantoms"]
 visible = false
+
+[node name="stacks" type="Node" parent="."]
 
 [connection signal="derived" from="vision" to="fog" method="_on_vision_derived"]

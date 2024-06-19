@@ -2,6 +2,7 @@ extends Node
 class_name Team
 
 @onready var fog = $fog
+@onready var stacks = $stacks
 @onready var state = $state
 @onready var vision = $vision
 
@@ -23,13 +24,27 @@ var battles_lost:int = 0
 
 var standalone:bool = false
 
+var stack_scene:PackedScene = preload("stack.tscn")
+
 # use this to make friendlier team names which helps with debugging
 var name_counter = 0
+
 
 func _ready():
     SignalBus.battle_finished.connect(_battle_finished)
     set_world_vars()
     set_units_in_cities()
+    var position_units = get_units_by_position()
+    for position in position_units:
+        var stack_units:Array[Unit] = position_units[position]
+        if stack_units.size() < 2: continue
+        show_stack(stack_units)
+
+
+func show_stack(stack_units:Array[Unit]):
+    var stack = stack_scene.instantiate()
+    stack.set_units(stack_units)
+    stacks.add_child(stack)
 
 
 func get_my_cities() -> Array:
@@ -59,6 +74,19 @@ func set_units_in_cities():
         for unit in get_my_valid_units():
             if unit.position != city.position: continue
             unit.set_in_city(city)
+
+
+# if multiple units are at the same position
+# add a stack indicator at that position
+func get_units_by_position() -> Dictionary:
+    var position_units = {}
+    for unit in get_my_valid_units():
+        if unit.in_city != null: continue
+        if unit.position not in position_units.keys():
+            var stack_units:Array[Unit] = []
+            position_units[unit.position] = stack_units
+        position_units[unit.position].append(unit)
+    return position_units
 
 
 # if we are an instance in the world, set up all variables connected to the world

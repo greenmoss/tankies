@@ -1,7 +1,7 @@
 extends Area2D
 class_name Unit
 
-var in_city = null
+var in_city:City = null
 var sleep_turns = 0
 
 # if we are running this scene as an instantiated child, this is false
@@ -76,6 +76,14 @@ func _ready():
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
     await refill_moves()
     await assign_groups()
+
+
+func get_team() -> String:
+    return my_team
+
+
+func get_texture() -> Texture:
+    return display.icon.texture
 
 
 func has_fuel() -> bool:

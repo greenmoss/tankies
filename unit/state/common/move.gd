@@ -1,8 +1,8 @@
 extends "res://common/state.gd"
 
+var battle:Battle
 var movement_tween: Tween
 var move_animation_speed = 7.5
-var battle:Battle
 
 
 func exit():

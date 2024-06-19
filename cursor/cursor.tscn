@@ -96,10 +96,12 @@ wait_time = 0.5
 
 [node name="big_circle" type="Sprite2D" parent="state/unit"]
 visible = false
+z_index = 2
 texture = ExtResource("3_mk38k")
 
 [node name="square_marker" type="Sprite2D" parent="state/unit"]
 visible = false
+z_index = 2
 texture = ExtResource("1_q7v2r")
 
 [node name="range_marker" type="Line2D" parent="state/unit"]
