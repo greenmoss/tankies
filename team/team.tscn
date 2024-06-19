@@ -79,6 +79,6 @@ script = ExtResource("13_tmtby")
 [node name="template" type="Sprite2D" parent="fog/phantoms"]
 visible = false
 
-[node name="stacks" type="Node" parent="."]
+[node name="unit_stacks" type="Node" parent="."]
 
 [connection signal="derived" from="vision" to="fog" method="_on_vision_derived"]

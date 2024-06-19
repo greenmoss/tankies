@@ -3,7 +3,7 @@ extends "../common/move.gd"
 
 func enter():
     battle = owner.unit.get_node('..').battle
-    if owner.unit.state.scout.target_unit == null:
+    if owner.unit.state.scout.target_units.is_empty():
         attack_city()
     else:
         attack_unit()
@@ -29,11 +29,11 @@ func attack_city():
 
 
 func attack_unit():
-    if(owner.unit.state.scout.target_unit.my_team == owner.unit.my_team):
-        deny_invalid(owner.unit.state.scout.target_unit.my_team)
+    if(owner.unit.state.scout.target_units[0].my_team == owner.unit.my_team):
+        deny_invalid(owner.unit.state.scout.target_units[0].my_team)
         return
 
-    battle.attack_unit(owner.unit, owner.unit.state.scout.target_unit)
+    battle.attack_unit(owner.unit, owner.unit.state.scout.target_units[0])
     await SignalBus.battle_finished
 
     if battle.winner == owner.unit:

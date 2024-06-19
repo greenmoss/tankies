@@ -1,7 +1,7 @@
 extends "res://common/state.gd"
 
 var target_city:City = null
-var target_unit:Unit = null
+var target_units:Array[Unit] = []
 
 
 func enter():
@@ -31,15 +31,14 @@ func enter():
         owner.unit.ray.add_exception(target)
         owner.unit.ray.force_raycast_update()
 
-    target_city = null
-    target_unit = null
+    clear_targets()
     for target in targets:
         owner.unit.ray.remove_exception(target)
         if target.is_in_group("Cities"): target_city = target
-        if target.is_in_group("Units"): target_unit = target
+        if target.is_in_group("Units"): target_units.append(target)
 
-    if target_unit != null:
-        if owner.unit.my_team == target_unit.my_team:
+    if not target_units.is_empty():
+        if owner.unit.my_team == target_units[0].my_team:
 
             # If one of our units in the city, the city must already belong to us
             # So it is safe to assume we can move into the city
@@ -67,7 +66,7 @@ func enter():
         emit_signal("next_state", "idle")
         return
 
-    target_unit = null
+    target_units = []
     target_city = target_city
     emit_signal("next_state", "attack")
     return
@@ -76,4 +75,4 @@ func enter():
 # safe to invoke from any state
 func clear_targets():
     target_city = null
-    target_unit = null
+    target_units = []

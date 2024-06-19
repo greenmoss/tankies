@@ -2,7 +2,7 @@ extends Node
 class_name Team
 
 @onready var fog = $fog
-@onready var stacks = $stacks
+@onready var unit_stacks = $unit_stacks
 @onready var state = $state
 @onready var vision = $vision
 
@@ -24,7 +24,7 @@ var battles_lost:int = 0
 
 var standalone:bool = false
 
-var stack_scene:PackedScene = preload("stack.tscn")
+var unit_stack_scene:PackedScene = preload("unit_stack.tscn")
 
 # use this to make friendlier team names which helps with debugging
 var name_counter = 0
@@ -42,9 +42,9 @@ func _ready():
 
 
 func show_stack(stack_units:Array[Unit]):
-    var stack = stack_scene.instantiate()
-    stack.set_units(stack_units)
-    stacks.add_child(stack)
+    var unit_stack = unit_stack_scene.instantiate()
+    unit_stack.set_units(stack_units)
+    unit_stacks.add_child(unit_stack)
 
 
 func get_my_cities() -> Array:
