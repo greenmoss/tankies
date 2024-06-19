@@ -6,6 +6,7 @@ extends "res://common/state_machine.gd"
 @onready var none = $none
 @onready var track_unit = $track_unit
 @onready var unit = $unit
+@onready var units = $units
 
 
 func _ready():
@@ -17,6 +18,7 @@ func _ready():
         "none": none,
         "track_unit": track_unit,
         "unit": unit,
+        "units": units,
     }
 
 

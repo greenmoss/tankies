@@ -1,6 +1,14 @@
 extends "res://common/state.gd"
 
 
+func get_all_units_under_mouse() -> Array[Unit]:
+    var units:Array[Unit] = []
+    for unit in owner.units_under_mouse.keys():
+        if owner.units_under_mouse[unit] == false: continue
+        units.append(unit)
+    return units
+
+
 func get_first_city_under_mouse() -> City:
     for city in owner.cities_under_mouse.keys():
         if owner.cities_under_mouse[city] == false: continue

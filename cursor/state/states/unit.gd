@@ -82,21 +82,36 @@ func handle_input(event):
             owner.state.mark_city(clicked_city)
             return
 
-        var clicked_unit:Unit = get_first_unit_under_mouse()
-        if clicked_unit == null:
+        var clicked_units:Array[Unit] = get_all_units_under_mouse()
+        if clicked_units.size() == 0:
             previous_marked = null
             marked = null
             emit_signal("next_state", "none")
             return
 
-        # already selected, so deselect
-        if clicked_unit == marked:
+        # last node is on top, so that becomes the top unit in the stack
+        clicked_units.reverse()
+
+        for clicked_unit in clicked_units:
+            if clicked_unit != marked: continue
+
+            # one unit in stack, already selected
+            if clicked_units.size() == 1:
+                previous_marked = null
+                marked = null
+                emit_signal("next_state", "none")
+                return
+
+            # multiple units in stack, one is already selected
+            owner.state.units.units = clicked_units
+            owner.state.units.marked = marked
             previous_marked = null
             marked = null
-            emit_signal("next_state", "none")
+            emit_signal("next_state", "units")
             return
 
-        marked = clicked_unit
+        # non-selected/new unit
+        marked = clicked_units[0]
         emit_signal("next_state", "unit")
         return
 

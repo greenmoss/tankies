@@ -1,20 +1,17 @@
 extends "../common/unit.gd"
 
 var alpha_tween:Tween
-var marked:City
+var marked:Unit
 var position_tween:Tween
 var tween_speed = 7.5
 var units:Array[Unit]
 
 @onready var background = $detail/background
-@onready var build = $detail/build
 @onready var detail = $detail
-@onready var icon = $detail/icon
 @onready var units1 = $detail/units1
 @onready var units2 = $detail/units2
 @onready var units3 = $detail/units3
 @onready var unit_slots = [
-    $detail/unit0,
     $detail/units1/unit1,
     $detail/units1/unit2,
     $detail/units1/unit3,
@@ -39,13 +36,6 @@ func _on_unit_pressed(slot_index:int):
     activate_unit(slot_index)
 
 
-func _on_selector_pressed():
-    owner.state.build.marked = marked
-    #owner.state.build.build.progress_animation_time = build.progress_animation_time
-    emit_signal("next_state", "build")
-    return
-
-
 func activate_unit(unit_number:int):
     var unit_count = units.size()
     # ignore buttons without an attached unit
@@ -58,17 +48,12 @@ func enter():
     if marked == null:
         emit_signal("next_state", "none")
         return
-
-    icon.modulate = marked.icon.modulate
-    build.set_from_city(marked)
-
-    units = []
-    for unit in marked.get_units():
-        if unit == null: continue
-        if not is_instance_valid(unit): continue
-        if unit.is_queued_for_deletion(): continue
-        units.append(unit)
-    units.reverse()
+    if not is_instance_valid(marked):
+        emit_signal("next_state", "none")
+        return
+    if marked.is_queued_for_deletion():
+        emit_signal("next_state", "none")
+        return
 
     for slot_index in unit_slots.size():
         if slot_index >= units.size():
@@ -78,12 +63,11 @@ func enter():
         unit_slots[slot_index].flip_h = units[slot_index].display.icon.flip_h
         unit_slots[slot_index].pressed.connect(_on_unit_pressed.bind(slot_index))
 
-    # row 1 of displayed units, plus one unit displayed over the city
-    if units.size() > (units1.get_children().size() + 1):
+    if units.size() > (units1.get_children().size()):
         units2.visible = true
         units3.visible = true
-        detail.size.y += default_size_y / 2
-        background.size.y += default_size_y / 2
+        detail.size.y += default_size_y
+        background.size.y += default_size_y
 
     owner.position = Vector2(marked.position.x - Global.half_tile_size, marked.position.y - Global.half_tile_size)
 
@@ -118,7 +102,7 @@ func enter():
 
 
 func exit():
-    build.set_idle()
+    units = []
 
     detail.visible = false
     detail.position = Vector2.ZERO
@@ -135,6 +119,7 @@ func exit():
     for slot_index in unit_slots.size():
         if not unit_slots[slot_index].pressed.is_connected(_on_unit_pressed): continue
         unit_slots[slot_index].pressed.disconnect(_on_unit_pressed)
+
 
 
 func handle_input(event):

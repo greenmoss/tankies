@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://j8ul2q0ae4n1"]
+[gd_scene load_steps=16 format=3 uid="uid://j8ul2q0ae4n1"]
 
 [ext_resource type="Texture2D" uid="uid://78uj1p8xjotd" path="res://cursor/cursor_box.png" id="1_q7v2r"]
 [ext_resource type="Script" path="res://cursor/cursor.gd" id="2_qtmun"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cr4soolyfa18i" path="res://cursor/full_units_3.tscn" id="7_f0poe"]
 [ext_resource type="PackedScene" uid="uid://b320errm37w4n" path="res://cursor/half_units_6.tscn" id="8_if123"]
 [ext_resource type="Script" path="res://cursor/state/states/track_unit.gd" id="9_8xy0a"]
+[ext_resource type="Script" path="res://cursor/state/states/units.gd" id="14_71cta"]
 
 [node name="cursor" type="Node2D"]
 script = ExtResource("2_qtmun")
@@ -114,6 +115,33 @@ points = PackedVector2Array(-130, -130, 130, -130, 130, 130, -130, 130)
 closed = true
 width = 20.0
 default_color = Color(0, 0, 0, 0.352941)
+
+[node name="units" type="Node2D" parent="state"]
+script = ExtResource("14_71cta")
+
+[node name="detail" type="ColorRect" parent="state/units"]
+visible = false
+z_index = 4
+offset_right = 240.0
+offset_bottom = 160.0
+color = Color(1, 1, 1, 0)
+
+[node name="background" type="ColorRect" parent="state/units/detail"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 80.0
+color = Color(0.137255, 0.341176, 0.137255, 0.890196)
+
+[node name="units1" parent="state/units/detail" instance=ExtResource("7_f0poe")]
+position = Vector2(2.08165e-12, 2.08165e-12)
+
+[node name="units2" parent="state/units/detail" instance=ExtResource("8_if123")]
+visible = false
+position = Vector2(2.08165e-12, 80)
+
+[node name="units3" parent="state/units/detail" instance=ExtResource("8_if123")]
+visible = false
+position = Vector2(2.08165e-12, 120)
 
 [node name="track_unit" type="Node" parent="state"]
 script = ExtResource("9_8xy0a")
