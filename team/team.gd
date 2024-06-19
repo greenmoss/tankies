@@ -24,8 +24,6 @@ var battles_lost:int = 0
 
 var standalone:bool = false
 
-var unit_stack_scene:PackedScene = preload("unit_stack.tscn")
-
 # use this to make friendlier team names which helps with debugging
 var name_counter = 0
 
@@ -34,17 +32,14 @@ func _ready():
     SignalBus.battle_finished.connect(_battle_finished)
     set_world_vars()
     set_units_in_cities()
-    var position_units = get_units_by_position()
-    for position in position_units:
-        var stack_units:Array[Unit] = position_units[position]
-        if stack_units.size() < 2: continue
-        show_stack(stack_units)
+    unit_stacks.set_from_units(units)
+
+    SignalBus.unit_changed_position.connect(_unit_changed_position)
 
 
-func show_stack(stack_units:Array[Unit]):
-    var unit_stack = unit_stack_scene.instantiate()
-    unit_stack.set_units(stack_units)
-    unit_stacks.add_child(unit_stack)
+func _unit_changed_position(unit:Unit):
+    if unit.my_team != name: return
+    unit_stacks.set_from_units(units)
 
 
 func get_my_cities() -> Array:
@@ -74,19 +69,6 @@ func set_units_in_cities():
         for unit in get_my_valid_units():
             if unit.position != city.position: continue
             unit.set_in_city(city)
-
-
-# if multiple units are at the same position
-# add a stack indicator at that position
-func get_units_by_position() -> Dictionary:
-    var position_units = {}
-    for unit in get_my_valid_units():
-        if unit.in_city != null: continue
-        if unit.position not in position_units.keys():
-            var stack_units:Array[Unit] = []
-            position_units[unit.position] = stack_units
-        position_units[unit.position].append(unit)
-    return position_units
 
 
 # if we are an instance in the world, set up all variables connected to the world

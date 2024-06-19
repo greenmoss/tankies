@@ -2,7 +2,6 @@ extends "../common/idle.gd"
 
 
 func enter():
-    SignalBus.unit_completed_moves.emit(owner.unit.my_team)
     owner.unit.sounds.stop_all()
     owner.unit.display.set_inactive()
 

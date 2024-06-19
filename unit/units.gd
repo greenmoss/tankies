@@ -55,6 +55,16 @@ func get_all_valid() -> Array:
     return valid_units
 
 
+func get_by_position() -> Dictionary:
+    var position_units = {}
+    for unit in get_all_valid():
+        if unit.position not in position_units.keys():
+            var units:Array[Unit] = []
+            position_units[unit.position] = units
+        position_units[unit.position].append(unit)
+    return position_units
+
+
 func get_cardinal_closest_active(position:Vector2) -> Unit:
     var nearby = get_all_by_cardinal_distance(position)
     var distances = nearby.keys()

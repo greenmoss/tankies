@@ -9,31 +9,33 @@ z_index = 1
 script = ExtResource("1_plp63")
 
 [node name="background" type="ColorRect" parent="."]
-offset_right = 80.0
-offset_bottom = 80.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="unit3" type="Sprite2D" parent="."]
-position = Vector2(60, 21)
+position = Vector2(20, -19)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_oogqx")
 
 [node name="unit2" type="Sprite2D" parent="."]
-position = Vector2(60, 58)
+position = Vector2(20, 18)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_1dyy2")
 
 [node name="unit1" type="Sprite2D" parent="."]
-position = Vector2(24, 56)
+position = Vector2(-16, 16)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_1dyy2")
 
 [node name="unit_count" type="Label" parent="."]
-offset_left = 7.0
-offset_top = -4.0
-offset_right = 47.0
-offset_bottom = 38.0
+offset_left = -33.0
+offset_top = -44.0
+offset_right = 7.0
+offset_bottom = -2.0
 theme_override_font_sizes/font_size = 30
 text = "3"
 vertical_alignment = 1

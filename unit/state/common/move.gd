@@ -7,6 +7,7 @@ var move_animation_speed = 7.5
 
 func exit():
     owner.unit.vision.update()
+    SignalBus.unit_changed_position.emit(owner.unit)
 
 
 func animate():
@@ -26,6 +27,12 @@ func animate():
             owner.unit.in_city = null
 
         owner.unit.display.set_from_city()
+
+    # outside of city
+    if(owner.unit.in_city == null):
+        pass
+        #if(owner.unit.over_unit != null):
+        #      print("on open terrain, moved over unit ",owner.unit.over_unit)
 
 
 func reduce_fuel():

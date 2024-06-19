@@ -90,6 +90,10 @@ func has_fuel() -> bool:
     return fuel_capacity > 0
 
 
+func is_in_city() -> bool:
+    return in_city != null
+
+
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding
     # consequently, this is best used to move to a neighboring coordinate/position

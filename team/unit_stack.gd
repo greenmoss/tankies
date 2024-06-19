@@ -1,4 +1,5 @@
 extends Node2D
+class_name UnitStack
 
 @onready var unit1 = $unit1
 @onready var unit2 = $unit2
@@ -39,4 +40,4 @@ func set_info():
 
 func set_units(stack_units:Array[Unit]):
     units = stack_units
-    position = Vector2i(int(units[0].position.x) - Global.half_tile_size, int(units[0].position.y) - Global.half_tile_size)
+    position = Vector2i(int(units[0].position.x), int(units[0].position.y))
