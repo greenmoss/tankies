@@ -17,12 +17,12 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="unit4" type="Sprite2D" parent="."]
-position = Vector2(26, -26)
+position = Vector2(26, -24)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_oogqx")
 
 [node name="unit3" type="Sprite2D" parent="."]
-position = Vector2(26, -3)
+position = Vector2(26, 2.08165e-12)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_oogqx")
 
