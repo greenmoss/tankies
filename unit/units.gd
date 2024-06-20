@@ -55,6 +55,14 @@ func get_all_valid() -> Array:
     return valid_units
 
 
+func get_at_position(query_position: Vector2) -> Array[Unit]:
+    var units:Array[Unit] = []
+    for unit in get_all_valid():
+        if unit.position != query_position: continue
+        units.append(unit)
+    return units
+
+
 func get_by_position() -> Dictionary:
     var position_units = {}
     for unit in get_all_valid():

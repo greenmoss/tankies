@@ -16,14 +16,19 @@ offset_bottom = 40.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
+[node name="unit4" type="Sprite2D" parent="."]
+position = Vector2(26, -26)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_oogqx")
+
 [node name="unit3" type="Sprite2D" parent="."]
-position = Vector2(20, -19)
-scale = Vector2(0.5, 0.5)
+position = Vector2(26, -3)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_oogqx")
 
 [node name="unit2" type="Sprite2D" parent="."]
-position = Vector2(20, 18)
-scale = Vector2(0.5, 0.5)
+position = Vector2(26, 24)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_1dyy2")
 
 [node name="unit1" type="Sprite2D" parent="."]
@@ -37,5 +42,5 @@ offset_top = -44.0
 offset_right = 7.0
 offset_bottom = -2.0
 theme_override_font_sizes/font_size = 30
-text = "3"
+text = "4"
 vertical_alignment = 1

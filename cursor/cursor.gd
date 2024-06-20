@@ -56,6 +56,10 @@ func _unit_disbanded(_unit:Unit):
     units_under_mouse = new_units_under_mouse
 
 
+func get_team():
+    return get_parent()
+
+
 func set_controller_team(team_name:String):
     controller_team = team_name
 

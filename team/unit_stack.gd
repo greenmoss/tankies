@@ -4,6 +4,7 @@ class_name UnitStack
 @onready var unit1 = $unit1
 @onready var unit2 = $unit2
 @onready var unit3 = $unit3
+@onready var unit4 = $unit4
 @onready var unit_count = $unit_count
 
 var units:Array[Unit]
@@ -22,6 +23,7 @@ func set_info():
     unit1.modulate = unit_color
     unit2.modulate = unit_color
     unit3.modulate = unit_color
+    unit4.modulate = unit_color
     unit1.texture = units[0].get_texture()
     unit2.texture = units[1].get_texture()
 
@@ -30,11 +32,20 @@ func set_info():
 
     if units_size == 2:
         unit3.visible = false
+        unit4.visible = false
         return
 
     if units_size == 3:
         unit3.texture = units[2].get_texture()
         unit3.visible = true
+        unit4.visible = false
+        return
+
+    if units_size >= 4:
+        unit3.texture = units[2].get_texture()
+        unit3.visible = true
+        unit4.texture = units[3].get_texture()
+        unit4.visible = true
         return
 
 

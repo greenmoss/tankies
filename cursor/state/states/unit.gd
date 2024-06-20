@@ -89,21 +89,23 @@ func handle_input(event):
             emit_signal("next_state", "none")
             return
 
-        # last node is on top, so that becomes the top unit in the stack
-        clicked_units.reverse()
+        var ordered_units:Array[Unit] = owner.get_team().units.get_at_position(clicked_units[0].position)
 
-        for clicked_unit in clicked_units:
+        # last node is on top, so that becomes the top unit in the stack
+        ordered_units.reverse()
+
+        for clicked_unit in ordered_units:
             if clicked_unit != marked: continue
 
             # one unit in stack, already selected
-            if clicked_units.size() == 1:
+            if ordered_units.size() == 1:
                 previous_marked = null
                 marked = null
                 emit_signal("next_state", "none")
                 return
 
             # multiple units in stack, one is already selected
-            owner.state.units.units = clicked_units
+            owner.state.units.units = ordered_units
             owner.state.units.marked = marked
             previous_marked = null
             marked = null
@@ -111,7 +113,7 @@ func handle_input(event):
             return
 
         # non-selected/new unit
-        marked = clicked_units[0]
+        marked = ordered_units[0]
         emit_signal("next_state", "unit")
         return
 
