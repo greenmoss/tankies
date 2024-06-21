@@ -19,17 +19,26 @@ func _ready():
 
 
 func promote_unit(unit:Unit):
+    if unit == null: return
+    if not is_instance_valid(unit): return
+    if unit.is_queued_for_deletion(): return
+
     var new_units:Array[Unit] = [unit]
     for previous_unit in units:
-        if not is_instance_valid(unit): continue
-        if unit.is_queued_for_deletion(): continue
-        if unit == previous_unit: continue
+        if not is_instance_valid(previous_unit): continue
+        if previous_unit.is_queued_for_deletion(): continue
+        if unit == previous_unit:continue
         new_units.append(previous_unit)
     units = new_units
     set_info()
 
 
 func set_info():
+    var units_size = units.size()
+    if units_size < 2:
+        queue_free()
+        return
+
     var unit_color:Color = Global.team_colors[units[0].get_team()]
     unit1.modulate = unit_color
     unit2.modulate = unit_color
@@ -38,7 +47,6 @@ func set_info():
     unit1.texture = units[0].get_texture()
     unit2.texture = units[1].get_texture()
 
-    var units_size = units.size()
     unit_count.text = str(units_size)
 
     if units_size == 2:

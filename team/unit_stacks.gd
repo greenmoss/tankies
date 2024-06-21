@@ -15,7 +15,12 @@ func _promote_unit(unit:Unit):
         set_from_units(get_parent().units)
         if unit.position not in position_stacks.keys():
             return
-    var unit_stack:UnitStack = position_stacks[unit.position]
+
+    var unit_stack = position_stacks[unit.position]
+    if unit_stack == null: return
+    if not is_instance_valid(unit_stack): return
+    if unit_stack.is_queued_for_deletion(): return
+
     unit_stack.promote_unit(unit)
 
 

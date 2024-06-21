@@ -40,22 +40,7 @@ func enter():
     square_marker.visible = true
 
     if marked.has_fuel():
-        var limit = (marked.fuel_remaining * Global.tile_size) + (range_marker.width / 2) - Global.half_tile_size
-        var half = (int(float(marked.fuel_remaining) / 2.0) * Global.tile_size) + (half_range_marker.width / 2) - Global.half_tile_size
-        range_marker.points[0] = Vector2(-limit, -limit)
-        range_marker.points[1] = Vector2( limit, -limit)
-        range_marker.points[2] = Vector2( limit,  limit)
-        range_marker.points[3] = Vector2(-limit,  limit)
-
-        # only show the half-marker if it's at least a tile away
-        if half > Global.tile_size:
-            half_range_marker.points[0] = Vector2(-half, -half)
-            half_range_marker.points[1] = Vector2( half, -half)
-            half_range_marker.points[2] = Vector2( half,  half)
-            half_range_marker.points[3] = Vector2(-half,  half)
-            half_range_marker.visible = true
-
-        range_marker.visible = true
+        show_fuel_markers()
 
     if marked != previous_marked:
         marked.select_me()
@@ -133,6 +118,25 @@ func handle_input(event):
         return
 
     marked.handle_cursor_input_event(event)
+
+
+func show_fuel_markers():
+    var limit = (marked.fuel_remaining * Global.tile_size) + (range_marker.width / 2) - Global.half_tile_size
+    var half = (int(float(marked.fuel_remaining) / 2.0) * Global.tile_size) + (half_range_marker.width / 2) - Global.half_tile_size
+    range_marker.points[0] = Vector2(-limit, -limit)
+    range_marker.points[1] = Vector2( limit, -limit)
+    range_marker.points[2] = Vector2( limit,  limit)
+    range_marker.points[3] = Vector2(-limit,  limit)
+
+    # only show the half-marker if it's at least a tile away
+    if half > Global.tile_size:
+        half_range_marker.points[0] = Vector2(-half, -half)
+        half_range_marker.points[1] = Vector2( half, -half)
+        half_range_marker.points[2] = Vector2( half,  half)
+        half_range_marker.points[3] = Vector2(-half,  half)
+        half_range_marker.visible = true
+
+    range_marker.visible = true
 
 
 func update(delta):
