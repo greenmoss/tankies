@@ -4,6 +4,21 @@ var position_stacks:Dictionary
 var unit_stack_scene:PackedScene = preload("unit_stack.tscn")
 
 
+func _ready():
+    SignalBus.cursor_marked_unit.connect(_promote_unit)
+    SignalBus.unit_changed_position.connect(_promote_unit)
+
+
+func _promote_unit(unit:Unit):
+    if unit.my_team != get_parent().name: return
+    if unit.position not in position_stacks.keys():
+        set_from_units(get_parent().units)
+        if unit.position not in position_stacks.keys():
+            return
+    var unit_stack:UnitStack = position_stacks[unit.position]
+    unit_stack.promote_unit(unit)
+
+
 func set_from_units(units:Units):
     position_stacks = {}
 
@@ -29,7 +44,7 @@ func set_stack(units:Array[Unit]):
         position_stacks[unit.position] = unit_stack
         return
 
-    var unit_stack = unit_stack_scene.instantiate()
+    var unit_stack:UnitStack = unit_stack_scene.instantiate()
     unit_stack.set_units(units)
     add_child(unit_stack)
     position_stacks[unit_stack.position] = unit_stack

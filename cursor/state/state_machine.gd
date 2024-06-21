@@ -33,4 +33,5 @@ func mark_unit(marked_unit:Unit):
     if marked_unit == null:
         return
     unit.marked = marked_unit
+    SignalBus.cursor_marked_unit.emit(marked_unit)
     current_state.emit_signal("next_state", "unit")

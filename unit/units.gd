@@ -5,6 +5,16 @@ class_name Units
 @export var battle:Battle
 
 
+func _ready():
+    SignalBus.cursor_marked_unit.connect(_cursor_marked_unit)
+
+
+# marked unit moves to the bottom so it displays first
+func _cursor_marked_unit(unit:Unit):
+    if unit.my_team != get_parent().name: return
+    move_child(unit, -1)
+
+
 func are_done() -> bool:
     for unit in get_children():
         if not unit.state.is_done(): return false

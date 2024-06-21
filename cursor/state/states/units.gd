@@ -102,6 +102,9 @@ func enter():
 
 
 func exit():
+    if not units.is_empty():
+        SignalBus.unit_changed_position.emit(units[0])
+
     units = []
 
     detail.visible = false
@@ -124,7 +127,7 @@ func exit():
 
 func handle_input(event):
     if event.is_action_pressed("click"):
-        var clicked_city:City = get_first_city_under_mouse()
+        var clicked_city:City = get_city_under_mouse()
         if clicked_city != null:
             owner.state.mark_city(clicked_city)
             return

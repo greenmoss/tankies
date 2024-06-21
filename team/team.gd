@@ -34,13 +34,6 @@ func _ready():
     set_units_in_cities()
     unit_stacks.set_from_units(units)
 
-    SignalBus.unit_changed_position.connect(_unit_changed_position)
-
-
-func _unit_changed_position(unit:Unit):
-    if unit.my_team != name: return
-    unit_stacks.set_from_units(units)
-
 
 func get_my_cities() -> Array:
     if cities == null:

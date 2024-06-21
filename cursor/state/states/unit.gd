@@ -27,13 +27,10 @@ func enter():
         emit_signal("next_state", "find_unit")
         return
 
+    SignalBus.unit_changed_position.emit(marked)
+
     if marked.state.is_asleep():
         marked.state.awaken()
-
-    # move marked unit to bottom-most sibling
-    # ensures it is drawn last, e.g. "on top"
-    var units:Units = marked.get_parent()
-    units.move_child(marked, -1)
 
     owner.position = marked.position
 
@@ -75,7 +72,7 @@ func exit():
 
 func handle_input(event):
     if event.is_action_pressed("click"):
-        var clicked_city:City = get_first_city_under_mouse()
+        var clicked_city:City = get_city_under_mouse()
         if clicked_city != null:
             previous_marked = null
             marked = null

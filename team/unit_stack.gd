@@ -18,6 +18,17 @@ func _ready():
     set_info()
 
 
+func promote_unit(unit:Unit):
+    var new_units:Array[Unit] = [unit]
+    for previous_unit in units:
+        if not is_instance_valid(unit): continue
+        if unit.is_queued_for_deletion(): continue
+        if unit == previous_unit: continue
+        new_units.append(previous_unit)
+    units = new_units
+    set_info()
+
+
 func set_info():
     var unit_color:Color = Global.team_colors[units[0].get_team()]
     unit1.modulate = unit_color
