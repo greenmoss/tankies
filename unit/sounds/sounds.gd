@@ -1,34 +1,23 @@
 extends Node
 class_name UnitSounds
 
-var audio_tween:Tween
-var fade_in_time = 0.25
-
-var move_full_volume:float
-
-
-func _ready():
-    move_full_volume = $Move.volume_db
+@onready var denied_sound = $Denied
+@onready var move_sound = $Move
+@onready var ready_sound = $Ready
 
 
 func play_denied():
     stop_all()
-    $Denied.play()
+    SoundManager.interrupt_channel("unit_denied", denied_sound)
 
 
 func play_move():
-    if not ($Move.playing):
-        $Move.volume_db = move_full_volume - 10
-        $Move.play()
-        audio_tween = create_tween()
-        audio_tween.tween_property($Move, "volume_db", move_full_volume, fade_in_time)
+    SoundManager.interrupt_channel("unit_moved", move_sound)
 
 
 func play_ready():
-    if not ($Ready.playing):
-        $Ready.play()
+    SoundManager.interrupt_channel("unit_is_ready", ready_sound)
 
 
 func stop_all():
-    for child in get_children():
-        child.stop()
+    SoundManager.stop_all(["unit_moved", "unit_denied", "unit_is_ready"])

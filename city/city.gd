@@ -91,7 +91,7 @@ func clear_build():
 
 
 func capture_by(unit):
-    SoundManager.interrupt_channel("capture_city", "res://unit/sounds/marching.wav")
+    SoundManager.interrupt_channel("capture_city", $marching)
     remove_from_group(my_team)
     my_team = unit.my_team
     fortify()

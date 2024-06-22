@@ -1,11 +1,10 @@
 extends UnitSounds
 
-var audio_tween_down:Tween
 
 func play_descend():
-    if $Move.playing:
-        audio_tween_down = create_tween()
-        audio_tween_down.tween_property($Move, "volume_db", -80, fade_in_time)
+    SoundManager.tween_channel_volume("unit_moved", -80, 0.25)
 
+    # play here instead of audio manager
+    # allows us to block until the sound has completed playing
     $Descend.play()
     await $Descend.finished
