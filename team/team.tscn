@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://team/vision.gd" id="11_exhbn"]
 [ext_resource type="Texture2D" uid="uid://7v4a7i7po6qs" path="res://team/fog.svg" id="12_l63hk"]
 [ext_resource type="Script" path="res://team/fog.gd" id="13_tmtby"]
-[ext_resource type="Script" path="res://team/unit_stacks.gd" id="14_f1wix"]
+[ext_resource type="Script" path="res://team/stack_lids.gd" id="14_x7x1b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p3rdr"]
 texture = ExtResource("12_l63hk")
@@ -80,7 +80,7 @@ script = ExtResource("13_tmtby")
 [node name="template" type="Sprite2D" parent="fog/phantoms"]
 visible = false
 
-[node name="unit_stacks" type="Node" parent="."]
-script = ExtResource("14_f1wix")
+[node name="stack_lids" type="Node" parent="."]
+script = ExtResource("14_x7x1b")
 
 [connection signal="derived" from="vision" to="fog" method="_on_vision_derived"]

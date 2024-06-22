@@ -2,7 +2,7 @@ extends Node
 class_name Team
 
 @onready var fog = $fog
-@onready var unit_stacks = $unit_stacks
+@onready var stack_lids = $stack_lids
 @onready var state = $state
 @onready var vision = $vision
 
@@ -36,7 +36,7 @@ func _ready():
 
     set_world_vars()
     set_units_in_cities()
-    unit_stacks.set_from_units(units)
+    stack_lids.set_from_units(units)
 
 
 # winner is always a Unit
@@ -49,25 +49,25 @@ func _battle_finished(winner, loser):
         return
     if loser.my_team == name:
         battles_lost += 1
-        unit_stacks.remove_from_stack(loser.position, loser)
+        stack_lids.remove_from_stack(loser.position, loser)
         return
 
 
 func _cursor_marked_unit(unit:Unit):
     if unit.my_team != name: return
-    unit_stacks.set_stack(units.get_at_position(unit.position))
-    unit_stacks.promote_unit(unit)
+    stack_lids.set_stack(units.get_at_position(unit.position))
+    stack_lids.promote_unit(unit)
 
 
 func _moved_from_position(unit:Unit, old_position:Vector2):
     if unit.my_team != name: return
-    unit_stacks.remove_from_stack(old_position, unit)
+    stack_lids.remove_from_stack(old_position, unit)
 
 
 func _moved_to_position(unit:Unit, _new_position:Vector2):
     if unit.my_team != name: return
-    unit_stacks.set_stack(units.get_at_position(unit.position))
-    unit_stacks.promote_unit(unit)
+    stack_lids.set_stack(units.get_at_position(unit.position))
+    stack_lids.promote_unit(unit)
 
 
 func get_my_cities() -> Array:
@@ -92,7 +92,7 @@ func get_units_in_city(city:City) -> Array[Unit]:
 
 func reset():
     units.reset()
-    unit_stacks.reset()
+    stack_lids.reset()
     vision.reset(terrain)
 
 
@@ -120,7 +120,7 @@ func set_world_vars():
     if units == null:
         standalone = true
     else:
-        unit_stacks.reset()
+        stack_lids.reset()
         vision.reset(terrain)
 
 

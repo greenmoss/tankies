@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://6hpc2yphd4t1"]
 
-[ext_resource type="Script" path="res://team/unit_stack.gd" id="1_plp63"]
+[ext_resource type="Script" path="res://team/stack_lid.gd" id="1_plp63"]
 [ext_resource type="Texture2D" uid="uid://b1v1bfgfavl4c" path="res://unit/types/fighter/F100.svg" id="2_oogqx"]
 [ext_resource type="Texture2D" uid="uid://dqerqlfmbvtg7" path="res://unit/types/tank/tank.svg" id="3_1dyy2"]
 

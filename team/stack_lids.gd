@@ -1,7 +1,7 @@
 extends Node
 
 var position_stacks:Dictionary
-var unit_stack_scene:PackedScene = preload("unit_stack.tscn")
+var stack_lid_scene:PackedScene = preload("stack_lid.tscn")
 
 
 func promote_unit(unit:Unit):
@@ -15,8 +15,8 @@ func remove_from_stack(unit_position:Vector2, unit:Unit):
 
 
 func reset():
-    for unit_stack in get_children():
-        unit_stack.queue_free()
+    for stack_lid in get_children():
+        stack_lid.queue_free()
 
 
 # ideally this runs only once
@@ -30,9 +30,9 @@ func set_from_units(units:Units):
         for position in position_units:
             set_stack(position_units[position])
 
-    for unit_stack in get_children():
-        if unit_stack.position in position_stacks.keys(): continue
-        unit_stack.queue_free()
+    for stack_lid in get_children():
+        if stack_lid.position in position_stacks.keys(): continue
+        stack_lid.queue_free()
 
 
 func set_stack(units:Array[Unit]):
@@ -40,17 +40,17 @@ func set_stack(units:Array[Unit]):
     var unit = units[0]
     if unit.is_in_city(): return
 
-    for unit_stack in get_children():
-        if unit_stack.position != unit.position: continue
-        unit_stack.set_units(units)
-        unit_stack.set_info()
-        position_stacks[unit.position] = unit_stack
+    for stack_lid in get_children():
+        if stack_lid.position != unit.position: continue
+        stack_lid.set_units(units)
+        stack_lid.set_info()
+        position_stacks[unit.position] = stack_lid
         return
 
-    var unit_stack:UnitStack = unit_stack_scene.instantiate()
-    unit_stack.set_units(units)
-    add_child(unit_stack)
-    position_stacks[unit_stack.position] = unit_stack
+    var stack_lid:StackLid = stack_lid_scene.instantiate()
+    stack_lid.set_units(units)
+    add_child(stack_lid)
+    position_stacks[stack_lid.position] = stack_lid
 
 
 func verify_stack(stack_position:Vector2) -> bool:

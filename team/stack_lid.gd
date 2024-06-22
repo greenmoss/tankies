@@ -1,5 +1,5 @@
 extends Node2D
-class_name UnitStack
+class_name StackLid
 
 @onready var unit1 = $unit1
 @onready var unit2 = $unit2
