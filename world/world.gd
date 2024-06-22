@@ -1,15 +1,19 @@
 extends Node2D
 class_name World
 
-var music_tween : Tween
-var fade_out_time = 0.25
+var music_tween: Tween
+var music_fade_time = 0.25
 var start_epoch = Time.get_unix_time_from_system()
 
 @onready var cities = $Map/cities
+@onready var music = $Music
 @onready var teams = $teams
 @onready var terrain = $Map/Terrain
 @onready var tint = $tint
+@onready var turns = $turns
+
 @onready var fresh = true
+@onready var music_default_volume = music.volume_db
 
 
 func _ready():
@@ -65,30 +69,31 @@ func win(winner):
     tint.visible = false
     stop()
 
-    SignalBus.team_won.emit(winner, $turns.turn_number, team_summary, elapsed_seconds)
+    SignalBus.team_won.emit(winner, turns.turn_number, team_summary, elapsed_seconds)
 
 
 func start():
     fresh = false
     tint.visible = false
     start_epoch = Time.get_unix_time_from_system()
-    $turns.enable()
-    $Music.play()
+    turns.enable()
+    music.volume_db = music_default_volume
+    music.play()
     set_physics_process(true)
 
 
 func stop():
-    $turns.stop()
+    turns.stop()
     set_physics_process(false)
     # remove everything to prevent stale state on load
     cities.reset()
     teams.reset()
 
     # fade music to silent and stop
-    if $Music.playing:
+    if music.playing:
         music_tween = create_tween()
-        music_tween.tween_property($Music, "volume_db", -80, fade_out_time)
+        music_tween.tween_property(music, "volume_db", -80, music_fade_time)
         await music_tween.finished
-        $Music.stop()
+        music.stop()
 
     fresh = true
