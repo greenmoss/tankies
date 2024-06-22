@@ -17,8 +17,10 @@ var _path = PackedVector2Array()
 # if we have blocker tiles surrounding the tilemap, how wide are they
 @export var blocker_margin:int
 
+
 func _ready():
     set_astar()
+
 
 func set_astar():
     # Region should match the size of the playable area plus one (in tiles).
@@ -69,8 +71,10 @@ func find_path(local_start_point, local_end_point):
 
     return _path.duplicate()
 
+
 func save(saved: SavedWorld):
     saved.save_terrain(self)
+
 
 func restore(saved_terrain: SavedTerrain):
     clear()

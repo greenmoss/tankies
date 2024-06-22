@@ -24,6 +24,11 @@ func _promote_unit(unit:Unit):
     unit_stack.promote_unit(unit)
 
 
+func reset():
+    for unit_stack in get_children():
+        unit_stack.queue_free()
+
+
 func set_from_units(units:Units):
     position_stacks = {}
 

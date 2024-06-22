@@ -12,13 +12,12 @@ signal want_next_unit
 
 
 func _ready():
-    cities_under_mouse = {}
-    units_under_mouse = {}
     SignalBus.unit_disbanded.connect(_unit_disbanded)
     SignalBus.mouse_entered_city.connect(_mouse_entered_city)
     SignalBus.mouse_exited_city.connect(_mouse_exited_city)
     SignalBus.mouse_entered_unit.connect(_mouse_entered_unit)
     SignalBus.mouse_exited_unit.connect(_mouse_exited_unit)
+    reset()
 
 
 func _mouse_entered_city(city:City):
@@ -58,6 +57,12 @@ func _unit_disbanded(_unit:Unit):
 
 func get_team():
     return get_parent()
+
+
+func reset():
+    cities_under_mouse = {}
+    units_under_mouse = {}
+    position = Vector2(0,0)
 
 
 func set_controller_team(team_name:String):

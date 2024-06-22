@@ -11,14 +11,17 @@ var scenario_information = []
 
 signal faded_out
 
+
 func _ready():
     SignalBus.team_won.connect(_team_won)
+
 
 func _on_choose_button_pressed():
     $Background/start_button.hide()
     $Background/or_text.hide()
     $Background/choose_button.hide()
     $Background/scenario_chooser.show()
+
 
 func _on_scenario_chooser_item_selected(index):
     $Background/start_button.show()
@@ -27,10 +30,12 @@ func _on_scenario_chooser_item_selected(index):
     $Background/scenario_chooser.hide()
     set_current_scenario(index)
 
+
 func _on_start_button_pressed():
     #TODO: figure out how to have the button press emit a global signal
     SignalBus.introduction_pressed_start.emit()
     fade_out()
+
 
 func _team_won(winning_team, turn_number, teams_summary, elapsed_seconds):
     var game_over_template = '''
@@ -49,6 +54,7 @@ func _team_won(winning_team, turn_number, teams_summary, elapsed_seconds):
     )
     fade_in(game_over_message)
 
+
 func fade_in(message):
     $Background/start_button.hide()
     $Background/or_text.hide()
@@ -66,6 +72,7 @@ func fade_in(message):
     $Music.volume_db = 0
     $Music.play()
 
+
 func fade_out():
     # if music is playing start fading it to silent
     if $Music.playing:
@@ -82,6 +89,7 @@ func fade_out():
 
     faded_out.emit()
 
+
 func set_current_scenario(scenario_number):
     if scenario_number >= scenario_information.size():
         push_warning("Testing? scenario number ",scenario_number," is missing from scenario information; ignoring")
@@ -95,8 +103,10 @@ func set_current_scenario(scenario_number):
         $Background/scenario_chooser.set_item_icon(scenario_id, deselected_icon)
     SignalBus.introduction_selected_scenario.emit(scenario_information[scenario_number]['file_name'])
 
+
 func set_message(message):
     $Background/objective.text = message
+
 
 func set_scenarios(scenarios):
     $Background/scenario_chooser.clear()

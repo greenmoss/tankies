@@ -55,6 +55,12 @@ func get_units_in_city(city:City) -> Array[Unit]:
     return found_units
 
 
+func reset():
+    units.reset()
+    unit_stacks.reset()
+    vision.reset(terrain)
+
+
 # if a unit is at same position as a city
 # set that unit to be inside that city
 func set_units_in_cities():
@@ -79,6 +85,7 @@ func set_world_vars():
     if units == null:
         standalone = true
     else:
+        unit_stacks.reset()
         vision.reset(terrain)
 
 
@@ -132,6 +139,7 @@ func summarize() -> String:
 
 
 func restore(saved_team):
+    reset()
     var saved_units: Array = saved_team.saved_units
     units.restore(saved_units)
 

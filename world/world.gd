@@ -16,6 +16,8 @@ func _ready():
     # if we are the root scene, we are debugging/standalone so start now
     if get_parent() == get_tree().root:
         start()
+    else:
+        stop()
 
 
 func _physics_process(_delta):
@@ -54,16 +56,7 @@ func is_fresh():
 
 func win(winner):
     elapsed_seconds = Time.get_unix_time_from_system() - start_epoch
-
-    $turns.stop()
-    set_physics_process(false)
-
-    # fade music to silent and stop
-    if $Music.playing:
-        music_tween = create_tween()
-        music_tween.tween_property($Music, "volume_db", -80, fade_out_time)
-        await music_tween.finished
-        $Music.stop()
+    stop()
 
     SignalBus.team_won.emit(winner, $turns.turn_number, teams.summarize(), elapsed_seconds)
 
@@ -74,3 +67,21 @@ func start():
     $turns.enable()
     $Music.play()
     set_physics_process(true)
+
+
+func stop():
+    $turns.stop()
+    set_physics_process(false)
+    # remove everything to prevent stale state on load
+    cities.reset()
+    teams.reset()
+    #terrain.reset()
+
+    # fade music to silent and stop
+    if $Music.playing:
+        music_tween = create_tween()
+        music_tween.tween_property($Music, "volume_db", -80, fade_out_time)
+        await music_tween.finished
+        $Music.stop()
+
+    fresh = true

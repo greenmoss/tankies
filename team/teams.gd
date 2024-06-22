@@ -42,6 +42,11 @@ func get_by_name(team_name:String) -> Team:
     return null
 
 
+func reset():
+    for team in get_children():
+        team.reset()
+
+
 func start():
     ai_team.begin()
     human_team.begin()

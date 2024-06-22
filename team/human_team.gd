@@ -80,3 +80,8 @@ func _on_cursor_want_next_unit(previous_unit:Unit):
     skipped_next_units[next_unit] = 1
     next_unit.select_me()
     cursor.state.mark_unit(next_unit)
+
+
+func reset():
+    super.reset()
+    cursor.reset()

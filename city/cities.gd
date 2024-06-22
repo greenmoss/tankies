@@ -29,6 +29,9 @@ func get_explored_by_cardinal_distance(position:Vector2, vision:TeamVision) -> D
 func get_from_team(team_name:String) -> Array[City]:
     var cities:Array[City] = []
     for city in get_children():
+        if city == null: continue
+        if not is_instance_valid(city): continue
+        if city.is_queued_for_deletion(): continue
         if city.my_team != team_name: continue
         cities.append(city)
     return cities
@@ -51,9 +54,15 @@ func tally_owners():
     return(team_owners)
 
 
+func reset():
+    for city in get_children():
+        remove_child(city)
+        city.queue_free()
+
+
 func restore(saved_cities):
     for city in get_children():
-        self.remove_child(city)
+        remove_child(city)
         city.queue_free()
 
     if(saved_cities.is_empty()): return
