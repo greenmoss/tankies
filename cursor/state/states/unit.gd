@@ -27,12 +27,12 @@ func enter():
         emit_signal("next_state", "find_unit")
         return
 
-    SignalBus.unit_changed_position.emit(marked)
-
     if marked.state.is_asleep():
         marked.state.awaken()
 
     owner.position = marked.position
+
+    SignalBus.cursor_marked_unit.emit(marked)
 
     square_throb_time = 0
     big_circle_time = 0

@@ -33,6 +33,15 @@ func promote_unit(unit:Unit):
     set_info()
 
 
+func remove_unit(unit:Unit):
+    var new_units:Array[Unit] = []
+    for previous_unit in units:
+        if unit == previous_unit:continue
+        new_units.append(previous_unit)
+    units = new_units
+    set_info()
+
+
 func set_info():
     var units_size = units.size()
     if units_size < 2:

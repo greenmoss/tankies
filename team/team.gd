@@ -30,9 +30,44 @@ var name_counter = 0
 
 func _ready():
     SignalBus.battle_finished.connect(_battle_finished)
+    SignalBus.cursor_marked_unit.connect(_cursor_marked_unit)
+    SignalBus.unit_moved_from_position.connect(_moved_from_position)
+    SignalBus.unit_moved_to_position.connect(_moved_to_position)
+
     set_world_vars()
     set_units_in_cities()
     unit_stacks.set_from_units(units)
+
+
+# winner is always a Unit
+# however if we set "winner:Unit", we get error
+# `Cannot convert argument 1 from Object to Object.`
+func _battle_finished(winner, loser):
+    if loser.is_in_group("Cities"): return
+    if winner.my_team == name:
+        battles_won += 1
+        return
+    if loser.my_team == name:
+        battles_lost += 1
+        unit_stacks.remove_from_stack(loser.position, loser)
+        return
+
+
+func _cursor_marked_unit(unit:Unit):
+    if unit.my_team != name: return
+    unit_stacks.set_stack(units.get_at_position(unit.position))
+    unit_stacks.promote_unit(unit)
+
+
+func _moved_from_position(unit:Unit, old_position:Vector2):
+    if unit.my_team != name: return
+    unit_stacks.remove_from_stack(old_position, unit)
+
+
+func _moved_to_position(unit:Unit, _new_position:Vector2):
+    if unit.my_team != name: return
+    unit_stacks.set_stack(units.get_at_position(unit.position))
+    unit_stacks.promote_unit(unit)
 
 
 func get_my_cities() -> Array:
@@ -87,19 +122,6 @@ func set_world_vars():
     else:
         unit_stacks.reset()
         vision.reset(terrain)
-
-
-# winner is always a Unit
-# however if we set "winner:Unit", we get error
-# `Cannot convert argument 1 from Object to Object.`
-func _battle_finished(winner, loser):
-    if loser.is_in_group("Cities"): return
-    if winner.my_team == name:
-        battles_won += 1
-        return
-    if loser.my_team == name:
-        battles_lost += 1
-        return
 
 
 func build_unit_in(city:City):

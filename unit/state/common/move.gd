@@ -7,7 +7,7 @@ var move_animation_speed = 7.5
 
 func exit():
     owner.unit.vision.update()
-    SignalBus.unit_changed_position.emit(owner.unit)
+    SignalBus.unit_moved_to_position.emit(owner.unit, owner.unit.position)
 
 
 func animate():

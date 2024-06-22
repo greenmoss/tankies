@@ -103,7 +103,7 @@ func enter():
 
 func exit():
     if not units.is_empty():
-        SignalBus.unit_changed_position.emit(units[0])
+        SignalBus.cursor_marked_unit.emit(units[0])
 
     units = []
 

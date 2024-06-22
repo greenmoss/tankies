@@ -5,6 +5,7 @@ var target_units:Array[Unit] = []
 
 
 func enter():
+    SignalBus.unit_moved_from_position.emit(owner.unit, owner.unit.position)
     owner.unit.display.set_from_direction()
     clear_targets()
 

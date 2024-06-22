@@ -4,24 +4,14 @@ var position_stacks:Dictionary
 var unit_stack_scene:PackedScene = preload("unit_stack.tscn")
 
 
-func _ready():
-    SignalBus.cursor_marked_unit.connect(_promote_unit)
-    SignalBus.unit_changed_position.connect(_promote_unit)
+func promote_unit(unit:Unit):
+    if not verify_stack(unit.position): return
+    position_stacks[unit.position].promote_unit(unit)
 
 
-func _promote_unit(unit:Unit):
-    if unit.my_team != get_parent().name: return
-    if unit.position not in position_stacks.keys():
-        set_from_units(get_parent().units)
-        if unit.position not in position_stacks.keys():
-            return
-
-    var unit_stack = position_stacks[unit.position]
-    if unit_stack == null: return
-    if not is_instance_valid(unit_stack): return
-    if unit_stack.is_queued_for_deletion(): return
-
-    unit_stack.promote_unit(unit)
+func remove_from_stack(unit_position:Vector2, unit:Unit):
+    if not verify_stack(unit.position): return
+    position_stacks[unit_position].remove_unit(unit)
 
 
 func reset():
@@ -29,6 +19,9 @@ func reset():
         unit_stack.queue_free()
 
 
+# ideally this runs only once
+# parent/team runs this, instad of running from _ready
+# because this is a child node that does not know about units during _ready
 func set_from_units(units:Units):
     position_stacks = {}
 
@@ -58,3 +51,14 @@ func set_stack(units:Array[Unit]):
     unit_stack.set_units(units)
     add_child(unit_stack)
     position_stacks[unit_stack.position] = unit_stack
+
+
+func verify_stack(stack_position:Vector2) -> bool:
+    if stack_position not in position_stacks.keys(): return false
+    if not is_instance_valid(position_stacks[stack_position]):
+        position_stacks.erase(stack_position)
+        return false
+    if position_stacks[stack_position].is_queued_for_deletion():
+        position_stacks.erase(stack_position)
+        return false
+    return true
