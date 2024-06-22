@@ -28,7 +28,6 @@ script = ExtResource("3_odrk1")
 
 [node name="detail" type="ColorRect" parent="state/build"]
 visible = false
-z_index = 4
 offset_right = 240.0
 offset_bottom = 80.0
 color = Color(1, 1, 1, 0)
@@ -46,7 +45,6 @@ script = ExtResource("5_wx3cu")
 
 [node name="detail" type="ColorRect" parent="state/city"]
 visible = false
-z_index = 4
 offset_right = 240.0
 offset_bottom = 160.0
 color = Color(1, 1, 1, 0)
@@ -96,12 +94,10 @@ wait_time = 0.5
 
 [node name="big_circle" type="Sprite2D" parent="state/unit"]
 visible = false
-z_index = 2
 texture = ExtResource("3_mk38k")
 
 [node name="square_marker" type="Sprite2D" parent="state/unit"]
 visible = false
-z_index = 2
 texture = ExtResource("1_q7v2r")
 
 [node name="range_marker" type="Line2D" parent="state/unit"]
@@ -123,7 +119,6 @@ script = ExtResource("14_71cta")
 
 [node name="detail" type="ColorRect" parent="state/units"]
 visible = false
-z_index = 4
 offset_right = 240.0
 offset_bottom = 160.0
 color = Color(1, 1, 1, 0)

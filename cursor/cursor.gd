@@ -17,6 +17,7 @@ func _ready():
     SignalBus.mouse_exited_city.connect(_mouse_exited_city)
     SignalBus.mouse_entered_unit.connect(_mouse_entered_unit)
     SignalBus.mouse_exited_unit.connect(_mouse_exited_unit)
+    Global.set_z(self, 'cursor')
     reset()
 
 

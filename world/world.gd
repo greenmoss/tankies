@@ -5,6 +5,7 @@ var music_tween: Tween
 var music_fade_time = 0.25
 var start_epoch = Time.get_unix_time_from_system()
 
+@onready var battle = $battle
 @onready var cities = $Map/cities
 @onready var music = $Music
 @onready var teams = $teams
@@ -17,6 +18,7 @@ var start_epoch = Time.get_unix_time_from_system()
 
 
 func _ready():
+    Global.set_z(tint, 'tint')
     # if we are the root scene, we are debugging/standalone so start now
     if get_parent() == get_tree().root:
         start()

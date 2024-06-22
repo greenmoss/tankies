@@ -12,6 +12,24 @@ const team_colors = {
     "RedTeam": Color(1, 0.247059, 0.188235, 1),
 }
 
+# specify all custom z-layers here
+# keeps them organized and in order
+const z_layers = [
+    'default', # for reference only
+    'stack_lid', # team/stack_lid
+    'cursor', # all cursor elements
+    'battle', # explosions, etc
+    'fog', # for unexplored/un-seen terrain
+    'turn_banner', # end of turn pop-up
+    'tint', # end of game fading window
+]
+
 enum Controllers {AI, HUMAN, NONE}
 
-var debug_select_any = false
+
+func set_z(object:Node, z_name:String):
+    var new_z = z_layers.find(z_name)
+    if new_z == -1:
+        push_warning("there is no z_layer named ",z_name,"; ignoring")
+        return
+    object.z_index = new_z

@@ -3,6 +3,11 @@ extends Node2D
 var done_turn_text = "Turn complete"
 var start_turn_text = "Starting turn "
 
+
+func _ready():
+    Global.set_z(self, 'turn_banner')
+
+
 func display(done_turn, start_turn):
     if done_turn < 1: return
 

@@ -50,6 +50,7 @@ func set_stack(units:Array[Unit]):
     var stack_lid:StackLid = stack_lid_scene.instantiate()
     stack_lid.set_units(units)
     add_child(stack_lid)
+    Global.set_z(stack_lid, 'stack_lid')
     position_stacks[stack_lid.position] = stack_lid
 
 

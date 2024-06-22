@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://dqerqlfmbvtg7" path="res://unit/types/tank/tank.svg" id="3_1dyy2"]
 
 [node name="stack" type="Node2D"]
-z_index = 1
 script = ExtResource("1_plp63")
 
 [node name="background" type="ColorRect" parent="."]

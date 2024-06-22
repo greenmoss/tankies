@@ -18,6 +18,7 @@ var snapshot
 
 
 func _ready():
+    Global.set_z(self, 'fog')
     if owner.show_fog:
         visible = true
     # TODO: figure out how to disconnect signal

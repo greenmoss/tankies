@@ -192,13 +192,12 @@ teams = NodePath("../teams")
 
 [node name="banner" parent="turns" instance=ExtResource("6_svbli")]
 visible = false
-z_index = 5
 position = Vector2(960, 700)
 
 [node name="CoolDownTimer" type="Timer" parent="turns/banner"]
 wait_time = 2.0
 
-[node name="battle" type="Node" parent="." groups=["Battle"]]
+[node name="battle" type="Node2D" parent="." groups=["Battle"]]
 script = ExtResource("13_vrmg3")
 
 [node name="Cacophony" type="AudioStreamPlayer" parent="battle"]
@@ -221,7 +220,6 @@ stream = ExtResource("20_bch13")
 
 [node name="tint" type="ColorRect" parent="."]
 visible = false
-z_index = 10
 offset_left = -80.0
 offset_top = -80.0
 offset_right = 2000.0

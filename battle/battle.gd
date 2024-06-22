@@ -1,10 +1,11 @@
-extends Node
+extends Node2D
 class_name Battle
 
 var fighting:bool
 var winner
 
 func _ready():
+    Global.set_z(self, 'battle')
     fighting = false
 
 func attack_city(unit:Unit, city:City):
