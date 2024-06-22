@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Node2D
 
 var done_turn_text = "Turn complete"
 var start_turn_text = "Starting turn "

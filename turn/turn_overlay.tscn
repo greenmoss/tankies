@@ -10,17 +10,17 @@ subpixel_positioning = 0
 font = SubResource("SystemFont_bfihn")
 font_size = 32
 
-[node name="TurnOverlay" type="CanvasLayer"]
+[node name="TurnOverlay" type="Node2D"]
 script = ExtResource("1_5s1q0")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 647.0
-offset_top = 187.0
-offset_right = -573.0
-offset_bottom = -646.0
+offset_left = -283.0
+offset_top = -389.0
+offset_right = 357.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_yxlb0")

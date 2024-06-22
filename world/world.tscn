@@ -192,6 +192,8 @@ teams = NodePath("../teams")
 
 [node name="banner" parent="turns" instance=ExtResource("6_svbli")]
 visible = false
+z_index = 5
+position = Vector2(960, 700)
 
 [node name="CoolDownTimer" type="Timer" parent="turns/banner"]
 wait_time = 2.0
@@ -214,8 +216,18 @@ stream = ExtResource("16_g2frl")
 [node name="FarOffBattle" type="AudioStreamPlayer" parent="battle"]
 stream = ExtResource("17_51lqp")
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("20_bch13")
+
+[node name="tint" type="ColorRect" parent="."]
+visible = false
+z_index = 10
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 2000.0
+offset_bottom = 1200.0
+mouse_filter = 2
+color = Color(0.133333, 0.337255, 0.133333, 1)
 
 [connection signal="want_nearest_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_nearest_unit"]
 [connection signal="want_next_unit" from="teams/GreenTeam/cursor" to="teams/GreenTeam" method="_on_cursor_want_next_unit"]

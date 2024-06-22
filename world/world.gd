@@ -4,11 +4,11 @@ class_name World
 var music_tween : Tween
 var fade_out_time = 0.25
 var start_epoch = Time.get_unix_time_from_system()
-var elapsed_seconds: float = 0.0
 
 @onready var cities = $Map/cities
 @onready var teams = $teams
 @onready var terrain = $Map/Terrain
+@onready var tint = $tint
 @onready var fresh = true
 
 
@@ -55,14 +55,22 @@ func is_fresh():
 
 
 func win(winner):
-    elapsed_seconds = Time.get_unix_time_from_system() - start_epoch
+    var elapsed_seconds = Time.get_unix_time_from_system() - start_epoch
+    var team_summary = teams.summarize()
+    var fade_tween = create_tween()
+    tint.modulate.a = 0.0
+    tint.visible = true
+    fade_tween.tween_property(tint, "modulate:a", 1.0, 1.0)
+    await fade_tween.finished
+    tint.visible = false
     stop()
 
-    SignalBus.team_won.emit(winner, $turns.turn_number, teams.summarize(), elapsed_seconds)
+    SignalBus.team_won.emit(winner, $turns.turn_number, team_summary, elapsed_seconds)
 
 
 func start():
     fresh = false
+    tint.visible = false
     start_epoch = Time.get_unix_time_from_system()
     $turns.enable()
     $Music.play()
@@ -75,7 +83,6 @@ func stop():
     # remove everything to prevent stale state on load
     cities.reset()
     teams.reset()
-    #terrain.reset()
 
     # fade music to silent and stop
     if $Music.playing:
