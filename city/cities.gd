@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name Cities
 
 var city_scene : PackedScene = preload("res://city/city.tscn")
@@ -15,11 +15,11 @@ func build_units():
 # return cities keyed by cardinal distance on the map
 # only include cities that the team has explored
 # terrain and obstacles are *NOT* considered
-func get_explored_by_cardinal_distance(position:Vector2, vision:TeamVision) -> Dictionary:
+func get_explored_by_cardinal_distance(query_position:Vector2, vision:TeamVision) -> Dictionary:
     var distance_map = {}
     for city in get_children():
         if not vision.has_explored_position(city.position): continue
-        var distance: float = position.distance_to(city.position)
+        var distance: float = query_position.distance_to(city.position)
         if distance not in distance_map:
             distance_map[distance] = []
         distance_map[distance].append(city)

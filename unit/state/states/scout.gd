@@ -22,6 +22,7 @@ func enter():
     var targets = []
     while owner.unit.ray.is_colliding():
         var target = owner.unit.ray.get_collider()
+        print("target is ",target)
         targets.append(target)
 
         if target is TileMap:

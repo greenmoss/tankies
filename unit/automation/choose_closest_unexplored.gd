@@ -29,13 +29,17 @@ func set_exploration_path(actor:Unit, search_radius:int, blackboard:Blackboard):
     var terrain = blackboard.get_value("terrain")
 
     var perimeter:Array[Vector2] = get_unexplored_perimeter(actor, search_radius, blackboard)
+    print("choose closest unexplored perimeter is ",perimeter)
     randomize()
     perimeter.shuffle()
     for coordinate in perimeter:
         var path = terrain.find_coordinate_path(center, coordinate)
-        if path.size() <= (actor.vision.distance + 1):
-            push_warning("got a path size ",path.size()," which should not happen; ignoring this path")
-            continue
+        if path.is_empty(): continue
+        print("path to coordinate ",coordinate," is ",path)
+        #REF
+        #if path.size() <= (actor.vision.distance + 1):
+        #    push_warning("got a path size ",path.size()," which should not happen; ignoring this path")
+        #    continue
         # remove last path element, since we want to consider only known terrain
         path.remove_at(path.size() - 1)
         if not terrain.is_point_walkable(path[-1]):
@@ -54,10 +58,10 @@ func get_unexplored_perimeter(actor:Unit, search_radius:int, blackboard:Blackboa
     var explored = blackboard.get_value("explored")
     var terrain = blackboard.get_value("terrain")
     var terrain_rect = terrain.get_used_rect()
-    var terrain_min_x = 0                   + terrain_rect.position.x + actor.vision.distance + terrain.blocker_margin
-    var terrain_max_x = terrain_rect.size.x + terrain_rect.position.x - actor.vision.distance - terrain.blocker_margin
-    var terrain_min_y = 0                   + terrain_rect.position.y + actor.vision.distance + terrain.blocker_margin
-    var terrain_max_y = terrain_rect.size.y + terrain_rect.position.y - actor.vision.distance - terrain.blocker_margin
+    var terrain_min_x = 1                   + terrain_rect.position.x + actor.vision.distance
+    var terrain_max_x = terrain_rect.size.x + terrain_rect.position.x - actor.vision.distance
+    var terrain_min_y = 1                   + terrain_rect.position.y + actor.vision.distance
+    var terrain_max_y = terrain_rect.size.y + terrain_rect.position.y - actor.vision.distance
 
     var coordinate:Vector2
     var unexplored:Array[Vector2] = []
@@ -72,7 +76,6 @@ func get_unexplored_perimeter(actor:Unit, search_radius:int, blackboard:Blackboa
             if not coordinate in explored: continue
             if explored[coordinate] == true: continue
             # offset min/max x and y by unit view distance
-            # we don't need to explore on the borders
             if x < terrain_min_x: continue
             if x > terrain_max_x: continue
             if y < terrain_min_y: continue

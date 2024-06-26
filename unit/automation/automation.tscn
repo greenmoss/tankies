@@ -16,11 +16,10 @@
 [ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="14_q16ir"]
 [ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="15_p1760"]
 
-[node name="automation" type="Node" node_paths=PackedStringArray("blackboard")]
+[node name="automation" type="Node"]
 script = ExtResource("1_jbsqi")
 enabled = false
 actor_node_path = NodePath("..")
-blackboard = NodePath("")
 
 [node name="move_sequence" type="Node" parent="."]
 script = ExtResource("2_oo6fj")

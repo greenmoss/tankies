@@ -20,6 +20,9 @@ Until there's a real "credits" screen in this game, tracking licensed art here:
 * Auto repair icon: CC-BY 3.0 by Lorc
 * Tank icon: CC-BY 3.0 by Lorc
 
+### https://github.com/gdquest-demos/godot-open-rpg
+* Grasslands tile map: MIT license
+
 ### https://opengameart.org
 * 7-space-sounds: CC0 by Joth
 * Background music: `varyag_war_drum` CC-BY 3.0 by Tausdei

@@ -9,23 +9,45 @@ const CELL_SIZE = Vector2i(80, 80)
 
 # The object for pathfinding on 2D grids.
 var _astar = AStarGrid2D.new()
-
 var _start_point = Vector2i()
 var _end_point = Vector2i()
 var _path = PackedVector2Array()
+
+var x_max:int
+var x_min:int
+var y_max:int
+var y_min:int
+var source_tile_counts:Dictionary
+var physics_layers_tiles:Dictionary
+var tile_groups:Dictionary
+
+# TODO: derive these from project settings where possible
+# use the collision layer?
+# example: tile_set.get_physics_layer_collision_layer(layer_id)
+# returns 1, 2, 4, etc, so use bit-wise math?
+# project settings assign via the bit-wise number, NOT the physics layer!
+var group_names = {
+    -1: 'port',
+    0: 'barrier',
+    1: 'land',
+    2: 'ocean',
+}
 
 # if we have blocker tiles surrounding the tilemap, how wide are they
 @export var blocker_margin:int
 
 
 func _ready():
+    set_limits()
+    set_source_tile_counts()
+    set_physics_layers_tiles()
+    set_tile_groups()
     set_astar()
 
 
 func set_astar():
     # Region should match the size of the playable area plus one (in tiles).
-    # The playable area is 24x14 tiles
-    _astar.region = Rect2i(0, 0, 25, 15)
+    _astar.region = Rect2i(x_min, y_min, x_max + 1, y_max + 1)
     _astar.cell_size = CELL_SIZE
     _astar.offset = CELL_SIZE * 0.5
     _astar.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
@@ -72,8 +94,84 @@ func find_path(local_start_point, local_end_point):
     return _path.duplicate()
 
 
+func get_position_group(map_position:Vector2i) -> int:
+    return tile_groups[get_surface_tile(map_position)]
+
+
+func get_surface_tile(map_position:Vector2i):
+    # layer 0 is the surface
+    # if we add more layers later, adjust layer names/numbers as required
+    return get_cell_tile_data(0, map_position)
+
+
 func save(saved: SavedWorld):
     saved.save_terrain(self)
+
+
+func set_limits():
+    # TODO: derive these from tile map
+    x_max = 24
+    x_min = 0
+    y_max = 14
+    y_min = 0
+
+
+func set_physics_layers_tiles():
+    #print("in regions, physics layer is ",get('layer_names/2d_physics/layer_3'))
+    #print("setting regions in ",get("layer_0/tile_data"))
+    #print("setting regions in ",get_cell_source_id(0, Vector2i(1, 1)))
+    var physics_layers_count = tile_set.get_physics_layers_count()
+    physics_layers_tiles = {}
+    if source_tile_counts == null:
+        set_source_tile_counts()
+    #print("setting regions tileset is ",physics_layers_count)
+    #var source_ids = {}
+    physics_layers_tiles[-1] = []
+    for layer_id in physics_layers_count:
+        physics_layers_tiles[layer_id] = []
+        #print("layer id ",layer_id," physics_layer_collision_layer is ",tile_set.get_physics_layer_collision_layer(layer_id))
+    for tile in source_tile_counts.keys():
+        var assigned_tile = false
+        for layer_id in physics_layers_count:
+            #print("for tile ",tile," at layer ",layer_id,", collision polygons is ",tile.get_collision_polygons_count(layer_id))
+            #print("for tile ",tile," at layer ",layer_id,", physics layers is ",tile.get('physics_layer_0/collision_layer'))
+            if tile.get_collision_polygons_count(layer_id) == 0: continue
+            physics_layers_tiles[layer_id].append(tile)
+            assigned_tile = true
+        if not assigned_tile:
+            physics_layers_tiles[-1].append(tile)
+    #print("physics_layers_tiles: ",physics_layers_tiles)
+    return physics_layers_tiles
+
+
+func set_source_tile_counts():
+    source_tile_counts = {}
+    for x in range(x_min, x_max):
+        for y in range(y_min, y_max):
+            var pos = Vector2i(x, y)
+            var source_tile = get_surface_tile(pos)
+            #var source_id = get_cell_source_id(0, pos)
+            #if not source_id in source_ids:
+            #    source_ids[source_id] = 0
+            #source_ids[source_id] += 1
+            if not source_tile in source_tile_counts:
+                source_tile_counts[source_tile] = 0
+            source_tile_counts[source_tile] += 1
+            #print("at position ",x,",",y,", source tile is ",source_tile)
+            #for layer_id in physics_layers_count:
+            #    print("at position ",x,",",y,", layer ",layer_id,", source tile is ",source_tile.get_collision_polygons_count(layer_id))
+    #print("source ids: ",source_ids)
+    #print("source tiles: ",source_tile_counts)
+
+
+func set_tile_groups():
+    tile_groups = {}
+    if physics_layers_tiles == null:
+        set_physics_layers_tiles()
+    for layer in physics_layers_tiles.keys():
+        for tile in physics_layers_tiles[layer]:
+            tile_groups[tile] = layer
+    #print(tile_groups)
 
 
 func restore(saved_terrain: SavedTerrain):

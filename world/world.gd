@@ -4,9 +4,11 @@ class_name World
 var music_tween: Tween
 var music_fade_time = 0.25
 var start_epoch = Time.get_unix_time_from_system()
+var regions = []
 
 @onready var battle = $battle
 @onready var cities = $Map/cities
+@onready var map = $Map
 @onready var music = $Music
 @onready var teams = $teams
 @onready var terrain = $Map/Terrain
