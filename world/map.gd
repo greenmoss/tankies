@@ -7,9 +7,6 @@ class_name Map
 
 func _ready():
     set_regions()
-    join_ports()
-    for this_position in regions.by_position.keys():
-        print(this_position,': ',regions.by_position[this_position])
 
 
 func get_in_bounds_neighbors(this_position) -> Array[Vector2i]:
@@ -30,10 +27,9 @@ func get_neighbors(this_position) -> Array[Vector2i]:
 
 # join ports to all neighboring regions
 func join_ports():
-    for region in regions.get_child_count():
-        for this_position in regions.get_by_id(region).positions:
-            var group_name = terrain.group_names[terrain.get_position_group(this_position)]
-            if group_name != 'port': continue
+    for region in regions.get_children():
+        for this_position in region.positions:
+            if region.terrain_type != 'port': continue
             # add all ports to all neighboring regions
             for neighbor_position in get_in_bounds_neighbors(this_position):
                 var neighbor_regions = regions.by_position[neighbor_position]
@@ -65,3 +61,6 @@ func set_regions():
                 stack.push_front(neighbor_position)
             else:
                 stack.push_back(neighbor_position)
+
+    regions.set_terrain(terrain)
+    join_ports()

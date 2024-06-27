@@ -33,3 +33,9 @@ func set_position(this_position:Vector2i, region:int):
     var region_obj:Region = get_by_id(region)
     if not region_obj in by_position[this_position]:
         by_position[this_position].append(region_obj)
+
+
+func set_terrain(terrain:Terrain):
+    for child in get_children():
+        child.terrain_id = terrain.get_position_group(child.positions[0])
+        child.terrain_type = terrain.group_names[child.terrain_id]

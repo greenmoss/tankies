@@ -3,6 +3,7 @@ class_name Region
 
 var id:int
 var positions:Array[Vector2i]
+var terrain_id:int
 var terrain_type:String
 
 
