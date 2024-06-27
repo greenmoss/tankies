@@ -1,14 +1,15 @@
 extends Node2D
+class_name Map
 
+@onready var regions = $regions
 @onready var terrain = $Terrain
-
-var regions:Array
-var position_regions:Dictionary
 
 
 func _ready():
     set_regions()
     join_ports()
+    for this_position in regions.by_position.keys():
+        print(this_position,': ',regions.by_position[this_position])
 
 
 func get_in_bounds_neighbors(this_position) -> Array[Vector2i]:
@@ -29,35 +30,18 @@ func get_neighbors(this_position) -> Array[Vector2i]:
 
 # join ports to all neighboring regions
 func join_ports():
-    if regions.is_empty():
-        set_regions()
-    for region in regions.size():
-        for this_position in regions[region]:
+    for region in regions.get_child_count():
+        for this_position in regions.get_by_id(region).positions:
             var group_name = terrain.group_names[terrain.get_position_group(this_position)]
             if group_name != 'port': continue
             # add all ports to all neighboring regions
             for neighbor_position in get_in_bounds_neighbors(this_position):
-                var neighbor_regions = position_regions[neighbor_position]
+                var neighbor_regions = regions.by_position[neighbor_position]
                 for neighbor_region in neighbor_regions:
-                    set_region(this_position, neighbor_region)
-
-
-func set_region(this_position:Vector2i, region:int):
-    if this_position not in position_regions:
-        var new_regions:Array[int] = []
-        position_regions[this_position] = new_regions
-    if not region in position_regions[this_position]:
-        position_regions[this_position].append(region)
-
-    if region > regions.size() - 1:
-        regions.append([])
-    regions[region].append(this_position)
+                    regions.set_position(this_position, neighbor_region.id)
 
 
 func set_regions():
-    regions = []
-    position_regions = {}
-
     var this_position = Vector2i(0,0)
     var stack = [this_position]
     var current_region = -1
@@ -67,17 +51,17 @@ func set_regions():
         this_position = stack.pop_front()
         tile_group = terrain.get_position_group(this_position)
 
-        if this_position not in position_regions:
+        if this_position not in regions.by_position:
             current_region += 1
-            set_region(this_position, current_region)
+            regions.set_position(this_position, current_region)
 
         for neighbor_position in get_in_bounds_neighbors(this_position):
-            if neighbor_position in position_regions: continue
+            if neighbor_position in regions.by_position: continue
 
             var neighbor_group = terrain.get_position_group(neighbor_position)
 
             if neighbor_group == tile_group:
-                set_region(neighbor_position, current_region)
+                regions.set_position(neighbor_position, current_region)
                 stack.push_front(neighbor_position)
             else:
                 stack.push_back(neighbor_position)
