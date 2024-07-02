@@ -2,7 +2,10 @@ extends ActionLeaf
 
 
 func tick(actor, blackboard):
-    var max_search_radius = get_terrain_max_size(blackboard)
+    var regions = blackboard.get_value("regions")
+    var this_region = regions.get_from_unit(actor)
+    var max_search_radius = this_region.get_max_distance()
+    #var max_search_radius = get_terrain_max_size(blackboard)
 
     blackboard.set_value("exploration_path", null)
 
@@ -49,7 +52,9 @@ func set_exploration_path(actor:Unit, search_radius:int, blackboard:Blackboard):
 
 
 func get_unexplored_perimeter(actor:Unit, search_radius:int, blackboard:Blackboard) -> Array[Vector2]:
-    var center = actor.vision.convert_from_world_position(actor.position)
+    var center = actor.get_world_position()
+    #REF
+    #var center = actor.vision.convert_from_world_position(actor.position)
     var x_first = center[0] + (-1 * search_radius)
     var x_last = x_first + (search_radius * 2) + 1
     var y_first = center[1] + (-1 * search_radius)

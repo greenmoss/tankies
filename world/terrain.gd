@@ -18,7 +18,26 @@ var x_min:int
 var y_max:int
 var y_min:int
 var source_tile_counts:Dictionary
+
+# for every physics layer in the terrain tileset
+# PLUS the "-1" group, which is "no assigned physics layer"
+# find all tile types associated with that physics layer
+# note these values correspond with "group_names"
+# for example
+# { -1: [<TileData#0001>],
+#    0: [],
+#    1: [<TileData#0002>, <TileData#0003>],
+#    2: [<TileData#0004>] }
 var physics_layers_tiles:Dictionary
+
+# for every tile type in the terrain tileset
+# find the tile group associated with that tile
+# note these values correspond with "group_names"
+# for example
+# { <TileData#0001>: -1,
+#   <TileData#0002>: 1,
+#   <TileData#0003>: 1,
+#   <TileData#0004>: 2 }
 var tile_groups:Dictionary
 
 # TODO: derive these from project settings where possible
@@ -94,6 +113,17 @@ func find_path(local_start_point, local_end_point):
     return _path.duplicate()
 
 
+func get_physics_colliders(layer_id:int) -> int:
+    #print("layer id ",layer_id," physics_layer_collision_layer is ",tile_set.get_physics_layer_collision_layer(layer_id))
+    # handle "-1" layer id
+    #print("in get_physics_colliders layer id ",layer_id,", layers count is ",tile_set.get_physics_layers_count())
+    if (layer_id < 0) or (layer_id >= tile_set.get_physics_layers_count()):
+        #print("returning 0")
+        return 0
+    #print("returning ",tile_set.get_physics_layer_collision_layer(layer_id))
+    return tile_set.get_physics_layer_collision_layer(layer_id)
+
+
 func get_position_group(map_position:Vector2i) -> int:
     return tile_groups[get_surface_tile(map_position)]
 
@@ -129,7 +159,6 @@ func set_physics_layers_tiles():
     physics_layers_tiles[-1] = []
     for layer_id in physics_layers_count:
         physics_layers_tiles[layer_id] = []
-        #print("layer id ",layer_id," physics_layer_collision_layer is ",tile_set.get_physics_layer_collision_layer(layer_id))
     for tile in source_tile_counts.keys():
         var assigned_tile = false
         for layer_id in physics_layers_count:

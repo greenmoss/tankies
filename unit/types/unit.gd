@@ -78,12 +78,25 @@ func _ready():
     await assign_groups()
 
 
+func get_colliders() -> int:
+    return ray.collision_mask
+
+
 func get_team() -> String:
     return my_team
 
 
 func get_texture() -> Texture:
     return display.icon.texture
+
+
+func get_world_position() -> Vector2i:
+    var world_position = vision.convert_from_world_position(position)
+    # TODO: fix another off-by-one error
+    # for now, just subtrace one from x/y
+    world_position.x -= 1
+    world_position.y -= 1
+    return world_position
 
 
 func has_fuel() -> bool:

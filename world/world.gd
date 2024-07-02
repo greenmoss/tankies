@@ -1,7 +1,7 @@
 extends Node2D
 class_name World
 
-var music_tween: Tween
+var music_tween:Tween
 var music_fade_time = 0.25
 var start_epoch = Time.get_unix_time_from_system()
 var regions = []
@@ -34,6 +34,16 @@ func _physics_process(_delta):
         win(winner)
 
 
+func check_winner():
+    var unit_winner = get_remaining_team(teams.tally_units())
+    var city_winner = get_remaining_team(cities.tally_owners())
+
+    if city_winner != unit_winner:
+        return null
+
+    return(city_winner)
+
+
 func get_remaining_team(team_tallies):
     var remaining_team_tallies = []
     for team in team_tallies.keys():
@@ -48,32 +58,21 @@ func get_team_by_name(team_name:String) -> Team:
     return teams.get_by_name(team_name)
 
 
-func check_winner():
-    var unit_winner = get_remaining_team(teams.tally_units())
-    var city_winner = get_remaining_team(cities.tally_owners())
-
-    if city_winner != unit_winner:
-        return null
-
-    return(city_winner)
-
-
 func is_fresh():
     return fresh
 
 
-func win(winner):
-    var elapsed_seconds = Time.get_unix_time_from_system() - start_epoch
-    var team_summary = teams.summarize()
-    var fade_tween = create_tween()
-    tint.modulate.a = 0.0
-    tint.visible = true
-    fade_tween.tween_property(tint, "modulate:a", 1.0, 1.0)
-    await fade_tween.finished
-    tint.visible = false
-    stop()
+func restore(data):
+    cities.restore(data.cities)
+    teams.restore(data.teams)
+    terrain.restore(data.terrain)
+    map.set_regions()
 
-    SignalBus.team_won.emit(winner, turns.turn_number, team_summary, elapsed_seconds)
+
+func save(data):
+    cities.save(data)
+    teams.save(data)
+    terrain.save(data)
 
 
 func start():
@@ -101,3 +100,17 @@ func stop():
         music.stop()
 
     fresh = true
+
+
+func win(winner):
+    var elapsed_seconds = Time.get_unix_time_from_system() - start_epoch
+    var team_summary = teams.summarize()
+    var fade_tween = create_tween()
+    tint.modulate.a = 0.0
+    tint.visible = true
+    fade_tween.tween_property(tint, "modulate:a", 1.0, 1.0)
+    await fade_tween.finished
+    tint.visible = false
+    stop()
+
+    SignalBus.team_won.emit(winner, turns.turn_number, team_summary, elapsed_seconds)

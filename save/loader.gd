@@ -1,7 +1,7 @@
 extends Node
 class_name Loader
 
-@export var world_scene: PackedScene
+@export var world_scene:PackedScene
 
 # TODO: figure out how to use this instead:
 #get_script().resource_path
@@ -13,7 +13,7 @@ var scenarios_path = 'res://save/scenarios'
 
 var scenarios = []
 
-var world: World
+var world:World
 
 func _ready():
     set_new_world()
@@ -46,16 +46,11 @@ func restore(save_name:String):
     var full_save_path = get_full_path(save_name)
     var data = load(full_save_path)
 
-    world.cities.restore(data.cities)
-    world.teams.restore(data.teams)
-    world.terrain.restore(data.terrain)
+    world.restore(data)
 
 func save(save_name:String):
     var data = SavedWorld.new()
-
-    world.cities.save(data)
-    world.teams.save(data)
-    world.terrain.save(data)
+    world.save(data)
 
     var full_save_path = get_full_path(save_name)
     # clear any existing save file
