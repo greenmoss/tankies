@@ -9,30 +9,30 @@ func _ready():
     set_regions()
 
 
-# for debugging, print regions as ascii table
-func debug_print_regions():
+# for debugging, log regions as ascii table
+func debug_regions():
     for y in terrain.y_max:
         var row = ''
         for x in terrain.x_max:
             row += str(regions.by_position[Vector2i(x,y)][-1].id)
             row += ' '
-        print(row)
-    print('')
+        push_warning(row)
+    push_warning('')
     for y in terrain.y_max:
         var row = ''
         for x in terrain.x_max:
             row += str(regions.by_position[Vector2i(x,y)].size())
             row += ' '
-        print(row)
-    print('')
+        push_warning(row)
+    push_warning('')
 
 
 func get_in_bounds_neighbors(this_position) -> Array[Vector2i]:
     var neighbors:Array[Vector2i] = []
     for neighbor_position in get_neighbors(this_position):
-        if neighbor_position.x >= terrain.x_max: continue
+        if neighbor_position.x > terrain.x_max: continue
         if neighbor_position.x < terrain.x_min: continue
-        if neighbor_position.y >= terrain.y_max: continue
+        if neighbor_position.y > terrain.y_max: continue
         if neighbor_position.y < terrain.y_min: continue
         neighbors.append(neighbor_position)
     return(neighbors)
@@ -67,6 +67,7 @@ func join_ports():
 # use "flood fill" algorithm
 # connect adjacent coordinates that share the same physics layers
 func set_regions():
+    regions.clear()
     var this_position = Vector2i(0,0)
     var stack = [this_position]
     var current_region = -1

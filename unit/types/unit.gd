@@ -60,7 +60,7 @@ func _ready():
     # when debugging, we are the root scene
     if get_parent() == get_tree().root:
         standalone = true
-        position = Vector2(80,80)
+        position = Vector2(40,40)
 
     # We assigned a unique BT/automation node name
     # So find it below

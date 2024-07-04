@@ -17,10 +17,6 @@ func _ready():
     min_bound = Vector2i.MAX
 
 
-func acessible_by(unit:Unit) -> bool:
-    return false
-
-
 func add_position(new_position:Vector2i):
     if new_position in positions: return
     positions.append(new_position)
