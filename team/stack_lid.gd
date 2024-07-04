@@ -37,6 +37,9 @@ func remove_unit(unit:Unit):
     var new_units:Array[Unit] = []
     for previous_unit in units:
         if unit == previous_unit:continue
+        if previous_unit == null: continue
+        if not is_instance_valid(previous_unit): continue
+        if previous_unit.is_queued_for_deletion(): continue
         new_units.append(previous_unit)
     units = new_units
     set_info()
