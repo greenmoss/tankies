@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 78 78"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="cargo-ship.svg"
+   width="78"
+   height="78"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="0.97531385"
+     inkscape:cx="254.78978"
+     inkscape:cy="256.32774"
+     inkscape:window-width="1760"
+     inkscape:window-height="1137"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     d="M 0,0 H 78 V 78 H 0 Z"
+     fill="#000000"
+     fill-opacity="1"
+     id="path1"
+     style="stroke-width:0.152344" />
+  <g
+     class=""
+     id="g2"
+     transform="scale(0.15234375)">
+    <path
+       d="m 80,23 v 18 h 23 v 14 h 18 V 41 h 23 V 23 Z M 71.8,73 42.38,279 H 135 V 144.5 H 95.5 v -49 H 135 V 73 Z M 185,137 v 46 h 78 v -46 z m 96,0 v 46 h 78 v -46 z m 96,0 v 46 h 78 v -46 z m -192,64 v 46 h 78 v -46 z m 96,0 v 46 h 78 v -46 z m 96,0 v 46 h 78 v -46 z m -192,64 v 46 h 78 v -46 z m 96,0 v 46 h 19.3 l 32,-32 H 359 v -14 z m 96,0 v 14 h 78 V 265 Z M 27.22,297 51.33,405.5 C 76.75,398.1 105.7,391 128,391 c 24.2,0 46.2,8.6 67.2,16.6 21,8 41,15.4 60.8,15.4 19.8,0 39.8,-7.4 60.8,-15.4 19,-7.2 38.9,-15 60.5,-16.4 l -44.1,-14.7 5.6,-17 36.2,12 V 345 h -17 v -18 h 17 v -30 h -35.3 l -32,32 H 154.4 l -16,-32 z M 393,297 v 30 h 17 v 18 h -17 v 26.5 l 36.2,-12 5.6,17 -44,14.7 c 12.1,0.7 25.7,3.1 39.4,6.2 5.4,-7.1 10.8,-15.3 16.1,-24 14.9,-24.9 28.2,-53.9 36.8,-76.4 z M 128,407 c -24.2,0 -56.26,8.3 -83.09,16.4 -10.02,3 -19.26,6 -26.91,8.7 v 19 c 8.36,-3 19.57,-6.7 32.11,-10.5 C 76.28,432.7 108.2,425 128,425 c 19.8,0 39.8,7.4 60.8,15.4 21,8 43,16.6 67.2,16.6 24.2,0 46.2,-8.6 67.2,-16.6 21,-8 41,-15.4 60.8,-15.4 19.8,0 51.7,7.7 77.9,15.6 12.5,3.8 23.7,7.5 32.1,10.5 v -19 c -7.7,-2.6 -16.9,-5.7 -26.9,-8.7 C 440.3,415.3 408.2,407 384,407 c -24.2,0 -46.2,8.6 -67.2,16.6 -21,8 -41,15.4 -60.8,15.4 -19.8,0 -39.8,-7.4 -60.8,-15.4 -21,-8 -43,-16.6 -67.2,-16.6 z m 0,36 c -24.2,0 -56.26,8.3 -83.09,16.4 -10.02,3 -19.26,6 -26.91,8.7 v 19 c 8.36,-3 19.57,-6.7 32.11,-10.5 C 76.28,468.7 108.2,461 128,461 c 19.8,0 39.8,7.4 60.8,15.4 21,8 43,16.6 67.2,16.6 24.2,0 46.2,-8.6 67.2,-16.6 21,-8 41,-15.4 60.8,-15.4 19.8,0 51.7,7.7 77.9,15.6 12.5,3.8 23.7,7.5 32.1,10.5 v -19 c -7.7,-2.6 -16.9,-5.7 -26.9,-8.7 C 440.3,451.3 408.2,443 384,443 c -24.2,0 -46.2,8.6 -67.2,16.6 -21,8 -41,15.4 -60.8,15.4 -19.8,0 -39.8,-7.4 -60.8,-15.4 -21,-8 -43,-16.6 -67.2,-16.6 z"
+       fill="#ffffff"
+       fill-opacity="1"
+       id="path2" />
+  </g>
+</svg>

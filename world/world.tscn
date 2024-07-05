@@ -279,7 +279,7 @@ enemy_team = NodePath("../RedTeam")
 terrain = NodePath("../../Map/Terrain")
 regions = NodePath("../../Map/regions")
 cities = NodePath("../../Map/cities")
-show_fog = false
+show_fog = true
 
 [node name="units" type="Node" parent="teams/GreenTeam" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
@@ -299,7 +299,7 @@ enemy_team = NodePath("../GreenTeam")
 terrain = NodePath("../../Map/Terrain")
 regions = NodePath("../../Map/regions")
 cities = NodePath("../../Map/cities")
-show_fog = true
+show_fog = false
 
 [node name="units" type="Node" parent="teams/RedTeam" node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")

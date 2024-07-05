@@ -18,6 +18,7 @@ Until there's a real "credits" screen in this game, tracking licensed art here:
 
 ### https://game-icons.net
 * Auto repair icon: CC-BY 3.0 by Lorc
+* Cargo ship icon: CC-BY 3.0 by Delapouite
 * Tank icon: CC-BY 3.0 by Lorc
 
 ### https://github.com/gdquest-demos/godot-open-rpg
