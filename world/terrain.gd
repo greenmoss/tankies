@@ -7,12 +7,6 @@ enum Tile { OBSTACLE, START_POINT, END_POINT }
 
 const CELL_SIZE = Vector2i(80, 80)
 
-# The object for pathfinding on 2D grids.
-var _astar = AStarGrid2D.new()
-var _start_point = Vector2i()
-var _end_point = Vector2i()
-var _path = PackedVector2Array()
-
 var x_max:int
 var x_min:int
 var y_max:int
@@ -52,6 +46,10 @@ var group_names = {
     2: 'ocean',
 }
 
+# navigation maps: land, ocean, air
+# initialized within set_navigation()
+var navigation:Dictionary
+
 # if we have blocker tiles surrounding the tilemap, how wide are they
 @export var blocker_margin:int
 
@@ -61,22 +59,21 @@ func _ready():
     set_source_tile_counts()
     set_physics_layers_tiles()
     set_tile_groups()
-    set_astar()
+    set_navigation()
+
+
+func block_navigation_point(layer_name:String, point:Vector2i):
+    navigation[layer_name].set_point_solid(point)
 
 
 func find_coordinate_path(map_start_coordinate, map_end_coordinate):
-    _start_point = map_start_coordinate
-    _end_point = map_end_coordinate
-    _path = _astar.get_point_path(_start_point, _end_point)
-    return _path.duplicate()
+    return navigation['land'].get_point_path(map_start_coordinate, map_end_coordinate)
 
 
 func find_path(local_start_point, local_end_point):
-    _start_point = local_to_map(local_start_point)
-    _end_point = local_to_map(local_end_point)
-    _path = _astar.get_point_path(_start_point, _end_point)
-
-    return _path.duplicate()
+    var start_point = local_to_map(local_start_point)
+    var end_point = local_to_map(local_end_point)
+    return navigation['land'].get_point_path(start_point, end_point)
 
 
 func get_physics_colliders(layer_id:int) -> int:
@@ -96,10 +93,22 @@ func get_surface_tile(map_position:Vector2i):
     return get_cell_tile_data(0, map_position)
 
 
+func init_navigation(layer_name:String):
+    var navigation_layer = AStarGrid2D.new()
+    navigation_layer.region = Rect2i(x_min, y_min, x_max + 1, y_max + 1)
+    navigation_layer.cell_size = CELL_SIZE
+    navigation_layer.offset = CELL_SIZE * 0.5
+    navigation_layer.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
+    navigation_layer.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
+    navigation_layer.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+    navigation_layer.update()
+    navigation[layer_name] = navigation_layer
+
+
 func is_point_walkable(local_position):
     var map_position = local_to_map(local_position)
-    if _astar.is_in_boundsv(map_position):
-        return not _astar.is_point_solid(map_position)
+    if navigation['land'].is_in_boundsv(map_position):
+        return not navigation['land'].is_point_solid(map_position)
     return false
 
 
@@ -109,7 +118,7 @@ func restore(saved_terrain: SavedTerrain):
     for saved_layer in saved_terrain.layers:
         set("layer_"+str(layer_number)+"/tile_data", saved_layer)
         layer_number += 1
-    set_astar()
+    set_navigation()
 
 
 func round_local_position(local_position):
@@ -120,21 +129,19 @@ func save(saved: SavedWorld):
     saved.save_terrain(self)
 
 
-func set_astar():
-    # Region should match the size of the playable area plus one (in tiles).
-    _astar.region = Rect2i(x_min, y_min, x_max + 1, y_max + 1)
-    _astar.cell_size = CELL_SIZE
-    _astar.offset = CELL_SIZE * 0.5
-    _astar.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
-    _astar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
-    _astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
-    _astar.update()
+func set_navigation():
+    init_navigation('air')
+    init_navigation('land')
+    init_navigation('ocean')
 
-    for x in range(_astar.region.position.x, _astar.region.end.x):
-        for y in range(_astar.region.position.y, _astar.region.end.y):
-            var pos = Vector2i(x, y)
-            if get_cell_source_id(0, pos) == Tile.OBSTACLE:
-                _astar.set_point_solid(pos)
+    for x in range(x_min, x_max + 1):
+        for y in range(y_min, y_max + 1):
+            var point = Vector2i(x, y)
+            var group_name = group_names[get_position_group(point)]
+            if group_name == 'land':
+                block_navigation_point('ocean', point)
+            if group_name == 'ocean':
+                block_navigation_point('land', point)
 
 
 func set_limits():
