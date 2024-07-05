@@ -22,9 +22,42 @@ func clear():
         remove(child)
 
 
+func debug_regions_by_position():
+    var max_point = Vector2i.MIN
+    var min_point = Vector2i.MAX
+    var max_count = 0
+    for point in by_position.keys():
+        if point.x <= min_point.x and point.y <= min_point.y:
+            min_point = point
+        if point.x >= max_point.x and point.y >= max_point.y:
+            max_point = point
+        var point_size = by_position[point].size()
+        if point_size > 1:
+            push_warning("point ",point," has values: ",by_position[point])
+        if point_size > max_count:
+            max_count = point_size
+    push_warning("min point: ",min_point,"; max point: ",max_point,"; max layer count ",max_count)
+    for layer in max_count:
+        push_warning("region layer ",layer)
+        for y in max_point.y + 1:
+            var row = str(y % 10)
+            for x in max_point.x + 1:
+                var this_point = Vector2i(x,y)
+                row += ' '
+                var this_position = by_position[this_point]
+                if this_position.size() > layer:
+                    row += str(by_position[this_point][layer].id)
+                else:
+                    row += '.'
+            row += '|'
+            push_warning(row)
+    push_warning('')
+
+
 func get_by_id(region:int) -> Region:
-    if get_child_count() <= region: return null
-    return get_child(region)
+    var region_name = 'region'+str(region)
+    if not has_node(region_name): return null
+    return get_node(region_name)
 
 
 func get_from_position(this_position:Vector2i) -> Array[Region]:
