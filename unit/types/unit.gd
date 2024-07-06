@@ -100,6 +100,13 @@ func can_haul(hauled_unit:Unit) -> bool:
     return true
 
 
+func disband():
+    queue_free()
+    # are we an invalid reference?
+    # If not, perhaps a listener can benefit from knowing what we were
+    SignalBus.unit_disbanded.emit(self)
+
+
 func get_colliders() -> int:
     return ray.collision_mask
 
@@ -139,12 +146,28 @@ func is_hauled() -> bool:
     return hauled_in != null
 
 
+func is_hauling() -> bool:
+    return not hauled_units.is_empty()
+
+
+func haul_to(new_position:Vector2):
+    SignalBus.unit_moved_from_position.emit(self, position)
+    position = new_position
+    SignalBus.unit_moved_to_position.emit(self, position)
+
+
 func haul_unit(hauled_unit:Unit):
     if not can_haul(hauled_unit):
         push_warning("unable to haul unit ",hauled_unit,"; ignoring")
         return
     hauled_units.append(hauled_unit)
     hauled_unit.set_hauled_in(self)
+
+
+func haul_units_here():
+    if not is_hauling(): return
+    for hauled_unit in hauled_units:
+        hauled_unit.haul_to(position)
 
 
 func move_toward(new_position):
@@ -162,6 +185,11 @@ func move_toward(new_position):
         look_direction = Vector2.DOWN
 
     state.switch_to('scout')
+
+
+func refill_moves():
+    moves_remaining = moves_per_turn
+    state.rotate()
 
 
 func select_me():
@@ -201,9 +229,18 @@ func set_team(new_team:Node):
     my_team = new_team.name
 
 
-func refill_moves():
-    moves_remaining = moves_per_turn
-    state.rotate()
+func set_unhauled():
+    if is_hauled():
+        hauled_in.unhaul_unit(self)
+        hauled_in = null
+
+
+func unhaul_unit(hauled_unit:Unit):
+    if hauled_unit not in hauled_units:
+        push_warning("unable to unhaul unit ",hauled_unit,"; ignoring")
+        return
+    hauled_units.erase(hauled_unit)
+    hauled_unit.set_unhauled()
 
 
 func refuel():
@@ -213,10 +250,3 @@ func refuel():
     if moves_remaining < 0:
         moves_remaining = 0
     fuel_remaining = fuel_capacity
-
-
-func disband():
-    queue_free()
-    # are we an invalid reference?
-    # If not, perhaps a listener can benefit from knowing what we were
-    SignalBus.unit_disbanded.emit(self)

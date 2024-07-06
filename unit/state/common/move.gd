@@ -56,6 +56,9 @@ func reduce_moves():
         emit_signal("next_state", "haul")
         return
 
+    if owner.unit.is_hauling():
+        owner.unit.haul_units_here()
+
     if owner.unit.moves_remaining <= 0:
         emit_signal("next_state", "end")
         return

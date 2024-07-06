@@ -15,6 +15,8 @@ func enter():
     owner.unit.ray.force_raycast_update()
 
     if not owner.unit.ray.is_colliding():
+        if owner.unit.is_hauled():
+            owner.unit.set_unhauled()
         emit_signal("next_state", "move")
         return
 
