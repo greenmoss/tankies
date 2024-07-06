@@ -52,12 +52,6 @@ func _unhandled_input(event):
     handle_cursor_input_event(event)
 
 
-# the cursor chooses who gets the events
-# thus, we do not use _unhandled_input() here
-func handle_cursor_input_event(event):
-    state.handle_cursor_input(event)
-
-
 func _ready():
     # when debugging, we are the root scene
     if get_parent() == get_tree().root:
@@ -81,6 +75,10 @@ func _ready():
     set_navigation()
 
 
+func can_attack() -> bool:
+    return attack_strength > 0
+
+
 func get_colliders() -> int:
     return ray.collision_mask
 
@@ -100,6 +98,12 @@ func get_world_position() -> Vector2i:
     world_position.x -= 1
     world_position.y -= 1
     return world_position
+
+
+# the cursor chooses who gets the events
+# thus, we do not use _unhandled_input() here
+func handle_cursor_input_event(event):
+    state.handle_cursor_input(event)
 
 
 func has_fuel() -> bool:

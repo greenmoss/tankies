@@ -2,7 +2,13 @@ extends "../common/move.gd"
 
 
 func enter():
+    if not owner.unit.can_attack():
+        owner.unit.sounds.play_denied()
+        emit_signal("next_state", "idle")
+        return
+
     battle = owner.unit.get_node('..').battle
+
     if owner.unit.state.scout.target_units.is_empty():
         attack_city()
     else:
