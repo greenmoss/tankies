@@ -1,13 +1,15 @@
 extends "res://common/state.gd"
 
+var colliding_node:Node = null
+var colliding_rid:RID = RID()
 var target_city:City = null
+var target_tilemap:TileMap = null
 var target_units:Array[Unit] = []
 
 
 func enter():
     SignalBus.unit_moved_from_position.emit(owner.unit, owner.unit.position)
     owner.unit.display.set_from_direction()
-    clear_targets()
 
     owner.unit.ray.target_position = owner.unit.look_direction * Global.tile_size
     owner.unit.ray.force_raycast_update()
@@ -18,25 +20,38 @@ func enter():
 
     # get all ray collision targets
     # units can be inside other units or in cities, so ray can collide with multiple
-    # technique from https://forum.godotengine.org/t/27326
-    var targets = []
-    while owner.unit.ray.is_colliding():
-        var target = owner.unit.ray.get_collider()
-        targets.append(target)
-
-        if target is TileMap:
-            owner.unit.sounds.play_denied()
-            emit_signal("next_state", "idle")
-            return
-
-        owner.unit.ray.add_exception(target)
-        owner.unit.ray.force_raycast_update()
-
+    var target_nodes = []
+    var target_rids = []
     clear_targets()
-    for target in targets:
-        owner.unit.ray.remove_exception(target)
-        if target.is_in_group("Cities"): target_city = target
-        if target.is_in_group("Units"): target_units.append(target)
+    while owner.unit.ray.is_colliding():
+        colliding_node = owner.unit.ray.get_collider()
+        colliding_rid = owner.unit.ray.get_collider_rid()
+
+        if colliding_node is TileMap:
+            target_tilemap = colliding_node
+            target_rids.append(colliding_rid)
+            owner.unit.ray.add_exception_rid(colliding_rid)
+        else:
+            target_nodes.append(colliding_node)
+            if colliding_node.is_in_group("Cities"):
+                target_city = colliding_node
+            if colliding_node.is_in_group("Units"):
+                target_units.append(colliding_node)
+            owner.unit.ray.add_exception(colliding_node)
+
+        owner.unit.ray.force_raycast_update()
+    owner.unit.ray.clear_exceptions()
+
+    if target_tilemap != null:
+        if not target_units.is_empty():
+            for target_unit in target_units:
+                if target_unit.can_load(owner.unit):
+                    emit_signal("next_state", "move")
+                    return
+
+        owner.unit.sounds.play_denied()
+        emit_signal("next_state", "idle")
+        return
 
     if not target_units.is_empty():
         if owner.unit.my_team == target_units[0].my_team:
@@ -55,7 +70,7 @@ func enter():
         return
 
     if target_city == null:
-        push_warning("we should have a city here, but we don't; ray collision targets: ",targets)
+        push_warning("we should have a city here, but we don't")
 
     if owner.unit.my_team == target_city.my_team:
         owner.unit.in_city = target_city
@@ -77,3 +92,4 @@ func enter():
 func clear_targets():
     target_city = null
     target_units = []
+    target_tilemap = null

@@ -32,6 +32,10 @@ var units:Array[Unit]
 @onready var default_size_y = $detail/background.size.y
 
 
+func _ready():
+    Global.set_z(self, 'units')
+
+
 func _on_unit_pressed(slot_index:int):
     activate_unit(slot_index)
 

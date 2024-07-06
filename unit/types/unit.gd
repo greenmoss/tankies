@@ -18,6 +18,12 @@ var build_time:int
 var defense_strength:int
 var moves_per_turn:int
 var vision_distance:int
+# to allow this unit to hold units, set to positive int
+var load_unit_capacity = 0
+# also set what type of unit can load; uses same set of values as `navigation`
+var load_unit_type = ''
+var loaded_in:Unit = null
+var loaded_units:Array[Unit] = []
 # to enable fuel/refuel mechanic, set to positive int
 var fuel_capacity = 0
 # to allow units to capture cities, set to true
@@ -45,13 +51,6 @@ func _on_mouse_exited():
     SignalBus.mouse_exited_unit.emit(self)
 
 
-# when we are debugging, e.g. in a standalone scene
-# assume all input is for us, since there's no cursor
-func _unhandled_input(event):
-    if not standalone: return
-    handle_cursor_input_event(event)
-
-
 func _ready():
     # when debugging, we are the root scene
     if get_parent() == get_tree().root:
@@ -75,8 +74,30 @@ func _ready():
     set_navigation()
 
 
+# when we are debugging, e.g. in a standalone scene
+# assume all input is for us, since there's no cursor
+func _unhandled_input(event):
+    if not standalone: return
+    handle_cursor_input_event(event)
+
+
+func assign_groups():
+    if my_team != null:
+        display.icon.modulate = Global.team_colors[my_team]
+        add_to_group(my_team)
+    add_to_group("Units")
+
+
 func can_attack() -> bool:
     return attack_strength > 0
+
+
+func can_load(loaded_unit:Unit) -> bool:
+    if loaded_unit.my_team != my_team: return false
+    if load_unit_capacity < 1: return false
+    if loaded_unit.navigation != load_unit_type: return false
+    if loaded_units.size() >= load_unit_capacity: return false
+    return true
 
 
 func get_colliders() -> int:
@@ -114,6 +135,14 @@ func is_in_city() -> bool:
     return in_city != null
 
 
+func load_unit(loaded_unit:Unit):
+    if not can_load(loaded_unit):
+        push_warning("unable to load unit ",loaded_unit,"; ignoring")
+        return
+    loaded_units.append(loaded_unit)
+    loaded_unit.set_loaded_in(self)
+
+
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding
     # consequently, this is best used to move to a neighboring coordinate/position
@@ -131,13 +160,6 @@ func move_toward(new_position):
     state.switch_to('scout')
 
 
-func assign_groups():
-    if my_team != null:
-        display.icon.modulate = Global.team_colors[my_team]
-        add_to_group(my_team)
-    add_to_group("Units")
-
-
 func select_me():
     sounds.play_ready()
 
@@ -149,6 +171,10 @@ func set_automatic():
 func set_in_city(city:City):
     in_city = city
     display.set_from_city()
+
+
+func set_loaded_in(loader_unit:Unit):
+    loaded_in = loader_unit
 
 
 func set_manual():

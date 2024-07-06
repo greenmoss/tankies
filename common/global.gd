@@ -20,6 +20,7 @@ const z_layers = [
     'cursor', # all cursor elements
     'battle', # explosions, etc
     'fog', # for unexplored/un-seen terrain
+    'units', # pop-up window showing list of units
     'turn_banner', # end of turn pop-up
     'tint', # end of game fading window
 ]
