@@ -135,6 +135,10 @@ func is_in_city() -> bool:
     return in_city != null
 
 
+func is_loaded() -> bool:
+    return loaded_in != null
+
+
 func load_unit(loaded_unit:Unit):
     if not can_load(loaded_unit):
         push_warning("unable to load unit ",loaded_unit,"; ignoring")

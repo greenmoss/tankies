@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dce25s55qgsoy"]
+[gd_scene load_steps=11 format=3 uid="uid://dce25s55qgsoy"]
 
 [ext_resource type="Script" path="res://unit/state/unit_state_machine.gd" id="1_dcagi"]
 [ext_resource type="Script" path="res://unit/state/states/attack.gd" id="2_qjtns"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://unit/state/states/crash.gd" id="4_76w7b"]
 [ext_resource type="Script" path="res://unit/state/states/end.gd" id="4_lv6q8"]
 [ext_resource type="Script" path="res://unit/state/states/idle.gd" id="5_83wga"]
+[ext_resource type="Script" path="res://unit/state/states/haul.gd" id="6_njyvh"]
 [ext_resource type="Script" path="res://unit/state/states/move.gd" id="6_xoccn"]
 [ext_resource type="Script" path="res://unit/state/states/scout.gd" id="7_ck8dd"]
 [ext_resource type="Script" path="res://unit/state/states/sleep.gd" id="8_njm4o"]
@@ -25,6 +26,9 @@ script = ExtResource("4_76w7b")
 
 [node name="end" type="Node" parent="."]
 script = ExtResource("4_lv6q8")
+
+[node name="haul" type="Node" parent="."]
+script = ExtResource("6_njyvh")
 
 [node name="idle" type="Node" parent="."]
 script = ExtResource("5_83wga")

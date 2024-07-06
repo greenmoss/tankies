@@ -4,8 +4,10 @@ extends "res://common/state_machine.gd"
 @onready var capture = $capture
 @onready var crash = $crash
 @onready var end = $end
-# "ready" would be nice, but it's reserved
+# "ready" is reserved, using "idle" instead
 @onready var idle = $idle
+# "load" is reserved, using "haul" instead
+@onready var haul = $haul
 @onready var move = $move
 @onready var scout = $scout
 @onready var sleep = $sleep
@@ -27,6 +29,7 @@ func _ready():
     }
     done_states = {
         "end": end,
+        "haul": haul,
         "sleep": sleep,
     }
     idle_states = {

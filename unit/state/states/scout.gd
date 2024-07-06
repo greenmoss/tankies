@@ -46,6 +46,7 @@ func enter():
         if not target_units.is_empty():
             for target_unit in target_units:
                 if target_unit.can_load(owner.unit):
+                    target_unit.load_unit(owner.unit)
                     emit_signal("next_state", "move")
                     return
 
