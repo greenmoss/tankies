@@ -8,8 +8,8 @@ func _ready():
     defense_strength = 2
     fuel_capacity = 20
     fuel_remaining = 20
-    load_unit_capacity = 0
-    load_unit_type = ''
+    haul_unit_capacity = 0
+    haul_unit_type = ''
     moves_per_turn = 20
     vision_distance = 2
 

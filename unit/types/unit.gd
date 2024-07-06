@@ -19,11 +19,11 @@ var defense_strength:int
 var moves_per_turn:int
 var vision_distance:int
 # to allow this unit to hold units, set to positive int
-var load_unit_capacity = 0
-# also set what type of unit can load; uses same set of values as `navigation`
-var load_unit_type = ''
-var loaded_in:Unit = null
-var loaded_units:Array[Unit] = []
+var haul_unit_capacity = 0
+# also set what type of unit can haul; uses same set of values as `navigation`
+var haul_unit_type = ''
+var hauled_in:Unit = null
+var hauled_units:Array[Unit] = []
 # to enable fuel/refuel mechanic, set to positive int
 var fuel_capacity = 0
 # to allow units to capture cities, set to true
@@ -92,11 +92,11 @@ func can_attack() -> bool:
     return attack_strength > 0
 
 
-func can_load(loaded_unit:Unit) -> bool:
-    if loaded_unit.my_team != my_team: return false
-    if load_unit_capacity < 1: return false
-    if loaded_unit.navigation != load_unit_type: return false
-    if loaded_units.size() >= load_unit_capacity: return false
+func can_haul(hauled_unit:Unit) -> bool:
+    if hauled_unit.my_team != my_team: return false
+    if haul_unit_capacity < 1: return false
+    if hauled_unit.navigation != haul_unit_type: return false
+    if hauled_units.size() >= haul_unit_capacity: return false
     return true
 
 
@@ -135,16 +135,16 @@ func is_in_city() -> bool:
     return in_city != null
 
 
-func is_loaded() -> bool:
-    return loaded_in != null
+func is_hauled() -> bool:
+    return hauled_in != null
 
 
-func load_unit(loaded_unit:Unit):
-    if not can_load(loaded_unit):
-        push_warning("unable to load unit ",loaded_unit,"; ignoring")
+func haul_unit(hauled_unit:Unit):
+    if not can_haul(hauled_unit):
+        push_warning("unable to haul unit ",hauled_unit,"; ignoring")
         return
-    loaded_units.append(loaded_unit)
-    loaded_unit.set_loaded_in(self)
+    hauled_units.append(hauled_unit)
+    hauled_unit.set_hauled_in(self)
 
 
 func move_toward(new_position):
@@ -177,8 +177,8 @@ func set_in_city(city:City):
     display.set_from_city()
 
 
-func set_loaded_in(loader_unit:Unit):
-    loaded_in = loader_unit
+func set_hauled_in(hauler_unit:Unit):
+    hauled_in = hauler_unit
 
 
 func set_manual():
