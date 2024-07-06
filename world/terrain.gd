@@ -1,11 +1,7 @@
 extends TileMap
 class_name Terrain
 
-# heavily inspired by
-# https://github.com/godotengine/godot-demo-projects/tree/master/2d/navigation_astar
-enum Tile { OBSTACLE, START_POINT, END_POINT }
-
-const CELL_SIZE = Vector2i(80, 80)
+const CELL_SIZE = Vector2i(Global.tile_size, Global.tile_size)
 
 var x_max:int
 var x_min:int
@@ -76,6 +72,10 @@ func find_path(local_start_point, local_end_point):
     return navigation['land'].get_point_path(start_point, end_point)
 
 
+func get_group_name(group_id:int) -> String:
+    return group_names[group_id]
+
+
 func get_physics_colliders(layer_id:int) -> int:
     # handle "-1" layer id
     if (layer_id < 0) or (layer_id >= tile_set.get_physics_layers_count()):
@@ -137,7 +137,7 @@ func set_navigation():
     for x in range(x_min, x_max + 1):
         for y in range(y_min, y_max + 1):
             var point = Vector2i(x, y)
-            var group_name = group_names[get_position_group(point)]
+            var group_name = get_group_name(get_position_group(point))
             if group_name == 'land':
                 block_navigation_point('ocean', point)
             if group_name == 'ocean':

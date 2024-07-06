@@ -1,16 +1,14 @@
 extends "../common/unit.gd"
 
+var build_scene:PackedScene = preload("res://cursor/build.tscn")
 var marked:City
+var position_tween:Tween
+var tween_speed = 7.5
 
 @onready var background = $detail/background
 @onready var build_types = $detail/build_types
-@onready var detail = $detail
 @onready var default_size_y = $detail.size.y
-
-var tween_speed = 7.5
-var position_tween:Tween
-
-var build_scene:PackedScene = preload("res://cursor/build.tscn")
+@onready var detail = $detail
 
 
 func _ready():
@@ -36,6 +34,8 @@ func enter():
 
     for unit_type_name in UnitTypeUtilities.get_types():
         if unit_type_name == marked.build_type: continue
+        var unit = UnitTypeUtilities.get_type(unit_type_name)
+        if unit.navigation == 'ocean' and not marked.is_port(): continue
         build = build_scene.instantiate()
         build_types.add_child(build)
         build.set_from_type(marked, unit_type_name)

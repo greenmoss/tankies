@@ -1,5 +1,4 @@
 extends Area2D
-
 class_name City
 
 var selected = false
@@ -23,6 +22,7 @@ var build_duration:int
 var build_remaining:int
 
 var defense_strength = 1
+var port = false
 
 @onready var icon = $icon
 @onready var vision = $vision
@@ -34,20 +34,6 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
     SignalBus.mouse_exited_city.emit(self)
-
-
-# when we are debugging, e.g. in a standalone scene
-# assume all input is for us, since there's no cursor
-func _unhandled_input(event):
-    if not standalone: return
-    handle_cursor_input_event(event)
-
-
-# the cursor chooses who gets the events
-# thus, we do not use _unhandled_input() here
-func handle_cursor_input_event(_event):
-    pass
-    #print("got event ",event)
 
 
 func _ready():
@@ -67,64 +53,11 @@ func _ready():
     build_remaining += 1
 
 
-func is_open_to_team(team) -> bool:
-    if open:
-        return true
-    if team == my_team:
-        return true
-    return false
-
-
-func change_build_type(unit_type:String):
-    if build_type == unit_type:
-        return
-    var unit:Unit = UnitTypeUtilities.get_type(unit_type)
-    build_type = unit_type
-    build_duration = unit.build_time
-    clear_build()
-    SignalBus.city_changed_build_type.emit(self)
-
-
-func clear_build():
-    # add one more, to account for current turn
-    build_remaining = build_duration
-
-
-func capture_by(unit):
-    SoundManager.interrupt_channel("capture_city", $marching)
-    remove_from_group(my_team)
-    my_team = unit.my_team
-    fortify()
-    assign()
-    clear_build()
-
-
-func fortify():
-    open = false
-
-
-func get_units() -> Array[Unit]:
-    if standalone: return []
-    var worlds = get_tree().get_nodes_in_group("World")
-    if worlds.size() != 1: return []
-    var team = worlds[0].get_team_by_name(my_team)
-    if team == null: return []
-    return(team.get_units_in_city(self))
-
-
-# at startup we have a special case
-# build type variable is set, but build duration and remaining are not
-func initialize_build_type():
-    if build_type == null or build_type == '':
-        change_build_type(UnitTypeUtilities.default)
-    else:
-        var build_type_copy = build_type
-        build_type = ''
-        change_build_type(build_type_copy)
-
-
-func surrender():
-    open = true
+# when we are debugging, e.g. in a standalone scene
+# assume all input is for us, since there's no cursor
+func _unhandled_input(event):
+    if not standalone: return
+    handle_cursor_input_event(event)
 
 
 func assign():
@@ -144,3 +77,78 @@ func build_unit():
     if build_remaining == 0:
         SignalBus.city_requested_unit.emit(self)
         build_remaining = build_duration
+
+
+func capture_by(unit):
+    SoundManager.interrupt_channel("capture_city", $marching)
+    remove_from_group(my_team)
+    my_team = unit.my_team
+    fortify()
+    assign()
+    clear_build()
+
+
+func change_build_type(unit_type:String):
+    if build_type == unit_type:
+        return
+    var unit:Unit = UnitTypeUtilities.get_type(unit_type)
+    build_type = unit_type
+    build_duration = unit.build_time
+    clear_build()
+    SignalBus.city_changed_build_type.emit(self)
+
+
+func clear_build():
+    # add one more, to account for current turn
+    build_remaining = build_duration
+
+
+func fortify():
+    open = false
+
+
+func get_units() -> Array[Unit]:
+    if standalone: return []
+    var worlds = get_tree().get_nodes_in_group("World")
+    if worlds.size() != 1: return []
+    var team = worlds[0].get_team_by_name(my_team)
+    if team == null: return []
+    return(team.get_units_in_city(self))
+
+
+# the cursor chooses who gets the events
+# thus, we do not use _unhandled_input() here
+func handle_cursor_input_event(_event):
+    pass
+    #print("got event ",event)
+
+
+# at startup we have a special case
+# build type variable is set, but build duration and remaining are not
+func initialize_build_type():
+    if build_type == null or build_type == '':
+        change_build_type(UnitTypeUtilities.default)
+    else:
+        var build_type_copy = build_type
+        build_type = ''
+        change_build_type(build_type_copy)
+
+
+func is_open_to_team(team) -> bool:
+    if open:
+        return true
+    if team == my_team:
+        return true
+    return false
+
+
+func is_port() -> bool:
+    return port
+
+
+func set_port():
+    port = true
+
+
+func surrender():
+    open = true

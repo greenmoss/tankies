@@ -79,6 +79,7 @@ func start():
     fresh = false
     tint.visible = false
     start_epoch = Time.get_unix_time_from_system()
+    cities.initialize(map)
     turns.enable()
     music.volume_db = music_default_volume
     music.play()
@@ -89,7 +90,7 @@ func stop():
     turns.stop()
     set_physics_process(false)
     # remove everything to prevent stale state on load
-    cities.reset()
+    cities.clear()
     teams.reset()
 
     # fade music to silent and stop

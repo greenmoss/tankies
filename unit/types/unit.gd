@@ -22,6 +22,8 @@ var vision_distance:int
 var fuel_capacity = 0
 # to allow units to capture cities, set to true
 var can_capture = false
+# will be set as one of "air", "land", "ocean"
+var navigation:String
 
 @export var my_team = "NoTeam"
 
@@ -76,6 +78,7 @@ func _ready():
     position = position.snapped(Vector2.ONE * Global.tile_size / 2)
     await refill_moves()
     await assign_groups()
+    set_navigation()
 
 
 func get_colliders() -> int:
@@ -146,6 +149,16 @@ func set_in_city(city:City):
 
 func set_manual():
     automation.enabled = false
+
+
+func set_navigation():
+    match ray.collision_mask:
+        1:
+            navigation = 'air'
+        3:
+            navigation = 'ocean'
+        5:
+            navigation = 'land'
 
 
 # TODO: find a way to use `new_team:Team`.
