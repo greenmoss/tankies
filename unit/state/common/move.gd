@@ -58,6 +58,8 @@ func reduce_moves():
 
     if owner.unit.is_hauling():
         owner.unit.haul_units_here()
+        if owner.unit.is_in_city():
+            owner.unit.unhaul_units()
 
     if owner.unit.moves_remaining <= 0:
         emit_signal("next_state", "end")

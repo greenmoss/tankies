@@ -200,13 +200,13 @@ func set_automatic():
     automation.enabled = true
 
 
+func set_hauled_in(hauler_unit:Unit):
+    hauled_in = hauler_unit
+
+
 func set_in_city(city:City):
     in_city = city
     display.set_from_city()
-
-
-func set_hauled_in(hauler_unit:Unit):
-    hauled_in = hauler_unit
 
 
 func set_manual():
@@ -241,8 +241,18 @@ func unhaul_unit(hauled_unit:Unit):
     if hauled_unit not in hauled_units:
         push_warning("unable to unhaul unit ",hauled_unit,"; ignoring")
         return
+    if is_in_city():
+        hauled_unit.set_in_city(in_city)
     hauled_units.erase(hauled_unit)
     hauled_unit.set_unhauled()
+
+
+func unhaul_units():
+    if not is_hauling(): return
+    # do not use foreach here
+    # unhauling unit erase, which messes up foreach
+    while hauled_units.size() > 0:
+        unhaul_unit(hauled_units[0])
 
 
 func refuel():

@@ -9,6 +9,14 @@ func promote_unit(unit:Unit):
     position_stacks[unit.position].promote_unit(unit)
 
 
+func remove_at_position(stack_position:Vector2) -> void:
+    if not verify_stack(stack_position): return
+    for stack_lid in get_children():
+        if stack_lid.position != stack_position: continue
+        stack_lid.queue_free()
+        remove_child(stack_lid)
+
+
 func remove_from_stack(unit_position:Vector2, unit:Unit):
     if not verify_stack(unit.position): return
     position_stacks[unit_position].remove_unit(unit)
@@ -17,6 +25,7 @@ func remove_from_stack(unit_position:Vector2, unit:Unit):
 func reset():
     for stack_lid in get_children():
         stack_lid.queue_free()
+        remove_child(stack_lid)
 
 
 # ideally this runs only once
@@ -36,9 +45,11 @@ func set_from_units(units:Units):
 
 
 func set_stack(units:Array[Unit]):
-    if units.size() < 2: return
+    if units.is_empty(): return
     var unit = units[0]
-    if unit.is_in_city(): return
+    if unit.is_in_city() or units.size() == 1:
+        remove_at_position(unit.position)
+        return
 
     for stack_lid in get_children():
         if stack_lid.position != unit.position: continue

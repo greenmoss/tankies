@@ -14,6 +14,7 @@ func _ready():
     if units.size() < 2:
         # probably running scene by itself
         push_warning("stack has ",units.size()," unit/s; not configuring stack")
+        queue_free()
         return
     set_info()
 
