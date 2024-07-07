@@ -138,18 +138,6 @@ func has_fuel() -> bool:
     return fuel_capacity > 0
 
 
-func is_in_city() -> bool:
-    return in_city != null
-
-
-func is_hauled() -> bool:
-    return hauled_in != null
-
-
-func is_hauling() -> bool:
-    return not hauled_units.is_empty()
-
-
 func haul_to(new_position:Vector2):
     SignalBus.unit_moved_from_position.emit(self, position)
     position = new_position
@@ -168,6 +156,18 @@ func haul_units_here():
     if not is_hauling(): return
     for hauled_unit in hauled_units:
         hauled_unit.haul_to(position)
+
+
+func is_hauled() -> bool:
+    return hauled_in != null
+
+
+func is_hauling() -> bool:
+    return not hauled_units.is_empty()
+
+
+func is_in_city() -> bool:
+    return in_city != null
 
 
 func move_toward(new_position):
@@ -230,9 +230,11 @@ func set_team(new_team:Node):
 
 
 func set_unhauled():
-    if is_hauled():
+    # TODO: verify this unit is on navigable tile?
+    if not is_hauled(): return
+    if self in hauled_in.hauled_units:
         hauled_in.unhaul_unit(self)
-        hauled_in = null
+    hauled_in = null
 
 
 func unhaul_unit(hauled_unit:Unit):
