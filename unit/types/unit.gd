@@ -176,6 +176,11 @@ func is_in_city() -> bool:
     return in_city != null
 
 
+func leave_city():
+    in_city = null
+    display.set_from_city()
+
+
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding
     # consequently, this is best used to move to a neighboring coordinate/position
@@ -208,6 +213,7 @@ func set_automatic():
 
 func set_hauled_in(hauler_unit:Unit):
     hauled_in = hauler_unit
+    leave_city()
 
 
 func set_in_city(city:City):

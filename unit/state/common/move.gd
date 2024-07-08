@@ -21,7 +21,7 @@ func animate():
         ).set_trans(Tween.TRANS_SINE)
     await movement_tween.finished
 
-    if(owner.unit.in_city != null):
+    if(owner.unit.is_in_city()):
         # moved out of city
         if(owner.unit.position != owner.unit.in_city.position):
             owner.unit.in_city = null
