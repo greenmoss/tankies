@@ -92,7 +92,13 @@ func can_attack() -> bool:
     return attack_strength > 0
 
 
-func can_haul(hauled_unit:Unit) -> bool:
+func can_haul() -> bool:
+    return haul_unit_capacity > 0
+
+
+
+func can_haul_unit(hauled_unit:Unit) -> bool:
+    if not can_haul(): return false
     if hauled_unit.my_team != my_team: return false
     if haul_unit_capacity < 1: return false
     if hauled_unit.navigation != haul_unit_type: return false
@@ -145,7 +151,7 @@ func haul_to(new_position:Vector2):
 
 
 func haul_unit(hauled_unit:Unit):
-    if not can_haul(hauled_unit):
+    if not can_haul_unit(hauled_unit):
         push_warning("unable to haul unit ",hauled_unit,"; ignoring")
         return
     hauled_units.append(hauled_unit)

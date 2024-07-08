@@ -98,7 +98,7 @@ func handled_clear() -> bool:
 
 func handled_haul() -> bool:
     for target_unit in target_units:
-        if target_unit.can_haul(owner.unit):
+        if target_unit.can_haul_unit(owner.unit):
             target_unit.haul_unit(owner.unit)
             emit_signal("next_state", "move")
             return true

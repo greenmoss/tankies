@@ -1,6 +1,17 @@
 extends "../common/idle.gd"
 
 
+func _ready():
+    SignalBus.unit_can_haul.connect(_unit_can_haul)
+
+
+func _unit_can_haul(hauler:Unit) -> void:
+    if not owner.unit.state.is_hauled(): return
+    if not owner.unit.position == hauler.position: return
+    if not hauler.can_haul_unit(owner.unit): return
+    hauler.haul_unit(owner.unit)
+
+
 func enter():
     owner.unit.display.set_hauled()
 
