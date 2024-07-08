@@ -4,8 +4,10 @@ extends "res://common/state_machine.gd"
 @onready var capture = $capture
 @onready var crash = $crash
 @onready var end = $end
-# "ready" would be nice, but it's reserved
+# "ready" is reserved, using "idle" instead
 @onready var idle = $idle
+# "load" is reserved, using "haul" instead
+@onready var haul = $haul
 @onready var move = $move
 @onready var scout = $scout
 @onready var sleep = $sleep
@@ -15,6 +17,13 @@ var done_states = {}
 var idle_states = {}
 
 var unit:Unit
+
+
+func _change_state(state_name):
+    if not _active:
+        return
+    super._change_state(state_name)
+
 
 func _ready():
 
@@ -27,6 +36,7 @@ func _ready():
     }
     done_states = {
         "end": end,
+        "haul": haul,
         "sleep": sleep,
     }
     idle_states = {
@@ -50,12 +60,21 @@ func force_end():
     current_state.next_state.emit('end')
 
 
+func handle_cursor_input(event):
+    if not 'handle_cursor_input' in current_state: return
+    current_state.handle_cursor_input(event)
+
+
 func is_active() -> bool:
     return current_state.name in active_states.keys()
 
 
 func is_asleep() -> bool:
     return current_state.name == 'sleep'
+
+
+func is_hauled() -> bool:
+    return current_state.name == 'haul'
 
 
 func is_idle() -> bool:
@@ -72,12 +91,6 @@ func rotate():
         current_state.next_state.emit('idle')
 
 
-func _change_state(state_name):
-    if not _active:
-        return
-    super._change_state(state_name)
-
-
-func handle_cursor_input(event):
-    if not 'handle_cursor_input' in current_state: return
-    current_state.handle_cursor_input(event)
+func unhaul():
+    if is_hauled():
+        current_state.unhaul()

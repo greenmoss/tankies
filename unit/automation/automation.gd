@@ -23,7 +23,11 @@ func set_explored(explored:Dictionary):
     blackboard.set_value("explored", explored)
 
 
-func set_terrain(terrain:TileMap):
+func set_regions(regions:Regions):
+    blackboard.set_value("regions", regions)
+
+
+func set_terrain(terrain:Terrain):
     blackboard.set_value("terrain", terrain)
 
 

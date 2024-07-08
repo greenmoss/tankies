@@ -14,6 +14,7 @@ func _ready():
     if units.size() < 2:
         # probably running scene by itself
         push_warning("stack has ",units.size()," unit/s; not configuring stack")
+        queue_free()
         return
     set_info()
 
@@ -37,6 +38,9 @@ func remove_unit(unit:Unit):
     var new_units:Array[Unit] = []
     for previous_unit in units:
         if unit == previous_unit:continue
+        if previous_unit == null: continue
+        if not is_instance_valid(previous_unit): continue
+        if previous_unit.is_queued_for_deletion(): continue
         new_units.append(previous_unit)
     units = new_units
     set_info()
@@ -45,6 +49,15 @@ func remove_unit(unit:Unit):
 func set_info():
     var units_size = units.size()
     if units_size < 2:
+        queue_free()
+        return
+
+    var any_visible = false
+    for unit in units:
+      if unit.visible == true:
+          any_visible = true
+          break
+    if not any_visible:
         queue_free()
         return
 

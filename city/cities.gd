@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name Cities
 
 var city_scene : PackedScene = preload("res://city/city.tscn")
@@ -12,14 +12,20 @@ func build_units():
         city.build_unit()
 
 
+func clear():
+    for city in get_children():
+        remove_child(city)
+        city.queue_free()
+
+
 # return cities keyed by cardinal distance on the map
 # only include cities that the team has explored
 # terrain and obstacles are *NOT* considered
-func get_explored_by_cardinal_distance(position:Vector2, vision:TeamVision) -> Dictionary:
+func get_explored_by_cardinal_distance(query_position:Vector2, vision:TeamVision) -> Dictionary:
     var distance_map = {}
     for city in get_children():
         if not vision.has_explored_position(city.position): continue
-        var distance: float = position.distance_to(city.position)
+        var distance: float = query_position.distance_to(city.position)
         if distance not in distance_map:
             distance_map[distance] = []
         distance_map[distance].append(city)
@@ -37,27 +43,20 @@ func get_from_team(team_name:String) -> Array[City]:
     return cities
 
 
+func initialize(map:Map):
+    for city in get_children():
+        var grid_point = Global.as_grid(city.position)
+        var terrain_type = map.terrain.get_group_name(map.terrain.get_position_group(grid_point))
+        if terrain_type != 'port': continue
+        city.set_port()
+
+
 func make_team_queue(team_name):
     var team_queue = []
     for city in get_children():
         if city.my_team != team_name: continue
         team_queue.append(city)
     return(team_queue)
-
-
-func tally_owners():
-    var team_owners = {}
-    for city in get_children():
-        if team_owners.get(city.my_team) == null:
-            team_owners[city.my_team] = 0
-        team_owners[city.my_team] += 1
-    return(team_owners)
-
-
-func reset():
-    for city in get_children():
-        remove_child(city)
-        city.queue_free()
 
 
 func restore(saved_cities):
@@ -81,3 +80,12 @@ func restore(saved_cities):
 func save(saved: SavedWorld):
     for city in get_children():
         saved.save_city(city)
+
+
+func tally_owners():
+    var team_owners = {}
+    for city in get_children():
+        if team_owners.get(city.my_team) == null:
+            team_owners[city.my_team] = 0
+        team_owners[city.my_team] += 1
+    return(team_owners)

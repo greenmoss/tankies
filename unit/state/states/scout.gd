@@ -1,79 +1,175 @@
 extends "res://common/state.gd"
 
+var colliding_node:Node = null
+var colliding_rid:RID = RID()
 var target_city:City = null
+var target_tilemap:TileMap = null
 var target_units:Array[Unit] = []
 
 
-func enter():
+func deny() -> void:
+    owner.unit.sounds.play_denied()
+    SignalBus.unit_moved_to_position.emit(owner.unit, owner.unit.position)
+
+
+func enter() -> void:
     SignalBus.unit_moved_from_position.emit(owner.unit, owner.unit.position)
     owner.unit.display.set_from_direction()
-    clear_targets()
 
     owner.unit.ray.target_position = owner.unit.look_direction * Global.tile_size
     owner.unit.ray.force_raycast_update()
 
-    if not owner.unit.ray.is_colliding():
-        emit_signal("next_state", "move")
-        return
+    set_ray_targets()
 
-    # get all ray collision targets
-    # units can be inside other units or in cities, so ray can collide with multiple
-    # technique from https://forum.godotengine.org/t/27326
-    var targets = []
-    while owner.unit.ray.is_colliding():
-        var target = owner.unit.ray.get_collider()
-        targets.append(target)
+    if handled_unhaul(): return
+    if handled_clear(): return
+    if handled_tile_blocker(): return
+    if handled_target_unit(): return
+    if handled_target_city(): return
 
-        if target is TileMap:
-            owner.unit.sounds.play_denied()
-            emit_signal("next_state", "idle")
-            return
 
-        owner.unit.ray.add_exception(target)
-        owner.unit.ray.force_raycast_update()
-
-    clear_targets()
-    for target in targets:
-        owner.unit.ray.remove_exception(target)
-        if target.is_in_group("Cities"): target_city = target
-        if target.is_in_group("Units"): target_units.append(target)
-
-    if not target_units.is_empty():
-        if owner.unit.my_team == target_units[0].my_team:
-
-            # If one of our units in the city, the city must already belong to us
-            # So it is safe to assume we can move into the city
-            if target_city != null:
-                owner.unit.in_city = target_city
-
-            emit_signal("next_state", "move")
-            return
-
-        # we first have to destroy any enemy units, then check again
-        target_city = null
-        emit_signal("next_state", "attack")
-        return
-
-    if target_city == null:
-        push_warning("we should have a city here, but we don't; ray collision targets: ",targets)
+func handled_friendly_target_city() -> bool:
+    if not targets_city(): return false
 
     if owner.unit.my_team == target_city.my_team:
         owner.unit.in_city = target_city
         emit_signal("next_state", "move")
-        return
+        return true
+
+    return false
+
+
+func handled_friendly_target_unit() -> bool:
+    if not targets_units(): return false
+
+    if owner.unit.my_team == target_units[0].my_team:
+
+        if handled_friendly_target_city(): return true
+
+        emit_signal("next_state", "move")
+        return true
+
+    return false
+
+
+func handled_target_city() -> bool:
+    if not targets_city(): return false
+
+    if handled_friendly_target_city():
+        return true
 
     if not owner.unit.can_capture:
-        owner.unit.sounds.play_denied()
+        deny()
         emit_signal("next_state", "idle")
-        return
+        return true
 
     target_units = []
-    target_city = target_city
     emit_signal("next_state", "attack")
-    return
+    return true
 
 
-# safe to invoke from any state
-func clear_targets():
+func handled_target_unit() -> bool:
+    if not targets_units(): return false
+
+    if handled_friendly_target_unit(): return true
+
+    # we first have to destroy any enemy units, then check again
+    target_city = null
+    emit_signal("next_state", "attack")
+    return true
+
+
+func handled_tile_blocker() -> bool:
+    if not targets_tile(): return false
+
+    if handled_haul(): return true
+
+    deny()
+    emit_signal("next_state", "idle")
+    return true
+
+
+func handled_clear() -> bool:
+    if targets_anything(): return false
+
+    emit_signal("next_state", "move")
+    return true
+
+
+func handled_haul() -> bool:
+    for target_unit in target_units:
+        if target_unit.can_haul_unit(owner.unit):
+            target_unit.haul_unit(owner.unit)
+            emit_signal("next_state", "move")
+            return true
+
+    return false
+
+
+func handled_unhaul() -> bool:
+    if not owner.unit.is_hauled(): return false
+
+    if handled_clear():
+        owner.unit.set_unhauled()
+        return true
+
+    if handled_friendly_target_city():
+        owner.unit.set_unhauled()
+        return true
+
+    if handled_friendly_target_unit():
+        owner.unit.set_unhauled()
+        return true
+
+    deny()
+    emit_signal("next_state", "haul")
+    return true
+
+
+func targets_anything() -> bool:
+    return targets_city() or targets_tile() or targets_units()
+
+
+func targets_city() -> bool:
+    return target_city != null
+
+
+func targets_collider() -> bool:
+    return owner.unit.ray.is_colliding()
+
+
+func targets_tile() -> bool:
+    return target_tilemap != null
+
+
+func targets_units() -> bool:
+    return target_units.size() > 0
+
+
+func set_ray_targets() -> void:
     target_city = null
     target_units = []
+    target_tilemap = null
+
+    # get all ray collision targets
+    # units can be inside other units or in cities, so ray can collide with multiple
+    var target_nodes = []
+    var target_rids = []
+    while targets_collider():
+        colliding_node = owner.unit.ray.get_collider()
+        colliding_rid = owner.unit.ray.get_collider_rid()
+
+        if colliding_node is TileMap:
+            target_tilemap = colliding_node
+            target_rids.append(colliding_rid)
+            owner.unit.ray.add_exception_rid(colliding_rid)
+        else:
+            target_nodes.append(colliding_node)
+            if colliding_node.is_in_group("Cities"):
+                target_city = colliding_node
+            if colliding_node.is_in_group("Units"):
+                target_units.append(colliding_node)
+            owner.unit.ray.add_exception(colliding_node)
+
+        owner.unit.ray.force_raycast_update()
+    owner.unit.ray.clear_exceptions()

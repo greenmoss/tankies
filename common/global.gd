@@ -20,11 +20,24 @@ const z_layers = [
     'cursor', # all cursor elements
     'battle', # explosions, etc
     'fog', # for unexplored/un-seen terrain
+    'units', # pop-up window showing list of units
     'turn_banner', # end of turn pop-up
     'tint', # end of game fading window
 ]
 
 enum Controllers {AI, HUMAN, NONE}
+
+
+func as_grid(position:Vector2) -> Vector2i:
+    var grid_x = int(float(position.x) / float(tile_size))
+    var grid_y = int(float(position.y) / float(tile_size))
+    return(Vector2i(grid_x, grid_y))
+
+
+func as_position(grid:Vector2i) -> Vector2:
+    var position_x = (grid.x * tile_size) + half_tile_size
+    var position_y = (grid.y * tile_size) + half_tile_size
+    return(Vector2i(position_x, position_y))
 
 
 func set_z(object:Node, z_name:String):

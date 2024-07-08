@@ -9,8 +9,9 @@ class_name Team
 @export var color:Color
 @export var controller:Global.Controllers
 @export var enemy_team:Team
-# for path finding, we require terrain variable
-@export var terrain:TileMap
+# for path finding, we require terrain and regions
+@export var terrain:Terrain
+@export var regions:Regions
 # for finding cities, we require cities variable
 @export var cities:Cities
 @export var show_fog:bool
@@ -66,7 +67,8 @@ func _moved_from_position(unit:Unit, old_position:Vector2):
 
 func _moved_to_position(unit:Unit, _new_position:Vector2):
     if unit.my_team != name: return
-    stack_lids.set_stack(units.get_at_position(unit.position))
+    var units_at_position = units.get_at_position(unit.position)
+    stack_lids.set_stack(units_at_position)
     stack_lids.promote_unit(unit)
 
 

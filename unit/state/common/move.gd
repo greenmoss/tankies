@@ -21,7 +21,7 @@ func animate():
         ).set_trans(Tween.TRANS_SINE)
     await movement_tween.finished
 
-    if(owner.unit.in_city != null):
+    if(owner.unit.is_in_city()):
         # moved out of city
         if(owner.unit.position != owner.unit.in_city.position):
             owner.unit.in_city = null
@@ -51,6 +51,15 @@ func reduce_moves():
             return
 
     owner.unit.moves_remaining -= 1
+
+    if owner.unit.is_hauled():
+        emit_signal("next_state", "haul")
+        return
+
+    if owner.unit.is_hauling():
+        owner.unit.haul_units_here()
+        if owner.unit.is_in_city():
+            owner.unit.unhaul_units()
 
     if owner.unit.moves_remaining <= 0:
         emit_signal("next_state", "end")

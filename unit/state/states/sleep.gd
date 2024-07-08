@@ -2,7 +2,7 @@ extends "../common/idle.gd"
 
 
 func awaken():
-    owner.unit.display.set_awake()
+    owner.unit.display.remove_symbol()
     if owner.unit.moves_remaining > 0:
         emit_signal("next_state", "idle")
     else:
@@ -11,6 +11,10 @@ func awaken():
 
 func enter():
     owner.unit.display.set_asleep()
+
+
+func exit():
+    owner.unit.display.remove_symbol()
 
 
 func handle_cursor_input(event):

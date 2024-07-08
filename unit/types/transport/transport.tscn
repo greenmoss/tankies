@@ -1,0 +1,67 @@
+[gd_scene load_steps=14 format=3 uid="uid://d0tcjutg46uvm"]
+
+[ext_resource type="Script" path="res://unit/types/transport/transport.gd" id="1_gq36w"]
+[ext_resource type="Script" path="res://unit/sounds/sounds.gd" id="2_p1e00"]
+[ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/types/tank/engine_heavy_loop.mp3" id="3_2nvwv"]
+[ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="4_0hqhm"]
+[ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="5_vj2s6"]
+[ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state/state.tscn" id="6_hf05x"]
+[ext_resource type="Script" path="res://unit/plan.gd" id="7_kqwgx"]
+[ext_resource type="Script" path="res://unit/vision.gd" id="8_suxvi"]
+[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_ki7f2"]
+[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="10_equp6"]
+[ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="11_dfa3d"]
+[ext_resource type="Texture2D" uid="uid://oaokaprbkg1w" path="res://unit/types/transport/cargo-ship.svg" id="12_kwvdc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
+size = Vector2(80, 80)
+
+[node name="Transport" type="Area2D" groups=["Units"]]
+editor_description = "A unit that can fight, move, or capture"
+script = ExtResource("1_gq36w")
+my_team = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+shape = SubResource("RectangleShape2D_hbtie")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 3
+collide_with_areas = true
+
+[node name="Sounds" type="Node" parent="."]
+script = ExtResource("2_p1e00")
+
+[node name="Move" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("3_2nvwv")
+
+[node name="Ready" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("4_0hqhm")
+volume_db = -21.549
+
+[node name="Denied" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("5_vj2s6")
+
+[node name="state" parent="." instance=ExtResource("6_hf05x")]
+
+[node name="plan" type="Node" parent="."]
+script = ExtResource("7_kqwgx")
+
+[node name="vision" type="Node" parent="."]
+script = ExtResource("8_suxvi")
+
+[node name="automation" parent="." instance=ExtResource("9_ki7f2")]
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("10_equp6")
+
+[node name="display" parent="." instance=ExtResource("11_dfa3d")]
+position = Vector2(1, 0)
+
+[node name="icon" parent="display" index="0"]
+texture = ExtResource("12_kwvdc")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+
+[editable path="display"]

@@ -1,12 +1,14 @@
 extends Node2D
 class_name World
 
-var music_tween: Tween
+var music_tween:Tween
 var music_fade_time = 0.25
 var start_epoch = Time.get_unix_time_from_system()
+var regions = []
 
 @onready var battle = $battle
 @onready var cities = $Map/cities
+@onready var map = $Map
 @onready var music = $Music
 @onready var teams = $teams
 @onready var terrain = $Map/Terrain
@@ -32,6 +34,16 @@ func _physics_process(_delta):
         win(winner)
 
 
+func check_winner():
+    var unit_winner = get_remaining_team(teams.tally_units())
+    var city_winner = get_remaining_team(cities.tally_owners())
+
+    if city_winner != unit_winner:
+        return null
+
+    return(city_winner)
+
+
 func get_remaining_team(team_tallies):
     var remaining_team_tallies = []
     for team in team_tallies.keys():
@@ -46,18 +58,49 @@ func get_team_by_name(team_name:String) -> Team:
     return teams.get_by_name(team_name)
 
 
-func check_winner():
-    var unit_winner = get_remaining_team(teams.tally_units())
-    var city_winner = get_remaining_team(cities.tally_owners())
-
-    if city_winner != unit_winner:
-        return null
-
-    return(city_winner)
-
-
 func is_fresh():
     return fresh
+
+
+func restore(data):
+    cities.restore(data.cities)
+    teams.restore(data.teams)
+    terrain.restore(data.terrain)
+    map.set_regions()
+
+
+func save(data):
+    cities.save(data)
+    teams.save(data)
+    terrain.save(data)
+
+
+func start():
+    fresh = false
+    tint.visible = false
+    start_epoch = Time.get_unix_time_from_system()
+    cities.initialize(map)
+    turns.enable()
+    music.volume_db = music_default_volume
+    music.play()
+    set_physics_process(true)
+
+
+func stop():
+    turns.stop()
+    set_physics_process(false)
+    # remove everything to prevent stale state on load
+    cities.clear()
+    teams.reset()
+
+    # fade music to silent and stop
+    if music.playing:
+        music_tween = create_tween()
+        music_tween.tween_property(music, "volume_db", -80, music_fade_time)
+        await music_tween.finished
+        music.stop()
+
+    fresh = true
 
 
 func win(winner):
@@ -72,30 +115,3 @@ func win(winner):
     stop()
 
     SignalBus.team_won.emit(winner, turns.turn_number, team_summary, elapsed_seconds)
-
-
-func start():
-    fresh = false
-    tint.visible = false
-    start_epoch = Time.get_unix_time_from_system()
-    turns.enable()
-    music.volume_db = music_default_volume
-    music.play()
-    set_physics_process(true)
-
-
-func stop():
-    turns.stop()
-    set_physics_process(false)
-    # remove everything to prevent stale state on load
-    cities.reset()
-    teams.reset()
-
-    # fade music to silent and stop
-    if music.playing:
-        music_tween = create_tween()
-        music_tween.tween_property(music, "volume_db", -80, music_fade_time)
-        await music_tween.finished
-        music.stop()
-
-    fresh = true

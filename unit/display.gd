@@ -3,7 +3,6 @@ extends Node2D
 @onready var icon = $icon
 @onready var inactive_background = $inactive_background
 @onready var symbol_background = $symbol_background
-@onready var sleep = $symbol_background/sleep
 
 var full_scale:Vector2
 var smaller_scale:Vector2
@@ -17,18 +16,18 @@ func _ready():
     smaller_scale = scale * 0.7
 
 
+func remove_symbol():
+    show_symbol('')
+    symbol_background.hide()
+
+
 func set_active():
     inactive_background.hide()
 
 
 func set_asleep():
-    sleep.show()
+    show_symbol('sleep')
     symbol_background.show()
-
-
-func set_awake():
-    symbol_background.hide()
-    sleep.hide()
 
 
 func set_from_city():
@@ -57,6 +56,11 @@ func set_full():
     position = Vector2(0, 0)
 
 
+func set_hauled():
+    show_symbol('haul')
+    symbol_background.show()
+
+
 func set_inactive():
     inactive_background.show()
 
@@ -64,3 +68,12 @@ func set_inactive():
 func set_mini():
     scale = smaller_scale
     position = Vector2(-10, 10)
+
+
+func show_symbol(symbol_name:String) -> void:
+  for label in symbol_background.get_children():
+      if label.name == symbol_name:
+          label.show()
+          continue
+
+      label.hide()
