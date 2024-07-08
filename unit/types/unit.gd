@@ -214,6 +214,7 @@ func set_automatic():
 func set_hauled_in(hauler_unit:Unit):
     hauled_in = hauler_unit
     leave_city()
+    visible = false
 
 
 func set_in_city(city:City):
@@ -247,6 +248,7 @@ func set_unhauled():
     if self in hauled_in.hauled_units:
         hauled_in.unhaul_unit(self)
     hauled_in = null
+    visible = true
 
 
 func unhaul_unit(hauled_unit:Unit):

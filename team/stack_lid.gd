@@ -52,6 +52,15 @@ func set_info():
         queue_free()
         return
 
+    var any_visible = false
+    for unit in units:
+      if unit.visible == true:
+          any_visible = true
+          break
+    if not any_visible:
+        queue_free()
+        return
+
     var unit_color:Color = Global.team_colors[units[0].get_team()]
     unit1.modulate = unit_color
     unit2.modulate = unit_color
