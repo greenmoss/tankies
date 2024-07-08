@@ -2,7 +2,6 @@ extends "../common/idle.gd"
 
 
 func enter():
-    owner.unit.sounds.stop_all()
     owner.unit.display.set_hauled()
     owner.unit.display.set_inactive()
 

@@ -7,6 +7,11 @@ var target_tilemap:TileMap = null
 var target_units:Array[Unit] = []
 
 
+func deny() -> void:
+    owner.unit.sounds.play_denied()
+    SignalBus.unit_moved_to_position.emit(owner.unit, owner.unit.position)
+
+
 func enter() -> void:
     SignalBus.unit_moved_from_position.emit(owner.unit, owner.unit.position)
     owner.unit.display.set_from_direction()
@@ -54,7 +59,7 @@ func handled_target_city() -> bool:
         return true
 
     if not owner.unit.can_capture:
-        owner.unit.sounds.play_denied()
+        deny()
         emit_signal("next_state", "idle")
         return true
 
@@ -79,7 +84,7 @@ func handled_tile_blocker() -> bool:
 
     if handled_haul(): return true
 
-    owner.unit.sounds.play_denied()
+    deny()
     emit_signal("next_state", "idle")
     return true
 
@@ -116,7 +121,7 @@ func handled_unhaul() -> bool:
         owner.unit.set_unhauled()
         return true
 
-    owner.unit.sounds.play_denied()
+    deny()
     emit_signal("next_state", "haul")
     return true
 
