@@ -3,11 +3,22 @@ extends "../common/idle.gd"
 
 func enter():
     owner.unit.sounds.stop_all()
+    owner.unit.display.set_hauled()
     owner.unit.display.set_inactive()
 
 
+func exit():
+    if owner.unit.moves_remaining > 0:
+        owner.unit.display.set_active()
+    owner.unit.display.remove_symbol()
+
+
 func handle_cursor_input(event):
-    if event.is_action_pressed("click"):
+    if event.is_action_pressed("click") or event.is_action_pressed('haul'):
+        if not owner.unit.is_hauled():
+            unhaul()
+            return
+
         owner.unit.sounds.play_ready()
 
     for direction in input_directions.keys():
@@ -17,6 +28,9 @@ func handle_cursor_input(event):
             return
 
 
-func exit():
+func unhaul():
+    owner.unit.display.remove_symbol()
     if owner.unit.moves_remaining > 0:
-        owner.unit.display.set_active()
+        emit_signal("next_state", "idle")
+    else:
+        emit_signal("next_state", "end")

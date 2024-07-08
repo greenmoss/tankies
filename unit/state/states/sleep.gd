@@ -2,7 +2,7 @@ extends "../common/idle.gd"
 
 
 func awaken():
-    owner.unit.display.set_awake()
+    owner.unit.display.remove_symbol()
     if owner.unit.moves_remaining > 0:
         emit_signal("next_state", "idle")
     else:

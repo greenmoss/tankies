@@ -12,6 +12,10 @@ func handle_cursor_input(event):
             owner.unit.sounds.play_denied()
             return
 
+    if event.is_action_pressed('haul'):
+        emit_signal("next_state", "haul")
+        return
+
     if event.is_action_pressed('sleep'):
         emit_signal("next_state", "sleep")
         return
