@@ -3,12 +3,9 @@ extends "../common/idle.gd"
 
 func enter():
     owner.unit.display.set_hauled()
-    owner.unit.display.set_inactive()
 
 
 func exit():
-    if owner.unit.moves_remaining > 0:
-        owner.unit.display.set_active()
     owner.unit.display.remove_symbol()
 
 

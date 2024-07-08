@@ -30,6 +30,9 @@ func enter():
     if marked.state.is_asleep():
         marked.state.awaken()
 
+    if marked.state.is_hauled():
+        marked.state.unhaul()
+
     owner.position = marked.position
 
     SignalBus.cursor_marked_unit.emit(marked)
@@ -157,6 +160,10 @@ func update(delta):
         return
 
     if marked.state.is_asleep():
+        owner.state.find_unit.nearby = marked
+        emit_signal("next_state", "find_unit")
+
+    if marked.state.is_hauled():
         owner.state.find_unit.nearby = marked
         emit_signal("next_state", "find_unit")
 

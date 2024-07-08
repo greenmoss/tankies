@@ -18,6 +18,13 @@ var idle_states = {}
 
 var unit:Unit
 
+
+func _change_state(state_name):
+    if not _active:
+        return
+    super._change_state(state_name)
+
+
 func _ready():
 
     active_states = {
@@ -53,12 +60,21 @@ func force_end():
     current_state.next_state.emit('end')
 
 
+func handle_cursor_input(event):
+    if not 'handle_cursor_input' in current_state: return
+    current_state.handle_cursor_input(event)
+
+
 func is_active() -> bool:
     return current_state.name in active_states.keys()
 
 
 func is_asleep() -> bool:
     return current_state.name == 'sleep'
+
+
+func is_hauled() -> bool:
+    return current_state.name == 'haul'
 
 
 func is_idle() -> bool:
@@ -75,12 +91,6 @@ func rotate():
         current_state.next_state.emit('idle')
 
 
-func _change_state(state_name):
-    if not _active:
-        return
-    super._change_state(state_name)
-
-
-func handle_cursor_input(event):
-    if not 'handle_cursor_input' in current_state: return
-    current_state.handle_cursor_input(event)
+func unhaul():
+    if is_hauled():
+        current_state.unhaul()
