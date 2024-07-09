@@ -62,14 +62,14 @@ func block_navigation_point(layer_name:String, point:Vector2i):
     navigation[layer_name].set_point_solid(point)
 
 
-func find_coordinate_path(map_start_coordinate, map_end_coordinate):
-    return navigation['land'].get_point_path(map_start_coordinate, map_end_coordinate)
+func find_coordinate_path(map_start_coordinate:Vector2, map_end_coordinate:Vector2, group_name:String):
+    return navigation[group_name].get_point_path(map_start_coordinate, map_end_coordinate)
 
 
-func find_path(local_start_point, local_end_point):
+func find_path(local_start_point:Vector2i, local_end_point:Vector2i, group_name:String):
     var start_point = local_to_map(local_start_point)
     var end_point = local_to_map(local_end_point)
-    return navigation['land'].get_point_path(start_point, end_point)
+    return navigation[group_name].get_point_path(start_point, end_point)
 
 
 func get_group_name(group_id:int) -> String:
@@ -105,10 +105,10 @@ func init_navigation(layer_name:String):
     navigation[layer_name] = navigation_layer
 
 
-func is_point_walkable(local_position):
+func is_point_walkable(local_position, group_name:String):
     var map_position = local_to_map(local_position)
-    if navigation['land'].is_in_boundsv(map_position):
-        return not navigation['land'].is_point_solid(map_position)
+    if navigation[group_name].is_in_boundsv(map_position):
+        return not navigation[group_name].is_point_solid(map_position)
     return false
 
 

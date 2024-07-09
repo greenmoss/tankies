@@ -50,13 +50,11 @@ func set_exploration_path(actor:Unit, search_radius:int, blackboard:Blackboard):
     var terrain = blackboard.get_value("terrain")
 
     var perimeter:Array[Vector2] = get_unexplored_perimeter(actor, search_radius, blackboard)
-    randomize()
-    perimeter.shuffle()
     for coordinate in perimeter:
-        var path = terrain.find_coordinate_path(center, coordinate)
+        var path = terrain.find_coordinate_path(center, coordinate, actor.navigation)
         if path.is_empty(): continue
         path.remove_at(path.size() - 1)
-        if not terrain.is_point_walkable(path[-1]):
+        if not terrain.is_point_walkable(path[-1], actor.navigation):
             continue
         blackboard.set_value("exploration_path", path)
         return
