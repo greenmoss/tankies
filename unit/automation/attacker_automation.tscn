@@ -1,0 +1,85 @@
+[gd_scene load_steps=16 format=3 uid="uid://laec8ukoe42u"]
+
+[ext_resource type="Script" path="res://unit/automation/automation.gd" id="1_kbpxx"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_gfl66"]
+[ext_resource type="Script" path="res://unit/automation/find_closest_city.gd" id="3_4khy0"]
+[ext_resource type="Script" path="res://unit/automation/find_closest_unit.gd" id="4_7hhbd"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="5_ib0or"]
+[ext_resource type="Script" path="res://unit/automation/has_city_target.gd" id="6_m0nqm"]
+[ext_resource type="Script" path="res://unit/automation/has_unit_target.gd" id="7_elrpe"]
+[ext_resource type="Script" path="res://unit/automation/choose_closer_enemy.gd" id="8_j8agr"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_city.gd" id="9_kmovi"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_unit.gd" id="10_suwhk"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_unexplored.gd" id="11_t20wq"]
+[ext_resource type="Script" path="res://unit/automation/invalidate_move.gd" id="12_54h2q"]
+[ext_resource type="Script" path="res://unit/automation/has_valid_move.gd" id="13_nn3bh"]
+[ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="14_y6l0o"]
+[ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="15_ceckv"]
+
+[node name="attacker_automation" type="Node"]
+script = ExtResource("1_kbpxx")
+enabled = false
+actor_node_path = NodePath("..")
+
+[node name="move_sequence" type="Node" parent="."]
+script = ExtResource("2_gfl66")
+
+[node name="find_closest_city" type="Node" parent="move_sequence"]
+script = ExtResource("3_4khy0")
+
+[node name="find_closest_unit" type="Node" parent="move_sequence"]
+script = ExtResource("4_7hhbd")
+
+[node name="choose_best_move" type="Node" parent="move_sequence"]
+script = ExtResource("5_ib0or")
+
+[node name="move_to_closest_enemy" type="Node" parent="move_sequence/choose_best_move"]
+script = ExtResource("2_gfl66")
+
+[node name="if_has_city_target" type="Node" parent="move_sequence/choose_best_move/move_to_closest_enemy"]
+script = ExtResource("6_m0nqm")
+
+[node name="if_has_unit_target" type="Node" parent="move_sequence/choose_best_move/move_to_closest_enemy"]
+script = ExtResource("7_elrpe")
+
+[node name="choose_closer_enemy" type="Node" parent="move_sequence/choose_best_move/move_to_closest_enemy"]
+script = ExtResource("8_j8agr")
+
+[node name="move_to_enemy_city" type="Node" parent="move_sequence/choose_best_move"]
+script = ExtResource("2_gfl66")
+
+[node name="if_has_city_target" type="Node" parent="move_sequence/choose_best_move/move_to_enemy_city"]
+script = ExtResource("6_m0nqm")
+
+[node name="choose_closest_city" type="Node" parent="move_sequence/choose_best_move/move_to_enemy_city"]
+script = ExtResource("9_kmovi")
+
+[node name="move_to_enemy_unit" type="Node" parent="move_sequence/choose_best_move"]
+script = ExtResource("2_gfl66")
+
+[node name="if_has_unit_target" type="Node" parent="move_sequence/choose_best_move/move_to_enemy_unit"]
+script = ExtResource("7_elrpe")
+
+[node name="choose_closest_unit" type="Node" parent="move_sequence/choose_best_move/move_to_enemy_unit"]
+script = ExtResource("10_suwhk")
+
+[node name="choose_closest_unexplored" type="Node" parent="move_sequence/choose_best_move"]
+script = ExtResource("11_t20wq")
+
+[node name="invalidate_move" type="Node" parent="move_sequence/choose_best_move"]
+script = ExtResource("12_54h2q")
+
+[node name="move_if_possible" type="Node" parent="move_sequence"]
+script = ExtResource("5_ib0or")
+
+[node name="make_valid_move" type="Node" parent="move_sequence/move_if_possible"]
+script = ExtResource("2_gfl66")
+
+[node name="if_has_valid_move" type="Node" parent="move_sequence/move_if_possible/make_valid_move"]
+script = ExtResource("13_nn3bh")
+
+[node name="move_to_position" type="Node" parent="move_sequence/move_if_possible/make_valid_move"]
+script = ExtResource("14_y6l0o")
+
+[node name="stop_moving" type="Node" parent="move_sequence/move_if_possible"]
+script = ExtResource("15_ceckv")

@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="7_42oqr"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="8_e1rdr"]
 [ext_resource type="AudioStream" uid="uid://bn4gfedm0ed4u" path="res://unit/types/fighter/plane_down.mp3" id="9_q2pc7"]
-[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_s0mtd"]
+[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/attacker_automation.tscn" id="9_s0mtd"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="15_oucdu"]
 [ext_resource type="Script" path="res://unit/plan.gd" id="18_41f43"]
 [ext_resource type="Script" path="res://unit/vision.gd" id="19_xnqix"]
