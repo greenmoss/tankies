@@ -60,13 +60,18 @@ func get_by_id(region:int) -> Region:
     return get_node(region_name)
 
 
-func get_from_position(this_position:Vector2i) -> Array[Region]:
-    return by_position[this_position]
+func get_from_point(this_point:Vector2i) -> Array[Region]:
+    return by_position[this_point]
+
+
+func get_from_position(this_position:Vector2) -> Array[Region]:
+    var this_point = Global.as_grid(this_position)
+    return get_from_point(this_point)
 
 
 func get_from_unit(unit:Unit) -> Region:
     var world_position = unit.get_world_position()
-    var unit_regions = get_from_position(world_position)
+    var unit_regions = get_from_point(world_position)
     for region in unit_regions:
         # TODO: refactor node validity checks
         # if the world moves to FSM, perhaps these will no longer be needed

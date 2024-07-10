@@ -60,6 +60,10 @@ func force_end():
     current_state.next_state.emit('end')
 
 
+func force_haul():
+    current_state.next_state.emit('haul')
+
+
 func handle_cursor_input(event):
     if not 'handle_cursor_input' in current_state: return
     current_state.handle_cursor_input(event)

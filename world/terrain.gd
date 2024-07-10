@@ -76,24 +76,24 @@ func get_group_name(group_id:int) -> String:
     return group_names[group_id]
 
 
-func get_in_bounds_neighbors(this_position) -> Array[Vector2i]:
+func get_in_bounds_neighbors(this_point:Vector2i) -> Array[Vector2i]:
     var neighbors:Array[Vector2i] = []
-    for neighbor_position in get_neighbors(this_position):
-        if neighbor_position.x > x_max: continue
-        if neighbor_position.x < x_min: continue
-        if neighbor_position.y > y_max: continue
-        if neighbor_position.y < y_min: continue
-        neighbors.append(neighbor_position)
+    for neighbor_point in get_neighbors(this_point):
+        if neighbor_point.x > x_max: continue
+        if neighbor_point.x < x_min: continue
+        if neighbor_point.y > y_max: continue
+        if neighbor_point.y < y_min: continue
+        neighbors.append(neighbor_point)
     return(neighbors)
 
 
-func get_neighbors(this_position) -> Array[Vector2i]:
+func get_neighbors(this_point:Vector2i) -> Array[Vector2i]:
     return(
         [
-            this_position + Vector2i.LEFT,
-            this_position + Vector2i.UP,
-            this_position + Vector2i.RIGHT,
-            this_position + Vector2i.DOWN
+            this_point + Vector2i.LEFT,
+            this_point + Vector2i.UP,
+            this_point + Vector2i.RIGHT,
+            this_point + Vector2i.DOWN
         ]
     )
 
