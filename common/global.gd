@@ -28,6 +28,13 @@ const z_layers = [
 enum Controllers {AI, HUMAN, NONE}
 
 
+func array_as_grid(positions:Array[Vector2]) -> Array[Vector2i]:
+    var points:Array[Vector2i] = []
+    for position in positions:
+        points.append(as_grid(position))
+    return points
+
+
 func as_grid(position:Vector2) -> Vector2i:
     var grid_x = int(float(position.x) / float(tile_size))
     var grid_y = int(float(position.y) / float(tile_size))

@@ -33,7 +33,6 @@ func tick(actor, blackboard):
     path.remove_at(0)
 
     if path.is_empty():
-        push_warning("unit ",actor," ought to have been next to hauler ",hauler,", but for some reason it isn't")
         return FAILURE
 
     blackboard.set_value("move_position", path[0])

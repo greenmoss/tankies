@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhq8u3ebam6rr"]
+[gd_scene load_steps=10 format=3 uid="uid://bhq8u3ebam6rr"]
 
 [ext_resource type="Script" path="res://unit/automation/automation.gd" id="1_qu335"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_7pe2i"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://unit/automation/set_move_to_unexplored.gd" id="5_kg1mp"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="5_muexg"]
 [ext_resource type="Script" path="res://unit/automation/unset_move.gd" id="6_3ehcb"]
+[ext_resource type="Script" path="res://unit/automation/stop_to_haul.gd" id="8_k4wcv"]
 [ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="14_igcab"]
 [ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="15_6osva"]
 
@@ -31,6 +32,9 @@ script = ExtResource("6_3ehcb")
 
 [node name="act" type="Node" parent="act"]
 script = ExtResource("5_muexg")
+
+[node name="stop_to_haul" type="Node" parent="act/act"]
+script = ExtResource("8_k4wcv")
 
 [node name="move_to_position" type="Node" parent="act/act"]
 script = ExtResource("14_igcab")

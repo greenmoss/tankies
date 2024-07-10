@@ -3,6 +3,7 @@ extends ActionLeaf
 
 func tick(actor, blackboard):
     var my_units = blackboard.get_value("my_units")
+    blackboard.set_value("haul_unit", false)
 
     var hauled:Unit = null
     var path:PackedVector2Array = []
@@ -36,6 +37,10 @@ func tick(actor, blackboard):
     path.remove_at(0)
 
     if path.is_empty():
+        # we have at least one unit for hauling and no more moves
+        # so we must be at the coast, waiting for units
+        blackboard.set_value("haul_unit", true)
+        SignalBus.unit_can_haul.emit(actor)
         return FAILURE
 
     blackboard.set_value("move_position", path[0])

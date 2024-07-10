@@ -37,10 +37,17 @@ func tick(actor, blackboard):
     path.remove_at(0)
 
     if path.is_empty():
-        push_warning("unit ",actor," ought to have been next to hauler ",hauler,", but for some reason it isn't")
         return FAILURE
 
     var next_move = path[0]
+
+    # get path to next
+    var layer_path = terrain.find_path(actor.position, next_move, actor.navigation)
+    # if path within layer is 3 or more, it means we were on an untraversible diagonal
+    if layer_path.size() > 2:
+        blackboard.set_value("move_position", null)
+        return FAILURE
+
     var this_region = regions.get_from_unit(actor)
     var dest_regions = regions.get_from_position(next_move)
 
