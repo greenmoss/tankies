@@ -7,7 +7,7 @@ func tick(actor, blackboard):
 
     if (city_candidates == null) or (terrain == null):
         blackboard.set_value("city_target", null)
-        return SUCCESS
+        return FAILURE
 
     if actor.plan.goto_city != null:
         if actor.plan.goto_city.my_team != actor.my_team:
@@ -34,5 +34,5 @@ func tick(actor, blackboard):
             return SUCCESS
 
     blackboard.set_value("city_target", null)
-    return SUCCESS
+    return FAILURE
 

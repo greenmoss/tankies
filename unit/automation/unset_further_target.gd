@@ -5,10 +5,12 @@ func tick(actor, blackboard):
     var city_distance:int = actor.plan.path_to_city.size()
     var unit_distance:int = actor.plan.path_to_unit.size()
 
-    # enemy city is closest, move there
+    # city is closest, so clear unit target
     if city_distance < unit_distance:
-        blackboard.set_value("move_position", actor.plan.path_to_city[0])
+        blackboard.set_value("unit_target", null)
+
+    # unit is closest, so clear city target
     else:
-        blackboard.set_value("move_position", actor.plan.path_to_unit[0])
+        blackboard.set_value("city_target", null)
 
     return SUCCESS

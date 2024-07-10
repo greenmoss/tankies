@@ -7,7 +7,7 @@ func tick(actor, blackboard):
 
     if (unit_candidates == null) or (terrain == null):
         blackboard.set_value("unit_target", null)
-        return SUCCESS
+        return FAILURE
 
     var distances = unit_candidates.keys()
     distances.sort()
@@ -35,4 +35,4 @@ func tick(actor, blackboard):
             return SUCCESS
 
     blackboard.set_value("unit_target", null)
-    return SUCCESS
+    return FAILURE
