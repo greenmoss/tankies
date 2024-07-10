@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhq8u3ebam6rr"]
+[gd_scene load_steps=10 format=3 uid="uid://bhq8u3ebam6rr"]
 
 [ext_resource type="Script" path="res://unit/automation/automation.gd" id="1_qu335"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_7pe2i"]
+[ext_resource type="Script" path="res://unit/automation/choose_closest_hauled.gd" id="5_l8s5x"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="5_muexg"]
 [ext_resource type="Script" path="res://unit/automation/choose_closest_unexplored.gd" id="11_psydk"]
 [ext_resource type="Script" path="res://unit/automation/invalidate_move.gd" id="12_46d71"]
@@ -22,6 +23,9 @@ script = ExtResource("5_muexg")
 
 [node name="choose_closest_unexplored" type="Node" parent="move_sequence/choose_best_move"]
 script = ExtResource("11_psydk")
+
+[node name="choose_closest_hauled" type="Node" parent="move_sequence/choose_best_move"]
+script = ExtResource("5_l8s5x")
 
 [node name="invalidate_move" type="Node" parent="move_sequence/choose_best_move"]
 script = ExtResource("12_46d71")
