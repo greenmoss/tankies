@@ -3,7 +3,6 @@ extends ActionLeaf
 
 func tick(actor, blackboard):
     var my_units = blackboard.get_value("my_units")
-    var terrain = blackboard.get_value("terrain")
 
     var hauler:Unit = null
     var path:PackedVector2Array = []
@@ -33,21 +32,11 @@ func tick(actor, blackboard):
     # first path portion is current position, which messes up movement
     path.remove_at(0)
 
-    # if we are next to a hauler, move to the hauler
-    if path.is_empty():
-        var grid_position = Global.as_grid(actor.position)
-        for neighbor in terrain.get_in_bounds_neighbors(grid_position):
-            var neighbor_position = Global.as_position(neighbor)
-            if not neighbor_position == hauler.position: continue
-            path.append(neighbor_position)
-            break
-
     if path.is_empty():
         push_warning("unit ",actor," ought to have been next to hauler ",hauler,", but for some reason it isn't")
         return FAILURE
 
     blackboard.set_value("move_position", path[0])
-
     return SUCCESS
 
 

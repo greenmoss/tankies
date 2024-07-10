@@ -29,11 +29,11 @@ script = ExtResource("5_kg1mp")
 [node name="unset_move" type="Node" parent="act/set_move"]
 script = ExtResource("6_3ehcb")
 
-[node name="move" type="Node" parent="act"]
+[node name="act" type="Node" parent="act"]
 script = ExtResource("5_muexg")
 
-[node name="move_to_position" type="Node" parent="act/move"]
+[node name="move_to_position" type="Node" parent="act/act"]
 script = ExtResource("14_igcab")
 
-[node name="stop_moving" type="Node" parent="act/move"]
+[node name="stop_moving" type="Node" parent="act/act"]
 script = ExtResource("15_6osva")

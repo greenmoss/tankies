@@ -13,6 +13,7 @@ func tick(actor, blackboard):
         if not actor.can_haul_unit(unit): continue
         if unit in actor.hauled_units: continue
         if unit.is_hauled(): continue
+        if unit.state.current_state.name != 'haul': continue
 
         if hauled == null:
             path = get_path_to_hauled(unit, actor, blackboard)

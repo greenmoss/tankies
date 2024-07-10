@@ -9,10 +9,11 @@ var _class_name = "BehaviorTree"
 # Set a unique behavior tree name
 # Allows us to track individual units in the BT debugger
 func _enter_tree():
-    name = 'BT'+owner.name
-    # BT dynamic blackboard DOES NOT WORK with unit restore!
-    # Thus you must assign the blackboard here:
-    blackboard = owner.blackboard
+    if owner != null:
+        name = 'BT'+owner.name
+        # BT dynamic blackboard DOES NOT WORK with unit restore!
+        # Thus you must assign the blackboard here:
+        blackboard = owner.blackboard
 
 
 func set_cities(candidates:Dictionary):
