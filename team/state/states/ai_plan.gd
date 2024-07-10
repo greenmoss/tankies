@@ -28,7 +28,8 @@ func enter():
         return
 
     my_unit.automation.set_cities( owner.cities.get_explored_by_cardinal_distance(my_unit.position, owner.vision) )
-    my_unit.automation.set_units( owner.enemy_units.get_all_by_cardinal_distance(my_unit.position, owner.vision) )
+    my_unit.automation.set_enemy_units( owner.enemy_units.get_all_by_cardinal_distance(my_unit.position, owner.vision) )
+    my_unit.automation.set_my_units( owner.units.get_all_valid() )
     my_unit.automation.set_explored( owner.vision.explored )
     my_unit.automation.set_regions( owner.regions )
     my_unit.automation.set_terrain( owner.terrain )

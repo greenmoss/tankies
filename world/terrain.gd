@@ -76,6 +76,28 @@ func get_group_name(group_id:int) -> String:
     return group_names[group_id]
 
 
+func get_in_bounds_neighbors(this_position) -> Array[Vector2i]:
+    var neighbors:Array[Vector2i] = []
+    for neighbor_position in get_neighbors(this_position):
+        if neighbor_position.x > x_max: continue
+        if neighbor_position.x < x_min: continue
+        if neighbor_position.y > y_max: continue
+        if neighbor_position.y < y_min: continue
+        neighbors.append(neighbor_position)
+    return(neighbors)
+
+
+func get_neighbors(this_position) -> Array[Vector2i]:
+    return(
+        [
+            this_position + Vector2i.LEFT,
+            this_position + Vector2i.UP,
+            this_position + Vector2i.RIGHT,
+            this_position + Vector2i.DOWN
+        ]
+    )
+
+
 func get_physics_colliders(layer_id:int) -> int:
     # handle "-1" layer id
     if (layer_id < 0) or (layer_id >= tile_set.get_physics_layers_count()):
