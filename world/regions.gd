@@ -94,6 +94,18 @@ func remove(region:Region):
     remove_child(region)
 
 
+# the approach for a region is the adjacent points in the neighboring region
+# example: for every coordinate within a land region,
+# every ocean coordinate at +/- 1x or +/- 1y
+func set_approaches(terrain:Terrain):
+    for region in get_children():
+        for region_position in region.positions:
+            for neighbor in terrain.get_in_bounds_neighbors(region_position):
+                if region in get_from_point(neighbor): continue
+                region.add_approach(neighbor)
+        region.segment_approaches()
+
+
 func set_position(this_position:Vector2i, region:int):
     if get_child_count() <= region:
         add(region)

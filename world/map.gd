@@ -72,3 +72,4 @@ func set_regions():
 
     regions.set_terrain(terrain)
     join_ports()
+    regions.set_approaches(terrain)

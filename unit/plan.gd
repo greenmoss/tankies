@@ -14,8 +14,10 @@ func _ready():
 
 # true if we set our path
 # false if we could not create a path
-func set_path_to_city(target_city:City, terrain:TileMap) -> bool:
-    path_to_city = create_path(path_to_city, target_city.position, terrain, owner.navigation)
+func set_path_to_city(target_city:City, terrain:TileMap, navigation = null) -> bool:
+    if navigation == null:
+        navigation = owner.navigation
+    path_to_city = create_path(path_to_city, target_city.position, terrain, navigation)
 
     if path_to_city.is_empty():
         goto_city = null
@@ -27,8 +29,10 @@ func set_path_to_city(target_city:City, terrain:TileMap) -> bool:
 
 # true if we set our path
 # false if we could not create a path
-func set_path_to_unit(target_unit:Unit, terrain:TileMap) -> bool:
-    path_to_unit = create_path(path_to_unit, target_unit.position, terrain, owner.navigation)
+func set_path_to_unit(target_unit:Unit, terrain:TileMap, navigation = null) -> bool:
+    if navigation == null:
+        navigation = owner.navigation
+    path_to_unit = create_path(path_to_unit, target_unit.position, terrain, navigation)
 
     if path_to_unit.is_empty():
         goto_unit = null
@@ -46,6 +50,10 @@ func create_path(path:PackedVector2Array, destination:Vector2, terrain:TileMap, 
 
     if path.is_empty():
         path = terrain.find_path(owner.position, destination, navigation_name)
+
+    # corner case: unit crossing untraversable terrain
+    if path.is_empty():
+        return path
 
     # destination changed, so recalculate
     if destination != path[-1]:

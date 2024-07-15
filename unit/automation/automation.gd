@@ -16,25 +16,37 @@ func _enter_tree():
         blackboard = owner.blackboard
 
 
-func set_cities(candidates:Dictionary):
-    blackboard.set_value("city_candidates", candidates)
+func initialize(
+    city_candidates:Dictionary, unit_candidates:Dictionary, explored:Dictionary,
+    my_units:Array, regions:Regions, terrain:Terrain):
 
-
-func set_enemy_units(candidates:Dictionary):
-    blackboard.set_value("unit_candidates", candidates)
-
-
-func set_explored(explored:Dictionary):
+    blackboard.set_value("city_candidates", city_candidates)
+    blackboard.set_value("unit_candidates", unit_candidates)
     blackboard.set_value("explored", explored)
-
-
-func set_my_units(units:Array):
-    blackboard.set_value("my_units", units)
-
-
-func set_regions(regions:Regions):
+    blackboard.set_value("my_units", my_units)
     blackboard.set_value("regions", regions)
-
-
-func set_terrain(terrain:Terrain):
     blackboard.set_value("terrain", terrain)
+
+
+#func set_cities(candidates:Dictionary):
+#    blackboard.set_value("city_candidates", candidates)
+#
+#
+#func set_enemy_units(candidates:Dictionary):
+#    blackboard.set_value("unit_candidates", candidates)
+#
+#
+#func set_explored(explored:Dictionary):
+#    blackboard.set_value("explored", explored)
+#
+#
+#func set_my_units(units:Array):
+#    blackboard.set_value("my_units", units)
+#
+#
+#func set_regions(regions:Regions):
+#    blackboard.set_value("regions", regions)
+#
+#
+#func set_terrain(terrain:Terrain):
+#    blackboard.set_value("terrain", terrain)

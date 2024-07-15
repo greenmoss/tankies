@@ -251,6 +251,14 @@ func set_unhauled():
     visible = true
 
 
+func steer_from_hauled(hauled_unit:Unit, steer_direction:Vector2):
+    print("hauled unit ",hauled_unit," wants me ",self," to move to ",steer_direction)
+    if hauled_unit not in hauled_units: return
+    look_direction = steer_direction
+    state.switch_to('scout')
+    #move_toward(steer_direction)
+
+
 func unhaul_unit(hauled_unit:Unit):
     if hauled_unit not in hauled_units:
         push_warning("unable to unhaul unit ",hauled_unit,"; ignoring")
