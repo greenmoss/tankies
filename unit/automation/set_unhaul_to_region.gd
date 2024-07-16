@@ -16,22 +16,24 @@ func tick(actor, blackboard):
     var terrain = blackboard.get_value("terrain")
     if terrain == null: return FAILURE
 
-    var unhaul_to_unit_path = blackboard.get_value("unhaul_to_unit_path")
-    var unhaul_to_unit_region = blackboard.get_value("unhaul_to_unit_region")
+    set_closest(actor, blackboard)
 
-    if (unhaul_to_unit_region == null) or (unhaul_to_unit_path == null) : return FAILURE
+    var closest_path = blackboard.get_value("unhaul_to_region_closest_path")
+    var closest_region = blackboard.get_value("unhaul_to_region_closest_region")
+
+    if (closest_path == null) or (closest_region == null): return FAILURE
 
     var unhaul_to_region:Region = blackboard.get_value('unhaul_to_region')
-    if unhaul_to_region != unhaul_to_unit_region:
-        unhaul_to_region = unhaul_to_unit_region
+    if unhaul_to_region != closest_region:
+        unhaul_to_region = closest_region
         blackboard.set_value('unhaul_to_region', unhaul_to_region)
         blackboard.set_value("unhaul_to_region_checked", empty_positions)
         #print("** at new region ",unhaul_to_region,", checked is ",blackboard.get_value("unhaul_to_region_checked"))
 
-    #print("hauler ",actor," is setting unhaul to region ",unhaul_to_unit_region)
-    #print("unhaul to unit path: ",Global.array_as_grid(unhaul_to_unit_path))
+    #print("hauler ",actor," is setting unhaul to region ",closest_region)
+    #print("unhaul to path: ",Global.array_as_grid(closest_path))
 
-    var region_approach_position = unhaul_to_unit_region.get_approach_position(unhaul_to_unit_path)
+    var region_approach_position = closest_region.get_approach_position(closest_path)
     #print("approach point: ",region_approach_position)
 
     if region_approach_position == Vector2.LEFT: return FAILURE
@@ -71,3 +73,43 @@ func tick(actor, blackboard):
     #print("path as grid: ",Global.array_as_grid(path_to_unhaul))
     blackboard.set_value('unhaul_to_region_path', path_to_unhaul)
     return SUCCESS
+
+
+func set_closest(actor, blackboard):
+    blackboard.set_value("unhaul_to_region_closest_path", null)
+    blackboard.set_value("unhaul_to_region_closest_region", null)
+
+    var city_path = blackboard.get_value("unhaul_to_city_path")
+    var city_region = blackboard.get_value("unhaul_to_city_region")
+    var city_valid = (city_region != null) and (city_path != null)
+
+    var unit_path = blackboard.get_value("unhaul_to_unit_path")
+    var unit_region = blackboard.get_value("unhaul_to_unit_region")
+    var unit_valid = (unit_region != null) and (unit_path != null)
+
+    #print("at set unhaul for unit ",actor," to closest target")
+
+    if city_valid:
+        if unit_valid:
+            var unit_path_shorter = (unit_path.size() < city_path.size())
+
+            if unit_path_shorter:
+                blackboard.set_value("unhaul_to_region_closest_path", unit_path)
+                blackboard.set_value("unhaul_to_region_closest_region", unit_region)
+
+            else: # city path shorter
+                blackboard.set_value("unhaul_to_region_closest_path", city_path)
+                blackboard.set_value("unhaul_to_region_closest_region", city_region)
+
+        else: # unit invalid
+            blackboard.set_value("unhaul_to_region_closest_path", city_path)
+            blackboard.set_value("unhaul_to_region_closest_region", city_region)
+
+    else: # city invalid
+
+        if unit_valid:
+            blackboard.set_value("unhaul_to_region_closest_path", unit_path)
+            blackboard.set_value("unhaul_to_region_closest_region", unit_region)
+
+        else: # unit invalid
+            pass

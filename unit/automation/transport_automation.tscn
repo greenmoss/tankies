@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bhq8u3ebam6rr"]
+[gd_scene load_steps=16 format=3 uid="uid://bhq8u3ebam6rr"]
 
 [ext_resource type="Script" path="res://unit/automation/automation.gd" id="1_qu335"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_7pe2i"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://unit/automation/set_unhaul_to_unit_path.gd" id="5_ek2k2"]
 [ext_resource type="Script" path="res://unit/automation/set_move_to_unexplored.gd" id="5_kg1mp"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="5_muexg"]
+[ext_resource type="Script" path="res://unit/automation/set_unhaul_to_city_path.gd" id="5_xk38r"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/leaves/action.gd" id="6_2yrdv"]
 [ext_resource type="Script" path="res://unit/automation/unset_move.gd" id="6_3ehcb"]
 [ext_resource type="Script" path="res://unit/automation/set_unhaul_to_region.gd" id="6_bqvx8"]
@@ -32,7 +33,13 @@ script = ExtResource("5_ek2k2")
 [node name="set_unhaul_to_city_path" type="Node" parent="act"]
 script = ExtResource("3_l2ko6")
 
-[node name="TODO_set_unhaul_to_city_path" type="Node" parent="act/set_unhaul_to_city_path"]
+[node name="set_unhaul_to_city_path" type="Node" parent="act/set_unhaul_to_city_path"]
+script = ExtResource("5_xk38r")
+
+[node name="set_unhaul_to_unexplored_path" type="Node" parent="act"]
+script = ExtResource("3_l2ko6")
+
+[node name="TODO set_unhaul_to_unexplored_path" type="Node" parent="act/set_unhaul_to_unexplored_path"]
 script = ExtResource("6_2yrdv")
 
 [node name="set_unhaul_to_region" type="Node" parent="act"]
