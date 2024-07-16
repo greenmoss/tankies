@@ -59,6 +59,10 @@ func create_path(path:PackedVector2Array, destination:Vector2, terrain:TileMap, 
     if destination != path[-1]:
         path = terrain.find_path(owner.position, destination, navigation_name)
 
+    # corner case: unit crossing untraversable terrain
+    if path.is_empty():
+        return path
+
     if owner.position == path[0]:
         path.remove_at(0)
 
