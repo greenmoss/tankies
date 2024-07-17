@@ -29,13 +29,12 @@ func tick(actor, blackboard):
 
     var path_to_unhaul:PackedVector2Array = []
 
-    #var target_unit = null
-
     var target_region:Region = null
     var distances = city_candidates.keys()
     distances.sort()
     for distance in distances:
         for nearby_city in city_candidates[distance]:
+            if nearby_city.my_team == actor.my_team: continue
             #print("in set unhaul to city path, looking at city ",nearby_city)
 
             var region_with_city:Region = null
