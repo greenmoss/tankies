@@ -11,6 +11,8 @@ func tick(actor, blackboard):
     var comparison_path = null
 
     for unit in my_units:
+        if not is_instance_valid(unit): continue
+        if unit.is_queued_for_deletion(): continue
         if unit == actor: continue
         if not unit.can_haul_unit(actor): continue
 
