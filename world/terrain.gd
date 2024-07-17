@@ -127,7 +127,7 @@ func init_navigation(layer_name:String):
     navigation[layer_name] = navigation_layer
 
 
-func is_point_walkable(local_position, group_name:String):
+func is_point_walkable(local_position:Vector2i, group_name:String):
     var map_position = local_to_map(local_position)
     if navigation[group_name].is_in_boundsv(map_position):
         return not navigation[group_name].is_point_solid(map_position)

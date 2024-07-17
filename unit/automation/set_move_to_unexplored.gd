@@ -1,18 +1,18 @@
 extends 'common_action_leaf.gd'
 
+@onready var exploration_path:PackedVector2Array = []
+
 
 func tick(actor, blackboard):
-    var regions = blackboard.get_value("regions")
-    var unexplored_region:Region = regions.get_from_unit(actor)
-    if unexplored_region == null: return FAILURE
+    var region_from_unit:Region = blackboard.get_value("region_from_unit")
+    if region_from_unit == null: return FAILURE
 
-    var max_search_radius = unexplored_region.get_max_distance()
-    blackboard.set_value("exploration_path", null)
+    var max_search_radius = region_from_unit.get_max_distance()
 
     for search_radius in range(actor.vision.distance + 1, max_search_radius + 1):
-        set_exploration_path(actor, search_radius, blackboard, unexplored_region)
-        if blackboard.get_value("exploration_path") != null:
-            blackboard.set_value("move_position", blackboard.get_value("exploration_path")[1])
+        set_exploration_path(actor, search_radius, blackboard, region_from_unit)
+        if exploration_path.size() > 1:
+            blackboard.set_value("move_position", exploration_path[1])
             return SUCCESS
 
     return FAILURE
@@ -28,7 +28,7 @@ func set_exploration_path(actor:Unit, search_radius:int, blackboard:Blackboard, 
         if path.is_empty(): continue
         path.remove_at(path.size() - 1)
         if not terrain.is_point_walkable(path[-1], actor.navigation): continue
-        blackboard.set_value("exploration_path", path)
+        exploration_path = path
         return
 
 

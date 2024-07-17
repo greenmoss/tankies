@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bhq8u3ebam6rr"]
+[gd_scene load_steps=21 format=3 uid="uid://bhq8u3ebam6rr"]
 
 [ext_resource type="Script" path="res://unit/automation/automation.gd" id="1_br0v6"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_lq0ke"]
@@ -14,8 +14,10 @@
 [ext_resource type="Script" path="res://unit/automation/hauler/set_move_to_hauled.gd" id="12_0id8f"]
 [ext_resource type="Script" path="res://unit/automation/hauler/set_move_to_unhaul.gd" id="13_83w5d"]
 [ext_resource type="Script" path="res://unit/automation/set_move_to_unexplored.gd" id="14_7oj5d"]
+[ext_resource type="Script" path="res://unit/automation/set_region_from_unit.gd" id="14_jsg4h"]
 [ext_resource type="Script" path="res://unit/automation/unset_move.gd" id="15_wy5cd"]
 [ext_resource type="Script" path="res://unit/automation/hauler/stop_to_haul.gd" id="16_ajn0f"]
+[ext_resource type="Script" path="res://unit/automation/hauler/stop_to_unhaul.gd" id="16_fr82m"]
 [ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="17_gdl04"]
 [ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="18_p5oi0"]
 
@@ -73,6 +75,12 @@ script = ExtResource("12_0id8f")
 script = ExtResource("13_83w5d")
 
 [node name="set_move_to_unexplored" type="Node" parent="act/set_move"]
+script = ExtResource("2_lq0ke")
+
+[node name="set_region_from_unit" type="Node" parent="act/set_move/set_move_to_unexplored"]
+script = ExtResource("14_jsg4h")
+
+[node name="set_move_to_unexplored" type="Node" parent="act/set_move/set_move_to_unexplored"]
 script = ExtResource("14_7oj5d")
 
 [node name="unset_move" type="Node" parent="act/set_move"]
@@ -80,6 +88,9 @@ script = ExtResource("15_wy5cd")
 
 [node name="act" type="Node" parent="act"]
 script = ExtResource("11_rspw6")
+
+[node name="stop_to_unhaul" type="Node" parent="act/act"]
+script = ExtResource("16_fr82m")
 
 [node name="stop_to_haul" type="Node" parent="act/act"]
 script = ExtResource("16_ajn0f")

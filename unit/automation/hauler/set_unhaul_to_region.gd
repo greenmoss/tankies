@@ -33,9 +33,6 @@ func tick(actor, blackboard):
         unhaul_to_region_checked.append(region_approach_position)
         blackboard.set_value('unhaul_to_region_checked', unhaul_to_region_checked)
 
-        for hauled_unit in actor.hauled_units:
-            hauled_unit.set_automatic()
-
         return SUCCESS
     #print("set unhaul to region 7")
 

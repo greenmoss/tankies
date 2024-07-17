@@ -78,8 +78,7 @@ func get_from_unit(unit:Unit) -> Region:
         if region == null: continue
         if not is_instance_valid(region): continue
         if region.is_queued_for_deletion(): continue
-        # if unit colliders "hit" region colliders, that region is incompatible with the unit
-        if (unit.get_colliders() & region.colliders) != 0: continue
+        if not region.compatible_with(unit): continue
         return region
     # no compatible regions found
     return null

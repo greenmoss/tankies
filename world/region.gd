@@ -38,6 +38,11 @@ func add_position(new_position:Vector2i):
         min_bound.y = new_position.y
 
 
+# if unit colliders overlap region colliders, this region and unit are compatible
+func compatible_with(unit:Unit) -> bool:
+    return (unit.get_colliders() & colliders) == 0
+
+
 func get_approach_position(approach_positions:PackedVector2Array) -> Vector2:
     for segment in approach_segments:
         for approach_position in approach_positions:
@@ -90,10 +95,10 @@ func get_approach_neighbors(approach_point:Vector2i) -> Array[Vector2i]:
             approach_neighbors.append(approach_segment[-1])
 
     # last element, so second-to-last element is one neighbor
-    elif point_index == approach_segment.size() + 1:
+    elif point_index == approach_segment.size() - 1:
         approach_neighbors.append(approach_segment[-2])
 
-        # is firsst element also a neighbor?
+        # is first element also a neighbor?
         if approach_segment[0] in wrap_neighbor_candidates:
             approach_neighbors.append(approach_segment[0])
 
