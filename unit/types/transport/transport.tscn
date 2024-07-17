@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state/state.tscn" id="6_hf05x"]
 [ext_resource type="Script" path="res://unit/plan.gd" id="7_kqwgx"]
 [ext_resource type="Script" path="res://unit/vision.gd" id="8_suxvi"]
-[ext_resource type="PackedScene" uid="uid://bhq8u3ebam6rr" path="res://unit/automation/transport_automation.tscn" id="9_k8b15"]
+[ext_resource type="PackedScene" uid="uid://bhq8u3ebam6rr" path="res://unit/automation/hauler/bt_transport.tscn" id="9_acegh"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="10_equp6"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="11_dfa3d"]
 [ext_resource type="Texture2D" uid="uid://oaokaprbkg1w" path="res://unit/types/transport/cargo-ship.svg" id="12_kwvdc"]
@@ -50,7 +50,7 @@ script = ExtResource("7_kqwgx")
 [node name="vision" type="Node" parent="."]
 script = ExtResource("8_suxvi")
 
-[node name="automation" parent="." instance=ExtResource("9_k8b15")]
+[node name="automation" parent="." instance=ExtResource("9_acegh")]
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("10_equp6")

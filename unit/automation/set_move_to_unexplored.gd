@@ -1,4 +1,4 @@
-extends ActionLeaf
+extends 'common_action_leaf.gd'
 
 @onready var region:Region = null
 

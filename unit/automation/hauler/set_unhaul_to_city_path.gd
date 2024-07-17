@@ -1,4 +1,4 @@
-extends ActionLeaf
+extends 'common_action_leaf.gd'
 # This unit is hauling units
 # Move to wherever they want to go
 
@@ -17,12 +17,7 @@ func tick(actor, blackboard):
         blackboard.set_value("unit_target", null)
         return FAILURE
 
-    var unit:Unit = null
-    for hauled_unit in actor.hauled_units:
-        if hauled_unit.moves_remaining <= 0: continue
-        unit = hauled_unit
-        break
-
+    var unit = get_idle_hauled(actor)
     if unit == null: return FAILURE
 
     #print("hauler ",actor," is setting unhaul to city for ",unit)

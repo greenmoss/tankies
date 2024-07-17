@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://unit/plan.gd" id="7_tw40l"]
 [ext_resource type="Script" path="res://unit/vision.gd" id="8_5mw8u"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="8_evx3v"]
-[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/attacker_automation.tscn" id="9_6ox27"]
+[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/hauled/bt_attacker.tscn" id="9_6ox27"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="10_ks5ts"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="14_6gn2j"]
 

@@ -1,0 +1,91 @@
+[gd_scene load_steps=19 format=3 uid="uid://bhq8u3ebam6rr"]
+
+[ext_resource type="Script" path="res://unit/automation/automation.gd" id="1_br0v6"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_lq0ke"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/succeeder.gd" id="3_j6yw5"]
+[ext_resource type="Script" path="res://unit/automation/hauler/set_unhaul_to_unit_path.gd" id="4_28l8s"]
+[ext_resource type="Script" path="res://unit/automation/hauler/set_unhaul_to_city_path.gd" id="5_kv0ui"]
+[ext_resource type="Script" path="res://unit/automation/hauler/set_unhaul_to_unexplored_path.gd" id="6_stwhi"]
+[ext_resource type="Script" path="res://unit/automation/hauler/clear_unhaul_to_region.gd" id="7_g85nc"]
+[ext_resource type="Script" path="res://unit/automation/hauler/is_hauling.gd" id="8_satn4"]
+[ext_resource type="Script" path="res://unit/automation/hauler/set_unhaul_from_type.gd" id="9_1vcan"]
+[ext_resource type="Script" path="res://unit/automation/hauler/set_unhaul_to_region.gd" id="10_j5afn"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="11_rspw6"]
+[ext_resource type="Script" path="res://unit/automation/hauler/set_move_to_hauled.gd" id="12_0id8f"]
+[ext_resource type="Script" path="res://unit/automation/hauler/set_move_to_unhaul.gd" id="13_83w5d"]
+[ext_resource type="Script" path="res://unit/automation/set_move_to_unexplored.gd" id="14_7oj5d"]
+[ext_resource type="Script" path="res://unit/automation/unset_move.gd" id="15_wy5cd"]
+[ext_resource type="Script" path="res://unit/automation/hauler/stop_to_haul.gd" id="16_ajn0f"]
+[ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="17_gdl04"]
+[ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="18_p5oi0"]
+
+[node name="transport_automation" type="Node"]
+script = ExtResource("1_br0v6")
+enabled = false
+actor_node_path = NodePath("..")
+
+[node name="act" type="Node" parent="."]
+script = ExtResource("2_lq0ke")
+
+[node name="set_unhaul_to_unit_path" type="Node" parent="act"]
+script = ExtResource("3_j6yw5")
+
+[node name="set_unhaul_to_unit_path" type="Node" parent="act/set_unhaul_to_unit_path"]
+script = ExtResource("4_28l8s")
+
+[node name="set_unhaul_to_city_path" type="Node" parent="act"]
+script = ExtResource("3_j6yw5")
+
+[node name="set_unhaul_to_city_path" type="Node" parent="act/set_unhaul_to_city_path"]
+script = ExtResource("5_kv0ui")
+
+[node name="set_unhaul_to_unexplored_path" type="Node" parent="act"]
+script = ExtResource("3_j6yw5")
+
+[node name="set_unhaul_to_unexplored_path" type="Node" parent="act/set_unhaul_to_unexplored_path"]
+script = ExtResource("6_stwhi")
+
+[node name="set_unhaul_to_region" type="Node" parent="act"]
+script = ExtResource("3_j6yw5")
+
+[node name="set_unhaul_to_region" type="Node" parent="act/set_unhaul_to_region"]
+script = ExtResource("2_lq0ke")
+
+[node name="clear_unhaul_to_region" type="Node" parent="act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("7_g85nc")
+
+[node name="is_hauling" type="Node" parent="act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("8_satn4")
+
+[node name="set_unhaul_from_type" type="Node" parent="act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("9_1vcan")
+
+[node name="set_unhaul_to_region" type="Node" parent="act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("10_j5afn")
+
+[node name="set_move" type="Node" parent="act"]
+script = ExtResource("11_rspw6")
+
+[node name="set_move_to_hauled" type="Node" parent="act/set_move"]
+script = ExtResource("12_0id8f")
+
+[node name="set_move_to_unhaul" type="Node" parent="act/set_move"]
+script = ExtResource("13_83w5d")
+
+[node name="set_move_to_unexplored" type="Node" parent="act/set_move"]
+script = ExtResource("14_7oj5d")
+
+[node name="unset_move" type="Node" parent="act/set_move"]
+script = ExtResource("15_wy5cd")
+
+[node name="act" type="Node" parent="act"]
+script = ExtResource("11_rspw6")
+
+[node name="stop_to_haul" type="Node" parent="act/act"]
+script = ExtResource("16_ajn0f")
+
+[node name="move_to_position" type="Node" parent="act/act"]
+script = ExtResource("17_gdl04")
+
+[node name="stop_moving" type="Node" parent="act/act"]
+script = ExtResource("18_p5oi0")
