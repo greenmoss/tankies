@@ -6,6 +6,9 @@ func tick(actor, blackboard):
     if move_position == null:
         return FAILURE
 
+    if move_position == actor.position:
+        return FAILURE
+
     actor.set_manual()
     actor.move_toward(move_position)
     return SUCCESS

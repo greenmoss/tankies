@@ -186,6 +186,10 @@ func leave_city():
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding
     # consequently, this is best used to move to a neighboring coordinate/position
+    if new_position == position:
+        push_warning("refusing to move toward ",new_position," since we are already on that position")
+        return
+
     var move_direction: Vector2 = (position - new_position).normalized()
 
     if(move_direction[0] > 0):

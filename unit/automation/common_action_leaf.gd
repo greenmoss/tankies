@@ -42,7 +42,7 @@ func get_unexplored_perimeter(actor:Unit, search_radius:int, explored:Dictionary
     var region_max_y = region.max_bound.y + 1
 
     var coordinate:Vector2
-    # TODO: fix off-by-one/mismatch here, then use only `coordinate` and delete this one:
+    # TODO: fix off-by-one/mismatch here, then use only `coordinate` and delete `explored_coordinate`:
     var explored_coordinate:Vector2
     var perimeter:Array[Vector2] = []
     var x_range = range(x_first, x_last)
@@ -55,12 +55,6 @@ func get_unexplored_perimeter(actor:Unit, search_radius:int, explored:Dictionary
         else:
             y_range = [ y_first, y_last - 1 ]
         for y in y_range:
-            coordinate = Vector2(x, y)
-            explored_coordinate = Vector2(x+1, y+1)
-            if not explored_coordinate in explored:
-                continue
-            if explored[explored_coordinate] == true:
-                continue
             if x < region_min_x:
                 continue
             if x > region_max_x:
@@ -69,6 +63,15 @@ func get_unexplored_perimeter(actor:Unit, search_radius:int, explored:Dictionary
                 continue
             if y > region_max_y:
                 continue
+
+            coordinate = Vector2(x, y)
+
+            explored_coordinate = Vector2(x+1, y+1)
+            if not explored_coordinate in explored:
+                continue
+            if explored[explored_coordinate] == true:
+                continue
+
             perimeter.append(coordinate)
 
     return perimeter
