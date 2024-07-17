@@ -25,7 +25,7 @@ func tick(actor, blackboard):
 
     if unit == null: return FAILURE
 
-    print("hauler ",actor," is setting unhaul to city for ",unit)
+    #print("hauler ",actor," is setting unhaul to city for ",unit)
 
     var path_to_unhaul:PackedVector2Array = []
 

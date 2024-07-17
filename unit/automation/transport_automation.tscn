@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bhq8u3ebam6rr"]
+[gd_scene load_steps=19 format=3 uid="uid://bhq8u3ebam6rr"]
 
 [ext_resource type="Script" path="res://unit/automation/automation.gd" id="1_qu335"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_7pe2i"]
@@ -11,8 +11,11 @@
 [ext_resource type="Script" path="res://addons/beehave/nodes/leaves/action.gd" id="6_2yrdv"]
 [ext_resource type="Script" path="res://unit/automation/unset_move.gd" id="6_3ehcb"]
 [ext_resource type="Script" path="res://unit/automation/set_unhaul_to_region.gd" id="6_bqvx8"]
+[ext_resource type="Script" path="res://unit/automation/clear_unhaul_to_region.gd" id="7_r1ywf"]
+[ext_resource type="Script" path="res://unit/automation/is_hauling.gd" id="8_bnktm"]
 [ext_resource type="Script" path="res://unit/automation/stop_to_haul.gd" id="8_k4wcv"]
 [ext_resource type="Script" path="res://unit/automation/set_move_to_unhaul.gd" id="8_uik4h"]
+[ext_resource type="Script" path="res://unit/automation/set_unhaul_from_type.gd" id="9_b111l"]
 [ext_resource type="Script" path="res://unit/automation/move_to_position.gd" id="14_igcab"]
 [ext_resource type="Script" path="res://unit/automation/stop_moving.gd" id="15_6osva"]
 
@@ -46,6 +49,18 @@ script = ExtResource("6_2yrdv")
 script = ExtResource("3_l2ko6")
 
 [node name="set_unhaul_to_region" type="Node" parent="act/set_unhaul_to_region"]
+script = ExtResource("2_7pe2i")
+
+[node name="clear_unhaul_to_region" type="Node" parent="act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("7_r1ywf")
+
+[node name="is_hauling" type="Node" parent="act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("8_bnktm")
+
+[node name="set_unhaul_from_type" type="Node" parent="act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("9_b111l")
+
+[node name="set_unhaul_to_region" type="Node" parent="act/set_unhaul_to_region/set_unhaul_to_region"]
 script = ExtResource("6_bqvx8")
 
 [node name="set_move" type="Node" parent="act"]
