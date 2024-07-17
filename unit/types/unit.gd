@@ -107,6 +107,8 @@ func can_haul_unit(hauled_unit:Unit) -> bool:
 
 
 func disband():
+    for unit in hauled_units:
+        unit.disband()
     queue_free()
     # are we an invalid reference?
     # If not, perhaps a listener can benefit from knowing what we were

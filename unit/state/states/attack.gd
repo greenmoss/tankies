@@ -39,7 +39,15 @@ func attack_unit():
         deny_invalid(owner.unit.state.scout.target_units[0].my_team)
         return
 
-    battle.attack_unit(owner.unit, owner.unit.state.scout.target_units[0])
+    var targeted_unit:Unit = null
+    for unit in owner.unit.state.scout.target_units:
+        if not is_instance_valid(unit): continue
+        if unit.is_queued_for_deletion(): continue
+        if unit.is_hauled(): continue
+        targeted_unit = unit
+        break
+
+    battle.attack_unit(owner.unit, targeted_unit)
     await SignalBus.battle_finished
 
     if battle.winner == owner.unit:
