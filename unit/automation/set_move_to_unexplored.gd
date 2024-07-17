@@ -1,12 +1,14 @@
 extends ActionLeaf
 
+@onready var region:Region = null
+
 
 func tick(actor, blackboard):
     var regions = blackboard.get_value("regions")
-    var region = regions.get_from_unit(actor)
+    region = regions.get_from_unit(actor)
     if region == null: return FAILURE
+
     var max_search_radius = region.get_max_distance()
-    blackboard.set_value("region", region)
     blackboard.set_value("exploration_path", null)
 
     for search_radius in range(actor.vision.distance + 1, max_search_radius + 1):
@@ -68,7 +70,6 @@ func get_unexplored_perimeter(actor:Unit, search_radius:int, blackboard:Blackboa
     var y_last =  center.y + search_radius + 1
 
     var explored = blackboard.get_value("explored")
-    var region = blackboard.get_value("region")
     var region_min_x = region.min_bound.x
     # TODO: investigate off-by-one, maybe call as function if these "+1" are needed
     var region_max_x = region.max_bound.x + 1
