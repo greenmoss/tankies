@@ -54,13 +54,13 @@ func set_unhaul_exploration_path(actor:Unit, unit:Unit, search_radius:int, black
         if approach_path.is_empty(): continue
 
         if path_to_unhaul.is_empty():
-            #print("initializing unaul to exploration path with size ",path_to_unhaul.size()," and region ",target_region)
+            #print("initializing unhaul to exploration path with size ",approach_path.size()," and region ",target_region)
             blackboard.set_value('unhaul_to_unexplored_path', approach_path)
             blackboard.set_value('unhaul_to_unexplored_region', target_region)
             continue
 
         if approach_path.size() < path_to_unhaul.size():
-            #print("reducing unaul to exploration path to size ",path_to_unhaul.size()," and region ",target_region)
+            #print("reducing unhaul to exploration path to size ",approach_path.size()," and region ",target_region)
             blackboard.set_value('unhaul_to_unexplored_path', approach_path)
             blackboard.set_value('unhaul_to_unexplored_region', target_region)
             continue
