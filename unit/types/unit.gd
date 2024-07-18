@@ -107,6 +107,8 @@ func can_haul_unit(hauled_unit:Unit) -> bool:
 
 
 func disband():
+    for unit in hauled_units:
+        unit.disband()
     queue_free()
     # are we an invalid reference?
     # If not, perhaps a listener can benefit from knowing what we were
@@ -184,6 +186,10 @@ func leave_city():
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding
     # consequently, this is best used to move to a neighboring coordinate/position
+    if new_position == position:
+        push_warning("refusing to move toward ",new_position," since we are already on that position")
+        return
+
     var move_direction: Vector2 = (position - new_position).normalized()
 
     if(move_direction[0] > 0):
@@ -249,6 +255,14 @@ func set_unhauled():
         hauled_in.unhaul_unit(self)
     hauled_in = null
     visible = true
+
+
+func steer_from_hauled(hauled_unit:Unit, steer_direction:Vector2):
+    print("hauled unit ",hauled_unit," wants me ",self," to move to ",steer_direction)
+    if hauled_unit not in hauled_units: return
+    look_direction = steer_direction
+    state.switch_to('scout')
+    #move_toward(steer_direction)
 
 
 func unhaul_unit(hauled_unit:Unit):

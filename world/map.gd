@@ -27,34 +27,12 @@ func debug_regions():
     push_warning('')
 
 
-func get_in_bounds_neighbors(this_position) -> Array[Vector2i]:
-    var neighbors:Array[Vector2i] = []
-    for neighbor_position in get_neighbors(this_position):
-        if neighbor_position.x > terrain.x_max: continue
-        if neighbor_position.x < terrain.x_min: continue
-        if neighbor_position.y > terrain.y_max: continue
-        if neighbor_position.y < terrain.y_min: continue
-        neighbors.append(neighbor_position)
-    return(neighbors)
-
-
-func get_neighbors(this_position) -> Array[Vector2i]:
-    return(
-        [
-            this_position + Vector2i.LEFT,
-            this_position + Vector2i.UP,
-            this_position + Vector2i.RIGHT,
-            this_position + Vector2i.DOWN
-        ]
-    )
-
-
 # join ports to all neighboring regions
 func join_ports():
     for region in regions.get_children():
         if region.terrain_type != 'port': continue
         for this_position in region.positions:
-            for neighbor_position in get_in_bounds_neighbors(this_position):
+            for neighbor_position in terrain.get_in_bounds_neighbors(this_position):
                 var neighbor_regions = regions.by_position[neighbor_position]
                 for neighbor_region in neighbor_regions:
                     regions.set_position(this_position, neighbor_region.id)
@@ -81,7 +59,7 @@ func set_regions():
             current_region += 1
             regions.set_position(this_position, current_region)
 
-        for neighbor_position in get_in_bounds_neighbors(this_position):
+        for neighbor_position in terrain.get_in_bounds_neighbors(this_position):
             if neighbor_position in regions.by_position: continue
 
             var neighbor_group = terrain.get_position_group(neighbor_position)
@@ -94,3 +72,4 @@ func set_regions():
 
     regions.set_terrain(terrain)
     join_ports()
+    regions.set_approaches(terrain)
