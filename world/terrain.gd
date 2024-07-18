@@ -122,7 +122,7 @@ func init_navigation(layer_name:String):
     navigation_layer.offset = CELL_SIZE * 0.5
     navigation_layer.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
     navigation_layer.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
-    navigation_layer.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+    navigation_layer.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
     navigation_layer.update()
     navigation[layer_name] = navigation_layer
 
