@@ -138,6 +138,8 @@ func get_segment_neighbors(point:Vector2i) -> Array[Vector2i]:
 # can follow a "ring" around the region
 func segment_approaches():
     #print("region ",self," approaches: ",approaches)
+    if approaches.is_empty(): return
+
     var unassigned = approaches.slice(1)
     var segment:Array[Vector2i] = [approaches[0]]
 
