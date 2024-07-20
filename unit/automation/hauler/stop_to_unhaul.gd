@@ -14,7 +14,7 @@ func tick(actor, blackboard):
 
     actor.set_manual()
     for hauled_unit in actor.hauled_units:
-        #print("hauler ",actor," stopping to unhaul ",hauled_unit)
+        #print("hauler ",actor," stopping to unhaul ",hauled_unit, " with moves ",hauled_unit.moves_remaining)
         hauled_unit.set_automatic()
         # TODO: figure out how to wait until unhauled units have completed
         # can not use `await`

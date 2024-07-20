@@ -44,6 +44,9 @@ func tick(_actor, blackboard):
     if type == null:
         return FAILURE
 
+    #print("setting unhaul for ",actor," to type ",type)
+    #print(blackboard.get_value('unhaul_to_'+type+'_region'))
+    #print(blackboard.get_value('unhaul_to_'+type+'_path'))
     blackboard.set_value("unhaul_to_region_closest_path", blackboard.get_value('unhaul_to_'+type+'_path'))
     blackboard.set_value("unhaul_to_region_closest_region", blackboard.get_value('unhaul_to_'+type+'_region'))
     return SUCCESS

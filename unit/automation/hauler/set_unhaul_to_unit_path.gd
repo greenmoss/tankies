@@ -7,6 +7,8 @@ func tick(actor, blackboard):
     blackboard.set_value('unhaul_to_unit_path', null)
     blackboard.set_value('unhaul_to_unit_region', null)
 
+    #print("transport ",actor," setting unhaul to unit path with moves remaining ",actor.moves_remaining," and state ",actor.state.current_state.name)
+
     if not actor.is_hauling(): return FAILURE
 
     var unit_candidates = blackboard.get_value("unit_candidates")

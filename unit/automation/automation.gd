@@ -26,3 +26,16 @@ func initialize(
     blackboard.set_value("my_units", my_units)
     blackboard.set_value("regions", regions)
     blackboard.set_value("terrain", terrain)
+
+    # also initialize hauled units
+    # in case they unhaul
+    if owner.is_hauling():
+        for unit in owner.hauled_units:
+            unit.automation.initialize(
+                city_candidates,
+                unit_candidates,
+                explored,
+                my_units,
+                regions,
+                terrain,
+            )

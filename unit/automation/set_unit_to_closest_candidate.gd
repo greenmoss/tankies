@@ -5,7 +5,7 @@ func tick(actor, blackboard):
     var unit_candidates = blackboard.get_value("unit_candidates")
     var terrain = blackboard.get_value("terrain")
 
-    #print("unit ",actor," setting closest candidate from ",unit_candidates)
+    #print("unit ",actor," setting closest candidate from ",unit_candidates," with moves remaining ",actor.moves_remaining)
 
     if (unit_candidates == null) or (terrain == null):
         blackboard.set_value("unit_target", null)
