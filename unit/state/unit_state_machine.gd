@@ -1,6 +1,7 @@
 extends "res://common/state_machine.gd"
 
 @onready var attack = $attack
+@onready var block = $block
 @onready var capture = $capture
 @onready var crash = $crash
 @onready var end = $end
@@ -29,6 +30,7 @@ func _ready():
 
     active_states = {
         "attack": attack,
+        "block": block,
         "capture": capture,
         "crash": crash,
         "move": move,

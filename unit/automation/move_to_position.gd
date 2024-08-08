@@ -9,6 +9,10 @@ func tick(actor, blackboard):
     if move_position == actor.position:
         return FAILURE
 
+    if move_position in actor.state.block.get_positions():
+        return FAILURE
+    #print("moving to position ",move_position," with blocked looks ",actor.state.block.get_positions())
+
     actor.set_manual()
     actor.move_toward(move_position)
     return SUCCESS

@@ -205,6 +205,7 @@ func move_toward(new_position):
 
 
 func refill_moves():
+    state.block.clear()
     moves_remaining = moves_per_turn
     state.rotate()
 

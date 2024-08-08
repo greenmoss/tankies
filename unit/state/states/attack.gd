@@ -3,8 +3,7 @@ extends "../common/move.gd"
 
 func enter():
     if not owner.unit.can_attack():
-        owner.unit.sounds.play_denied()
-        emit_signal("next_state", "idle")
+        emit_signal("next_state", "block")
         return
 
     battle = owner.unit.get_node('..').battle
