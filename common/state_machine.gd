@@ -5,6 +5,7 @@ extends Node
 # and changing the current/active state.
 # See the PlayerV2 scene for an example on how to use it.
 
+@warning_ignore("unused_signal")
 signal state_changed(current_state)
 
 # You should set a starting node from the inspector or on the node that inherits

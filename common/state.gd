@@ -3,7 +3,7 @@ extends Node
 # but forces us to pass the right arguments to the methods below
 # and makes sure every State object had all of these methods.
 
-# warning-ignore:unused_signal
+@warning_ignore("unused_signal")
 signal next_state(next_state_name)
 
 

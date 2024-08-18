@@ -7,7 +7,9 @@ var controller_team:String
 
 @onready var state = $state
 
+@warning_ignore("unused_signal")
 signal want_nearest_unit
+@warning_ignore("unused_signal")
 signal want_next_unit
 
 
