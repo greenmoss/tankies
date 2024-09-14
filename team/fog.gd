@@ -1,12 +1,11 @@
-extends TileMap
+extends TileMapLayer
 
-# The positive Vector2i correspond to fog tilemap atlas coordinates
+# The positive Vector2i correspond to fog tilemap layer atlas coordinates
 var states = {
     'unexplored': Vector2i(0,0),
     'unseen': Vector2i(0,1),
     'visible': Vector2i(-1,-1),
     }
-var tile_layer = 0
 var tile_source = 0
 var space_state
 var query
@@ -42,13 +41,13 @@ func _on_vision_derived():
             #else:
             #    set_unseen(local_coordinate)
         else:
-            set_cell(tile_layer, local_coordinate, tile_source, states['unexplored'])
+            set_cell(local_coordinate, tile_source, states['unexplored'])
 
 
 func set_seen(local_coordinate):
     were_seen.erase(local_coordinate)
 
-    set_cell(tile_layer, local_coordinate, tile_source, states['visible'])
+    set_cell(local_coordinate, tile_source, states['visible'])
 
 
 # TODO: missing code before I can enable this:
@@ -59,7 +58,7 @@ func set_seen(local_coordinate):
 func set_unseen(local_coordinate):
     if were_seen.has(local_coordinate): return
 
-    set_cell(tile_layer, local_coordinate, tile_source, states['unseen'])
+    set_cell(local_coordinate, tile_source, states['unseen'])
     var global_coordinate = Vector2i(local_coordinate.x * 80, local_coordinate.y * 80)
     query.position = Vector2i(global_coordinate.x, global_coordinate.y)
     var _intersects = space_state.intersect_point(query)

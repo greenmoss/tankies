@@ -66,12 +66,12 @@ script = ExtResource("6_ybu3p")
 [node name="vision" type="Node" parent="."]
 script = ExtResource("11_exhbn")
 
-[node name="fog" type="TileMap" parent="."]
+[node name="fog" type="TileMapLayer" parent="."]
 visible = false
+use_parent_material = true
 tile_set = SubResource("TileSet_qb0v8")
 collision_visibility_mode = 2
 navigation_visibility_mode = 2
-format = 2
 script = ExtResource("13_tmtby")
 
 [node name="phantoms" type="CanvasLayer" parent="fog"]

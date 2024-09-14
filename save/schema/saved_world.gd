@@ -22,7 +22,7 @@ func save_team(team: Team):
     saved_team.save(team)
     teams.append(saved_team)
 
-func save_terrain(previous_terrain: TileMap):
+func save_terrain(previous_terrain: Terrain):
     var saved_terrain = SavedTerrain.new()
     saved_terrain.save(previous_terrain)
     terrain = saved_terrain
