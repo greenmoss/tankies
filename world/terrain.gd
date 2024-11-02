@@ -113,21 +113,6 @@ func is_point_walkable(local_position, group_name:String):
 func restore(saved_terrain: SavedTerrain):
     clear()
     set("tile_map_data", saved_terrain.tile_map_data)
-    #print(tile_groups)
-    #if saved_terrain.tile_map_data.is_empty():
-    #    print("missing tile_map_data, trying to convert ")
-    #    set("tile_map_data", saved_terrain.layers[0].to_byte_array())
-    #else:
-    #    set("tile_map_data", saved_terrain.tile_map_data)
-    #print(tile_map_data)
-    #REF
-    #print("old layers ", saved_terrain.layers[0])
-    #print("old layers as PackedByteArray ", saved_terrain.layers[0].to_byte_array())
-    #print("new tile_map_data ", saved_terrain.tile_map_data)
-    #var layer_number = 0
-    #for saved_layer in saved_terrain.layers:
-    #    set("layer_"+str(layer_number)+"/tile_data", saved_layer)
-    #    layer_number += 1
     set_navigation()
 
 

@@ -11,7 +11,3 @@ func save(terrain:Terrain):
     self._class_name = 'SavedTerrain'
 
     tile_map_data = terrain.get('tile_map_data')
-    # REF
-    #layers = []
-    #for layer_number in terrain.get_layers_count():
-    #    layers.append(terrain.get("layer_"+str(layer_number)+"/tile_data"))
