@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bcmlletmcku2b"]
 
-[ext_resource type="Script" path="res://lobby/lobby.gd" id="1_cbooc"]
+[ext_resource type="Script" uid="uid://b5k882itymkt2" path="res://lobby/lobby.gd" id="1_cbooc"]
 [ext_resource type="PackedScene" uid="uid://t6cf0w8k2f4f" path="res://lobby/introduction.tscn" id="2_i664r"]
 [ext_resource type="PackedScene" uid="uid://bufvbk6y65jkb" path="res://world/world.tscn" id="3_got4q"]
-[ext_resource type="Script" path="res://save/loader.gd" id="4_vne7r"]
+[ext_resource type="Script" uid="uid://hhfvweppilq4" path="res://save/loader.gd" id="4_vne7r"]
 
 [node name="Lobby" type="Node2D"]
 script = ExtResource("1_cbooc")

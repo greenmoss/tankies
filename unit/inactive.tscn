@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bepehu0bh607k"]
 
-[ext_resource type="Script" path="res://unit/Inactive.gd" id="1_5pqpi"]
+[ext_resource type="Script" uid="uid://xv8udab1pew7" path="res://unit/Inactive.gd" id="1_5pqpi"]
 [ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="2_w8cai"]
 
 [node name="Inactive" type="ColorRect"]

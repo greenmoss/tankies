@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://d0cfmyfdmy8mo"]
 
-[ext_resource type="Script" path="res://unit/types/fighter/fighter.gd" id="1_x1auo"]
+[ext_resource type="Script" uid="uid://bl75hrwwkqfon" path="res://unit/types/fighter/fighter.gd" id="1_x1auo"]
 [ext_resource type="Texture2D" uid="uid://b1v1bfgfavl4c" path="res://unit/types/fighter/F100.svg" id="2_p5gw8"]
-[ext_resource type="Script" path="res://unit/types/fighter/sounds.gd" id="5_p2065"]
+[ext_resource type="Script" uid="uid://bvhkuv0u7wmx3" path="res://unit/types/fighter/sounds.gd" id="5_p2065"]
 [ext_resource type="AudioStream" uid="uid://dfkp82kv2x34v" path="res://unit/types/fighter/fighter-jet.mp3" id="6_kh4b6"]
 [ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state/state.tscn" id="6_t1ex6"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="7_42oqr"]
@@ -10,9 +10,9 @@
 [ext_resource type="AudioStream" uid="uid://bn4gfedm0ed4u" path="res://unit/types/fighter/plane_down.mp3" id="9_q2pc7"]
 [ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_s0mtd"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="15_oucdu"]
-[ext_resource type="Script" path="res://unit/plan.gd" id="18_41f43"]
-[ext_resource type="Script" path="res://unit/vision.gd" id="19_xnqix"]
-[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="35_36ycv"]
+[ext_resource type="Script" uid="uid://b46lm6ve4sqrg" path="res://unit/plan.gd" id="18_41f43"]
+[ext_resource type="Script" uid="uid://7g8o6cw7ldaw" path="res://unit/vision.gd" id="19_xnqix"]
+[ext_resource type="Script" uid="uid://v8g1hoqc0eu3" path="res://addons/beehave/blackboard.gd" id="35_36ycv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)

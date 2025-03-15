@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=3 uid="uid://bjftff5tujhp2"]
 
-[ext_resource type="Script" path="res://battle/target.gd" id="1_c3713"]
+[ext_resource type="Script" uid="uid://guwgohyxeu21" path="res://battle/target.gd" id="1_c3713"]
 [ext_resource type="Texture2D" uid="uid://bg1twwo8b645x" path="res://battle/Impact016Yellow .png" id="2_qcy5r"]
 [ext_resource type="Texture2D" uid="uid://csdsslxw4u33f" path="res://battle/exp2.png" id="3_jqd04"]
 
