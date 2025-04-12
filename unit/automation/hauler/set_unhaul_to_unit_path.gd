@@ -54,6 +54,8 @@ func tick(actor, blackboard):
                 continue
 
             var region_with_enemy = regions.get_from_unit(nearby_enemy)
+            if region_with_enemy == null: continue
+
             var region_is_compatible = (unit.get_colliders() & region_with_enemy.colliders) == 0
             if not region_is_compatible: continue
             #print("unit ",nearby_enemy," region: ",region_with_enemy)
