@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://t6cf0w8k2f4f"]
 
-[ext_resource type="Script" path="res://lobby/introduction.gd" id="1_35xql"]
+[ext_resource type="Script" uid="uid://btf8omgkdcy7w" path="res://lobby/introduction.gd" id="1_35xql"]
 [ext_resource type="AudioStream" uid="uid://n1q2b5lwftnm" path="res://lobby/oga_secret_devastates.mp3" id="2_awbw0"]
 [ext_resource type="Texture2D" uid="uid://dqerqlfmbvtg7" path="res://unit/types/tank/tank.svg" id="2_qqt7r"]
 [ext_resource type="Texture2D" uid="uid://bxvdp2v7oxpad" path="res://unit/types/tank/tank.png" id="2_skuq0"]
