@@ -14,7 +14,7 @@ func _ready():
 
 # true if we set our path
 # false if we could not create a path
-func set_path_to_city(target_city:City, terrain:TileMap, navigation = null) -> bool:
+func set_path_to_city(target_city:City, terrain:TileMapLayer, navigation = null) -> bool:
     if navigation == null:
         navigation = owner.navigation
     path_to_city = create_path(path_to_city, target_city.position, terrain, navigation)
@@ -29,7 +29,7 @@ func set_path_to_city(target_city:City, terrain:TileMap, navigation = null) -> b
 
 # true if we set our path
 # false if we could not create a path
-func set_path_to_unit(target_unit:Unit, terrain:TileMap, navigation = null) -> bool:
+func set_path_to_unit(target_unit:Unit, terrain:TileMapLayer, navigation = null) -> bool:
     if navigation == null:
         navigation = owner.navigation
     path_to_unit = create_path(path_to_unit, target_unit.position, terrain, navigation)
@@ -43,7 +43,7 @@ func set_path_to_unit(target_unit:Unit, terrain:TileMap, navigation = null) -> b
 
 
 # set_path is reserved, so don't use that name for this function
-func create_path(path:PackedVector2Array, destination:Vector2, terrain:TileMap, navigation_name:String) -> PackedVector2Array:
+func create_path(path:PackedVector2Array, destination:Vector2, terrain:TileMapLayer, navigation_name:String) -> PackedVector2Array:
     if not terrain.is_point_walkable(destination, navigation_name):
         path.clear()
         return path

@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://d0tcjutg46uvm"]
 
-[ext_resource type="Script" path="res://unit/types/transport/transport.gd" id="1_gq36w"]
-[ext_resource type="Script" path="res://unit/sounds/sounds.gd" id="2_p1e00"]
+[ext_resource type="Script" uid="uid://bf7tyd11v6coc" path="res://unit/types/transport/transport.gd" id="1_gq36w"]
+[ext_resource type="Script" uid="uid://dboxq6m0lqoxx" path="res://unit/sounds/sounds.gd" id="2_p1e00"]
 [ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/types/tank/engine_heavy_loop.mp3" id="3_2nvwv"]
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="4_0hqhm"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="5_vj2s6"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3mylfr0kmvxc"]
 
-[ext_resource type="Script" path="res://unit/display.gd" id="1_shdmk"]
+[ext_resource type="Script" uid="uid://fgey1duig73v" path="res://unit/display.gd" id="1_shdmk"]
 [ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="2_kbm1b"]
 [ext_resource type="Texture2D" uid="uid://dqerqlfmbvtg7" path="res://unit/types/tank/tank.svg" id="2_lent2"]
 

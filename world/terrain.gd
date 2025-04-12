@@ -1,4 +1,4 @@
-extends TileMap
+extends TileMapLayer
 class_name Terrain
 
 const CELL_SIZE = Vector2i(Global.tile_size, Global.tile_size)
@@ -46,7 +46,7 @@ var group_names = {
 # initialized within set_navigation()
 var navigation:Dictionary
 
-# if we have blocker tiles surrounding the tilemap, how wide are they
+# if we have blocker tiles surrounding the tilemap layer, how wide are they
 @export var blocker_margin:int
 
 
@@ -110,9 +110,7 @@ func get_position_group(map_position:Vector2i) -> int:
 
 
 func get_surface_tile(map_position:Vector2i):
-    # layer 0 is the surface
-    # if we add more layers later, adjust layer names/numbers as required
-    return get_cell_tile_data(0, map_position)
+    return get_cell_tile_data(map_position)
 
 
 func init_navigation(layer_name:String):
@@ -136,10 +134,7 @@ func is_point_walkable(local_position:Vector2i, group_name:String):
 
 func restore(saved_terrain: SavedTerrain):
     clear()
-    var layer_number = 0
-    for saved_layer in saved_terrain.layers:
-        set("layer_"+str(layer_number)+"/tile_data", saved_layer)
-        layer_number += 1
+    set("tile_map_data", saved_terrain.tile_map_data)
     set_navigation()
 
 

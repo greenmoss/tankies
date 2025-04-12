@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bnajm6h8eoqhv"]
 
-[ext_resource type="Script" path="res://turn/turn_overlay.gd" id="1_5s1q0"]
+[ext_resource type="Script" uid="uid://d3g8b3vjwhwqo" path="res://turn/turn_overlay.gd" id="1_5s1q0"]
 [ext_resource type="Theme" uid="uid://c1nmfw7vtwmjo" path="res://lobby/theme.tres" id="2_yxlb0"]
 
 [sub_resource type="SystemFont" id="SystemFont_bfihn"]

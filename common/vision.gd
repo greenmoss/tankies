@@ -3,14 +3,14 @@ class_name Vision
 # Base interface for vision
 # Could be one unit, one city, or a whole team
 
-# NOTE: TileMap layer uses its own coordinates system
+# NOTE: TileMapLayer uses its own coordinates system
 # This is different than the global positions
-# For example, world position [80,80] converts to tilemap coordinate [1,1]
+# For example, world position [80,80] converts to tilemap layer coordinate [1,1]
 var coordinates:Array[Vector2]
 var distance:int
 
 
-# convert from world position to vision/tilemap coordinate
+# convert from world position to vision/tilemap layer coordinate
 func convert_from_world_position(position:Vector2) -> Vector2:
     var view_coordinate = position
     view_coordinate.x = ceil(view_coordinate.x / Global.tile_size)

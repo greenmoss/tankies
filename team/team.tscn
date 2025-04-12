@@ -1,19 +1,19 @@
 [gd_scene load_steps=17 format=3 uid="uid://sgl6kqwi4tqx"]
 
-[ext_resource type="Script" path="res://team/team.gd" id="1_xuuym"]
-[ext_resource type="Script" path="res://team/state/team_state_machine.gd" id="2_qpcv6"]
-[ext_resource type="Script" path="res://team/state/states/end.gd" id="3_4hdkt"]
-[ext_resource type="Script" path="res://team/state/states/begin.gd" id="3_4ktwo"]
-[ext_resource type="Script" path="res://team/state/states/move.gd" id="4_m15pt"]
-[ext_resource type="Script" path="res://team/state/states/human_begin.gd" id="4_r26uf"]
-[ext_resource type="Script" path="res://team/state/states/plan.gd" id="6_fsufs"]
-[ext_resource type="Script" path="res://team/state/states/wait.gd" id="6_ybu3p"]
-[ext_resource type="Script" path="res://team/state/states/ai_plan.gd" id="7_tejo1"]
-[ext_resource type="Script" path="res://team/state/states/human_plan.gd" id="8_qs071"]
-[ext_resource type="Script" path="res://team/vision.gd" id="11_exhbn"]
+[ext_resource type="Script" uid="uid://ihsfi85u6npo" path="res://team/team.gd" id="1_xuuym"]
+[ext_resource type="Script" uid="uid://xasgmw22a2lr" path="res://team/state/team_state_machine.gd" id="2_qpcv6"]
+[ext_resource type="Script" uid="uid://b5ge8vpu8oobo" path="res://team/state/states/end.gd" id="3_4hdkt"]
+[ext_resource type="Script" uid="uid://dc0iaq8dwbhi" path="res://team/state/states/begin.gd" id="3_4ktwo"]
+[ext_resource type="Script" uid="uid://cun2nwetvu7td" path="res://team/state/states/move.gd" id="4_m15pt"]
+[ext_resource type="Script" uid="uid://bnwusvbo2xfft" path="res://team/state/states/human_begin.gd" id="4_r26uf"]
+[ext_resource type="Script" uid="uid://ee01fte4f6us" path="res://team/state/states/plan.gd" id="6_fsufs"]
+[ext_resource type="Script" uid="uid://bfc8k7rrfuqig" path="res://team/state/states/wait.gd" id="6_ybu3p"]
+[ext_resource type="Script" uid="uid://bbb1a2386n02" path="res://team/state/states/ai_plan.gd" id="7_tejo1"]
+[ext_resource type="Script" uid="uid://cv4lxo0b25xlf" path="res://team/state/states/human_plan.gd" id="8_qs071"]
+[ext_resource type="Script" uid="uid://cegobjv6bessd" path="res://team/vision.gd" id="11_exhbn"]
 [ext_resource type="Texture2D" uid="uid://7v4a7i7po6qs" path="res://team/fog.svg" id="12_l63hk"]
-[ext_resource type="Script" path="res://team/fog.gd" id="13_tmtby"]
-[ext_resource type="Script" path="res://team/stack_lids.gd" id="14_x7x1b"]
+[ext_resource type="Script" uid="uid://blqg5jwijiku" path="res://team/fog.gd" id="13_tmtby"]
+[ext_resource type="Script" uid="uid://ungliu0fwel5" path="res://team/stack_lids.gd" id="14_x7x1b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p3rdr"]
 texture = ExtResource("12_l63hk")
@@ -66,12 +66,12 @@ script = ExtResource("6_ybu3p")
 [node name="vision" type="Node" parent="."]
 script = ExtResource("11_exhbn")
 
-[node name="fog" type="TileMap" parent="."]
+[node name="fog" type="TileMapLayer" parent="."]
 visible = false
+use_parent_material = true
 tile_set = SubResource("TileSet_qb0v8")
 collision_visibility_mode = 2
 navigation_visibility_mode = 2
-format = 2
 script = ExtResource("13_tmtby")
 
 [node name="phantoms" type="CanvasLayer" parent="fog"]

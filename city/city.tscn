@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://chngv5i76yvm4"]
 
 [ext_resource type="Texture2D" uid="uid://bnwo1hs4e50qw" path="res://city/modern-city.png" id="1_2jb7b"]
-[ext_resource type="Script" path="res://city/city.gd" id="1_86gs3"]
-[ext_resource type="Script" path="res://city/vision.gd" id="3_j6d3n"]
+[ext_resource type="Script" uid="uid://bmn67sdmfulrt" path="res://city/city.gd" id="1_86gs3"]
+[ext_resource type="Script" uid="uid://dyc4d3ig7uaxm" path="res://city/vision.gd" id="3_j6d3n"]
 [ext_resource type="AudioStream" uid="uid://7gcvb01w07wj" path="res://unit/sounds/marching.wav" id="4_y6bv0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uh4n"]

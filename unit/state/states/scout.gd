@@ -3,7 +3,7 @@ extends "res://common/state.gd"
 var colliding_node:Node = null
 var colliding_rid:RID = RID()
 var target_city:City = null
-var target_tilemap:TileMap = null
+var target_tilemap_layer:TileMapLayer = null
 var target_units:Array[Unit] = []
 
 
@@ -186,7 +186,7 @@ func targets_collider() -> bool:
 
 
 func targets_tile() -> bool:
-    return target_tilemap != null
+    return target_tilemap_layer != null
 
 
 func targets_units() -> bool:
@@ -196,7 +196,7 @@ func targets_units() -> bool:
 func set_ray_targets() -> void:
     target_city = null
     target_units = []
-    target_tilemap = null
+    target_tilemap_layer = null
 
     # get all ray collision targets
     # units can be inside other units or in cities, so ray can collide with multiple
@@ -206,8 +206,8 @@ func set_ray_targets() -> void:
         colliding_node = owner.unit.ray.get_collider()
         colliding_rid = owner.unit.ray.get_collider_rid()
 
-        if colliding_node is TileMap:
-            target_tilemap = colliding_node
+        if colliding_node is TileMapLayer:
+            target_tilemap_layer = colliding_node
             target_rids.append(colliding_rid)
             owner.unit.ray.add_exception_rid(colliding_rid)
         else:

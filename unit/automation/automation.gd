@@ -1,3 +1,4 @@
+@tool
 class_name BTUnitAutomation extends BeehaveTree
 
 # since get_class() returns `Node` and we can't override it
