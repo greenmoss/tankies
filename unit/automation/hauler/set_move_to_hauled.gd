@@ -1,3 +1,4 @@
+@tool
 extends ActionLeaf
 # Units need hauling
 # Move to them

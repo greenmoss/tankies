@@ -1,3 +1,4 @@
+@tool
 extends 'common_action_leaf.gd'
 
 @onready var exploration_paths:Array = []

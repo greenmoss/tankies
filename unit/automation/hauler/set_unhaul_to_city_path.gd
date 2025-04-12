@@ -1,3 +1,4 @@
+@tool
 extends 'common_action_leaf.gd'
 # This unit is hauling units
 # Move to wherever they want to go

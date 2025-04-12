@@ -1,3 +1,4 @@
+@tool
 extends ActionLeaf
 
 var current_region:Region = null
