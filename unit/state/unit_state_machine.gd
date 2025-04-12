@@ -21,6 +21,7 @@ var unit:Unit
 
 
 func _change_state(state_name):
+    #print(unit.name + " state " + state_name)
     if not _active:
         return
     super._change_state(state_name)

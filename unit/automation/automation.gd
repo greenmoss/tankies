@@ -28,6 +28,13 @@ func initialize(
     blackboard.set_value("regions", regions)
     blackboard.set_value("terrain", terrain)
 
+    var thoughts = blackboard.get_value("thoughts")
+    if(thoughts == null):
+        clear_thoughts()
+    else:
+        blackboard.set_value("thoughts", thoughts + 1)
+    #print(owner.name + ' BT ' + str(blackboard.get_value("thoughts")))
+
     # also initialize hauled units
     # in case they unhaul
     if owner.is_hauling():
@@ -40,3 +47,6 @@ func initialize(
                 regions,
                 terrain,
             )
+
+func clear_thoughts():
+    blackboard.set_value("thoughts", 0)

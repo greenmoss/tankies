@@ -208,6 +208,7 @@ func refill_moves():
     state.block.clear()
     moves_remaining = moves_per_turn
     state.rotate()
+    automation.clear_thoughts()
 
 
 func select_me():
