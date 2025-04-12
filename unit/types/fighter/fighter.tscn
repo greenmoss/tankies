@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="15_oucdu"]
 [ext_resource type="Script" uid="uid://b46lm6ve4sqrg" path="res://unit/plan.gd" id="18_41f43"]
 [ext_resource type="Script" uid="uid://7g8o6cw7ldaw" path="res://unit/vision.gd" id="19_xnqix"]
-[ext_resource type="Script" uid="uid://v8g1hoqc0eu3" path="res://addons/beehave/blackboard.gd" id="35_36ycv"]
+[ext_resource type="Script" uid="uid://dme5f24l0edsf" path="res://addons/beehave/blackboard.gd" id="35_36ycv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
 size = Vector2(80, 80)

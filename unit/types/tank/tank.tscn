@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://7g8o6cw7ldaw" path="res://unit/vision.gd" id="8_5mw8u"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="8_evx3v"]
 [ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_o7fcj"]
-[ext_resource type="Script" uid="uid://v8g1hoqc0eu3" path="res://addons/beehave/blackboard.gd" id="10_ks5ts"]
+[ext_resource type="Script" uid="uid://dme5f24l0edsf" path="res://addons/beehave/blackboard.gd" id="10_ks5ts"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="14_6gn2j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]

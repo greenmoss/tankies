@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://laec8ukoe42u"]
 
 [ext_resource type="Script" uid="uid://uqwc7gt5bgjy" path="res://unit/automation/automation.gd" id="1_jbsqi"]
-[ext_resource type="Script" uid="uid://bperkms4pyksr" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_oo6fj"]
+[ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_oo6fj"]
 [ext_resource type="Script" uid="uid://bbg5usyeucnri" path="res://unit/automation/find_closest_city.gd" id="3_egun3"]
 [ext_resource type="Script" uid="uid://bbsjdq0l20k0y" path="res://unit/automation/find_closest_unit.gd" id="4_syquw"]
-[ext_resource type="Script" uid="uid://cdrqa0ys45l11" path="res://addons/beehave/nodes/composites/selector.gd" id="5_owawb"]
+[ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="5_owawb"]
 [ext_resource type="Script" uid="uid://bgi5x75n8i7bs" path="res://unit/automation/has_city_target.gd" id="6_nu7yb"]
 [ext_resource type="Script" uid="uid://bm0vttenmxyrf" path="res://unit/automation/has_unit_target.gd" id="7_sd8on"]
 [ext_resource type="Script" uid="uid://bwydid1cvca08" path="res://unit/automation/choose_closer_enemy.gd" id="8_wry8r"]

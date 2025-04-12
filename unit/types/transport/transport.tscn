@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://b46lm6ve4sqrg" path="res://unit/plan.gd" id="7_kqwgx"]
 [ext_resource type="Script" uid="uid://7g8o6cw7ldaw" path="res://unit/vision.gd" id="8_suxvi"]
 [ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_ki7f2"]
-[ext_resource type="Script" uid="uid://v8g1hoqc0eu3" path="res://addons/beehave/blackboard.gd" id="10_equp6"]
+[ext_resource type="Script" uid="uid://dme5f24l0edsf" path="res://addons/beehave/blackboard.gd" id="10_equp6"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="11_dfa3d"]
 [ext_resource type="Texture2D" uid="uid://oaokaprbkg1w" path="res://unit/types/transport/cargo-ship.svg" id="12_kwvdc"]
 
