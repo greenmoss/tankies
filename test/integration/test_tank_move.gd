@@ -61,7 +61,7 @@ func test_ai_unit_moves_in_default_world_after_one_turn():
     await get_tree().create_timer(1).timeout
 
     assert_eq( ai_unit.get_world_position(), Vector2i(20,10),
-        "after human skips remaining, ai has moved two positions left" )
+        "after human skips remaining, ai has moved up and left" )
     assert_eq( human_unit.get_world_position(), Vector2i(3,2),
         "human skips remaining, human is still one position right" )
     assert_eq( loader.world.turns.turn_number, 2,
