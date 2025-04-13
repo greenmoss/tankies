@@ -29,7 +29,7 @@
 script = ExtResource("1_irmyj")
 enabled = false
 actor_node_path = NodePath("..")
-blackboard = NodePath("@Node@37358")
+blackboard = NodePath("@Node@23335")
 actor = NodePath("")
 
 [node name="avoid_overthinking" type="Node" parent="."]

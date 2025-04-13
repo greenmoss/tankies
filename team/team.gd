@@ -174,4 +174,4 @@ func save(saved: SavedWorld):
 
 func tally_units() -> int:
     # includes units being freed
-    return units.get_children().size()
+    return units.get_tally()
