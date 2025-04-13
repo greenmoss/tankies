@@ -16,7 +16,7 @@ func after_each():
     _sender.release_all()
     _sender.clear()
 
-func test_ai_takes_city_with_transport():
+func test_ai_destroys_transport_and_conquers_city():
     loader.restore('000_test-ocean.tres')
     var world = loader.world
     world.start()
@@ -37,11 +37,19 @@ func test_ai_takes_city_with_transport():
     action_event.action = "skip"
     action_event.pressed = true
     Input.parse_input_event(action_event)
-    await get_tree().create_timer(3).timeout
 
-    tally = world.cities.tally_owners()
-    assert_eq( tally['RedTeam'], 2,
-        "after ai move, Red has two cities" )
+    await SignalBus.battle_finished
+    assert_true(true,
+        "after human skip, ai attacked the unit")
+    await SignalBus.battle_finished
+    assert_true(true,
+        "after ai attacked the unit, ai attacked the city")
+    await SignalBus.city_updated_vision
+    assert_true(true,
+        "after ai attacked the city, ai conquered the city")
+
+    assert_eq( world.check_winner(), 'RedTeam',
+        "after ai attack and conquer, Red is the winner" )
 
 func test_one_turn_human_and_ai():
     loader.restore('04_1-2-1.tres')
