@@ -87,5 +87,5 @@ script = ExtResource("2_p1oxx")
 cities = Array[ExtResource("1_48mih")]([SubResource("Resource_pdvon"), SubResource("Resource_djhd7"), SubResource("Resource_41e1r"), SubResource("Resource_77wgf")])
 teams = Array[ExtResource("3_y5p7c")]([SubResource("Resource_sid23"), SubResource("Resource_5kiuj"), SubResource("Resource_5aiuq")])
 terrain = SubResource("Resource_douau")
-name = "Test map with ocean"
-objective = "Use haulers"
+name = "GUT: ocean and one transport"
+objective = "The enemy can immediately attack and take over the city"

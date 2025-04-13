@@ -17,7 +17,7 @@ func after_each():
     _sender.clear()
 
 func test_ai_destroys_transport_and_conquers_city():
-    loader.restore('000_test-ocean.tres')
+    loader.restore('999_gut-forlorn-transport.tres')
     var world = loader.world
     world.start()
 
@@ -52,7 +52,7 @@ func test_ai_destroys_transport_and_conquers_city():
         "after ai attack and conquer, Red is the winner" )
 
 func test_one_turn_human_and_ai():
-    loader.restore('04_1-2-1.tres')
+    loader.restore('999_gut-land.tres')
     loader.world.start()
     var ai_units = loader.world.teams.ai_team.units.get_children()
     var human_units = loader.world.teams.human_team.units.get_children()
