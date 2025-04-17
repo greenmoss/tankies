@@ -21,6 +21,9 @@ func test_ai_destroys_transport_and_conquers_city():
     var world = loader.world
     world.start()
 
+    world.teams.human_team.units.create('transport', Vector2(440, 120), 'transport')
+    world.teams.ai_team.units.create('tank', Vector2(440, 200), 'tank')
+
     action_event.action = "next"
     action_event.pressed = true
     Input.parse_input_event(action_event)

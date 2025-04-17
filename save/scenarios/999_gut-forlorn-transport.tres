@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SavedWorld" load_steps=12 format=4]
+[gd_resource type="Resource" script_class="SavedWorld" load_steps=10 format=4]
 
 [ext_resource type="Script" path="res://save/schema/saved_city.gd" id="1_48mih"]
 [ext_resource type="Script" path="res://save/schema/saved_world.gd" id="2_p1oxx"]
@@ -42,31 +42,15 @@ icon_modulate = Color(1, 1, 1, 1)
 open = false
 _class_name = "SavedCity"
 
-[sub_resource type="Resource" id="Resource_4pllr"]
-script = ExtResource("4_lu6rb")
-my_team = "GreenTeam"
-position = Vector2(440, 120)
-modulate = Color(0, 0, 0, 1)
-_class_name = "SavedUnit"
-_unit_type = "transport"
-
 [sub_resource type="Resource" id="Resource_sid23"]
 script = ExtResource("3_y5p7c")
-saved_units = Array[ExtResource("4_lu6rb")]([SubResource("Resource_4pllr")])
+saved_units = Array[ExtResource("4_lu6rb")]([])
 name = "GreenTeam"
 _class_name = "SavedTeam"
 
-[sub_resource type="Resource" id="Resource_6ivmr"]
-script = ExtResource("4_lu6rb")
-my_team = "RedTeam"
-position = Vector2(440, 200)
-modulate = Color(0, 0, 0, 1)
-_class_name = "SavedUnit"
-_unit_type = "tank"
-
 [sub_resource type="Resource" id="Resource_5kiuj"]
 script = ExtResource("3_y5p7c")
-saved_units = Array[ExtResource("4_lu6rb")]([SubResource("Resource_6ivmr")])
+saved_units = Array[ExtResource("4_lu6rb")]([])
 name = "RedTeam"
 _class_name = "SavedTeam"
 
