@@ -14,3 +14,22 @@ func _ready():
     vision_distance = 1
 
     super._ready()
+
+
+func is_free_of_obstacles(terrain_position:Vector2, world:World) -> bool:
+    if terrain_position == self.position:
+        return true
+
+    if terrain_position not in obstacles_by_position:
+        return true
+
+    for obstacle in obstacles_by_position[terrain_position]:
+        # transports can not attack
+        # nor move into non-owned cities
+        if obstacle.my_team == self.my_team:
+            return true
+
+        return false
+
+    push_warning("Should have decided obstacle passability already, but returning impassable just to be safe")
+    return false

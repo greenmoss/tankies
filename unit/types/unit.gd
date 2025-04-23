@@ -31,6 +31,8 @@ var can_capture = false
 # will be set as one of "air", "land", "ocean"
 var navigation:String
 
+var obstacles_by_position = {}
+
 @export var my_team = "NoTeam"
 
 @onready var blackboard = $Blackboard
@@ -96,7 +98,6 @@ func can_haul() -> bool:
     return haul_unit_capacity > 0
 
 
-
 func can_haul_unit(hauled_unit:Unit) -> bool:
     if not can_haul(): return false
     if hauled_unit.my_team != my_team: return false
@@ -113,6 +114,38 @@ func disband():
     # are we an invalid reference?
     # If not, perhaps a listener can benefit from knowing what we were
     SignalBus.unit_disbanded.emit(self)
+
+
+func find_path_to(target:Vector2, world:World) -> PackedVector2Array:
+    var terrain = world.terrain
+    var temporary_obstacles = []
+    var found_path = []
+
+    set_obstacles(world)
+
+    var find_again = true
+
+    while find_again:
+
+        found_path = terrain.find_path(self.position, target, self.navigation)
+        find_again = false
+
+        for path_position in found_path:
+            if is_free_of_obstacles(path_position, world): continue
+
+            # path is not clear
+            # set it as a temporary blocker
+            terrain.block_navigation_point(self.navigation, Global.as_grid(path_position))
+            temporary_obstacles.append(path_position)
+            find_again = true
+
+    # done path finding
+    # terrain navigation is global
+    # so clear the temporary obstacles
+    for obstacle in temporary_obstacles:
+        terrain.unblock_navigation_point(self.navigation, Global.as_grid(obstacle))
+
+    return found_path
 
 
 func get_colliders() -> int:
@@ -166,6 +199,12 @@ func haul_units_here():
         hauled_unit.haul_to(position)
 
 
+# generic units have no obstacles
+# sub-classed units determine obstacles based on their own rules
+func is_free_of_obstacles(_terrain_position:Vector2, _world:World) -> bool:
+    return true
+
+
 func is_hauled() -> bool:
     return hauled_in != null
 
@@ -217,6 +256,30 @@ func select_me():
 
 func set_automatic():
     automation.enabled = true
+
+
+func set_obstacles(world:World):
+    '''obstacles are non-terrain objects that might get in the way
+
+    set them by position so they are easy to look up
+    '''
+
+    obstacles_by_position = {}
+    var cities_by_position = {}
+    var units_by_position = {}
+
+    cities_by_position = world.cities.get_by_position()
+    for city_position in cities_by_position:
+        if city_position not in obstacles_by_position:
+            obstacles_by_position[city_position] = []
+        obstacles_by_position[city_position].append( cities_by_position[city_position] )
+
+    for team in world.teams.get_children():
+        units_by_position = team.units.get_by_position()
+        for unit_position in units_by_position:
+            if unit_position not in obstacles_by_position:
+                obstacles_by_position[unit_position] = []
+            obstacles_by_position[unit_position].append( units_by_position[unit_position] )
 
 
 func set_hauled_in(hauler_unit:Unit):

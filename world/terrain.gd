@@ -62,6 +62,10 @@ func block_navigation_point(layer_name:String, point:Vector2i):
     navigation[layer_name].set_point_solid(point)
 
 
+func unblock_navigation_point(layer_name:String, point:Vector2i):
+    navigation[layer_name].set_point_solid(point, false)
+
+
 func find_coordinate_path(map_start_coordinate:Vector2, map_end_coordinate:Vector2, group_name:String):
     return navigation[group_name].get_point_path(map_start_coordinate, map_end_coordinate)
 
