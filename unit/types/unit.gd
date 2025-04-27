@@ -31,8 +31,6 @@ var can_capture = false
 # will be set as one of "air", "land", "ocean"
 var navigation:String
 
-var obstacles_by_position = {}
-
 @export var my_team = "NoTeam"
 
 @onready var blackboard = $Blackboard
@@ -120,8 +118,6 @@ func find_path_to(target:Vector2, world:World) -> PackedVector2Array:
     var terrain = world.terrain
     var temporary_obstacles = []
     var found_path = []
-
-    set_obstacles(world)
 
     var find_again = true
 
@@ -256,30 +252,6 @@ func select_me():
 
 func set_automatic():
     automation.enabled = true
-
-
-func set_obstacles(world:World):
-    '''obstacles are non-terrain objects that might get in the way
-
-    set them by position so they are easy to look up
-    '''
-
-    obstacles_by_position = {}
-    var cities_by_position = {}
-    var units_by_position = {}
-
-    cities_by_position = world.cities.get_by_position()
-    for city_position in cities_by_position:
-        if city_position not in obstacles_by_position:
-            obstacles_by_position[city_position] = []
-        obstacles_by_position[city_position].append( cities_by_position[city_position] )
-
-    for team in world.teams.get_children():
-        units_by_position = team.units.get_by_position()
-        for unit_position in units_by_position:
-            if unit_position not in obstacles_by_position:
-                obstacles_by_position[unit_position] = []
-            obstacles_by_position[unit_position].append( units_by_position[unit_position] )
 
 
 func set_hauled_in(hauler_unit:Unit):

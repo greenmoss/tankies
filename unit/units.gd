@@ -34,6 +34,7 @@ func create(unit_type:String, position:Vector2, new_unit_name:String) -> Unit:
     new_unit.position = position
     add_child(new_unit)
     SignalBus.unit_updated_vision.emit(new_unit)
+    SignalBus.unit_moved_to_position.emit(new_unit, new_unit.position)
     return(new_unit)
 
 
@@ -165,6 +166,8 @@ func restore(saved_units):
     for saved_unit in saved_units:
         var unit =  UnitTypeUtilities.get_scene(saved_unit._unit_type).instantiate()
         saved_unit.restore(unit)
+        SignalBus.unit_updated_vision.emit(unit)
+        SignalBus.unit_moved_to_position.emit(unit, unit.position)
         add_child(unit)
 
     get_parent().set_units_in_cities()

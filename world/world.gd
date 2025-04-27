@@ -10,6 +10,7 @@ var regions = []
 @onready var cities = $Map/cities
 @onready var map = $Map
 @onready var music = $Music
+@onready var obstacles = $obstacles
 @onready var teams = $teams
 @onready var terrain = $Map/Terrain
 @onready var tint = $tint
@@ -100,6 +101,11 @@ func start():
     tint.visible = false
     start_epoch = Time.get_unix_time_from_system()
     cities.initialize(map)
+
+    obstacles.set_from_cities(cities)
+    for team in teams.get_children():
+        obstacles.set_from_units(team.units)
+
     turns.enable()
     music.volume_db = music_default_volume
     music.play()

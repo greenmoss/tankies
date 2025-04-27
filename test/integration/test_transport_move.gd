@@ -29,7 +29,7 @@ func test_transport_finds_path_past_neutral_city():
 
     var ocean_path = terrain.find_path(transport.position, Vector2(1560, 520), transport.navigation)
     assert_eq( Vector2(1000, 520), ocean_path[1],
-        "an ocean path should intersect a neutral city")
+        "an ocean path should intersect a neutral port city")
 
     var transport_path = transport.find_path_to(Vector2(1560, 520), world)
     assert_false( Vector2(1000, 520) in transport_path,

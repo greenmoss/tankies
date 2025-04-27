@@ -192,15 +192,6 @@ func set_physics_layers_tiles():
     return physics_layers_tiles
 
 
-func set_tile_groups():
-    tile_groups = {}
-    if physics_layers_tiles == null:
-        set_physics_layers_tiles()
-    for layer in physics_layers_tiles.keys():
-        for tile in physics_layers_tiles[layer]:
-            tile_groups[tile] = layer
-
-
 func set_source_tile_counts():
     source_tile_counts = {}
     for x in range(x_min, x_max):
@@ -210,3 +201,12 @@ func set_source_tile_counts():
             if not source_tile in source_tile_counts:
                 source_tile_counts[source_tile] = 0
             source_tile_counts[source_tile] += 1
+
+
+func set_tile_groups():
+    tile_groups = {}
+    if physics_layers_tiles == null:
+        set_physics_layers_tiles()
+    for layer in physics_layers_tiles.keys():
+        for tile in physics_layers_tiles[layer]:
+            tile_groups[tile] = layer
