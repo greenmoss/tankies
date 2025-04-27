@@ -13,6 +13,7 @@ my_team = "NoTeam"
 position = Vector2(280, 120)
 icon_modulate = Color(1, 1, 1, 1)
 open = true
+name = "Nippur"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_oxdwt"]

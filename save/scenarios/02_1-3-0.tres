@@ -13,6 +13,7 @@ my_team = "GreenTeam"
 position = Vector2(120, 120)
 icon_modulate = Color(0, 0.862745, 0, 1)
 open = false
+name = "Nippur"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_8revb"]
@@ -22,6 +23,7 @@ my_team = "NoTeam"
 position = Vector2(280, 200)
 icon_modulate = Color(1, 1, 1, 1)
 open = true
+name = "Palmyra"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_4r0lp"]
@@ -31,6 +33,7 @@ my_team = "NoTeam"
 position = Vector2(280, 360)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Babylon"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_vcr56"]
@@ -40,6 +43,7 @@ my_team = "NoTeam"
 position = Vector2(200, 280)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Ashur"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_qmosf"]
