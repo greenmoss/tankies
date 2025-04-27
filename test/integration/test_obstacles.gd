@@ -24,8 +24,8 @@ func test_obstacles_with_one_tank():
     var obstacles = world.obstacles
 
     # TODO: derive total grid size from tile map?
-    assert_eq( obstacles.positions.size(), 336,
-        "at start, there are xxx obstacle positions" )
+    assert_eq( obstacles.points.size(), 336,
+        "at start, there are expected number of obstacle points" )
     assert_eq( obstacles.objects.size(), 4,
         "at start, there are 4 obstacles, one for each city" )
     assert_eq( obstacles.get_filled_points().size(), 4,
