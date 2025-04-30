@@ -2,7 +2,7 @@
 extends ActionLeaf
 
 
-func tick(_actor, blackboard):
+func tick(actor, blackboard):
     var thoughts = blackboard.get_value("thoughts")
     if(thoughts == null):
         return FAILURE
@@ -10,7 +10,7 @@ func tick(_actor, blackboard):
     if(thoughts < 10):
         return FAILURE
 
-    push_warning("unit " + owner.name + " could not figure out what to do and prematurely ended its turn")
+    push_warning("unit " + actor.name + " could not figure out what to do and prematurely ended its turn")
 
     blackboard.set_value("move_position", null)
 

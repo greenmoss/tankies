@@ -23,9 +23,14 @@ func is_free_of_obstacles(terrain_position:Vector2, world:World) -> bool:
     var terrain_point = Global.as_grid(terrain_position)
 
     if terrain_point not in world.obstacles.points:
+        push_warning("terrain point "+str(terrain_point)+" not found in obstacle points")
+        return false
+
+    var point_objects = world.obstacles.points[terrain_point]
+    if point_objects.size() == 0:
         return true
 
-    for obstacle in world.obstacles.points[terrain_point]:
+    for obstacle in point_objects:
         # transports can not attack
         # nor move into non-owned cities
         if obstacle.my_team == self.my_team:
