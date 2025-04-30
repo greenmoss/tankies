@@ -9,7 +9,7 @@
 [sub_resource type="Resource" id="Resource_88tu5"]
 script = ExtResource("1_xaqok")
 build_type = "fighter"
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(1000, 600)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
@@ -18,7 +18,7 @@ _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_5drww"]
 script = ExtResource("3_rrv8m")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(1000, 600)
 modulate = Color(0, 0, 0, 1)
 _class_name = "SavedUnit"
@@ -32,7 +32,7 @@ _class_name = "SavedTeam"
 
 [sub_resource type="Resource" id="Resource_fy4ra"]
 script = ExtResource("3_rrv8m")
-my_team = "RedTeam"
+team_name = "RedTeam"
 position = Vector2(1880, 1080)
 modulate = Color(0, 0, 0, 1)
 _class_name = "SavedUnit"
@@ -40,7 +40,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_p6j7d"]
 script = ExtResource("3_rrv8m")
-my_team = "RedTeam"
+team_name = "RedTeam"
 position = Vector2(40, 40)
 modulate = Color(0, 0, 0, 1)
 _class_name = "SavedUnit"

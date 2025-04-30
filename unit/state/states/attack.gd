@@ -15,7 +15,7 @@ func enter():
 
 
 func attack_city():
-    if(owner.unit.state.scout.target_city.my_team == owner.unit.my_team):
+    if(owner.unit.state.scout.target_city.team_name == owner.unit.team_name):
         deny_invalid(owner.unit.state.scout.target_city)
         return
 
@@ -34,8 +34,8 @@ func attack_city():
 
 
 func attack_unit():
-    if(owner.unit.state.scout.target_units[0].my_team == owner.unit.my_team):
-        deny_invalid(owner.unit.state.scout.target_units[0].my_team)
+    if(owner.unit.state.scout.target_units[0].team_name == owner.unit.team_name):
+        deny_invalid(owner.unit.state.scout.target_units[0].team_name)
         return
 
     var targeted_unit:Unit = null
@@ -61,7 +61,7 @@ func deny_invalid(target):
         "refusing to attack target ",
         target,
         " already owned by, ",
-        owner.unit.my_team)
+        owner.unit.team_name)
     owner.unit.sounds.play_denied()
     emit_signal("next_state", "idle")
 

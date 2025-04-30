@@ -11,7 +11,7 @@ func _ready():
 
 # marked unit moves to the bottom so it displays first
 func _cursor_marked_unit(unit:Unit):
-    if unit.my_team != get_parent().name: return
+    if unit.team_name != get_parent().name: return
     move_child(unit, -1)
 
 

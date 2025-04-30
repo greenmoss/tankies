@@ -19,7 +19,7 @@ size = Vector2(80, 80)
 [node name="Transport" type="Area2D" groups=["Units"]]
 editor_description = "A unit that can fight, move, or capture"
 script = ExtResource("1_gq36w")
-my_team = null
+team_name = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)

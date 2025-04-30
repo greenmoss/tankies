@@ -9,7 +9,7 @@
 [sub_resource type="Resource" id="Resource_oxlfs"]
 script = ExtResource("1_wtk6u")
 build_type = ""
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(120, 120)
 icon_modulate = Color(0, 0.862745, 0, 1)
 open = false
@@ -19,7 +19,7 @@ _class_name = "SavedCity"
 [sub_resource type="Resource" id="Resource_8revb"]
 script = ExtResource("1_wtk6u")
 build_type = ""
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(280, 200)
 icon_modulate = Color(1, 1, 1, 1)
 open = true
@@ -29,7 +29,7 @@ _class_name = "SavedCity"
 [sub_resource type="Resource" id="Resource_4r0lp"]
 script = ExtResource("1_wtk6u")
 build_type = ""
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(280, 360)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
@@ -39,7 +39,7 @@ _class_name = "SavedCity"
 [sub_resource type="Resource" id="Resource_vcr56"]
 script = ExtResource("1_wtk6u")
 build_type = ""
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(200, 280)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
@@ -48,7 +48,7 @@ _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_qmosf"]
 script = ExtResource("3_37stg")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(200, 200)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -62,7 +62,7 @@ _class_name = "SavedTeam"
 
 [sub_resource type="Resource" id="Resource_akmpp"]
 script = ExtResource("3_37stg")
-my_team = "RedTeam"
+team_name = "RedTeam"
 position = Vector2(1720, 920)
 modulate = Color(1, 0.247059, 0.188235, 1)
 _class_name = "SavedUnit"

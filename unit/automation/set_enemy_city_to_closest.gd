@@ -11,7 +11,7 @@ func tick(actor, blackboard):
     for distance in distances:
 
         for nearby_city in city_candidates[distance]:
-            if nearby_city.my_team == actor.my_team:
+            if nearby_city.team_name == actor.team_name:
                 continue
 
             # ensure we are able to get to the city

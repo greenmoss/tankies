@@ -94,11 +94,11 @@ script = ExtResource("3_bgbrx")
 
 [node name="Babylon" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(120, 120)
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 
 [node name="Ashur" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(1800, 1000)
-my_team = "RedTeam"
+team_name = "RedTeam"
 
 [node name="Nippur" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(440, 120)
@@ -143,7 +143,7 @@ battle = NodePath("../../../battle")
 [node name="green_tank1" parent="teams/GreenTeam/units" instance=ExtResource("10_wo6ug")]
 modulate = Color(0, 0.862745, 0, 1)
 position = Vector2(200, 200)
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 
 [node name="cursor" parent="teams/GreenTeam" instance=ExtResource("9_q1kf1")]
 
@@ -163,15 +163,15 @@ battle = NodePath("../../../battle")
 [node name="red_tank1" parent="teams/RedTeam/units" instance=ExtResource("10_wo6ug")]
 modulate = Color(1, 0.247059, 0.188235, 1)
 position = Vector2(1720, 920)
-my_team = "RedTeam"
+team_name = "RedTeam"
 
 [node name="red_transport1" parent="teams/RedTeam/units" instance=ExtResource("15_3ljsx")]
 position = Vector2(1480, 920)
-my_team = "RedTeam"
+team_name = "RedTeam"
 
 [node name="red_transport2" parent="teams/RedTeam/units" instance=ExtResource("15_3ljsx")]
 position = Vector2(1800, 360)
-my_team = "RedTeam"
+team_name = "RedTeam"
 
 [node name="neutral" parent="teams" instance=ExtResource("8_y6rer")]
 color = Color(1, 1, 1, 1)

@@ -47,7 +47,7 @@ func handled_clear() -> bool:
 func handled_friendly_target_city() -> bool:
     if not targets_city(): return false
 
-    if owner.unit.my_team == target_city.my_team:
+    if owner.unit.team_name == target_city.team_name:
         owner.unit.in_city = target_city
         emit_signal("next_state", "move")
         return true
@@ -58,7 +58,7 @@ func handled_friendly_target_city() -> bool:
 func handled_friendly_target_unit() -> bool:
     if not targets_units(): return false
 
-    if owner.unit.my_team == target_units[0].my_team:
+    if owner.unit.team_name == target_units[0].team_name:
 
         if handled_friendly_target_city(): return true
 
@@ -162,7 +162,7 @@ func handled_unhaul_onto_enemy_unit() -> bool:
     if not targets_units(): return false
     #print("handled unhaul onto enemy unit 2")
 
-    if owner.unit.my_team == target_units[0].my_team: return false
+    if owner.unit.team_name == target_units[0].team_name: return false
     #print("handled unhaul onto enemy unit 3")
 
         #if handled_friendly_target_city(): return true

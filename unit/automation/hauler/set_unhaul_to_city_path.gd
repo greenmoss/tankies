@@ -30,7 +30,7 @@ func tick(actor, blackboard):
     distances.sort()
     for distance in distances:
         for nearby_city in city_candidates[distance]:
-            if nearby_city.my_team == actor.my_team: continue
+            if nearby_city.team_name == actor.team_name: continue
             #print("in set unhaul to city path, looking at city ",nearby_city)
 
             var region_with_city:Region = null

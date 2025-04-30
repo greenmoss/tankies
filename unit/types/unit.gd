@@ -31,7 +31,7 @@ var can_capture = false
 # will be set as one of "air", "land", "ocean"
 var navigation:String
 
-@export var my_team = "NoTeam"
+@export var team_name = "NoTeam"
 
 @onready var blackboard = $Blackboard
 @onready var collision = $CollisionShape2D
@@ -82,9 +82,9 @@ func _unhandled_input(event):
 
 
 func assign_groups():
-    if my_team != null:
-        display.icon.modulate = Global.team_colors[my_team]
-        add_to_group(my_team)
+    if team_name != null:
+        display.icon.modulate = Global.team_colors[team_name]
+        add_to_group(team_name)
     add_to_group("Units")
 
 
@@ -98,7 +98,7 @@ func can_haul() -> bool:
 
 func can_haul_unit(hauled_unit:Unit) -> bool:
     if not can_haul(): return false
-    if hauled_unit.my_team != my_team: return false
+    if hauled_unit.team_name != team_name: return false
     if haul_unit_capacity < 1: return false
     if hauled_unit.navigation != haul_unit_type: return false
     if hauled_units.size() >= haul_unit_capacity: return false
@@ -149,7 +149,7 @@ func get_colliders() -> int:
 
 
 func get_team() -> String:
-    return my_team
+    return team_name
 
 
 func get_texture() -> Texture:
@@ -282,7 +282,7 @@ func set_navigation():
 # TODO: find a way to use `new_team:Team`.
 # We can not right now due to error with circular dependency.
 func set_team(new_team:Node):
-    my_team = new_team.name
+    team_name = new_team.name
 
 
 func set_unhauled():

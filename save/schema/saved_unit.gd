@@ -1,7 +1,7 @@
 extends Resource
 class_name SavedUnit
 
-@export var my_team:String
+@export var team_name:String
 @export var position:Vector2
 @export var modulate:Color
 
@@ -13,7 +13,7 @@ class_name SavedUnit
 # the method to automate this uses `.get_property_list()`
 # plus comparing property usage flags, which seems fragile and complex
 # for now, set them manually
-var automatic = ['my_team', 'position']
+var automatic = ['team_name', 'position']
 
 
 func save(unit:Unit):

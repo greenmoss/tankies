@@ -45,7 +45,7 @@ func get_from_team(team_name:String) -> Array[City]:
         if city == null: continue
         if not is_instance_valid(city): continue
         if city.is_queued_for_deletion(): continue
-        if city.my_team != team_name: continue
+        if city.team_name != team_name: continue
         cities.append(city)
     return cities
 
@@ -84,7 +84,7 @@ func save(saved: SavedWorld):
 func tally_owners():
     var team_owners = {}
     for city in get_children():
-        if team_owners.get(city.my_team) == null:
-            team_owners[city.my_team] = 0
-        team_owners[city.my_team] += 1
+        if team_owners.get(city.team_name) == null:
+            team_owners[city.team_name] = 0
+        team_owners[city.team_name] += 1
     return(team_owners)
