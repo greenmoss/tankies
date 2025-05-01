@@ -114,8 +114,7 @@ func disband():
     SignalBus.unit_disbanded.emit(self)
 
 
-func find_path_to(target:Vector2, world:World) -> PackedVector2Array:
-    var terrain = world.terrain
+func find_path_to(target:Vector2, terrain:Terrain, obstacles:Obstacles) -> PackedVector2Array:
     var temporary_obstacles = []
     var found_path = []
 
@@ -127,7 +126,7 @@ func find_path_to(target:Vector2, world:World) -> PackedVector2Array:
         find_again = false
 
         for path_position in found_path:
-            if is_free_of_obstacles(path_position, world): continue
+            if is_free_of_obstacles(path_position, obstacles): continue
 
             # path is not clear
             # set it as a temporary blocker
@@ -197,7 +196,7 @@ func haul_units_here():
 
 # generic units have no obstacles
 # sub-classed units determine obstacles based on their own rules
-func is_free_of_obstacles(_terrain_position:Vector2, _world:World) -> bool:
+func is_free_of_obstacles(_terrain_position:Vector2, _obstacles:Obstacles) -> bool:
     return true
 
 

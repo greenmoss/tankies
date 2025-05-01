@@ -32,6 +32,7 @@ func enter():
         owner.enemy_units.get_all_by_cardinal_distance(my_unit.position, owner.vision),
         owner.vision.explored,
         owner.units.get_all_valid(),
+        owner.obstacles,
         owner.regions,
         owner.terrain,
         )

@@ -9,6 +9,7 @@ class_name Team
 @export var color:Color
 @export var controller:Global.Controllers
 @export var enemy_team:Team
+@export var obstacles:Obstacles
 # for path finding, we require terrain and regions
 @export var terrain:Terrain
 @export var regions:Regions

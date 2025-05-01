@@ -26,6 +26,7 @@ func test_transport_finds_path_past_neutral_city():
     var human_units = world.teams.human_team.units.get_children()
     var transport = human_units[0]
     var terrain = world.terrain
+    var obstacles = world.obstacles
 
     var ocean_path = terrain.find_path(transport.position, Vector2(1560, 520), transport.navigation)
     assert_eq( Vector2(1000, 520), ocean_path[1],
@@ -33,7 +34,7 @@ func test_transport_finds_path_past_neutral_city():
     assert_eq( 17, ocean_path.size(),
         "an ocean path should contain 17 hops")
 
-    var transport_path = transport.find_path_to(Vector2(1560, 520), world)
+    var transport_path = transport.find_path_to(Vector2(1560, 520), terrain, obstacles)
     assert_false( Vector2(1000, 520) in transport_path,
         "a transport path should not intersect a neutral city")
     assert_eq( 17, transport_path.size(),

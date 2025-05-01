@@ -18,15 +18,21 @@ func _enter_tree():
 
 
 func initialize(
-    city_candidates:Dictionary, unit_candidates:Dictionary, explored:Dictionary,
-    my_units:Array, regions:Regions, terrain:Terrain):
+    city_candidates:Dictionary,
+    unit_candidates:Dictionary,
+    explored:Dictionary,
+    my_units:Array,
+    obstacles:Obstacles,
+    regions:Regions,
+    terrain:Terrain):
 
     blackboard.set_value("city_candidates", city_candidates)
-    blackboard.set_value("unit_candidates", unit_candidates)
     blackboard.set_value("explored", explored)
     blackboard.set_value("my_units", my_units)
+    blackboard.set_value("obstacles", obstacles)
     blackboard.set_value("regions", regions)
     blackboard.set_value("terrain", terrain)
+    blackboard.set_value("unit_candidates", unit_candidates)
 
     var thoughts = blackboard.get_value("thoughts")
     if(thoughts == null):
@@ -44,6 +50,7 @@ func initialize(
                 unit_candidates,
                 explored,
                 my_units,
+                obstacles,
                 regions,
                 terrain,
             )

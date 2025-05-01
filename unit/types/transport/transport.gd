@@ -16,17 +16,17 @@ func _ready():
     super._ready()
 
 
-func is_free_of_obstacles(terrain_position:Vector2, world:World) -> bool:
+func is_free_of_obstacles(terrain_position:Vector2, obstacles:Obstacles) -> bool:
     if terrain_position == self.position:
         return true
 
     var terrain_point = Global.as_grid(terrain_position)
 
-    if terrain_point not in world.obstacles.points:
+    if terrain_point not in obstacles.points:
         push_warning("terrain point "+str(terrain_point)+" not found in obstacle points")
         return false
 
-    var point_objects = world.obstacles.points[terrain_point]
+    var point_objects = obstacles.points[terrain_point]
     if point_objects.size() == 0:
         return true
 
