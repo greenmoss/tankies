@@ -28,6 +28,7 @@ func tick(actor, blackboard):
 
 func set_unhaul_exploration_path(actor:Unit, unit:Unit, search_radius:int, blackboard:Blackboard, region:Region):
     var center = actor.get_world_position()
+    var obstacles = blackboard.get_value("obstacles")
     var terrain = blackboard.get_value("terrain")
 
     var path_to_unhaul:PackedVector2Array = blackboard.get_value('unhaul_to_unexplored_path')
@@ -51,7 +52,7 @@ func set_unhaul_exploration_path(actor:Unit, unit:Unit, search_radius:int, black
             push_warning("could not find air path from hauler ",actor," at ",Global.as_grid(actor.position),"/",actor.position," to coordinate ",coordinate,"; ignoring")
             continue
 
-        var approach_path = terrain.find_path(actor.position, approach_position, actor.navigation)
+        var approach_path = actor.find_path_to(approach_position, terrain, obstacles)
         if approach_path.is_empty(): continue
 
         if path_to_unhaul.is_empty():

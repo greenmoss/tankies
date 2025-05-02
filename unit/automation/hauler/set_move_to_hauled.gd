@@ -54,8 +54,9 @@ func tick(actor, blackboard):
 
 
 func get_path_to_hauled(hauled:Unit, actor:Unit, blackboard:Blackboard) -> PackedVector2Array:
+    var obstacles = blackboard.get_value("obstacles")
     var terrain = blackboard.get_value("terrain")
-    var path = terrain.find_path(actor.position, hauled.position, actor.navigation)
+    var path = actor.find_path_to(hauled.position, terrain, obstacles)
     if not path.is_empty(): return path
 
     var grid_position = Global.as_grid(hauled.position)
@@ -63,10 +64,10 @@ func get_path_to_hauled(hauled:Unit, actor:Unit, blackboard:Blackboard) -> Packe
     for neighbor in terrain.get_in_bounds_neighbors(grid_position):
         var neighbor_position = Global.as_position(neighbor)
         if path.is_empty():
-            path = terrain.find_path(actor.position, neighbor_position, actor.navigation)
+            path = actor.find_path_to(neighbor_position, terrain, obstacles)
             continue
 
-        comparison_path = terrain.find_path(actor.position, neighbor_position, actor.navigation)
+        comparison_path = actor.find_path_to(neighbor_position, terrain, obstacles)
         if comparison_path.size() >= path.size(): continue
         if comparison_path.is_empty(): continue
         path = comparison_path

@@ -4,6 +4,7 @@ extends ActionLeaf
 
 func tick(actor, blackboard):
     var my_units = blackboard.get_value("my_units")
+    var obstacles = blackboard.get_value("obstacles")
     var regions = blackboard.get_value("regions")
     var terrain = blackboard.get_value("terrain")
 
@@ -45,7 +46,7 @@ func tick(actor, blackboard):
     var next_move = path[0]
 
     # get path to next
-    var layer_path = terrain.find_path(actor.position, next_move, actor.navigation)
+    var layer_path = actor.find_path_to(next_move, terrain, obstacles)
     # if path within layer is 3 or more, it means we were on an untraversible diagonal
     if layer_path.size() > 2:
         blackboard.set_value("move_position", null)

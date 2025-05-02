@@ -40,10 +40,11 @@ func tick(actor, blackboard):
     var retry_positions = unhaul_to_region.get_approach_neighbors(Global.as_grid(region_approach_position))
     var path_to_unhaul = blackboard.get_value("unhaul_to_region_path")
 
+    var obstacles = blackboard.get_value("obstacles")
     var terrain = blackboard.get_value("terrain")
     if terrain == null: return FAILURE
     for retry_position in retry_positions:
-        var approach_path = terrain.find_path(actor.position, Global.as_position(retry_position), actor.navigation)
+        var approach_path = actor.find_path_to(Global.as_position(retry_position), terrain, obstacles)
         if path_to_unhaul.is_empty():
             path_to_unhaul = approach_path
         if approach_path.size() < path_to_unhaul.size():

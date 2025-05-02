@@ -13,6 +13,7 @@ func tick(actor, blackboard):
     if not actor.is_hauling(): return FAILURE
 
     var unit_candidates = blackboard.get_value("unit_candidates")
+    var obstacles = blackboard.get_value("obstacles")
     var terrain = blackboard.get_value("terrain")
     var regions = blackboard.get_value("regions")
 
@@ -70,7 +71,7 @@ func tick(actor, blackboard):
                 continue
             #print("intersects at approach ",approach_position)
 
-            approach_path = terrain.find_path(actor.position, approach_position, actor.navigation)
+            approach_path = actor.find_path_to(approach_position, terrain, obstacles)
             #print("navigable path: ",approach_path)
             #print("navigable path as grid: ",Global.array_as_grid(approach_path))
 
