@@ -11,7 +11,7 @@ func _ready():
 
 # marked unit moves to the bottom so it displays first
 func _cursor_marked_unit(unit:Unit):
-    if unit.my_team != get_parent().name: return
+    if unit.team_name != get_parent().name: return
     move_child(unit, -1)
 
 
@@ -34,6 +34,7 @@ func create(unit_type:String, position:Vector2, new_unit_name:String) -> Unit:
     new_unit.position = position
     add_child(new_unit)
     SignalBus.unit_updated_vision.emit(new_unit)
+    SignalBus.unit_moved_to_position.emit(new_unit, new_unit.position)
     return(new_unit)
 
 
@@ -122,6 +123,17 @@ func get_next() -> Unit:
     return(null)
 
 
+func get_tally() -> int:
+    var tally = []
+    for unit in get_children():
+        if not is_instance_valid(unit): continue
+        if unit.is_queued_for_deletion(): continue
+        if unit.state.is_done(): continue
+        if not unit.can_capture: continue
+        tally.append(unit)
+    return tally.size()
+
+
 func select_next():
     var unit:Unit = get_next()
     if unit == null:
@@ -154,6 +166,8 @@ func restore(saved_units):
     for saved_unit in saved_units:
         var unit =  UnitTypeUtilities.get_scene(saved_unit._unit_type).instantiate()
         saved_unit.restore(unit)
+        SignalBus.unit_updated_vision.emit(unit)
+        SignalBus.unit_moved_to_position.emit(unit, unit.position)
         add_child(unit)
 
     get_parent().set_units_in_cities()

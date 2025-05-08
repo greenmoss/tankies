@@ -9,7 +9,7 @@ var mouse_is_over_me = false
 var standalone:bool
 
 var default_team = "NoTeam"
-@export var my_team = default_team
+@export var team_name = default_team
 
 # open cities do not resist capture
 @export var open = false
@@ -42,7 +42,7 @@ func _ready():
         standalone = true
         position = Vector2(80,80)
 
-    if my_team == null: my_team = "NoTeam"
+    if team_name == null: team_name = "NoTeam"
 
     initialize_build_type()
 
@@ -63,16 +63,16 @@ func _unhandled_input(event):
 func assign():
     var tween = create_tween()
     tween.tween_property(icon, "modulate",
-        Global.team_colors[my_team],
+        Global.team_colors[team_name],
         1.0
         ).set_trans(Tween.TRANS_SINE)
-    add_to_group(my_team)
+    add_to_group(team_name)
     add_to_group("Cities")
     SignalBus.city_updated_vision.emit(self)
 
 
 func build_unit():
-    if my_team == default_team: return
+    if team_name == default_team: return
     build_remaining -= 1
     if build_remaining == 0:
         SignalBus.city_requested_unit.emit(self)
@@ -81,8 +81,8 @@ func build_unit():
 
 func capture_by(unit):
     SoundManager.interrupt_channel("capture_city", $marching)
-    remove_from_group(my_team)
-    my_team = unit.my_team
+    remove_from_group(team_name)
+    team_name = unit.team_name
     fortify()
     assign()
     clear_build()
@@ -111,7 +111,7 @@ func get_units() -> Array[Unit]:
     if standalone: return []
     var worlds = get_tree().get_nodes_in_group("World")
     if worlds.size() != 1: return []
-    var team = worlds[0].get_team_by_name(my_team)
+    var team = worlds[0].get_team_by_name(team_name)
     if team == null: return []
     return(team.get_units_in_city(self))
 
@@ -137,7 +137,7 @@ func initialize_build_type():
 func is_open_to_team(team) -> bool:
     if open:
         return true
-    if team == my_team:
+    if team == team_name:
         return true
     return false
 

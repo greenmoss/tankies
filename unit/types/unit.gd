@@ -31,7 +31,7 @@ var can_capture = false
 # will be set as one of "air", "land", "ocean"
 var navigation:String
 
-@export var my_team = "NoTeam"
+@export var team_name = "NoTeam"
 
 @onready var blackboard = $Blackboard
 @onready var collision = $CollisionShape2D
@@ -82,9 +82,9 @@ func _unhandled_input(event):
 
 
 func assign_groups():
-    if my_team != null:
-        display.icon.modulate = Global.team_colors[my_team]
-        add_to_group(my_team)
+    if team_name != null:
+        display.icon.modulate = Global.team_colors[team_name]
+        add_to_group(team_name)
     add_to_group("Units")
 
 
@@ -96,10 +96,9 @@ func can_haul() -> bool:
     return haul_unit_capacity > 0
 
 
-
 func can_haul_unit(hauled_unit:Unit) -> bool:
     if not can_haul(): return false
-    if hauled_unit.my_team != my_team: return false
+    if hauled_unit.team_name != team_name: return false
     if haul_unit_capacity < 1: return false
     if hauled_unit.navigation != haul_unit_type: return false
     if hauled_units.size() >= haul_unit_capacity: return false
@@ -107,10 +106,41 @@ func can_haul_unit(hauled_unit:Unit) -> bool:
 
 
 func disband():
+    for unit in hauled_units:
+        unit.disband()
     queue_free()
     # are we an invalid reference?
     # If not, perhaps a listener can benefit from knowing what we were
     SignalBus.unit_disbanded.emit(self)
+
+
+func find_path_to(target:Vector2, terrain:Terrain, obstacles:Obstacles) -> PackedVector2Array:
+    var temporary_obstacles = []
+    var found_path = []
+
+    var find_again = true
+
+    while find_again:
+
+        found_path = terrain.find_path(self.position, target, self.navigation)
+        find_again = false
+
+        for path_position in found_path:
+            if is_free_of_obstacles(path_position, obstacles): continue
+
+            # path is not clear
+            # set it as a temporary blocker
+            terrain.block_navigation_point(self.navigation, Global.as_grid(path_position))
+            temporary_obstacles.append(path_position)
+            find_again = true
+
+    # done path finding
+    # terrain navigation is global
+    # so clear the temporary obstacles
+    for obstacle in temporary_obstacles:
+        terrain.unblock_navigation_point(self.navigation, Global.as_grid(obstacle))
+
+    return found_path
 
 
 func get_colliders() -> int:
@@ -118,7 +148,7 @@ func get_colliders() -> int:
 
 
 func get_team() -> String:
-    return my_team
+    return team_name
 
 
 func get_texture() -> Texture:
@@ -164,6 +194,12 @@ func haul_units_here():
         hauled_unit.haul_to(position)
 
 
+# generic units have no obstacles
+# sub-classed units determine obstacles based on their own rules
+func is_free_of_obstacles(_terrain_position:Vector2, _obstacles:Obstacles) -> bool:
+    return true
+
+
 func is_hauled() -> bool:
     return hauled_in != null
 
@@ -184,6 +220,10 @@ func leave_city():
 func move_toward(new_position):
     # NOTE: this makes no attempt at real path finding
     # consequently, this is best used to move to a neighboring coordinate/position
+    if new_position == position:
+        push_warning("refusing to move toward ",new_position," since we are already on that position")
+        return
+
     var move_direction: Vector2 = (position - new_position).normalized()
 
     if(move_direction[0] > 0):
@@ -199,8 +239,10 @@ func move_toward(new_position):
 
 
 func refill_moves():
+    state.block.clear()
     moves_remaining = moves_per_turn
     state.rotate()
+    automation.clear_thoughts()
 
 
 func select_me():
@@ -239,7 +281,7 @@ func set_navigation():
 # TODO: find a way to use `new_team:Team`.
 # We can not right now due to error with circular dependency.
 func set_team(new_team:Node):
-    my_team = new_team.name
+    team_name = new_team.name
 
 
 func set_unhauled():
@@ -249,6 +291,14 @@ func set_unhauled():
         hauled_in.unhaul_unit(self)
     hauled_in = null
     visible = true
+
+
+func steer_from_hauled(hauled_unit:Unit, steer_direction:Vector2):
+    print("hauled unit ",hauled_unit," wants me ",self," to move to ",steer_direction)
+    if hauled_unit not in hauled_units: return
+    look_direction = steer_direction
+    state.switch_to('scout')
+    #move_toward(steer_direction)
 
 
 func unhaul_unit(hauled_unit:Unit):

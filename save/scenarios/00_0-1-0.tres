@@ -9,15 +9,16 @@
 [sub_resource type="Resource" id="Resource_a8e1e"]
 script = ExtResource("1_7i074")
 build_type = "tank"
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(280, 120)
 icon_modulate = Color(1, 1, 1, 1)
 open = true
+name = "Nippur"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_oxdwt"]
 script = ExtResource("3_wc8rd")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(200, 200)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"

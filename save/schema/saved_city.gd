@@ -2,10 +2,11 @@ extends Resource
 class_name SavedCity
 
 @export var build_type:String
-@export var my_team: String
+@export var team_name: String
 @export var position: Vector2
 @export var icon_modulate: Color
 @export var open: bool
+@export var name: String
 
 # track this to make the save file easier to read
 @export var _class_name: String
@@ -14,7 +15,7 @@ class_name SavedCity
 # the method to automate this uses `.get_property_list()`
 # plus comparing property usage flags, which seems fragile and complex
 # for now, set them manually
-var automatic = ['build_type', 'my_team', 'position', 'open']
+var automatic = ['build_type', 'team_name', 'position', 'open', 'name']
 
 func save(city:City):
     for property in automatic:

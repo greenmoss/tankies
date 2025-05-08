@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://b46lm6ve4sqrg" path="res://unit/plan.gd" id="7_tw40l"]
 [ext_resource type="Script" uid="uid://7g8o6cw7ldaw" path="res://unit/vision.gd" id="8_5mw8u"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="8_evx3v"]
-[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_o7fcj"]
-[ext_resource type="Script" uid="uid://dme5f24l0edsf" path="res://addons/beehave/blackboard.gd" id="10_ks5ts"]
+[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/hauled/bt_attacker.tscn" id="9_6ox27"]
+[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="10_ks5ts"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="14_6gn2j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbtie"]
@@ -18,7 +18,7 @@ size = Vector2(80, 80)
 [node name="Tank" type="Area2D" groups=["Units"]]
 editor_description = "A unit that can fight, move, or capture"
 script = ExtResource("1_obpcj")
-my_team = null
+team_name = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -49,7 +49,7 @@ script = ExtResource("7_tw40l")
 [node name="vision" type="Node" parent="."]
 script = ExtResource("8_5mw8u")
 
-[node name="automation" parent="." instance=ExtResource("9_o7fcj")]
+[node name="automation" parent="." instance=ExtResource("9_6ox27")]
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("10_ks5ts")

@@ -6,9 +6,9 @@ var city_scene : PackedScene = preload("res://city/city.tscn")
 
 func build_units():
     # only human and ai cities build units, not neutral
-    for city in make_team_queue(Global.human_team):
+    for city in get_from_team(Global.human_team):
         city.build_unit()
-    for city in make_team_queue(Global.ai_team):
+    for city in get_from_team(Global.ai_team):
         city.build_unit()
 
 
@@ -16,6 +16,13 @@ func clear():
     for city in get_children():
         remove_child(city)
         city.queue_free()
+
+
+func get_by_position() -> Dictionary:
+    var by_position = {}
+    for city in get_children():
+        by_position[city.position] = city
+    return by_position
 
 
 # return cities keyed by cardinal distance on the map
@@ -38,7 +45,7 @@ func get_from_team(team_name:String) -> Array[City]:
         if city == null: continue
         if not is_instance_valid(city): continue
         if city.is_queued_for_deletion(): continue
-        if city.my_team != team_name: continue
+        if city.team_name != team_name: continue
         cities.append(city)
     return cities
 
@@ -49,14 +56,6 @@ func initialize(map:Map):
         var terrain_type = map.terrain.get_group_name(map.terrain.get_position_group(grid_point))
         if terrain_type != 'port': continue
         city.set_port()
-
-
-func make_team_queue(team_name):
-    var team_queue = []
-    for city in get_children():
-        if city.my_team != team_name: continue
-        team_queue.append(city)
-    return(team_queue)
 
 
 func restore(saved_cities):
@@ -85,7 +84,7 @@ func save(saved: SavedWorld):
 func tally_owners():
     var team_owners = {}
     for city in get_children():
-        if team_owners.get(city.my_team) == null:
-            team_owners[city.my_team] = 0
-        team_owners[city.my_team] += 1
+        if team_owners.get(city.team_name) == null:
+            team_owners[city.team_name] = 0
+        team_owners[city.team_name] += 1
     return(team_owners)

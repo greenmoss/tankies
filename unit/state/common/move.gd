@@ -43,6 +43,8 @@ func reduce_fuel():
 
 
 func reduce_moves():
+    owner.unit.automation.clear_thoughts()
+
     if owner.unit.has_fuel():
         reduce_fuel()
 

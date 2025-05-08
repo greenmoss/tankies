@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="7_42oqr"]
 [ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="8_e1rdr"]
 [ext_resource type="AudioStream" uid="uid://bn4gfedm0ed4u" path="res://unit/types/fighter/plane_down.mp3" id="9_q2pc7"]
-[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_s0mtd"]
+[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/hauled/bt_attacker.tscn" id="9_s0mtd"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="15_oucdu"]
 [ext_resource type="Script" uid="uid://b46lm6ve4sqrg" path="res://unit/plan.gd" id="18_41f43"]
 [ext_resource type="Script" uid="uid://7g8o6cw7ldaw" path="res://unit/vision.gd" id="19_xnqix"]
@@ -21,7 +21,7 @@ size = Vector2(80, 80)
 editor_description = "A unit that can fight, move, or capture"
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_x1auo")
-my_team = null
+team_name = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)

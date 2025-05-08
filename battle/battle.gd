@@ -3,6 +3,13 @@ class_name Battle
 
 var fighting:bool
 var winner
+enum Sides {Attacker, Defender}
+
+# for testing, this doesn't work
+#  var original_choose_winner = Battle.choose_winner
+# so instead we use these two class variables
+var fake_winner:Sides = Sides.Attacker
+var really_choose = true
 
 func _ready():
     Global.set_z(self, 'battle')
@@ -70,9 +77,19 @@ func attack_unit(attacker:Unit, defender:Unit):
 func choose_winner(attacker:Unit, defender):
     var strength_total = attacker.attack_strength + defender.defense_strength
     var result = randi() % strength_total
-    if result >= attacker.attack_strength:
-        return defender
-    return attacker
+
+    if really_choose:
+        #print("choosing a random winner")
+        if result >= attacker.attack_strength:
+            return defender
+        return attacker
+
+    if fake_winner == Sides.Attacker:
+        #print("winner is always attacker")
+        return attacker
+
+    #print("winner is always defender")
+    return defender
 
 
 func crash(lost:Unit):
@@ -82,3 +99,13 @@ func crash(lost:Unit):
 
     if is_instance_valid(lost):
         await lost.disband()
+
+
+func override_winner(side:Sides):
+    really_choose = false
+    fake_winner = side
+
+
+func restore_winner():
+    really_choose = true
+    fake_winner = Sides.Attacker

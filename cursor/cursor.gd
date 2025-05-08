@@ -24,7 +24,7 @@ func _ready():
 
 
 func _mouse_entered_city(city:City):
-    if city.my_team != controller_team: return
+    if city.team_name != controller_team: return
     cities_under_mouse[city] = true
 
 
@@ -35,7 +35,7 @@ func _mouse_exited_city(city:City):
 func _mouse_entered_unit(unit:Unit):
     if not is_instance_valid(unit): return
     if unit.is_queued_for_deletion(): return
-    if unit.my_team != controller_team: return
+    if unit.team_name != controller_team: return
     units_under_mouse[unit] = true
 
 

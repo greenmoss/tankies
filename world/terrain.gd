@@ -62,6 +62,10 @@ func block_navigation_point(layer_name:String, point:Vector2i):
     navigation[layer_name].set_point_solid(point)
 
 
+func unblock_navigation_point(layer_name:String, point:Vector2i):
+    navigation[layer_name].set_point_solid(point, false)
+
+
 func find_coordinate_path(map_start_coordinate:Vector2, map_end_coordinate:Vector2, group_name:String):
     return navigation[group_name].get_point_path(map_start_coordinate, map_end_coordinate)
 
@@ -74,6 +78,28 @@ func find_path(local_start_point:Vector2i, local_end_point:Vector2i, group_name:
 
 func get_group_name(group_id:int) -> String:
     return group_names[group_id]
+
+
+func get_in_bounds_neighbors(this_point:Vector2i) -> Array[Vector2i]:
+    var neighbors:Array[Vector2i] = []
+    for neighbor_point in get_neighbors(this_point):
+        if neighbor_point.x > x_max: continue
+        if neighbor_point.x < x_min: continue
+        if neighbor_point.y > y_max: continue
+        if neighbor_point.y < y_min: continue
+        neighbors.append(neighbor_point)
+    return(neighbors)
+
+
+func get_neighbors(this_point:Vector2i) -> Array[Vector2i]:
+    return(
+        [
+            this_point + Vector2i.LEFT,
+            this_point + Vector2i.UP,
+            this_point + Vector2i.RIGHT,
+            this_point + Vector2i.DOWN
+        ]
+    )
 
 
 func get_physics_colliders(layer_id:int) -> int:
@@ -98,12 +124,12 @@ func init_navigation(layer_name:String):
     navigation_layer.offset = CELL_SIZE * 0.5
     navigation_layer.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
     navigation_layer.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
-    navigation_layer.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+    navigation_layer.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
     navigation_layer.update()
     navigation[layer_name] = navigation_layer
 
 
-func is_point_walkable(local_position, group_name:String):
+func is_point_walkable(local_position:Vector2i, group_name:String):
     var map_position = local_to_map(local_position)
     if navigation[group_name].is_in_boundsv(map_position):
         return not navigation[group_name].is_point_solid(map_position)
@@ -166,15 +192,6 @@ func set_physics_layers_tiles():
     return physics_layers_tiles
 
 
-func set_tile_groups():
-    tile_groups = {}
-    if physics_layers_tiles == null:
-        set_physics_layers_tiles()
-    for layer in physics_layers_tiles.keys():
-        for tile in physics_layers_tiles[layer]:
-            tile_groups[tile] = layer
-
-
 func set_source_tile_counts():
     source_tile_counts = {}
     for x in range(x_min, x_max):
@@ -184,3 +201,12 @@ func set_source_tile_counts():
             if not source_tile in source_tile_counts:
                 source_tile_counts[source_tile] = 0
             source_tile_counts[source_tile] += 1
+
+
+func set_tile_groups():
+    tile_groups = {}
+    if physics_layers_tiles == null:
+        set_physics_layers_tiles()
+    for layer in physics_layers_tiles.keys():
+        for tile in physics_layers_tiles[layer]:
+            tile_groups[tile] = layer
