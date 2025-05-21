@@ -17,6 +17,9 @@ func _cursor_marked_unit(unit:Unit):
 
 func are_done() -> bool:
     for unit in get_children():
+        # if the unit is being deleted, do not return done until it's completely gone
+        if not is_instance_valid(unit): return false
+        if unit.is_queued_for_deletion(): return false
         if not unit.state.is_done(): return false
     return true
 

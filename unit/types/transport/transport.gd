@@ -33,6 +33,8 @@ func is_free_of_obstacles(terrain_position:Vector2, obstacles:Obstacles) -> bool
     for obstacle in point_objects:
         # transports can not attack
         # nor move into non-owned cities
+        if not is_instance_valid(obstacle): continue
+        if obstacle.is_queued_for_deletion(): continue
         if obstacle.team_name == self.team_name:
             return true
 
