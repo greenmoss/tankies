@@ -110,8 +110,8 @@ func get_approach_neighbors(approach_point:Vector2i) -> Array[Vector2i]:
 
 
 func get_max_distance() -> int:
-    var size_x = max_bound.x - min_bound.x
-    var size_y = max_bound.y - min_bound.y
+    var size_x = max_bound.x - min_bound.x + 1
+    var size_y = max_bound.y - min_bound.y + 1
     if size_x <= 0 or size_y <= 0:
         return 0
     if size_x > size_y:

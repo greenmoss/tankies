@@ -8,22 +8,25 @@ extends 'common_action_leaf.gd'
 func tick(actor, blackboard):
     exploration_paths = []
     var region_from_unit:Region = blackboard.get_value("region_from_unit")
-    #print("set move to unexplored; region ",region_from_unit,"; unit ",actor,"; position ",actor.position,"/",Global.as_grid(actor.position))
+    #print("unit ",actor," set move to unexplored; region ",region_from_unit,"; position ",actor.position,"/",Global.as_grid(actor.position))
     if region_from_unit == null: return FAILURE
     #print("set move to unexplored 2")
 
     var max_search_radius = region_from_unit.get_max_distance()
+    #print("max search radius ",max_search_radius,"; actor.vision.distance ",actor.vision.distance)
 
+    # Actor's current vision radius is guaranteed explored
+    # So start outside of that distance
+    # Keep looking, up to the maximum region size
     for search_radius in range(actor.vision.distance + 1, max_search_radius + 1):
+        #print("unit ",actor," explore tick A at ",actor.position,"/",Global.as_grid(actor.position)," radius ",search_radius)
         set_exploration_paths(actor, search_radius, blackboard, region_from_unit)
-        #print("set move to unexplored path: ",exploration_path)
-        #print(Global.array_as_grid(exploration_path))
         if exploration_paths.is_empty(): continue
         path_picker = path_picker % exploration_paths.size()
-        #print("unit ",actor," at ",actor.position,"/",Global.as_grid(actor.position)," radius ",search_radius,", path count ",exploration_paths.size()," picking element ",path_picker)
+        #print("unit ",actor," explore tick B path count ",exploration_paths.size()," picking element ",path_picker)
         #for path in exploration_paths:
-            #print("path ",path)
-            #print("grid path ",Global.array_as_grid(path))
+        #    print("path ",path)
+        #    print("grid path ",Global.array_as_grid(path))
         var exploration_path = exploration_paths[path_picker]
         if exploration_path.size() > 1:
             path_picker += 1

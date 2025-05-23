@@ -6,15 +6,18 @@ var world_scene = preload("res://world/world.tscn")
 var loader = null
 var action_event = InputEventAction.new()
 
+
 func before_each():
     loader = loader_script.new()
     loader.world_scene = world_scene
     get_tree().current_scene.add_child(loader)
 
+
 func after_each():
     loader.queue_free()
     _sender.release_all()
     _sender.clear()
+
 
 func test_transport_finds_path_past_neutral_city():
     loader.restore('999_gut-forlorn-transport.tres')
@@ -39,4 +42,35 @@ func test_transport_finds_path_past_neutral_city():
         "a transport path should not intersect a neutral city")
     assert_eq( 17, transport_path.size(),
         "a transport path should contain 17 hops")
-    #breakpoint
+
+
+func test_transport_unload_full_moves():
+    loader.restore('999_gut-forlorn-transport.tres')
+    var world = loader.world
+    world.start()
+
+    world.teams.human_team.units.create('tank', Vector2(40, 40), 'tank')
+
+    var position1 = Vector2(600, 200)
+    world.teams.ai_team.units.create('transport', position1, 'transport1')
+    world.teams.ai_team.units.create('tank', position1, 'tank1')
+
+    var ai_units = world.teams.ai_team.units.get_children()
+    var transport1 = ai_units[0]
+    transport1.haul_unit(ai_units[1])
+
+    action_event.action = "next"
+    action_event.pressed = true
+    Input.parse_input_event(action_event)
+    await get_tree().create_timer(0.5).timeout
+
+    action_event.action = "skip"
+    action_event.pressed = true
+    Input.parse_input_event(action_event)
+
+    # wait for next turn, thus AI completed its moves
+    while world.turns.turn_number == 1:
+        await get_tree().process_frame
+
+    assert_eq( ai_units[1].get_position(), Vector2(680,280),
+        "after transport unhauled to small island, tank unhauled and explored" )

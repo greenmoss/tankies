@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://bufvbk6y65jkb"]
+[gd_scene load_steps=27 format=4 uid="uid://bufvbk6y65jkb"]
 
 [ext_resource type="Script" uid="uid://dv8wu8wf6g4yf" path="res://world/world.gd" id="1_555vv"]
 [ext_resource type="Texture2D" uid="uid://dtvh1ni0qoylk" path="res://world/grasslands.png" id="1_oiwoi"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://sgl6kqwi4tqx" path="res://team/team.tscn" id="8_y6rer"]
 [ext_resource type="Script" uid="uid://dtdm5a85sogam" path="res://world/obstacles.gd" id="9_gi7ib"]
 [ext_resource type="PackedScene" uid="uid://j8ul2q0ae4n1" path="res://cursor/cursor.tscn" id="9_q1kf1"]
-[ext_resource type="PackedScene" uid="uid://cdnsutfu1x162" path="res://unit/types/tank/tank.tscn" id="10_wo6ug"]
 [ext_resource type="Script" uid="uid://jmqnmsy5dn1x" path="res://battle/battle.gd" id="13_vrmg3"]
 [ext_resource type="AudioStream" uid="uid://bq41j0phwcn4l" path="res://battle/machine_gun_and_explosion.mp3" id="14_edf21"]
 [ext_resource type="PackedScene" uid="uid://d0tcjutg46uvm" path="res://unit/types/transport/transport.tscn" id="15_3ljsx"]
@@ -94,18 +93,20 @@ script = ExtResource("3_bgbrx")
 
 [node name="Babylon" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(120, 120)
-team_name = "GreenTeam"
+open = true
 
 [node name="Ashur" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(1800, 1000)
-team_name = "RedTeam"
+open = true
 
 [node name="Nippur" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(440, 120)
+team_name = "GreenTeam"
 open = true
 
 [node name="Palmyra" parent="Map/cities" instance=ExtResource("3_k81tp")]
 position = Vector2(1480, 1000)
+team_name = "RedTeam"
 open = true
 
 [node name="Cairo" parent="Map/cities" instance=ExtResource("3_k81tp")]
@@ -141,11 +142,6 @@ show_fog = true
 script = ExtResource("8_4k8im")
 battle = NodePath("../../../battle")
 
-[node name="green_tank1" parent="teams/GreenTeam/units" instance=ExtResource("10_wo6ug")]
-modulate = Color(0, 0.862745, 0, 1)
-position = Vector2(200, 200)
-team_name = "GreenTeam"
-
 [node name="cursor" parent="teams/GreenTeam" instance=ExtResource("9_q1kf1")]
 
 [node name="RedTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "obstacles", "terrain", "regions", "cities") instance=ExtResource("8_y6rer")]
@@ -162,17 +158,8 @@ show_fog = false
 script = ExtResource("8_4k8im")
 battle = NodePath("../../../battle")
 
-[node name="red_tank1" parent="teams/RedTeam/units" instance=ExtResource("10_wo6ug")]
-modulate = Color(1, 0.247059, 0.188235, 1)
-position = Vector2(1720, 920)
-team_name = "RedTeam"
-
 [node name="red_transport1" parent="teams/RedTeam/units" instance=ExtResource("15_3ljsx")]
-position = Vector2(1480, 920)
-team_name = "RedTeam"
-
-[node name="red_transport2" parent="teams/RedTeam/units" instance=ExtResource("15_3ljsx")]
-position = Vector2(1800, 360)
+position = Vector2(1400, 1080)
 team_name = "RedTeam"
 
 [node name="neutral" parent="teams" instance=ExtResource("8_y6rer")]

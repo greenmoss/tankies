@@ -96,7 +96,10 @@ func test_one_turn_human_and_ai():
     action_event.action = "skip"
     action_event.pressed = true
     Input.parse_input_event(action_event)
-    await get_tree().create_timer(1).timeout
+
+    # wait for next turn, thus AI completed its moves
+    while loader.world.turns.turn_number == 1:
+        await get_tree().process_frame
 
     assert_eq( ai_unit.get_world_position(), Vector2i(20,10),
         "after human skips remaining, ai has moved up and left" )
