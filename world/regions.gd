@@ -99,6 +99,11 @@ func remove(region:Region):
 func set_approaches(terrain:Terrain):
     for region in get_children():
         for region_position in region.positions:
+            # land units can not offload from transports into unowned cities
+            # thus, exclude positions that are in more than one region
+            # for example ports
+            if by_position[region_position].size() > 1: continue
+
             for neighbor in terrain.get_in_bounds_neighbors(region_position):
                 if region in get_from_point(neighbor): continue
                 region.add_approach(neighbor)
