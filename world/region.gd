@@ -125,11 +125,7 @@ func get_segment_neighbors(point:Vector2i) -> Array[Vector2i]:
         point + Vector2i.RIGHT,
         point + Vector2i.DOWN,
         point + Vector2i.LEFT,
-        # also consider diagonal connections
-        point + Vector2i.UP + Vector2i.RIGHT,
-        point + Vector2i.DOWN + Vector2i.RIGHT,
-        point + Vector2i.DOWN + Vector2i.LEFT,
-        point + Vector2i.UP + Vector2i.LEFT,
+        # units can not move diagonally, so only include adjacent connections
         ]
 
 

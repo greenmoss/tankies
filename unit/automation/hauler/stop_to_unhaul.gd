@@ -13,6 +13,8 @@ func tick(actor, blackboard):
     #print("hauler ",actor," moving to path ",unhaul_path)
     if unhaul_path.size() > 1: return FAILURE
 
+    #print("unit ",actor," at point ",Global.as_grid(actor.position)," checking whether we are on an approach")
+
     actor.set_manual()
     for hauled_unit in actor.hauled_units:
         #print("hauler ",actor," stopping to unhaul ",hauled_unit, " with moves ",hauled_unit.moves_remaining)

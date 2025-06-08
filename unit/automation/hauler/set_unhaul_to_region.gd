@@ -7,13 +7,16 @@ var current_region:Region = null
 func tick(actor, blackboard):
     var empty_positions:Array[Vector2] = []
 
-    #print("set unhaul to region 4")
+    #print("unit ",actor," set unhaul to region")
 
     var closest_path = blackboard.get_value("unhaul_to_region_closest_path")
     var closest_region = blackboard.get_value("unhaul_to_region_closest_region")
 
     if (closest_path == null) or (closest_region == null): return FAILURE
-    #print("set unhaul to region 5")
+    #print("set unhaul to region B")
+    #print("region approaches: ", closest_region.approaches)
+    #print("approach segments: ", closest_region.approach_segments)
+    #print("closest path: ", Global.array_as_grid(closest_path))
 
     var unhaul_to_region:Region = current_region
     if unhaul_to_region != closest_region:
@@ -24,8 +27,7 @@ func tick(actor, blackboard):
     var region_approach_position = closest_region.get_approach_position(closest_path)
 
     if region_approach_position == Vector2.LEFT: return FAILURE
-    #print("set unhaul to region 6, region_approach_position: ", region_approach_position,"; closest_region: ",closest_region)
-    #print("set unhaul to region 6")
+    #print("set unhaul to region C, region_approach_position: ", Global.as_grid(region_approach_position),"; closest_region: ",closest_region)
 
     var unhaul_to_region_checked = blackboard.get_value('unhaul_to_region_checked')
 
@@ -35,7 +37,7 @@ func tick(actor, blackboard):
         blackboard.set_value('unhaul_to_region_checked', unhaul_to_region_checked)
 
         return SUCCESS
-    #print("set unhaul to region 7")
+    #print("set unhaul to region D")
 
     var retry_positions = unhaul_to_region.get_approach_neighbors(Global.as_grid(region_approach_position))
     var path_to_unhaul = blackboard.get_value("unhaul_to_region_path")
@@ -52,7 +54,7 @@ func tick(actor, blackboard):
 
     if path_to_unhaul.is_empty():
         return FAILURE
-    #print("set unhaul to region 8")
+    #print("set unhaul to region E")
 
     blackboard.set_value('unhaul_to_region_path', path_to_unhaul)
     return SUCCESS
