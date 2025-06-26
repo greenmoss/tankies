@@ -41,18 +41,39 @@ func test_ai_destroys_transport_and_conquers_city():
     action_event.pressed = true
     Input.parse_input_event(action_event)
 
+    # ai destroys transport
     await SignalBus.battle_finished
-    assert_true(true,
-        "after human skip, ai attacked the unit")
+    # ai attacks city
     await SignalBus.battle_finished
-    assert_true(true,
-        "after ai attacked the unit, ai attacked the city")
+    # ai conquers city
     await SignalBus.city_updated_vision
-    assert_true(true,
-        "after ai attacked the city, ai conquered the city")
 
     assert_eq( world.check_winner(), 'RedTeam',
         "after ai attack and conquer, Red is the winner" )
+
+func test_ai_conquers_city_but_human_continues():
+    loader.restore('999_gut-forlorn-transport.tres')
+    var world = loader.world
+    world.start()
+
+    world.teams.human_team.units.create('tank', Vector2(120, 120), 'human_tank')
+    world.teams.ai_team.units.create('tank', Vector2(440, 200), 'ai_tank')
+
+    action_event.action = "next"
+    action_event.pressed = true
+    Input.parse_input_event(action_event)
+    await get_tree().create_timer(0.5).timeout
+
+    world.battle.override_winner(Battle.Sides.Attacker)
+    assert_null(world.check_winner(), "before ai conquered the city, winner is not set")
+
+    action_event.action = "skip"
+    action_event.pressed = true
+    Input.parse_input_event(action_event)
+
+    await SignalBus.city_updated_vision
+
+    assert_null(world.check_winner(), "after ai conquered the city, human team still has one tank so winner is still not set")
 
 func test_one_turn_human_and_ai():
     loader.restore('999_gut-land.tres')

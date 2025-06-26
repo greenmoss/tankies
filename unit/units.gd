@@ -131,7 +131,6 @@ func get_tally() -> int:
     for unit in get_children():
         if not is_instance_valid(unit): continue
         if unit.is_queued_for_deletion(): continue
-        if unit.state.is_done(): continue
         if not unit.can_capture: continue
         tally.append(unit)
     return tally.size()
