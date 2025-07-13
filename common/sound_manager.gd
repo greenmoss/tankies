@@ -3,6 +3,11 @@ extends Node
 # each named channel will only play one concurrent sound
 var channels:Dictionary
 
+# reduce volume before stopping
+# prevents audible clicks and pops between sound transitions
+var full_volume = 0.0
+var silenced_volume = -55.0
+
 
 func _ready():
     channels = {}
@@ -35,7 +40,9 @@ func interrupt_channel(channel_name:String, audio_stream:AudioStreamPlayer2D):
         # If we're already playing this audio, continue playing it
         if channel_stream.stream == audio_stream.stream:
             return
+        channel_stream.volume_db = silenced_volume
         channel_stream.stop()
+        channel_stream.volume_db = full_volume
 
     if channel_stream.stream == audio_stream.stream:
         channel_stream.play()
@@ -50,7 +57,9 @@ func stop_all(channel_names:Array[String]):
         var channel_stream = get_channel_stream(channel_name)
         if channel_stream == null: continue
         if not channel_stream.is_playing(): continue
+        channel_stream.volume_db = silenced_volume
         channel_stream.stop()
+        channel_stream.volume_db = full_volume
 
 
 func tween_channel_volume(channel_name:String, final_db:int, tween_time:float):

@@ -36,7 +36,6 @@ stream = ExtResource("3_gledg")
 
 [node name="Ready" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("4_0ww2q")
-volume_db = -21.549
 
 [node name="Denied" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("5_grok8")
@@ -50,7 +49,7 @@ script = ExtResource("7_tw40l")
 script = ExtResource("8_5mw8u")
 
 [node name="BTTank" parent="." node_paths=PackedStringArray("blackboard") instance=ExtResource("9_6ox27")]
-blackboard = NodePath("@Node@30602")
+blackboard = NodePath("@Node@25186")
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("10_ks5ts")
