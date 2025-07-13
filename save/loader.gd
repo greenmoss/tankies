@@ -16,6 +16,11 @@ var scenarios = []
 var world:World
 
 func _ready():
+    #TODO: switch to @tool to save new scenarios
+    # to save a scenario, uncomment this line and change the scenario name
+    #world = world_scene.instantiate()
+    #add_child(world)
+    #save('000_test-scenario.tres')
     set_new_world()
     for scenario_file in DirAccess.get_files_at(scenarios_path):
         # exported resources get ".remap" suffix; workaround:

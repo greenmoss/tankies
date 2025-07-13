@@ -23,6 +23,9 @@ var regions = []
 func _ready():
     Global.set_z(tint, 'tint')
     # if we are the root scene, we are debugging/standalone so start now
+    #TODO: switch to @tool to save new scenarios
+    # to save a scenario, uncomment this line and comment the if/else
+    #start()
     if get_parent() == get_tree().root:
         start()
     else:
