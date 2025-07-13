@@ -17,11 +17,11 @@
 [ext_resource type="Script" uid="uid://dtdm5a85sogam" path="res://world/obstacles.gd" id="9_gi7ib"]
 [ext_resource type="PackedScene" uid="uid://j8ul2q0ae4n1" path="res://cursor/cursor.tscn" id="9_q1kf1"]
 [ext_resource type="Script" uid="uid://jmqnmsy5dn1x" path="res://battle/battle.gd" id="13_vrmg3"]
-[ext_resource type="AudioStream" uid="uid://bq41j0phwcn4l" path="res://battle/machine_gun_and_explosion.mp3" id="14_edf21"]
 [ext_resource type="PackedScene" uid="uid://d0tcjutg46uvm" path="res://unit/types/transport/transport.tscn" id="15_3ljsx"]
 [ext_resource type="PackedScene" uid="uid://bjftff5tujhp2" path="res://battle/target.tscn" id="15_kgld4"]
 [ext_resource type="AudioStream" uid="uid://dsm5ba5uleamw" path="res://battle/245372__quaker540__hq-explosion.wav" id="16_g2frl"]
 [ext_resource type="AudioStream" uid="uid://dsxpcakhsi8bk" path="res://battle/far_off_battle.wav" id="17_51lqp"]
+[ext_resource type="AudioStream" uid="uid://dp4vh8c0bakeg" path="res://battle/machine_gun_and_explosion.wav" id="19_3ljsx"]
 [ext_resource type="AudioStream" uid="uid://byicytvkaueha" path="res://world/varyag_war_drum.ogg" id="20_bch13"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rqsf1"]
@@ -187,7 +187,7 @@ wait_time = 2.0
 script = ExtResource("13_vrmg3")
 
 [node name="Cacophony" type="AudioStreamPlayer" parent="battle"]
-stream = ExtResource("14_edf21")
+stream = ExtResource("19_3ljsx")
 
 [node name="Target1" parent="battle" instance=ExtResource("15_kgld4")]
 position = Vector2(280, 200)
