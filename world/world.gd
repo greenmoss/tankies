@@ -45,6 +45,13 @@ func check_winner():
     var unit_winner = get_tally_winner(units_tally)
     var city_winner = get_tally_winner(cities_tally)
 
+    # special case:
+    # no units remaining that can capture
+    # only one side has cities
+    if unit_winner == null:
+        if (units_tally['GreenTeam'] == 0) or (units_tally['RedTeam'] == 0):
+            return city_winner
+
     if city_winner != unit_winner:
         return null
 
