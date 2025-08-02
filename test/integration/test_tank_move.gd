@@ -17,7 +17,7 @@ func after_each():
     _sender.clear()
 
 func test_ai_destroys_transport_and_conquers_city():
-    loader.restore('999_gut-forlorn-transport.tres')
+    loader.restore('000_test-forlorn-transport.tres')
     var world = loader.world
     world.start()
 
@@ -52,7 +52,7 @@ func test_ai_destroys_transport_and_conquers_city():
         "after ai attack and conquer, Red is the winner" )
 
 func test_ai_conquers_city_but_human_continues():
-    loader.restore('999_gut-forlorn-transport.tres')
+    loader.restore('000_test-forlorn-transport.tres')
     var world = loader.world
     world.start()
 
@@ -76,7 +76,7 @@ func test_ai_conquers_city_but_human_continues():
     assert_null(world.check_winner(), "after ai conquered the city, human team still has one tank so winner is still not set")
 
 func test_one_turn_human_and_ai():
-    loader.restore('999_gut-land.tres')
+    loader.restore('000_test-land.tres')
     loader.world.start()
     var ai_units = loader.world.teams.ai_team.units.get_children()
     var human_units = loader.world.teams.human_team.units.get_children()

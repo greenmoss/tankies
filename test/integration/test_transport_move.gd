@@ -20,7 +20,7 @@ func after_each():
 
 
 func test_transport_finds_path_past_neutral_city():
-    loader.restore('999_gut-forlorn-transport.tres')
+    loader.restore('000_test-forlorn-transport.tres')
     var world = loader.world
     world.start()
 
@@ -45,7 +45,7 @@ func test_transport_finds_path_past_neutral_city():
 
 
 func test_transport_unload_small_island():
-    loader.restore('999_gut-forlorn-transport.tres')
+    loader.restore('000_test-forlorn-transport.tres')
     var world = loader.world
     world.start()
 
@@ -77,7 +77,7 @@ func test_transport_unload_small_island():
 
 
 func test_transport_unload_adjacent_city():
-    loader.restore('999_gut-forlorn-transport.tres')
+    loader.restore('000_test-forlorn-transport.tres')
     var world = loader.world
     world.start()
 

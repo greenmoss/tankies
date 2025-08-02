@@ -17,7 +17,7 @@ func after_each():
     _sender.clear()
 
 func test_fighter_destroys_tank_green_is_winner():
-    loader.restore('999_gut-fighter.tres')
+    loader.restore('000_test-fighter.tres')
     var world = loader.world
     world.start()
 

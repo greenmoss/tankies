@@ -20,7 +20,7 @@ func after_each():
 
 
 func test_region_approaches():
-    loader.restore('999_gut-forlorn-transport.tres')
+    loader.restore('000_test-forlorn-transport.tres')
     var world = loader.world
     world.start()
 

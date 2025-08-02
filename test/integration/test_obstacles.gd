@@ -17,7 +17,7 @@ func after_each():
     _sender.clear()
 
 func test_obstacles_with_one_tank():
-    loader.restore('999_gut-forlorn-transport.tres')
+    loader.restore('000_test-forlorn-transport.tres')
     var world = loader.world
     world.start()
 
