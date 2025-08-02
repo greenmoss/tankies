@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bf7tyd11v6coc" path="res://unit/types/transport/transport.gd" id="1_gq36w"]
 [ext_resource type="Script" uid="uid://dboxq6m0lqoxx" path="res://unit/sounds/sounds.gd" id="2_p1e00"]
-[ext_resource type="AudioStream" uid="uid://cc88jvsa7oons" path="res://unit/types/tank/engine_heavy_loop.mp3" id="3_2nvwv"]
-[ext_resource type="AudioStream" uid="uid://brbw1roktafb" path="res://unit/sounds/cduckett-01-ready.mp3" id="4_0hqhm"]
-[ext_resource type="AudioStream" uid="uid://djq57osep84yd" path="res://unit/sounds/denied.mp3" id="5_vj2s6"]
+[ext_resource type="AudioStream" uid="uid://c8yic820j2kgd" path="res://unit/types/tank/engine_heavy_loop.wav" id="3_4lg30"]
+[ext_resource type="AudioStream" uid="uid://dkwhodvlade8i" path="res://unit/sounds/cduckett-01-ready.wav" id="4_l1txv"]
+[ext_resource type="AudioStream" uid="uid://d0fy7npacpyq8" path="res://unit/sounds/denied.wav" id="5_ucmqw"]
 [ext_resource type="PackedScene" uid="uid://dce25s55qgsoy" path="res://unit/state/state.tscn" id="6_hf05x"]
 [ext_resource type="Script" uid="uid://b46lm6ve4sqrg" path="res://unit/plan.gd" id="7_kqwgx"]
 [ext_resource type="Script" uid="uid://7g8o6cw7ldaw" path="res://unit/vision.gd" id="8_suxvi"]
-[ext_resource type="PackedScene" uid="uid://laec8ukoe42u" path="res://unit/automation/automation.tscn" id="9_ki7f2"]
+[ext_resource type="PackedScene" uid="uid://bhq8u3ebam6rr" path="res://unit/automation/hauler/bt_transport.tscn" id="9_acegh"]
 [ext_resource type="Script" uid="uid://dme5f24l0edsf" path="res://addons/beehave/blackboard.gd" id="10_equp6"]
 [ext_resource type="PackedScene" uid="uid://d3mylfr0kmvxc" path="res://unit/display.tscn" id="11_dfa3d"]
 [ext_resource type="Texture2D" uid="uid://oaokaprbkg1w" path="res://unit/types/transport/cargo-ship.svg" id="12_kwvdc"]
@@ -19,7 +19,7 @@ size = Vector2(80, 80)
 [node name="Transport" type="Area2D" groups=["Units"]]
 editor_description = "A unit that can fight, move, or capture"
 script = ExtResource("1_gq36w")
-my_team = null
+team_name = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -33,14 +33,13 @@ collide_with_areas = true
 script = ExtResource("2_p1e00")
 
 [node name="Move" type="AudioStreamPlayer2D" parent="Sounds"]
-stream = ExtResource("3_2nvwv")
+stream = ExtResource("3_4lg30")
 
 [node name="Ready" type="AudioStreamPlayer2D" parent="Sounds"]
-stream = ExtResource("4_0hqhm")
-volume_db = -21.549
+stream = ExtResource("4_l1txv")
 
 [node name="Denied" type="AudioStreamPlayer2D" parent="Sounds"]
-stream = ExtResource("5_vj2s6")
+stream = ExtResource("5_ucmqw")
 
 [node name="state" parent="." instance=ExtResource("6_hf05x")]
 
@@ -50,7 +49,9 @@ script = ExtResource("7_kqwgx")
 [node name="vision" type="Node" parent="."]
 script = ExtResource("8_suxvi")
 
-[node name="automation" parent="." instance=ExtResource("9_ki7f2")]
+[node name="BTTransport" parent="." node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_acegh")]
+blackboard = NodePath("@Node@26055")
+actor = NodePath("..")
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("10_equp6")

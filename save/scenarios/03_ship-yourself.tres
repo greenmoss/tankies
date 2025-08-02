@@ -9,51 +9,56 @@
 [sub_resource type="Resource" id="Resource_7nwc6"]
 script = ExtResource("1_5s1i5")
 build_type = "tank"
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(120, 120)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Ashur"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_73qff"]
 script = ExtResource("1_5s1i5")
 build_type = "transport"
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(440, 120)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Nippur"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_p4ytj"]
 script = ExtResource("1_5s1i5")
 build_type = "tank"
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(1480, 1000)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Palmyra"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_h2ao2"]
 script = ExtResource("1_5s1i5")
 build_type = "tank"
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(1080, 600)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Babylon"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_3ljpa"]
 script = ExtResource("1_5s1i5")
 build_type = "tank"
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(1320, 520)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Tyre"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_j7dg0"]
 script = ExtResource("2_babs5")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(440, 200)
 modulate = Color(0, 0, 0, 1)
 _class_name = "SavedUnit"
@@ -61,7 +66,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_tkt3h"]
 script = ExtResource("2_babs5")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(520, 200)
 modulate = Color(0, 0, 0, 1)
 _class_name = "SavedUnit"

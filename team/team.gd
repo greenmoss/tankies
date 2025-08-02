@@ -9,6 +9,7 @@ class_name Team
 @export var color:Color
 @export var controller:Global.Controllers
 @export var enemy_team:Team
+@export var obstacles:Obstacles
 # for path finding, we require terrain and regions
 @export var terrain:Terrain
 @export var regions:Regions
@@ -45,28 +46,28 @@ func _ready():
 # `Cannot convert argument 1 from Object to Object.`
 func _battle_finished(winner, loser):
     if loser.is_in_group("Cities"): return
-    if winner.my_team == name:
+    if winner.team_name == name:
         battles_won += 1
         return
-    if loser.my_team == name:
+    if loser.team_name == name:
         battles_lost += 1
         stack_lids.remove_from_stack(loser.position, loser)
         return
 
 
 func _cursor_marked_unit(unit:Unit):
-    if unit.my_team != name: return
+    if unit.team_name != name: return
     stack_lids.set_stack(units.get_at_position(unit.position))
     stack_lids.promote_unit(unit)
 
 
 func _moved_from_position(unit:Unit, old_position:Vector2):
-    if unit.my_team != name: return
+    if unit.team_name != name: return
     stack_lids.remove_from_stack(old_position, unit)
 
 
 func _moved_to_position(unit:Unit, _new_position:Vector2):
-    if unit.my_team != name: return
+    if unit.team_name != name: return
     var units_at_position = units.get_at_position(unit.position)
     stack_lids.set_stack(units_at_position)
     stack_lids.promote_unit(unit)
@@ -174,4 +175,4 @@ func save(saved: SavedWorld):
 
 func tally_units() -> int:
     # includes units being freed
-    return units.get_children().size()
+    return units.get_tally()

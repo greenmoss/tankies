@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dce25s55qgsoy"]
+[gd_scene load_steps=12 format=3 uid="uid://dce25s55qgsoy"]
 
 [ext_resource type="Script" uid="uid://d17rcgbbtgc1e" path="res://unit/state/unit_state_machine.gd" id="1_dcagi"]
 [ext_resource type="Script" uid="uid://nc03beueo5o3" path="res://unit/state/states/attack.gd" id="2_qjtns"]
 [ext_resource type="Script" uid="uid://dox71pbvhixon" path="res://unit/state/states/capture.gd" id="3_mxuy7"]
+[ext_resource type="Script" uid="uid://ftpxrwmn4jq5" path="res://unit/state/states/block.gd" id="3_oearj"]
 [ext_resource type="Script" uid="uid://cfn41xd8greqk" path="res://unit/state/states/crash.gd" id="4_76w7b"]
 [ext_resource type="Script" uid="uid://culhbenkqv3iu" path="res://unit/state/states/end.gd" id="4_lv6q8"]
 [ext_resource type="Script" uid="uid://dnalcowp86iwe" path="res://unit/state/states/idle.gd" id="5_83wga"]
@@ -17,6 +18,9 @@ start_state = NodePath("idle")
 
 [node name="attack" type="Node" parent="."]
 script = ExtResource("2_qjtns")
+
+[node name="block" type="Node" parent="."]
+script = ExtResource("3_oearj")
 
 [node name="capture" type="Node" parent="."]
 script = ExtResource("3_mxuy7")

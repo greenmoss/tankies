@@ -26,13 +26,13 @@ func _ready():
 
 
 func _city_updated_vision(city:City):
-    if city.my_team != owner.name: return
+    if city.team_name != owner.name: return
     sum_cities()
     derive()
 
 
 func _unit_updated_vision(unit:Unit):
-    if unit.my_team != owner.name: return
+    if unit.team_name != owner.name: return
     sum_units()
     derive()
 

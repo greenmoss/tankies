@@ -10,27 +10,50 @@ var _class_name = "BehaviorTree"
 # Set a unique behavior tree name
 # Allows us to track individual units in the BT debugger
 func _enter_tree():
-    name = 'BT'+owner.name
-    # BT dynamic blackboard DOES NOT WORK with unit restore!
-    # Thus you must assign the blackboard here:
-    blackboard = owner.blackboard
+    if owner != null:
+        name = 'BT'+owner.name
+        # BT dynamic blackboard DOES NOT WORK with unit restore!
+        # Thus you must assign the blackboard here:
+        blackboard = owner.blackboard
 
 
-func set_cities(candidates:Dictionary):
-    blackboard.set_value("city_candidates", candidates)
+func initialize(
+    city_candidates:Dictionary,
+    unit_candidates:Dictionary,
+    explored:Dictionary,
+    my_units:Array,
+    obstacles:Obstacles,
+    regions:Regions,
+    terrain:Terrain):
 
-
-func set_explored(explored:Dictionary):
+    blackboard.set_value("city_candidates", city_candidates)
     blackboard.set_value("explored", explored)
-
-
-func set_regions(regions:Regions):
+    blackboard.set_value("my_units", my_units)
+    blackboard.set_value("obstacles", obstacles)
     blackboard.set_value("regions", regions)
-
-
-func set_terrain(terrain:Terrain):
     blackboard.set_value("terrain", terrain)
+    blackboard.set_value("unit_candidates", unit_candidates)
 
+    var thoughts = blackboard.get_value("thoughts")
+    if(thoughts == null):
+        clear_thoughts()
+    else:
+        blackboard.set_value("thoughts", thoughts + 1)
+    #print(owner.name + ' BT ' + str(blackboard.get_value("thoughts")))
 
-func set_units(candidates:Dictionary):
-    blackboard.set_value("unit_candidates", candidates)
+    # also initialize hauled units
+    # in case they unhaul
+    if owner.is_hauling():
+        for unit in owner.hauled_units:
+            unit.automation.initialize(
+                city_candidates,
+                unit_candidates,
+                explored,
+                my_units,
+                obstacles,
+                regions,
+                terrain,
+            )
+
+func clear_thoughts():
+    blackboard.set_value("thoughts", 0)

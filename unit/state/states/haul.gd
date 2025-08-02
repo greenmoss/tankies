@@ -7,9 +7,16 @@ func _ready():
 
 func _unit_can_haul(hauler:Unit) -> void:
     if not owner.unit.state.is_hauled(): return
-    if not owner.unit.position == hauler.position: return
     if not hauler.can_haul_unit(owner.unit): return
-    hauler.haul_unit(owner.unit)
+
+    # it's on our position, probably in a port
+    if owner.unit.position == hauler.position:
+        hauler.haul_unit(owner.unit)
+        return
+
+    # might be nearby instead
+    # wake up and check
+    emit_signal("next_state", "idle")
 
 
 func enter():

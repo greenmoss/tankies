@@ -1,0 +1,134 @@
+[gd_scene load_steps=25 format=3 uid="uid://laec8ukoe42u"]
+
+[ext_resource type="Script" uid="uid://uqwc7gt5bgjy" path="res://unit/automation/automation.gd" id="1_irmyj"]
+[ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_oowk3"]
+[ext_resource type="Script" uid="uid://dsf3a8vlolhx8" path="res://addons/beehave/nodes/decorators/succeeder.gd" id="3_h2sm1"]
+[ext_resource type="Script" uid="uid://d2d5jrr74c3t4" path="res://unit/automation/set_confused.gd" id="4_7re6i"]
+[ext_resource type="Script" uid="uid://djsy2gscd08ei" path="res://unit/automation/set_unit_to_closest_candidate.gd" id="4_lus30"]
+[ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="5_4bkiv"]
+[ext_resource type="Script" uid="uid://1ijm34mpawye" path="res://unit/automation/set_enemy_city_from_plan.gd" id="6_ogwqo"]
+[ext_resource type="Script" uid="uid://bupeg1rqbvfcp" path="res://unit/automation/set_enemy_city_to_closest.gd" id="7_8rqm2"]
+[ext_resource type="Script" uid="uid://brppbh4ngmmyf" path="res://unit/automation/unset_city.gd" id="8_13lcl"]
+[ext_resource type="Script" uid="uid://bgi5x75n8i7bs" path="res://unit/automation/has_city_target.gd" id="9_yd1vw"]
+[ext_resource type="Script" uid="uid://bm0vttenmxyrf" path="res://unit/automation/has_unit_target.gd" id="10_swtor"]
+[ext_resource type="Script" uid="uid://b2g1plc8uokui" path="res://unit/automation/unset_further_target.gd" id="11_0x7pv"]
+[ext_resource type="Script" uid="uid://p517rqj0qm10" path="res://unit/automation/set_move_to_city.gd" id="12_h8pp5"]
+[ext_resource type="Script" uid="uid://cf0cme0hak6sw" path="res://unit/automation/set_move_to_unit.gd" id="13_3dbhx"]
+[ext_resource type="Script" uid="uid://bsoiitqmn1arg" path="res://unit/automation/set_region_from_unit.gd" id="14_80pjq"]
+[ext_resource type="Script" uid="uid://flbvigt87etv" path="res://unit/automation/set_move_to_unexplored.gd" id="14_us34k"]
+[ext_resource type="Script" uid="uid://cdms0psso3mg7" path="res://unit/automation/hauled/set_region_from_unhaul.gd" id="15_kk0hj"]
+[ext_resource type="Script" uid="uid://cccsvsws3jxwk" path="res://unit/automation/hauled/set_move_toward_adjacent_hauler.gd" id="15_xy336"]
+[ext_resource type="Script" uid="uid://bhbff26f5d66w" path="res://unit/automation/hauled/set_move_onto_hauler.gd" id="16_hk3t5"]
+[ext_resource type="Script" uid="uid://badmiigeuy031" path="res://unit/automation/hauled/set_move_toward_world_hauler.gd" id="17_r88si"]
+[ext_resource type="Script" uid="uid://cr7wf7biwaxt4" path="res://unit/automation/unset_move.gd" id="18_uyw58"]
+[ext_resource type="Script" uid="uid://bftmgu046gxbo" path="res://unit/automation/move_to_position.gd" id="19_guqlf"]
+[ext_resource type="Script" uid="uid://bxx1fdyq8jdfy" path="res://unit/automation/hauled/set_haul_state.gd" id="20_aa0dn"]
+[ext_resource type="Script" uid="uid://bj5fatbln5t4v" path="res://unit/automation/stop_moving.gd" id="21_f0irx"]
+
+[node name="attacker_automation" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_irmyj")
+enabled = false
+actor_node_path = NodePath("..")
+blackboard = NodePath("@Node@46841")
+actor = NodePath("..")
+
+[node name="avoid_overthinking" type="Node" parent="."]
+script = ExtResource("5_4bkiv")
+metadata/_custom_type_script = "uid://8hn4kne15ac5"
+
+[node name="is_overthinking" type="Node" parent="avoid_overthinking"]
+script = ExtResource("2_oowk3")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="set_confused" type="Node" parent="avoid_overthinking/is_overthinking"]
+script = ExtResource("4_7re6i")
+
+[node name="stop_moving" type="Node" parent="avoid_overthinking/is_overthinking"]
+script = ExtResource("21_f0irx")
+
+[node name="act" type="Node" parent="avoid_overthinking"]
+script = ExtResource("2_oowk3")
+
+[node name="set_enemy_unit" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("3_h2sm1")
+
+[node name="set_unit_to_closest_candidate" type="Node" parent="avoid_overthinking/act/set_enemy_unit"]
+script = ExtResource("4_lus30")
+
+[node name="set_enemy_city" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("5_4bkiv")
+
+[node name="set_enemy_city_from_plan" type="Node" parent="avoid_overthinking/act/set_enemy_city"]
+script = ExtResource("6_ogwqo")
+
+[node name="set_enemy_city_to_closest" type="Node" parent="avoid_overthinking/act/set_enemy_city"]
+script = ExtResource("7_8rqm2")
+
+[node name="unset_city" type="Node" parent="avoid_overthinking/act/set_enemy_city"]
+script = ExtResource("8_13lcl")
+
+[node name="set_one_enemy" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("3_h2sm1")
+
+[node name="unset_further_target" type="Node" parent="avoid_overthinking/act/set_one_enemy"]
+script = ExtResource("2_oowk3")
+
+[node name="if_has_city_target" type="Node" parent="avoid_overthinking/act/set_one_enemy/unset_further_target"]
+script = ExtResource("9_yd1vw")
+
+[node name="if_has_unit_target" type="Node" parent="avoid_overthinking/act/set_one_enemy/unset_further_target"]
+script = ExtResource("10_swtor")
+
+[node name="unset_further_target" type="Node" parent="avoid_overthinking/act/set_one_enemy/unset_further_target"]
+script = ExtResource("11_0x7pv")
+
+[node name="set_move" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("5_4bkiv")
+
+[node name="set_move_to_city" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("12_h8pp5")
+
+[node name="set_move_to_unit" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("13_3dbhx")
+
+[node name="set_move_to_unexplored" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("2_oowk3")
+
+[node name="set_region_from_unit" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_unexplored"]
+script = ExtResource("5_4bkiv")
+
+[node name="set_region_from_unit" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_unexplored/set_region_from_unit"]
+script = ExtResource("14_80pjq")
+
+[node name="set_region_from_unhaul" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_unexplored/set_region_from_unit"]
+script = ExtResource("15_kk0hj")
+
+[node name="set_move_to_unexplored" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_unexplored"]
+script = ExtResource("14_us34k")
+
+[node name="set_move_to_haul" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("5_4bkiv")
+
+[node name="set_move_toward_adjacent_hauler" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_haul"]
+script = ExtResource("15_xy336")
+
+[node name="set_move_onto_hauler" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_haul"]
+script = ExtResource("16_hk3t5")
+
+[node name="set_move_toward_world_hauler" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_haul"]
+script = ExtResource("17_r88si")
+
+[node name="unset_move" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("18_uyw58")
+
+[node name="act" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("5_4bkiv")
+
+[node name="move_to_position" type="Node" parent="avoid_overthinking/act/act"]
+script = ExtResource("19_guqlf")
+
+[node name="set_haul_state" type="Node" parent="avoid_overthinking/act/act"]
+script = ExtResource("20_aa0dn")
+
+[node name="stop_moving" type="Node" parent="avoid_overthinking/act/act"]
+script = ExtResource("21_f0irx")

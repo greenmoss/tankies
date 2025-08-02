@@ -9,42 +9,46 @@
 [sub_resource type="Resource" id="Resource_pdvon"]
 script = ExtResource("1_duc0p")
 build_type = "tank"
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(440, 120)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Palmyra"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_djhd7"]
 script = ExtResource("1_duc0p")
 build_type = ""
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(440, 200)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Babylon"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_41e1r"]
 script = ExtResource("1_duc0p")
 build_type = ""
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(440, 280)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Ashur"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_77wgf"]
 script = ExtResource("1_duc0p")
 build_type = ""
-my_team = "NoTeam"
+team_name = "NoTeam"
 position = Vector2(440, 360)
 icon_modulate = Color(1, 1, 1, 1)
 open = false
+name = "Nippur"
 _class_name = "SavedCity"
 
 [sub_resource type="Resource" id="Resource_v05ur"]
 script = ExtResource("3_xbj84")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(280, 120)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -52,7 +56,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_85w8k"]
 script = ExtResource("3_xbj84")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(280, 200)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -60,7 +64,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_utd62"]
 script = ExtResource("3_xbj84")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(280, 280)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -68,7 +72,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_yw26r"]
 script = ExtResource("3_xbj84")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(280, 360)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -76,7 +80,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_y3g68"]
 script = ExtResource("3_xbj84")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(600, 120)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -84,7 +88,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_1tap4"]
 script = ExtResource("3_xbj84")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(600, 200)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -92,7 +96,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_h4hq2"]
 script = ExtResource("3_xbj84")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(600, 280)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -100,7 +104,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_d3boy"]
 script = ExtResource("3_xbj84")
-my_team = "GreenTeam"
+team_name = "GreenTeam"
 position = Vector2(600, 360)
 modulate = Color(0, 0.862745, 0, 1)
 _class_name = "SavedUnit"
@@ -114,7 +118,7 @@ _class_name = "SavedTeam"
 
 [sub_resource type="Resource" id="Resource_uxqpa"]
 script = ExtResource("3_xbj84")
-my_team = "RedTeam"
+team_name = "RedTeam"
 position = Vector2(760, 120)
 modulate = Color(1, 0.247059, 0.188235, 1)
 _class_name = "SavedUnit"
@@ -122,7 +126,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_lu5b3"]
 script = ExtResource("3_xbj84")
-my_team = "RedTeam"
+team_name = "RedTeam"
 position = Vector2(760, 200)
 modulate = Color(1, 0.247059, 0.188235, 1)
 _class_name = "SavedUnit"
@@ -130,7 +134,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_k550d"]
 script = ExtResource("3_xbj84")
-my_team = "RedTeam"
+team_name = "RedTeam"
 position = Vector2(760, 280)
 modulate = Color(1, 0.247059, 0.188235, 1)
 _class_name = "SavedUnit"
@@ -138,7 +142,7 @@ _unit_type = "tank"
 
 [sub_resource type="Resource" id="Resource_cfiku"]
 script = ExtResource("3_xbj84")
-my_team = "RedTeam"
+team_name = "RedTeam"
 position = Vector2(760, 360)
 modulate = Color(1, 0.247059, 0.188235, 1)
 _class_name = "SavedUnit"

@@ -5,6 +5,7 @@ const half_tile_size = 40
 
 const ai_team = "RedTeam"
 const human_team = "GreenTeam"
+const neutral_team = "NoTeam"
 
 const team_colors = {
     "NoTeam": Color(1, 1, 1, 1),
@@ -26,6 +27,13 @@ const z_layers = [
 ]
 
 enum Controllers {AI, HUMAN, NONE}
+
+
+func array_as_grid(positions:Array[Vector2]) -> Array[Vector2i]:
+    var points:Array[Vector2i] = []
+    for position in positions:
+        points.append(as_grid(position))
+    return points
 
 
 func as_grid(position:Vector2) -> Vector2i:

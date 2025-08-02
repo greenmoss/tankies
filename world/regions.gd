@@ -60,21 +60,25 @@ func get_by_id(region:int) -> Region:
     return get_node(region_name)
 
 
-func get_from_position(this_position:Vector2i) -> Array[Region]:
-    return by_position[this_position]
+func get_from_point(this_point:Vector2i) -> Array[Region]:
+    return by_position[this_point]
+
+
+func get_from_position(this_position:Vector2) -> Array[Region]:
+    var this_point = Global.as_grid(this_position)
+    return get_from_point(this_point)
 
 
 func get_from_unit(unit:Unit) -> Region:
     var world_position = unit.get_world_position()
-    var unit_regions = get_from_position(world_position)
+    var unit_regions = get_from_point(world_position)
     for region in unit_regions:
         # TODO: refactor node validity checks
         # if the world moves to FSM, perhaps these will no longer be needed
         if region == null: continue
         if not is_instance_valid(region): continue
         if region.is_queued_for_deletion(): continue
-        # if unit colliders "hit" region colliders, that region is incompatible with the unit
-        if (unit.get_colliders() & region.colliders) != 0: continue
+        if not region.compatible_with(unit): continue
         return region
     # no compatible regions found
     return null
@@ -87,6 +91,23 @@ func remove(region:Region):
 
     region.queue_free()
     remove_child(region)
+
+
+# the approach for a region is the adjacent points in the neighboring region
+# example: for every coordinate within a land region,
+# every ocean coordinate at +/- 1x or +/- 1y
+func set_approaches(terrain:Terrain):
+    for region in get_children():
+        for region_position in region.positions:
+            # land units can not offload from transports into unowned cities
+            # thus, exclude positions that are in more than one region
+            # for example ports
+            if by_position[region_position].size() > 1: continue
+
+            for neighbor in terrain.get_in_bounds_neighbors(region_position):
+                if region in get_from_point(neighbor): continue
+                region.add_approach(neighbor)
+        region.segment_approaches()
 
 
 func set_position(this_position:Vector2i, region:int):

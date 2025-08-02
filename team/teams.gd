@@ -23,7 +23,7 @@ func _ready():
 
 
 func _city_requested_unit(city):
-    teams_by_name[city.my_team].build_unit_in(city)
+    teams_by_name[city.team_name].build_unit_in(city)
 
 
 func are_done():

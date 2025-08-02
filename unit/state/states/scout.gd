@@ -13,25 +13,41 @@ func deny() -> void:
 
 
 func enter() -> void:
+    #print("unit ",owner.unit," entered scout on ",owner.unit.position,"/",Global.as_grid(owner.unit.position))
     SignalBus.unit_moved_from_position.emit(owner.unit, owner.unit.position)
     owner.unit.display.set_from_direction()
 
     owner.unit.ray.target_position = owner.unit.look_direction * Global.tile_size
+    #print("looking at ",owner.unit.ray.target_position,"/",Global.as_grid(owner.unit.ray.target_position))
     owner.unit.ray.force_raycast_update()
 
+    #print("unit state scout here1")
     set_ray_targets()
 
+    #print("unit state scout here2")
     if handled_unhaul(): return
+    #print("unit state scout here3")
     if handled_clear(): return
+    #print("unit state scout here4")
     if handled_tile_blocker(): return
+    #print("unit state scout here5")
     if handled_target_unit(): return
+    #print("unit state scout here6")
     if handled_target_city(): return
+    #print("unit state scout here7")
+
+
+func handled_clear() -> bool:
+    if targets_anything(): return false
+
+    emit_signal("next_state", "move")
+    return true
 
 
 func handled_friendly_target_city() -> bool:
     if not targets_city(): return false
 
-    if owner.unit.my_team == target_city.my_team:
+    if owner.unit.team_name == target_city.team_name:
         owner.unit.in_city = target_city
         emit_signal("next_state", "move")
         return true
@@ -42,7 +58,7 @@ func handled_friendly_target_city() -> bool:
 func handled_friendly_target_unit() -> bool:
     if not targets_units(): return false
 
-    if owner.unit.my_team == target_units[0].my_team:
+    if owner.unit.team_name == target_units[0].team_name:
 
         if handled_friendly_target_city(): return true
 
@@ -50,6 +66,15 @@ func handled_friendly_target_unit() -> bool:
         return true
 
     return false
+
+
+func handled_move_hauler() -> bool:
+    if not owner.unit.is_hauled(): return false
+
+    owner.unit.hauled_in.steer_from_hauled(owner.unit, owner.unit.look_direction)
+    emit_signal("next_state", "haul")
+
+    return true
 
 
 func handled_target_city() -> bool:
@@ -89,13 +114,6 @@ func handled_tile_blocker() -> bool:
     return true
 
 
-func handled_clear() -> bool:
-    if targets_anything(): return false
-
-    emit_signal("next_state", "move")
-    return true
-
-
 func handled_haul() -> bool:
     for target_unit in target_units:
         if target_unit.can_haul_unit(owner.unit):
@@ -107,23 +125,52 @@ func handled_haul() -> bool:
 
 
 func handled_unhaul() -> bool:
+    #print("handled unhaul 1")
     if not owner.unit.is_hauled(): return false
 
+    #print("handled unhaul 2")
     if handled_clear():
         owner.unit.set_unhauled()
         return true
 
+    #print("handled unhaul 3")
     if handled_friendly_target_city():
         owner.unit.set_unhauled()
         return true
 
+    #print("handled unhaul 4")
     if handled_friendly_target_unit():
         owner.unit.set_unhauled()
         return true
 
+    #print("handled unhaul 4a")
+    #if handled_unhaul_onto_enemy_unit():
+    #    return true
+
+    #print("handled unhaul 5")
+    #if handled_move_hauler():
+    #    return true
+
+    #print("handled unhaul 6")
     deny()
     emit_signal("next_state", "haul")
     return true
+
+
+func handled_unhaul_onto_enemy_unit() -> bool:
+    #print("unit ",owner.unit," handled unhaul onto enemy unit 1")
+    if not targets_units(): return false
+    #print("handled unhaul onto enemy unit 2")
+
+    if owner.unit.team_name == target_units[0].team_name: return false
+    #print("handled unhaul onto enemy unit 3")
+
+        #if handled_friendly_target_city(): return true
+
+        #emit_signal("next_state", "move")
+        #return true
+
+    return false
 
 
 func targets_anything() -> bool:

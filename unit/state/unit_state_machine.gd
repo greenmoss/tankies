@@ -1,6 +1,7 @@
 extends "res://common/state_machine.gd"
 
 @onready var attack = $attack
+@onready var block = $block
 @onready var capture = $capture
 @onready var crash = $crash
 @onready var end = $end
@@ -20,6 +21,7 @@ var unit:Unit
 
 
 func _change_state(state_name):
+    #print(unit.name + " state " + state_name)
     if not _active:
         return
     super._change_state(state_name)
@@ -29,6 +31,7 @@ func _ready():
 
     active_states = {
         "attack": attack,
+        "block": block,
         "capture": capture,
         "crash": crash,
         "move": move,
@@ -58,6 +61,10 @@ func awaken():
 func force_end():
     # ignore any remaining moves
     current_state.next_state.emit('end')
+
+
+func force_haul():
+    current_state.next_state.emit('haul')
 
 
 func handle_cursor_input(event):

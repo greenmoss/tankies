@@ -14,3 +14,31 @@ func _ready():
     vision_distance = 1
 
     super._ready()
+
+
+func is_free_of_obstacles(terrain_position:Vector2, obstacles:Obstacles) -> bool:
+    if terrain_position == self.position:
+        return true
+
+    var terrain_point = Global.as_grid(terrain_position)
+
+    if terrain_point not in obstacles.points:
+        push_warning("terrain point "+str(terrain_point)+" not found in obstacle points")
+        return false
+
+    var point_objects = obstacles.points[terrain_point]
+    if point_objects.size() == 0:
+        return true
+
+    for obstacle in point_objects:
+        # transports can not attack
+        # nor move into non-owned cities
+        if not is_instance_valid(obstacle): continue
+        if obstacle.is_queued_for_deletion(): continue
+        if obstacle.team_name == self.team_name:
+            return true
+
+        return false
+
+    push_warning("Should have decided obstacle passability already, but returning impassable just to be safe")
+    return false

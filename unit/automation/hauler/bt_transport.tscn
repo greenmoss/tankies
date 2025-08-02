@@ -1,0 +1,119 @@
+[gd_scene load_steps=22 format=3 uid="uid://bhq8u3ebam6rr"]
+
+[ext_resource type="Script" uid="uid://uqwc7gt5bgjy" path="res://unit/automation/automation.gd" id="1_br0v6"]
+[ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_lq0ke"]
+[ext_resource type="Script" uid="uid://dsf3a8vlolhx8" path="res://addons/beehave/nodes/decorators/succeeder.gd" id="3_j6yw5"]
+[ext_resource type="Script" uid="uid://bwqr4r1pnr1tr" path="res://unit/automation/hauler/set_unhaul_to_unit_path.gd" id="4_28l8s"]
+[ext_resource type="Script" uid="uid://d2d5jrr74c3t4" path="res://unit/automation/set_confused.gd" id="4_lyd3l"]
+[ext_resource type="Script" uid="uid://dwcwlhu3m4526" path="res://unit/automation/hauler/set_unhaul_to_city_path.gd" id="5_kv0ui"]
+[ext_resource type="Script" uid="uid://cpwj6cf1wcqjd" path="res://unit/automation/hauler/set_unhaul_to_unexplored_path.gd" id="6_stwhi"]
+[ext_resource type="Script" uid="uid://bp1kgo5o7fktv" path="res://unit/automation/hauler/clear_unhaul_to_region.gd" id="7_g85nc"]
+[ext_resource type="Script" uid="uid://dopihi4qjbkgu" path="res://unit/automation/hauler/is_hauling.gd" id="8_satn4"]
+[ext_resource type="Script" uid="uid://bb6anfhqf77e7" path="res://unit/automation/hauler/set_unhaul_from_type.gd" id="9_1vcan"]
+[ext_resource type="Script" uid="uid://spjogcsyl5c3" path="res://unit/automation/hauler/set_unhaul_to_region.gd" id="10_j5afn"]
+[ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="11_rspw6"]
+[ext_resource type="Script" uid="uid://dcned70a60w3" path="res://unit/automation/hauler/set_move_to_hauled.gd" id="12_0id8f"]
+[ext_resource type="Script" uid="uid://ckdmbbrku7ko6" path="res://unit/automation/hauler/set_move_to_unhaul.gd" id="13_83w5d"]
+[ext_resource type="Script" uid="uid://flbvigt87etv" path="res://unit/automation/set_move_to_unexplored.gd" id="14_7oj5d"]
+[ext_resource type="Script" uid="uid://bsoiitqmn1arg" path="res://unit/automation/set_region_from_unit.gd" id="14_jsg4h"]
+[ext_resource type="Script" uid="uid://cr7wf7biwaxt4" path="res://unit/automation/unset_move.gd" id="15_wy5cd"]
+[ext_resource type="Script" uid="uid://cqmca2eu3h7o1" path="res://unit/automation/hauler/stop_to_haul.gd" id="16_ajn0f"]
+[ext_resource type="Script" uid="uid://1xf7jiw5fsj0" path="res://unit/automation/hauler/stop_to_unhaul.gd" id="16_fr82m"]
+[ext_resource type="Script" uid="uid://bftmgu046gxbo" path="res://unit/automation/move_to_position.gd" id="17_gdl04"]
+[ext_resource type="Script" uid="uid://bj5fatbln5t4v" path="res://unit/automation/stop_moving.gd" id="18_p5oi0"]
+
+[node name="transport_automation" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_br0v6")
+enabled = false
+actor_node_path = NodePath("..")
+blackboard = NodePath("@Node@23333")
+actor = NodePath("")
+
+[node name="avoid_overthinking" type="Node" parent="."]
+script = ExtResource("11_rspw6")
+metadata/_custom_type_script = "uid://8hn4kne15ac5"
+
+[node name="is_overthinking" type="Node" parent="avoid_overthinking"]
+script = ExtResource("2_lq0ke")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="set_confused" type="Node" parent="avoid_overthinking/is_overthinking"]
+script = ExtResource("4_lyd3l")
+
+[node name="stop_moving" type="Node" parent="avoid_overthinking/is_overthinking"]
+script = ExtResource("18_p5oi0")
+
+[node name="act" type="Node" parent="avoid_overthinking"]
+script = ExtResource("2_lq0ke")
+
+[node name="set_unhaul_to_unit_path" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("3_j6yw5")
+
+[node name="set_unhaul_to_unit_path" type="Node" parent="avoid_overthinking/act/set_unhaul_to_unit_path"]
+script = ExtResource("4_28l8s")
+
+[node name="set_unhaul_to_city_path" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("3_j6yw5")
+
+[node name="set_unhaul_to_city_path" type="Node" parent="avoid_overthinking/act/set_unhaul_to_city_path"]
+script = ExtResource("5_kv0ui")
+
+[node name="set_unhaul_to_unexplored_path" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("3_j6yw5")
+
+[node name="set_unhaul_to_unexplored_path" type="Node" parent="avoid_overthinking/act/set_unhaul_to_unexplored_path"]
+script = ExtResource("6_stwhi")
+
+[node name="set_unhaul_to_region" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("3_j6yw5")
+
+[node name="set_unhaul_to_region" type="Node" parent="avoid_overthinking/act/set_unhaul_to_region"]
+script = ExtResource("2_lq0ke")
+
+[node name="clear_unhaul_to_region" type="Node" parent="avoid_overthinking/act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("7_g85nc")
+
+[node name="is_hauling" type="Node" parent="avoid_overthinking/act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("8_satn4")
+
+[node name="set_unhaul_from_type" type="Node" parent="avoid_overthinking/act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("9_1vcan")
+
+[node name="set_unhaul_to_region" type="Node" parent="avoid_overthinking/act/set_unhaul_to_region/set_unhaul_to_region"]
+script = ExtResource("10_j5afn")
+
+[node name="set_move" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("11_rspw6")
+
+[node name="set_move_to_hauled" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("12_0id8f")
+
+[node name="set_move_to_unhaul" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("13_83w5d")
+
+[node name="set_move_to_unexplored" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("2_lq0ke")
+
+[node name="set_region_from_unit" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_unexplored"]
+script = ExtResource("14_jsg4h")
+
+[node name="set_move_to_unexplored" type="Node" parent="avoid_overthinking/act/set_move/set_move_to_unexplored"]
+script = ExtResource("14_7oj5d")
+
+[node name="unset_move" type="Node" parent="avoid_overthinking/act/set_move"]
+script = ExtResource("15_wy5cd")
+
+[node name="act" type="Node" parent="avoid_overthinking/act"]
+script = ExtResource("11_rspw6")
+
+[node name="stop_to_unhaul" type="Node" parent="avoid_overthinking/act/act"]
+script = ExtResource("16_fr82m")
+
+[node name="stop_to_haul" type="Node" parent="avoid_overthinking/act/act"]
+script = ExtResource("16_ajn0f")
+
+[node name="move_to_position" type="Node" parent="avoid_overthinking/act/act"]
+script = ExtResource("17_gdl04")
+
+[node name="stop_moving" type="Node" parent="avoid_overthinking/act/act"]
+script = ExtResource("18_p5oi0")
