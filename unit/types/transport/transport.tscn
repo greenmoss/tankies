@@ -34,12 +34,15 @@ script = ExtResource("2_p1e00")
 
 [node name="Move" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("3_4lg30")
+playback_type = 2
 
 [node name="Ready" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("4_l1txv")
+playback_type = 2
 
 [node name="Denied" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("5_ucmqw")
+playback_type = 2
 
 [node name="state" parent="." instance=ExtResource("6_hf05x")]
 
@@ -50,7 +53,7 @@ script = ExtResource("7_kqwgx")
 script = ExtResource("8_suxvi")
 
 [node name="BTTransport" parent="." node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_acegh")]
-blackboard = NodePath("@Node@26055")
+blackboard = NodePath("@Node@25242")
 actor = NodePath("..")
 
 [node name="Blackboard" type="Node" parent="."]
