@@ -40,9 +40,7 @@ func interrupt_channel(channel_name:String, audio_stream:AudioStreamPlayer2D):
         # If we're already playing this audio, continue playing it
         if channel_stream.stream == audio_stream.stream:
             return
-        channel_stream.volume_db = silenced_volume
-        channel_stream.stop()
-        channel_stream.volume_db = full_volume
+        _fade_and_stop(channel_stream)
 
     if channel_stream.stream == audio_stream.stream:
         channel_stream.play()
@@ -57,9 +55,16 @@ func stop_all(channel_names:Array[String]):
         var channel_stream = get_channel_stream(channel_name)
         if channel_stream == null: continue
         if not channel_stream.is_playing(): continue
-        channel_stream.volume_db = silenced_volume
-        channel_stream.stop()
-        channel_stream.volume_db = full_volume
+        _fade_and_stop(channel_stream)
+
+
+func _fade_and_stop(stream: AudioStreamPlayer2D) -> void:
+    var tween = create_tween()
+    tween.tween_property(stream, "volume_db", silenced_volume, 0.05)
+    await tween.finished
+    if is_instance_valid(stream) and not stream.is_queued_for_deletion():
+        stream.stop()
+        stream.volume_db = full_volume
 
 
 func tween_channel_volume(channel_name:String, final_db:int, tween_time:float):

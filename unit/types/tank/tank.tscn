@@ -33,15 +33,12 @@ script = ExtResource("5_c8awf")
 
 [node name="Move" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("3_gledg")
-playback_type = 2
 
 [node name="Ready" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("4_0ww2q")
-playback_type = 2
 
 [node name="Denied" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("5_grok8")
-playback_type = 2
 
 [node name="state" parent="." instance=ExtResource("6_eqdoo")]
 
