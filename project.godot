@@ -8,11 +8,15 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="tankies"
 run/main_scene="res://lobby/lobby.tscn"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://unit/types/tank/tank.png"
 
 [autoload]
@@ -20,8 +24,8 @@ config/icon="res://unit/types/tank/tank.png"
 SignalBus="*res://common/signal_bus.gd"
 Global="*res://common/global.gd"
 SoundManager="*res://common/sound_manager.gd"
-BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
-BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
+BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
+BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 UnitTypeUtilities="*res://unit/types/utilities.gd"
 
 [display]

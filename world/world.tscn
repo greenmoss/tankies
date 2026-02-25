@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://bufvbk6y65jkb"]
+[gd_scene format=4 uid="uid://bufvbk6y65jkb"]
 
 [ext_resource type="Script" uid="uid://dv8wu8wf6g4yf" path="res://world/world.gd" id="1_555vv"]
 [ext_resource type="Texture2D" uid="uid://dtvh1ni0qoylk" path="res://world/grasslands.png" id="1_oiwoi"]
@@ -72,62 +72,62 @@ physics_layer_2/collision_mask = 4
 sources/3 = SubResource("TileSetAtlasSource_kqt2o")
 sources/0 = SubResource("TileSetAtlasSource_rqsf1")
 
-[node name="World" type="Node2D" groups=["World"]]
+[node name="World" type="Node2D" unique_id=1942781387 groups=["World"]]
 script = ExtResource("1_555vv")
 
-[node name="Map" type="Node2D" parent="."]
+[node name="Map" type="Node2D" parent="." unique_id=1032419221]
 script = ExtResource("2_3nvhw")
 
-[node name="regions" type="Node" parent="Map"]
+[node name="regions" type="Node" parent="Map" unique_id=1877796816]
 script = ExtResource("3_v18jo")
 
-[node name="Terrain" type="TileMapLayer" parent="Map"]
+[node name="Terrain" type="TileMapLayer" parent="Map" unique_id=1533578539]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAAAAwABAAAAAAAAAAEAAwABAAAAAAAAAAIAAwAAAAAAAAAAAAMAAwABAAAAAAAAAAQAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAAYAAwABAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAwAAAAAAAAAAAAsAAwAAAAAAAAABAAAAAwAAAAAAAAABAAEAAwABAAAAAAABAAIAAwAAAAAAAAABAAMAAwAAAAAAAAABAAQAAwAAAAAAAAABAAUAAwABAAAAAAABAAYAAwAAAAAAAAABAAcAAAAAAAAAAAABAAgAAAAAAAAAAAABAAkAAAAAAAAAAAABAAoAAAAAAAAAAAABAAsAAwABAAAAAAACAAAAAwABAAAAAAACAAEAAwAAAAAAAAACAAIAAwABAAAAAAACAAMAAwABAAAAAAACAAQAAwABAAAAAAACAAUAAwAAAAAAAAACAAYAAwABAAAAAAACAAcAAAAAAAAAAAACAAgAAAAAAAAAAAACAAkAAAAAAAAAAAACAAoAAAAAAAAAAAACAAsAAAABAAAAAAADAAAAAwAAAAAAAAADAAEAAwAAAAAAAAADAAIAAwABAAAAAAADAAMAAwABAAAAAAADAAUAAwAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAAAAAAAAAAADAAoAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAAAAwAAAAAAAAAEAAEAAwAAAAAAAAAEAAIAAwAAAAAAAAAEAAMAAwABAAAAAAAEAAQAAwABAAAAAAAEAAUAAwABAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAAAAwAAAAAAAAAFAAEAAAABAAAAAAAFAAIAAwABAAAAAAAFAAMAAwAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAFAAkAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAAsAAAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAGAAkAAAAAAAAAAAAGAAoAAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAAAAAAHAAgAAAAAAAAAAAAHAAkAAAAAAAAAAAAHAAoAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAwAAAAAAAAAIAAMAAwABAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAAAAAAIAAgAAAAAAAAAAAAIAAkAAAAAAAAAAAAIAAoAAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAABAAAAAAAJAAMAAwAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAcAAAAAAAAAAAAJAAgAAAAAAAAAAAAJAAkAAAAAAAAAAAAJAAoAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAEAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAYAAAAAAAAAAAAKAAcAAAAAAAAAAAAKAAgAAAAAAAAAAAAKAAkAAAAAAAAAAAAKAAoAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAAAAAAAAAAAAAALAAEAAAAAAAAAAAALAAIAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAAAAAALAAcAAAAAAAAAAAALAAgAAAAAAAAAAAALAAkAAAAAAAAAAAALAAoAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAAAAAAAAAAAAAAMAAEAAAAAAAAAAAAMAAIAAwABAAAAAAAMAAMAAwABAAAAAAAMAAQAAwABAAAAAAAMAAUAAwABAAAAAAAMAAYAAAABAAAAAAAMAAcAAAAAAAAAAAAMAAgAAAAAAAAAAAAMAAkAAAAAAAAAAAAMAAoAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAAAAAAAAAAAAAANAAEAAwABAAAAAAANAAIAAwABAAAAAAANAAMAAwAAAAAAAAANAAQAAwABAAAAAAANAAUAAwABAAAAAAANAAYAAwABAAAAAAANAAcAAwABAAAAAAANAAgAAAAAAAAAAAANAAkAAAAAAAAAAAANAAoAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAAAAwAAAAAAAAAOAAEAAwAAAAAAAAAOAAIAAwAAAAAAAAAOAAMAAwAAAAAAAAAOAAQAAwABAAAAAAAOAAUAAwABAAAAAAAOAAYAAwAAAAAAAAAOAAcAAwAAAAAAAAAOAAgAAwAAAAAAAAAOAAkAAAAAAAAAAAAOAAoAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAAAAwAAAAAAAAAPAAEAAwABAAAAAAAPAAIAAwABAAAAAAAPAAMAAwABAAAAAAAPAAQAAwAAAAAAAAAPAAUAAwAAAAAAAAAPAAYAAwABAAAAAAAPAAcAAwABAAAAAAAPAAgAAwAAAAAAAAAPAAkAAwABAAAAAAAPAAoAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAAAAwAAAAAAAAAQAAEAAwABAAAAAAAQAAIAAwAAAAAAAAAQAAMAAwAAAAAAAAAQAAQAAwABAAAAAAAQAAUAAwABAAAAAAAQAAYAAwAAAAAAAAAQAAcAAwABAAAAAAAQAAgAAwAAAAAAAAAQAAkAAwABAAAAAAAQAAoAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAAAAAAAAAAAAAARAAEAAwABAAAAAAARAAIAAwABAAAAAAARAAMAAwAAAAAAAAARAAQAAwABAAAAAAARAAUAAwABAAAAAAARAAYAAwABAAAAAAARAAcAAwAAAAAAAAARAAgAAAAAAAAAAAARAAkAAAAAAAAAAAARAAoAAAAAAAAAAAARAAsAAAAAAAAAAAASAAAAAAAAAAAAAAASAAEAAAAAAAAAAAASAAIAAwABAAAAAAASAAMAAwABAAAAAAASAAQAAwABAAAAAAASAAUAAwAAAAAAAAASAAYAAAAAAAAAAAASAAcAAAAAAAAAAAASAAgAAAAAAAAAAAASAAkAAAAAAAAAAAASAAoAAAAAAAAAAAASAAsAAAAAAAAAAAATAAAAAAAAAAAAAAATAAEAAAAAAAAAAAATAAIAAAAAAAAAAAATAAMAAAAAAAAAAAATAAQAAAAAAAAAAAATAAUAAAAAAAAAAAATAAYAAAAAAAAAAAATAAcAAAAAAAAAAAATAAgAAAAAAAAAAAATAAkAAAAAAAAAAAATAAoAAwABAAAAAAATAAsAAwABAAAAAAAAAAwAAwABAAAAAAAAAA0AAwAAAAAAAAABAAwAAwABAAAAAAABAA0AAwABAAAAAAACAAwAAwAAAAAAAAACAA0AAwABAAAAAAADAAwAAAAAAAAAAAADAA0AAAAAAAAAAAAEAAwAAAAAAAAAAAAEAA0AAAAAAAAAAAAFAAwAAAAAAAAAAAAFAA0AAAAAAAAAAAAGAAwAAAAAAAAAAAAGAA0AAAAAAAAAAAAHAAwAAAAAAAAAAAAHAA0AAAAAAAAAAAAIAAwAAAAAAAAAAAAIAA0AAAAAAAAAAAAJAAwAAAAAAAAAAAAJAA0AAAAAAAAAAAAKAAwAAAAAAAAAAAAKAA0AAAAAAAAAAAALAAwAAAAAAAAAAAALAA0AAAAAAAAAAAAMAAwAAAAAAAAAAAAMAA0AAAAAAAAAAAANAAwAAAAAAAAAAAANAA0AAAAAAAAAAAAOAAwAAAAAAAAAAAAOAA0AAAAAAAAAAAAPAAwAAAAAAAAAAAAPAA0AAAAAAAAAAAAQAAwAAAAAAAAAAAAQAA0AAAAAAAAAAAARAAwAAAAAAAAAAAARAA0AAAAAAAAAAAASAAwAAAABAAAAAAASAA0AAwABAAAAAAATAAwAAwAAAAAAAAATAA0AAwABAAAAAAAUAAAAAAAAAAAAAAAUAAEAAAAAAAAAAAAUAAIAAAAAAAAAAAAUAAMAAAAAAAAAAAAUAAQAAAAAAAAAAAAUAAUAAAAAAAAAAAAUAAYAAAAAAAAAAAAUAAcAAAAAAAAAAAAUAAgAAwABAAAAAAAUAAkAAwABAAAAAAAUAAoAAwABAAAAAAAUAAsAAwABAAAAAAAUAAwAAwAAAAAAAAAUAA0AAwAAAAAAAAAVAAAAAAAAAAAAAAAVAAEAAAAAAAAAAAAVAAIAAAAAAAAAAAAVAAMAAAAAAAAAAAAVAAQAAAAAAAAAAAAVAAUAAwABAAAAAAAVAAYAAwAAAAAAAAAVAAcAAwAAAAAAAAAVAAgAAwAAAAAAAAAVAAkAAwAAAAAAAAAVAAoAAwAAAAAAAAAVAAsAAwAAAAAAAAAVAAwAAwABAAAAAAAVAA0AAwABAAAAAAAWAAAAAAAAAAAAAAAWAAEAAAAAAAAAAAAWAAIAAAAAAAAAAAAWAAMAAAAAAAAAAAAWAAQAAAAAAAAAAAAWAAUAAwABAAAAAAAWAAYAAwABAAAAAAAWAAcAAwAAAAAAAAAWAAgAAwABAAAAAAAWAAkAAwABAAAAAAAWAAoAAwABAAAAAAAWAAsAAwAAAAAAAAAWAAwAAwABAAAAAAAWAA0AAwAAAAAAAAAXAAAAAAAAAAAAAAAXAAEAAAAAAAAAAAAXAAIAAAAAAAAAAAAXAAMAAwAAAAAAAAAXAAQAAwAAAAAAAAAXAAUAAwABAAAAAAAXAAYAAwABAAAAAAAXAAcAAwABAAAAAAAXAAgAAwABAAAAAAAXAAkAAwABAAAAAAAXAAoAAwABAAAAAAAXAAsAAwABAAAAAAAXAAwAAwAAAAAAAAAXAA0AAwAAAAAAAAAYAAAAAwABAAIAAAAYAAEAAwABAAIAAAAYAAIAAwABAAIAAAAYAAMAAwABAAIAAAAYAAQAAwABAAIAAAAYAAUAAwABAAIAAAAYAAYAAwABAAIAAAAYAAcAAwABAAIAAAAYAAgAAwABAAIAAAAYAAkAAwABAAIAAAAYAAoAAwABAAIAAAAYAAsAAwABAAIAAAAYAAwAAwABAAIAAAAYAA0AAwABAAIAAAD/////AwABAAIAAAD//w0AAwABAAIAAAD//wwAAwABAAIAAAD//wsAAwABAAIAAAD//woAAwABAAIAAAD//wkAAwABAAIAAAD//wgAAwABAAIAAAD//wcAAwABAAIAAAD//wYAAwABAAIAAAD//wUAAwABAAIAAAD//wQAAwABAAIAAAD//wMAAwABAAIAAAD//wIAAwABAAIAAAD//wEAAwABAAIAAAD//wAAAwABAAIAAAAAAP//AwABAAIAAAABAP//AwABAAIAAAACAP//AwABAAIAAAADAP//AwABAAIAAAAEAP//AwABAAIAAAAFAP//AwABAAIAAAAGAP//AwABAAIAAAAHAP//AwABAAIAAAAIAP//AwABAAIAAAAJAP//AwABAAIAAAAKAP//AwABAAIAAAALAP//AwABAAIAAAAMAP//AwABAAIAAAANAP//AwABAAIAAAAOAP//AwABAAIAAAAPAP//AwABAAIAAAAQAP//AwABAAIAAAARAP//AwABAAIAAAASAP//AwABAAIAAAATAP//AwABAAIAAAAUAP//AwABAAIAAAAVAP//AwABAAIAAAAWAP//AwABAAIAAAAXAP//AwABAAIAAAAYAP//AwABAAIAAAD//w4AAwABAAIAAAAAAA4AAwABAAIAAAABAA4AAwABAAIAAAACAA4AAwABAAIAAAADAA4AAwABAAIAAAAEAA4AAwABAAIAAAAFAA4AAwABAAIAAAAGAA4AAwABAAIAAAAHAA4AAwABAAIAAAAIAA4AAwABAAIAAAAJAA4AAwABAAIAAAAKAA4AAwABAAIAAAALAA4AAwABAAIAAAAMAA4AAwABAAIAAAANAA4AAwABAAIAAAAOAA4AAwABAAIAAAAPAA4AAwABAAIAAAAQAA4AAwABAAIAAAARAA4AAwABAAIAAAASAA4AAwABAAIAAAATAA4AAwABAAIAAAAUAA4AAwABAAIAAAAVAA4AAwABAAIAAAAWAA4AAwABAAIAAAAXAA4AAwABAAIAAAAYAA4AAwABAAIAAAADAAQAAwABAAAAAAA=")
 tile_set = SubResource("TileSet_g70uw")
 script = ExtResource("3_g21sp")
 blocker_margin = 1
 
-[node name="cities" type="Node2D" parent="Map" groups=["CitiesManager"]]
+[node name="cities" type="Node2D" parent="Map" unique_id=299634787 groups=["CitiesManager"]]
 script = ExtResource("3_bgbrx")
 
-[node name="Babylon" parent="Map/cities" instance=ExtResource("3_k81tp")]
+[node name="Babylon" parent="Map/cities" unique_id=985692267 instance=ExtResource("3_k81tp")]
 position = Vector2(120, 120)
 open = true
 
-[node name="Ashur" parent="Map/cities" instance=ExtResource("3_k81tp")]
+[node name="Ashur" parent="Map/cities" unique_id=865991673 instance=ExtResource("3_k81tp")]
 position = Vector2(1800, 1000)
 open = true
 
-[node name="Nippur" parent="Map/cities" instance=ExtResource("3_k81tp")]
+[node name="Nippur" parent="Map/cities" unique_id=1223385426 instance=ExtResource("3_k81tp")]
 position = Vector2(440, 120)
 team_name = "GreenTeam"
 open = true
 
-[node name="Palmyra" parent="Map/cities" instance=ExtResource("3_k81tp")]
+[node name="Palmyra" parent="Map/cities" unique_id=894753612 instance=ExtResource("3_k81tp")]
 position = Vector2(1480, 1000)
 team_name = "RedTeam"
 open = true
 
-[node name="Cairo" parent="Map/cities" instance=ExtResource("3_k81tp")]
+[node name="Cairo" parent="Map/cities" unique_id=1804833729 instance=ExtResource("3_k81tp")]
 position = Vector2(1000, 518)
 
-[node name="Jerusalem" parent="Map/cities" instance=ExtResource("3_k81tp")]
+[node name="Jerusalem" parent="Map/cities" unique_id=2118802952 instance=ExtResource("3_k81tp")]
 position = Vector2(1320, 280)
 
-[node name="Jaffa" parent="Map/cities" instance=ExtResource("3_k81tp")]
+[node name="Jaffa" parent="Map/cities" unique_id=1636631959 instance=ExtResource("3_k81tp")]
 position = Vector2(200, 920)
 
-[node name="Tyre" parent="Map/cities" instance=ExtResource("3_k81tp")]
+[node name="Tyre" parent="Map/cities" unique_id=658624246 instance=ExtResource("3_k81tp")]
 position = Vector2(760, 200)
 
-[node name="obstacles" type="Node2D" parent="."]
+[node name="obstacles" type="Node2D" parent="." unique_id=1048718359]
 script = ExtResource("9_gi7ib")
 
-[node name="teams" type="Node" parent="." groups=["TeamsManager"]]
+[node name="teams" type="Node" parent="." unique_id=575587252 groups=["TeamsManager"]]
 script = ExtResource("7_au7yj")
 
-[node name="GreenTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "obstacles", "terrain", "regions", "cities") instance=ExtResource("8_y6rer")]
+[node name="GreenTeam" parent="teams" unique_id=1042576575 node_paths=PackedStringArray("enemy_team", "obstacles", "terrain", "regions", "cities") instance=ExtResource("8_y6rer")]
 script = ExtResource("7_s0hci")
 color = Color(0, 0.862745, 0, 1)
 controller = 1
@@ -138,13 +138,13 @@ regions = NodePath("../../Map/regions")
 cities = NodePath("../../Map/cities")
 show_fog = true
 
-[node name="units" type="Node" parent="teams/GreenTeam" node_paths=PackedStringArray("battle")]
+[node name="units" type="Node" parent="teams/GreenTeam" unique_id=1446893956 node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
 battle = NodePath("../../../battle")
 
-[node name="cursor" parent="teams/GreenTeam" instance=ExtResource("9_q1kf1")]
+[node name="cursor" parent="teams/GreenTeam" unique_id=1934382908 instance=ExtResource("9_q1kf1")]
 
-[node name="RedTeam" parent="teams" node_paths=PackedStringArray("enemy_team", "obstacles", "terrain", "regions", "cities") instance=ExtResource("8_y6rer")]
+[node name="RedTeam" parent="teams" unique_id=1601491921 node_paths=PackedStringArray("enemy_team", "obstacles", "terrain", "regions", "cities") instance=ExtResource("8_y6rer")]
 color = Color(1, 0.247059, 0.188235, 1)
 controller = 0
 enemy_team = NodePath("../GreenTeam")
@@ -154,57 +154,57 @@ regions = NodePath("../../Map/regions")
 cities = NodePath("../../Map/cities")
 show_fog = false
 
-[node name="units" type="Node" parent="teams/RedTeam" node_paths=PackedStringArray("battle")]
+[node name="units" type="Node" parent="teams/RedTeam" unique_id=1193530096 node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
 battle = NodePath("../../../battle")
 
-[node name="red_transport1" parent="teams/RedTeam/units" instance=ExtResource("15_3ljsx")]
+[node name="red_transport1" parent="teams/RedTeam/units" unique_id=1862705034 instance=ExtResource("15_3ljsx")]
 position = Vector2(1400, 1080)
 team_name = "RedTeam"
 
-[node name="neutral" parent="teams" instance=ExtResource("8_y6rer")]
+[node name="neutral" parent="teams" unique_id=996434678 instance=ExtResource("8_y6rer")]
 color = Color(1, 1, 1, 1)
 controller = 2
 show_fog = false
 
-[node name="units" type="Node" parent="teams/neutral" node_paths=PackedStringArray("battle")]
+[node name="units" type="Node" parent="teams/neutral" unique_id=539980804 node_paths=PackedStringArray("battle")]
 script = ExtResource("8_4k8im")
 battle = NodePath("../../../battle")
 
-[node name="turns" type="Node" parent="." node_paths=PackedStringArray("cities", "teams") groups=["TurnsManager"]]
+[node name="turns" type="Node" parent="." unique_id=2033140319 node_paths=PackedStringArray("cities", "teams") groups=["TurnsManager"]]
 script = ExtResource("5_tktke")
 cities = NodePath("../Map/cities")
 teams = NodePath("../teams")
 
-[node name="banner" parent="turns" instance=ExtResource("6_svbli")]
+[node name="banner" parent="turns" unique_id=656149849 instance=ExtResource("6_svbli")]
 visible = false
 position = Vector2(960, 700)
 
-[node name="CoolDownTimer" type="Timer" parent="turns/banner"]
+[node name="CoolDownTimer" type="Timer" parent="turns/banner" unique_id=1267777715]
 wait_time = 2.0
 
-[node name="battle" type="Node2D" parent="." groups=["Battle"]]
+[node name="battle" type="Node2D" parent="." unique_id=279523146 groups=["Battle"]]
 script = ExtResource("13_vrmg3")
 
-[node name="Cacophony" type="AudioStreamPlayer" parent="battle"]
+[node name="Cacophony" type="AudioStreamPlayer" parent="battle" unique_id=1463377088]
 stream = ExtResource("19_3ljsx")
 
-[node name="Target1" parent="battle" instance=ExtResource("15_kgld4")]
+[node name="Target1" parent="battle" unique_id=272073829 instance=ExtResource("15_kgld4")]
 position = Vector2(280, 200)
 
-[node name="Target2" parent="battle" instance=ExtResource("15_kgld4")]
+[node name="Target2" parent="battle" unique_id=1466063738 instance=ExtResource("15_kgld4")]
 position = Vector2(280, 120)
 
-[node name="Boom" type="AudioStreamPlayer" parent="battle"]
+[node name="Boom" type="AudioStreamPlayer" parent="battle" unique_id=331238262]
 stream = ExtResource("16_g2frl")
 
-[node name="FarOffBattle" type="AudioStreamPlayer" parent="battle"]
+[node name="FarOffBattle" type="AudioStreamPlayer" parent="battle" unique_id=72989950]
 stream = ExtResource("17_51lqp")
 
-[node name="Music" type="AudioStreamPlayer2D" parent="."]
+[node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=1153931422]
 stream = ExtResource("20_bch13")
 
-[node name="tint" type="ColorRect" parent="."]
+[node name="tint" type="ColorRect" parent="." unique_id=1061762124]
 visible = false
 offset_left = -80.0
 offset_top = -80.0
