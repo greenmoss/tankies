@@ -1,0 +1,4 @@
+{
+    "dirs": ["res://test/"],
+    "failure_error_types": ["gut", "push_error"]
+}
