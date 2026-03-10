@@ -14,8 +14,7 @@ func build_units():
 
 func clear():
     for city in get_children():
-        remove_child(city)
-        city.queue_free()
+        city.free()
 
 
 func get_by_position() -> Dictionary:
@@ -60,8 +59,7 @@ func initialize(map:Map):
 
 func restore(saved_cities):
     for city in get_children():
-        remove_child(city)
-        city.queue_free()
+        city.free()
 
     if(saved_cities.is_empty()): return
 
@@ -73,7 +71,7 @@ func restore(saved_cities):
         add_child(city)
         saved_city.restore_children(city)
 
-    city_template.queue_free()
+    city_template.free()
 
 
 func save(saved: SavedWorld):

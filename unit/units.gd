@@ -155,13 +155,12 @@ func refill_moves():
 
 func reset():
     for unit in get_children():
-        unit.queue_free()
+        unit.free()
 
 
 func restore(saved_units):
     for unit in get_children():
-        self.remove_child(unit)
-        unit.queue_free()
+        unit.free()
 
     if(saved_units.is_empty()): return
 

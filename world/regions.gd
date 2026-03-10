@@ -18,8 +18,7 @@ func add(region:int):
 func clear():
     by_position = {}
     for child in get_children():
-        child.queue_free()
-        remove(child)
+        child.free()
 
 
 func debug_regions_by_position():
@@ -89,8 +88,7 @@ func remove(region:Region):
         if region not in by_position[this_position]: continue
         by_position[this_position].erase(region)
 
-    region.queue_free()
-    remove_child(region)
+    region.free()
 
 
 # the approach for a region is the adjacent points in the neighboring region
